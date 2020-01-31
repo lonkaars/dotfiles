@@ -21,3 +21,4 @@ Fonts:
 Notes:
 - Sowm in this repo has the primitive-multimonitor, and normal-kill patches applied
 - I don't know what I'm doing
+- Folders in 'root' should be copied to the root of your system
