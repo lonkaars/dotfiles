@@ -1,0 +1,96 @@
+/**
+ * @name MinimalCord
+ * @author Gibbu#1211
+ * @version 1.0.0
+ * @description Changes Discord enough to give it a fresh feel while also making it darker. Supports both Light and Dark themes.
+ * @source https://github.com/Gibbu/BetterDiscord-Themes/tree/master/MinimalCord
+ * @website https://www.gibbu.me
+*/
+
+@import url('https://fonts.googleapis.com/css?family=Roboto:300,400,500,700,900');
+@import url("https://gibbu.github.io/BetterDiscord-Themes/MinimalCord/base.css");
+
+/* Black Box user tags */
+@import url('https://monstrousdev.github.io/themes/addons/user-tags.css');
+
+:root {
+    --accent: 233, 86, 120; /* DEFAULT: 22, 188, 249 */
+    --chat-avatar-size: 40px; /* Changes size of chat avatars | DEFAULT: 40px */
+    --search-results-width: 25vw; /* Width of server results. For a fixed width use px. | DEFAULT: 25vw */
+    --emoji-picker-height: 260px; /* Height of Emoji picker | DEFAULT: 260px */
+    --font: 'Roboto Sans';
+}
+
+.theme-dark {
+    --foreground-1: #1c1e26 !important;
+    --foreground-2: #21232b !important;
+    --foreground-divider: #dadada !important;
+    --background-primary: #2E303E !important;
+    --background-secondary: #232530 !important;
+    --background-tertiary: #1c1e26 !important;
+    --background-1: #1c1e26 !important;
+    --background-2: #1A1C23 !important;
+    --box-shadow: 0 3px 30px -5px #0008 !important;
+    --scrollbar: #35373f80 !important;
+    --tooltips: #2d323c !important;
+    --pages-box: var(--message-box) !important;
+    --pages-box-footer: #191b20 !important;
+    --pages-separator: #ffffff0d !important;
+    --user-popout: var(--dropdown) !important;
+    --user-popout-body: #1a1c22 !important;
+    --user-popout-message: #15171c !important;
+    --settings-box: var(--message-box) !important;
+    --settings-box-hover: #16191d !important;
+    --settings-box-footer: #171a1f !important;
+    --settings-input: #131519 !important;
+    --settings-paginator: #00000033 !important;
+    --settings-separator: #ffffff0d !important;
+    --dropdown: #1A1C23 !important;
+    --dropdown-header: #252830 !important;
+    --dropdown-item-hover: #22262d !important;
+    --message-box: #0000 !important;
+    --message-box-divider: #20242a !important;
+    --message-embed: #171a1f !important;
+    --message-button: #2d323c !important;
+    --server-background: #1A1C23 !important;
+    --search-filter-hover: #22262d !important;
+    --search-result-header: #1e2127 !important;
+    --channel-selected: #232530 !important;
+    --channel-hovered: #1c1e26 !important;
+    --modal-connection: var(--background-1) !important;
+    --modal-list: #15171c !important;
+    --modal-badge-invert: invert(0) !important;
+    --modal-bg1-search: var(--search-filter-hover) !important;
+    --text-1: #fff !important;
+    --text-2: #c9c9c9 !important;
+    --text-3: #999a9b !important;
+    --text-4: #717173 !important;
+    --text-dark: #565759 !important;
+}
+
+.da-attachWrapper, .da-buttons {
+    width: 0;
+    overflow: hidden;
+}
+
+.da-channelTextArea {
+    margin-top: 0 !important;
+    margin-bottom: 8px !important;
+}
+
+.da-form {
+    margin-left: 0 !important;
+    margin-right: 0 !important;
+}
+
+.da-username {
+    filter: saturate(0.4) brightness(2);
+}
+
+.da-itemCard > div > div {
+    background: var(--background-secondary) !important;
+}
+
+.da-channelTextArea > div {
+    box-shadow: none !important;
+}

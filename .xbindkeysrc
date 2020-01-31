@@ -1,0 +1,30 @@
+"dm-tool lock"
+  Mod4 + l
+
+"rofi -show"
+  Mod4 + space
+
+"urxvt"
+  Mod4 + Return
+
+"flameshot gui"
+  Print
+
+
+"playerctl play-pause"
+  XF86AudioPlay
+
+"playerctl next"
+  XF86AudioNext
+
+"playerctl previous"
+  XF86AudioPrev
+
+"amixer sset Master 5%-"
+  XF86AudioLowerVolume
+
+"amixer sset Master 5%+"
+  XF86AudioRaiseVolume
+
+"node ~/scripts/toggle_roundedcorners.js"
+  Mod4 + r

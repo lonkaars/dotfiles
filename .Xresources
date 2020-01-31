@@ -1,0 +1,31 @@
+*.foreground: #D5D8DA
+*.background: #1C1E26
+*.cursorColor: #D5D8DA
+*.color0: #1C1E26
+*.color8: #2E303E
+*.color1: #E95678
+*.color9: #EC6A88
+*.color2: #29D398
+*.color10: #3FDAA4
+*.color3: #FAB795
+*.color11: #FBC3A7
+*.color4: #26BBD9
+*.color12: #3FC4DE
+*.color5: #EE64AC
+*.color13: #F075B5
+*.color6: #59E1E3
+*.color14: #6BE4E6
+*.color7: #D5D8DA
+*.color15: #ffffff
+
+URxvt.font: xft:Fira Code:style=Medium:pixelsize=14:antialias=true:hinting=true
+URxvt.letterSpace: 0
+URxvt.lineSpace: 0
+URxvt.internalBorder: 24
+URxvt.cursorBlink: true
+URxvt.cursorUnderline: false
+URxvt.saveline: 2048
+URxvt.scrollBar: false
+URxvt.scrollBar_right: false
+URxvt.depth: 24
+URxvt.iso14755: false

@@ -1,0 +1,9 @@
+sowm &
+flameshot &
+exec xrdb /home/loek/.Xresources &
+exec picom &
+exec feh --bg-fill ~/wall.png &
+polybar loekaars &
+xsetwacom set $(xsetwacom list devices | grep stylus | grep -oP --color=never "(?<=id\:\s)([0-9]*)") area 0 0 15200 4275
+xbindkeys -f ~/.xbindkeysrc
+autocutsel
