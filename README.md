@@ -1,6 +1,6 @@
 # Dots
 
-This is my stripped-dowm ~ directory
+This is my stripped-down ~ directory
 
 - Term: urxvt
 - Browser: [Chromium](https://www.archlinux.org/packages/extra/x86_64/chromium/)
