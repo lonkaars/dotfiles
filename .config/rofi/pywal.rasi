@@ -1,0 +1,40 @@
+* {
+	background-color: #14141533;
+	text-color: #c4c4c4;
+	spacing: 0;
+	width: 720px;
+}
+
+inputbar {
+	border: 0 0 1px 0;
+	children: [prompt, entry];
+}
+
+prompt {
+	padding: 16px;
+}
+
+textbox {
+	background-color: #141415;
+	border-color: #141415;
+	padding: 8px 16px;
+}
+
+entry {
+	padding: 16px;
+}
+
+listview {
+	cycle: false;
+	margin: 0 0 -1px 0;
+	scrollbar: false;
+}
+
+element {
+	padding: 16px;
+}
+
+element selected {
+	background-color: #66615a;
+	text-color: #c4c4c4;
+}

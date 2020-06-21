@@ -1,0 +1,9 @@
+# https://simplyian.com/2014/04/28/how-to-have-language-specific-settings-in-vim/
+# https://vimawesome.com/
+# https://github.com/LukeSmithxyz/voidrice/blob/master/.config/nvim/init.vim
+# https://github.com/neoclide/coc.nvim
+# https://github.com/jiangmiao/auto-pairs
+# https://github.com/ryanoasis/vim-devicons
+# https://github.com/prettier/vim-prettier
+# https://github.com/DarthOstrich/dotfiles/blob/master/init.vim
+# https://github.com/junegunn/vim-plug/wiki/tips#automatic-installation

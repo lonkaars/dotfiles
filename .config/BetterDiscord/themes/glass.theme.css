@@ -1,0 +1,40 @@
+/**
+ * @name Glass
+ * @author Loekaars#8205
+ * @version 1.0.0
+ * @description Transparency required
+*/
+
+body #app-mount,
+body #app-mount .da-app .da-app,
+body #app-mount .da-app .da-app .da-layers .da-layer,
+.da-scroller,
+.da-bg,
+.da-container > nav {
+    background: transparent !important;
+}
+
+.da-sidebar .da-panels .da-container,
+.da-sidebar .da-panels {
+    background: transparent !important;
+}
+
+:root {
+    --server-selected: transparent !important;
+    --server-folders: var(--pywal-serverfolder-transparent) !important;
+    --server-background: transparent !important;
+}
+
+.da-expandedFolderBackground {
+    border-radius: 16px !important;
+}
+
+body,
+.da-sidebar {
+	background: var(--pywal-serverfolder-transparent) !important;
+}
+
+.da-folder {
+    background: transparent !important;
+}
+

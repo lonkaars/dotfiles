@@ -1,0 +1,28 @@
+{
+    "wallpaper": "/home/loek/.config/wpg/wallpapers/pywal.png",
+    "alpha": "100",
+
+    "special": {
+        "background": "#141415",
+        "foreground": "#c4c4c4",
+        "cursor": "#c4c4c4"
+    },
+    "colors": {
+        "color0": "#141415",
+        "color1": "#292b37",
+        "color2": "#3c2a27",
+        "color3": "#3b3033",
+        "color4": "#3f3330",
+        "color5": "#4b4240",
+        "color6": "#66615a",
+        "color7": "#c4c4c4",
+        "color8": "#4e4e4f",
+        "color9": "#292b37",
+        "color10": "#3c2a27",
+        "color11": "#3b3033",
+        "color12": "#3f3330",
+        "color13": "#4b4240",
+        "color14": "#66615a",
+        "color15": "#c4c4c4"
+    }
+}

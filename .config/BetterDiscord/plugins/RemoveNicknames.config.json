@@ -1,0 +1,17 @@
+{
+	"changelog": {
+		"currentversion": "1.3.0"
+	},
+	"settings": {
+		"addNickname": false,
+		"changeInAutoComplete": true,
+		"changeInChatWindow": true,
+		"changeInMemberList": true,
+		"changeInMentions": true,
+		"changeInTyping": true,
+		"changeInVoiceChat": true,
+		"replaceBots": true,
+		"replaceOwn": false,
+		"swapPositions": false
+	}
+}

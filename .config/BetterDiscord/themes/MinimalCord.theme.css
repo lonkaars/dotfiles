@@ -1,0 +1,138 @@
+/**
+ * @name MinimalCord
+ * @author Gibbu#1211
+ * @version 1.0.0
+ * @description Changes Discord enough to give it a fresh feel while also making it darker. Supports both Light and Dark themes.
+ * @source https://github.com/Gibbu/BetterDiscord-Themes/tree/master/MinimalCord
+ * @website https://www.gibbu.me
+*/
+
+@import url('https://fonts.googleapis.com/css?family=Roboto:300,400,500,700,900');
+@import url("https://gibbu.github.io/BetterDiscord-Themes/MinimalCord/base.css");
+
+/* Black Box user tags */
+@import url('https://monstrousdev.github.io/themes/addons/user-tags.css');
+
+:root {
+    /* --accent: 233, 86, 120; DEFAULT: 22, 188, 249 */
+    --chat-avatar-size: 48px; /* Changes size of chat avatars | DEFAULT: 40px */
+    --search-results-width: 25vw; /* Width of server results. For a fixed width use px. | DEFAULT: 25vw */
+    --emoji-picker-height: 260px; /* Height of Emoji picker | DEFAULT: 260px */
+    --font: 'JetBrainsMono NF';
+}
+
+.theme-dark {
+    --foreground-1: var(--pywal-bg0) !important;
+    --foreground-2: var(--pywal-bg1) !important;
+    --foreground-divider: var(--pywal-color15) !important;
+    --background-primary: var(--pywal-bg3) !important;
+    --background-secondary: var(--pywal-bg2) !important;
+    --background-tertiary: var(--pywal-bg0) !important;
+    --background-floating: var(--pywal-bg0) !important;
+    --background-1: var(--pywal-bg0) !important;
+    --background-2: var(--pywal-serverside) !important;
+    --box-shadow: 0 3px 30px -5px #0008 !important;
+    --scrollbar: var(--pywal-bg1) !important;
+    --tooltips: var(--pywal-bg2) !important;
+    --pages-box: var(--message-box) !important;
+    --pages-box-footer: var(--pywal-bg0) !important;
+    --pages-separator: #ffffff0d !important;
+    --user-popout: var(--dropdown) !important;
+    --user-popout-body: var(--pywal-bg0) !important;
+    --user-popout-message: var(--pywal-color0) !important;
+    --settings-box: var(--message-box) !important;
+    --settings-box-hover: var(--pywal-color0) !important;
+    --settings-box-footer: var(--pywal-color0) !important;
+    --settings-input: var(--pywal-color0) !important;
+    --settings-paginator: #00000033 !important;
+    --settings-separator: #ffffff0d !important;
+    --dropdown: var(--pywal-bg1) !important;
+    --dropdown-header: var(--pywal-bg3) !important;
+    --dropdown-item-hover: var(--pywal-bg1) !important;
+    --message-box: #0000 !important;
+    --message-box-divider: var(--pywal-bg2) !important;
+    --message-embed: var(--pywal-bg2) !important;
+    --message-button: var(--pywal-bg3) !important;
+    --server-background: var(--pywal-serverside) !important;
+    --server-selected: var(--pywal-serverside) !important;
+    --search-filter-hover: var(--pywal-bg1) !important;
+    --search-result-header: var(--pywal-bg1) !important;
+    --channel-selected: var(--pywal-bg2) !important;
+    --channel-selected-bg: var(--channel-selected) !important;
+    --channel-hovered: var(--pywal-bg1) !important;
+    --channel-hovered-bg: var(--pywal-bg1) !important;
+    --modal-connection: var(--background-1) !important;
+    --modal-list: var(--pywal-color0) !important;
+    --modal-badge-invert: invert(0) !important;
+    --modal-bg1-search: var(--search-filter-hover) !important;
+    --text-1: #fff !important;
+    --text-2: #c9c9c9 !important;
+    --text-3: #999a9b !important;
+    --text-4: #717173 !important;
+    --text-dark: #565759 !important;
+}
+
+.da-attachWrapper, .da-buttons {
+    width: 0;
+    overflow: hidden;
+}
+
+.da-channelTextArea {
+    margin-top: 0 !important;
+    margin-bottom: 8px !important;
+}
+
+.da-form {
+    margin-left: 0 !important;
+    margin-right: 0 !important;
+}
+
+.da-username {
+    filter: saturate(0.4) brightness(2);
+}
+
+.da-itemCard > div > div {
+    background: var(--background-secondary) !important;
+}
+
+.da-channelTextArea > div {
+    box-shadow: none !important;
+    background: var(--foreground-1) !important;
+}
+
+.da-form::before {
+    background: transparent !important;
+}
+
+.da-nowPlayingColumn {
+	background: var(--background-1) !important;
+}
+
+.da-videoControls {
+	margin: 0px !important;
+}
+
+body {
+	background: var(--pywal-transparent50) !important;
+}
+
+.da-privateChannelsHeaderContainer .da-numberBadge.da-base {
+	background-color: var(--pywal-color6) !important;
+	color: var(--pywal-readableOn-color6) !important;
+}
+
+.da-circleIcon,
+.da-circleIconButton {
+	color: var(--pywal-readable-color6) !important;
+}
+
+section.da-container > .da-children > .da-tabBar > .da-item:not(.da-themed),
+.bd-guild .da-item,
+.da-tutorialContainer .da-pill .da-item {
+	background-color: var(--pywal-readable-color6) !important;
+	color: var(--pywal-readableOn-color6) !important;
+}
+
+.da-actionButton {
+	background-color: transparent !important;
+}
