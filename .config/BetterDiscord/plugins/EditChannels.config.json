@@ -1,0 +1,17 @@
+{
+	"changelog": {
+		"currentversion": "4.1.3"
+	},
+	"settings": {
+		"changeChannelIcon": true,
+		"changeInAuditLog": true,
+		"changeInAutoComplete": true,
+		"changeInChannelHeader": true,
+		"changeInChannelList": true,
+		"changeInChatTextarea": true,
+		"changeInInviteLog": true,
+		"changeInMentions": true,
+		"changeInQuickSwitcher": true,
+		"changeInRecentMentions": true
+	}
+}

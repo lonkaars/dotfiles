@@ -1,0 +1,23 @@
+" Special
+let wallpaper  = "/home/loek/.config/wpg/wallpapers/pywal.png"
+let background = "#141415"
+let foreground = "#c4c4c4"
+let cursor     = "#c4c4c4"
+
+" Colors
+let color0  = "#141415"
+let color1  = "#292b37"
+let color2  = "#3c2a27"
+let color3  = "#3b3033"
+let color4  = "#3f3330"
+let color5  = "#4b4240"
+let color6  = "#66615a"
+let color7  = "#c4c4c4"
+let color8  = "#4e4e4f"
+let color9  = "#292b37"
+let color10 = "#3c2a27"
+let color11 = "#3b3033"
+let color12 = "#3f3330"
+let color13 = "#4b4240"
+let color14 = "#66615a"
+let color15 = "#c4c4c4"

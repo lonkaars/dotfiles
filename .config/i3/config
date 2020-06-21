@@ -1,0 +1,165 @@
+# variables
+set $mod Mod4
+set $inner_gaps 10
+set $outer_gaps 0
+
+# set gaps
+gaps inner $inner_gaps
+gaps outer $outer_gaps
+
+# border color
+# pywal-start
+client.focused #66615a #141415 #c4c4c4 #66615a #585653
+client.focused_inactive #5E5E5F #4e4e4f #c4c4c4 #181819 #141415
+client.unfocused #141415 #101011 #9D9D9D #141415 #101011
+client.urgent #141415 #e95678 #c4c4c4 #e95678 #e95678
+client.placeholder #000000 #0c0c0c #c4c4c4 #000000 #0c0c0c
+client.background #c4c4c4
+
+# pywal-end
+
+# font
+font pango:Fira Code 9
+
+# no idea what these do but they were in here by default
+exec --no-startup-id xss-lock --transfer-sleep-lock -- i3lock --nofork
+exec --no-startup-id nm-applet
+set $refresh_i3status killall -SIGUSR1 i3status
+
+# Voulme keybinds
+bindsym XF86AudioRaiseVolume exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ +5% && $refresh_i3status
+bindsym XF86AudioLowerVolume exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ -5% && $refresh_i3status
+bindsym XF86AudioMute exec --no-startup-id pactl set-sink-mute @DEFAULT_SINK@ toggle && $refresh_i3status
+
+# window interactions
+floating_modifier $mod
+bindsym $mod+q kill
+
+# Replace window decorations with a border
+for_window [class=".*"] border pixel 1
+
+# Keybinds
+bindsym $mod+Escape exec "dm-tool lock" 
+bindsym $mod+space exec "rofi -show drun -show-icons"
+bindsym $mod+Return exec konsole
+bindsym $mod+p exec bwmenu
+bindsym Print exec "flameshot gui"
+
+bindsym XF86AudioPlay exec "playerctl play-pause"
+bindsym XF86AudioNext exec "playerctl next"
+bindsym XF86AudioPrev exec "playerctl previous"
+
+# 60% keyboard media controls
+bindsym Mod1+Mod4+k exec "mpc toggle"
+bindsym Mod1+Mod4+l exec "mpc next"
+bindsym Mod1+Mod4+j exec "mpc prev"
+bindsym Mod1+Mod4+minus exec "pactl set-sink-volume @DEFAULT_SINK@ -5%"
+bindsym Mod1+Mod4+equal exec "pactl set-sink-volume @DEFAULT_SINK@ +5%"
+
+# Gaps
+bindsym $mod+i gaps inner current plus 5
+bindsym $mod+Shift+i gaps inner current minus 5
+bindsym $mod+o gaps outer current plus 5
+bindsym $mod+Shift+o gaps outer current minus 5
+bindsym $mod+n gaps inner current set -1; gaps outer current set 0
+bindsym $mod+d gaps inner current set $inner_gaps; gaps outer current set $outer_gaps;
+
+# Autostart
+exec "polybar main -c ~/.config/polybar/config.ini &"
+exec "node ~/.local/share/bin/pywal/wall.js &"
+exec "exec picom --experimental-backends &"
+exec "node ~/.local/share/bin/pester/index.js &"
+exec "flameshot &"
+
+# change focus
+bindsym $mod+h focus left
+bindsym $mod+j focus down
+bindsym $mod+k focus up
+bindsym $mod+l focus right
+
+# move focused window
+bindsym $mod+Shift+h move left
+bindsym $mod+Shift+j move down
+bindsym $mod+Shift+k move up
+bindsym $mod+Shift+l move right
+
+# resize focused window
+bindsym $mod+bracketright resize grow height 10 px
+bindsym $mod+bracketleft resize shrink height 10 px
+bindsym $mod+period resize grow width 10 px
+bindsym $mod+comma resize shrink width 10 px
+
+# split in horizontal orientation
+bindsym $mod+bar split h
+bindsym $mod+minus split v
+
+# enter fullscreen mode for the focused container
+bindsym $mod+f fullscreen toggle
+
+# toggle tiling / floating
+bindsym $mod+Shift+space floating toggle
+
+# change focus between tiling / floating windows
+bindsym $mod+Alt+space focus mode_toggle
+
+# focus the parent container
+bindsym $mod+Shift+a focus parent
+
+# focus the child container
+#bindsym $mod+d focus child
+
+# disable mouse teleports
+mouse_warping none
+
+# workspaces
+set $ws1 "1"
+set $ws2 "2"
+set $ws3 "3"
+set $ws4 "4"
+set $ws5 "5"
+set $ws6 "6"
+set $ws7 "7"
+set $ws8 "8"
+
+# switch to workspace
+bindsym $mod+1 workspace number $ws1
+bindsym $mod+2 workspace number $ws2
+bindsym $mod+3 workspace number $ws3
+bindsym $mod+4 workspace number $ws4
+bindsym $mod+5 workspace number $ws5
+bindsym $mod+6 workspace number $ws6
+bindsym $mod+7 workspace number $ws7
+bindsym $mod+8 workspace number $ws8
+
+# move focused container to workspace
+bindsym $mod+Shift+1 move container to workspace number $ws1
+bindsym $mod+Shift+2 move container to workspace number $ws2
+bindsym $mod+Shift+3 move container to workspace number $ws3
+bindsym $mod+Shift+4 move container to workspace number $ws4
+bindsym $mod+Shift+5 move container to workspace number $ws5
+bindsym $mod+Shift+6 move container to workspace number $ws6
+bindsym $mod+Shift+7 move container to workspace number $ws7
+bindsym $mod+Shift+8 move container to workspace number $ws8
+
+# always floating windows
+for_window [class="Steam"] floating enable
+for_window [class="cinquo"] floating enable
+for_window [title="Farge"] floating enable
+for_window [window_type=notification] floating enable
+
+for_window [class="Unturned.x86_64"] floating disable
+for_window [class="Unturned.x86_64"] fullscreen disable
+
+# reload the configuration file
+bindsym $mod+Shift+c reload
+# restart i3 inplace (preserves your layout/session, can be used to upgrade i3)
+bindsym $mod+Shift+r restart
+# exit i3 (logs you out of your X session)
+# bindsym $mod+Shift+e exec "i3-nagbar -t warning -m 'You pressed the exit shortcut. Do you really want to exit i3? This will end your X session.' -B 'Yes, exit i3' 'i3-msg exit'"
+
+# bar {
+# 	mode hide
+# 	hidden_state hide
+# 	modifier none
+# 	tray_output none
+# }

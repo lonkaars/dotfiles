@@ -1,0 +1,9 @@
+#!/bin/bash
+
+fullfile=$1
+
+filename=$(basename -- "$fullfile")
+filename="${filename%.*}"
+
+nvim "+%s/^[^#]/$filename\/&/g" "+wq" "$fullfile"
+

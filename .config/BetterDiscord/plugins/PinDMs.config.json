@@ -1,0 +1,40 @@
+{
+	"changelog": {
+		"currentversion": "1.7.2"
+	},
+	"dmCategories": {
+		"3516090637537661": {
+			"collapsed": false,
+			"color": null,
+			"dms": [
+				"456428001463369729",
+				"390601823523962892",
+				"450987439041806346",
+				"390786176652673034"
+			],
+			"id": "3516090637537661",
+			"name": "Gouden mannen",
+			"pos": 1
+		},
+		"3586821958853646": {
+			"collapsed": false,
+			"color": null,
+			"dms": [
+				"606832163404644352",
+				"590888637877452840",
+				"458302680998215690",
+				"514803935761006592"
+			],
+			"id": "3586821958853646",
+			"name": "Jongens",
+			"pos": 0
+		}
+	},
+	"settings": {
+		"showCategoryAmount": false,
+		"showCategoryUnread": true,
+		"showPinIcon": true,
+		"sortInRecentOrder": false,
+		"sortInRecentOrderGuild": false
+	}
+}

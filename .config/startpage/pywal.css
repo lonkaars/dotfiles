@@ -1,0 +1,63 @@
+:root {
+	--pywal-shade0: #18191C;
+	--pywal-shade1: #1D1E21;
+	--pywal-shade2: #1F2024;
+	--pywal-shade3: #222227;
+	--pywal-shade4: #1F202A;
+
+	--pywal-bg0: #141415;
+	--pywal-bg1: #181819;
+	--pywal-bg2: #1C1C1D;
+	--pywal-bg3: #202022;
+
+	--pywal-color0: #141415;
+	--pywal-color1: #292b37;
+	--pywal-color2: #3c2a27;
+	--pywal-color3: #3b3033;
+	--pywal-color4: #3f3330;
+	--pywal-color5: #4b4240;
+	--pywal-color6: #66615a;
+	--pywal-color7: #c4c4c4;
+	--pywal-color8: #4e4e4f;
+	--pywal-color9: #292b37;
+	--pywal-color10: #3c2a27;
+	--pywal-color11: #3b3033;
+	--pywal-color12: #3f3330;
+	--pywal-color13: #4b4240;
+	--pywal-color14: #66615a;
+	--pywal-color15: #c4c4c4;
+
+	--pywal-readable-color0: #6B6B70;
+	--pywal-readable-color1: #585B71;
+	--pywal-readable-color2: #745550;
+	--pywal-readable-color3: #67565A;
+	--pywal-readable-color4: #665450;
+	--pywal-readable-color5: #4B4240;
+	--pywal-readable-color6: #66615A;
+	--pywal-readable-color7: #C4C4C4;
+	--pywal-readable-color8: #4E4E4F;
+	--pywal-readable-color9: #585B71;
+	--pywal-readable-color10: #745550;
+	--pywal-readable-color11: #67565A;
+	--pywal-readable-color12: #665450;
+	--pywal-readable-color13: #4B4240;
+	--pywal-readable-color14: #66615A;
+	--pywal-readable-color15: #C4C4C4;
+
+	--pywal-readableOn-color0: #c4c4c4;
+	--pywal-readableOn-color1: #c4c4c4;
+	--pywal-readableOn-color2: #c4c4c4;
+	--pywal-readableOn-color3: #c4c4c4;
+	--pywal-readableOn-color4: #c4c4c4;
+	--pywal-readableOn-color5: #c4c4c4;
+	--pywal-readableOn-color6: #c4c4c4;
+	--pywal-readableOn-color7: #141415;
+	--pywal-readableOn-color8: #c4c4c4;
+	--pywal-readableOn-color9: #c4c4c4;
+	--pywal-readableOn-color10: #c4c4c4;
+	--pywal-readableOn-color11: #c4c4c4;
+	--pywal-readableOn-color12: #c4c4c4;
+	--pywal-readableOn-color13: #c4c4c4;
+	--pywal-readableOn-color14: #c4c4c4;
+	--pywal-readableOn-color15: #141415;
+}

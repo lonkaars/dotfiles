@@ -1,0 +1,91 @@
+@import url(file:///home/loek/.config/startpage/pywal.css);
+
+html, body {
+	margin: 0;
+	padding: 0;
+	background: var(--pywal-color0);
+	color: var(--pywal-color15);
+	font-family: "JetBrainsMono NF";
+}
+
+* {
+	cursor: normal;
+	user-select: none;
+}
+
+h1 {
+	margin: 0;
+}
+
+.center {
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	white-space: nowrap;
+}
+
+.term {
+	width: 500px;
+	padding: 16px;
+	position: relative;
+}
+
+.term::before {
+	content: '';
+	width: 100%;
+	height: 100%;
+	position: absolute;
+	top: 0;
+	left: 0;
+	background-color: var(--pywal-color8);
+	opacity: 0.2;
+	z-index: -2;
+	border-radius: 8px;
+}
+
+h3 {
+	font-size: 14px;
+	font-weight: 800;
+	margin: 0 0 8px 0;
+}
+
+.columns {
+	display: grid;
+	grid-template-columns: repeat(3, 1fr);
+}
+
+.columns .column {
+	display: inline-block;
+}
+
+.columns .column * {
+	display: block;
+}
+
+a {
+	font-size: 14px;
+	font-weight: normal;
+	text-decoration: none;
+	color: var(--pywal-color15);
+	position: relative;
+	left: 0;
+	transition: left .3s;
+}
+
+a::before {
+	content: '➜';
+	position: absolute;
+	left: -30px;
+	opacity: 0;
+	transition: left .3s, opacity .3s;
+}
+
+a:hover {
+	left: 15px;
+}
+
+a:hover::before {
+	left: -15px;
+	opacity: 1;
+}
