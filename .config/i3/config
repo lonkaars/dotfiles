@@ -9,12 +9,12 @@ gaps outer $outer_gaps
 
 # border color
 # pywal-start
-client.focused #66615a #141415 #c4c4c4 #66615a #585653
-client.focused_inactive #5E5E5F #4e4e4f #c4c4c4 #181819 #141415
-client.unfocused #141415 #101011 #9D9D9D #141415 #101011
-client.urgent #141415 #e95678 #c4c4c4 #e95678 #e95678
-client.placeholder #000000 #0c0c0c #c4c4c4 #000000 #0c0c0c
-client.background #c4c4c4
+client.focused #e4b695 #1c1c1c #c6c6c6 #e4b695 #8E7B6E
+client.focused_inactive #656565 #545454 #c6c6c6 #222222 #1c1c1c
+client.unfocused #1c1c1c #161616 #9E9E9E #1c1c1c #161616
+client.urgent #1c1c1c #e95678 #c6c6c6 #e95678 #e95678
+client.placeholder #000000 #0c0c0c #c6c6c6 #000000 #0c0c0c
+client.background #c6c6c6
 
 # pywal-end
 
@@ -65,7 +65,7 @@ bindsym $mod+n gaps inner current set -1; gaps outer current set 0
 bindsym $mod+d gaps inner current set $inner_gaps; gaps outer current set $outer_gaps;
 
 # Autostart
-exec "polybar main -c ~/.config/polybar/config.ini &"
+exec "polybar main -c ~/.config/polybar/config &"
 exec "node ~/.local/share/bin/pywal/wall.js &"
 exec "exec picom --experimental-backends &"
 exec "node ~/.local/share/bin/pester/index.js &"

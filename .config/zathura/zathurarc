@@ -2,12 +2,14 @@ set scroll-page-aware "true"
 set smooth-scroll "true"
 set scroll-full-overlap 0.01
 set scroll-step 100
-set font "Fira Code 10"
+set font "JetBrainsMono NF 10"
 
 # recolor (dark mode)
 map <C-i> recolor
 set recolor "true"
-set recolor-lightcolor "#141415"
-set recolor-darkcolor "#c4c4c4"
+
+set default-bg rgba(28,28,28,0.92)
+set recolor-lightcolor rgba(198,198,198,0)
+
 set recolor-reverse-video "true"
 set recolor-keephue "true"
