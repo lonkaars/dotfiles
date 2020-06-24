@@ -103,18 +103,18 @@ pseudo-transparency = false
 
 [color]
 
-bg = #141415
-fg = #c4c4c4
-fg-alt = #141415
+bg = #1c1c1c
+fg = #c6c6c6
+fg-alt = #1c1c1c
 
 alpha = #00000000
 
-shade1 = #3F3330
-shade2 = #4C423E
-shade3 = #59514C
-shade4 = #66615A
+shade1 = #C79C95
+shade2 = #D1A595
+shade3 = #DAAD95
+shade4 = #E4B695
 
-shade-fg = #c4c4c4
+shade-fg = #1c1c1c
 
 [module/alsa]
 type = internal/alsa
@@ -356,3 +356,5 @@ format-background = ${color.alpha}
 format-foreground = #ff00ff
 format-padding = 0
 
+
+; vim:ft=dosini

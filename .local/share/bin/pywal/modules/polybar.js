@@ -5,7 +5,7 @@ var cp = require('child_process');
 var exec = cp.execSync;
 
 module.exports = colors => {
-	var config = `${fs.readFileSync(path.join(process.env.HOME, "/.config/polybar/config.ini"))}`;
+	var config = `${fs.readFileSync(path.join(process.env.HOME, "/.config/polybar/config"))}`;
 
 	config = config.replace(/bg\s+=\s+.+/, `bg = ${colors.colors.color0}`)
 	config = config.replace(/fg\s+=\s+.+/, `fg = ${colors.colors.color15}`)
@@ -20,7 +20,7 @@ module.exports = colors => {
 
 	config = config.replace(/shade-fg\s+=\s+.+/, `shade-fg = ${colors.special[color(colors.colors.color6).isDark() ? 'foreground' : 'background']}`);
 
-	fs.writeFileSync(path.join(process.env.HOME, "/.config/polybar/config.ini"), config)
+	fs.writeFileSync(path.join(process.env.HOME, "/.config/polybar/config"), config)
 	setTimeout(() => {
 		exec("polybar-msg cmd restart", { stdio: 'inherit' });
 	}, 1000);
