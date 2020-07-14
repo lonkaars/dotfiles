@@ -1,6 +1,6 @@
 {
 	"changelog": {
-		"currentversion": "2.2.1"
+		"currentversion": "2.2.2"
 	},
 	"servers": {
 		"624859996949315584": {
@@ -11,6 +11,39 @@
 			"color4": null,
 			"ignoreCustomName": false,
 			"name": "Gerrit",
+			"removeBanner": false,
+			"removeIcon": false,
+			"shortName": null,
+			"url": null
+		},
+		"716039712799719486": {
+			"banner": null,
+			"color1": [
+				233,
+				30,
+				99,
+				1
+			],
+			"color2": [
+				233,
+				30,
+				99,
+				1
+			],
+			"color3": [
+				233,
+				30,
+				99,
+				1
+			],
+			"color4": [
+				44,
+				44,
+				44,
+				1
+			],
+			"ignoreCustomName": false,
+			"name": null,
 			"removeBanner": false,
 			"removeIcon": false,
 			"shortName": null,

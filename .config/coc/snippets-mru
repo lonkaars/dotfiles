@@ -1,6 +1,9 @@
+foreach
+forof
+if
+for
 newdocument
 newhtml
-for
 try/except/else
 try/except
 \begin

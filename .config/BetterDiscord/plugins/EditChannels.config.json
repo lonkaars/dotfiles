@@ -1,6 +1,82 @@
 {
 	"changelog": {
-		"currentversion": "4.1.3"
+		"currentversion": "4.1.5"
+	},
+	"channels": {
+		"716039712799719489": {
+			"color": [
+				233,
+				30,
+				99,
+				1
+			],
+			"inheritColor": false,
+			"name": null
+		},
+		"716039712799719490": {
+			"color": [
+				233,
+				30,
+				99,
+				1
+			],
+			"inheritColor": false,
+			"name": null
+		},
+		"716708258123087873": {
+			"color": [
+				233,
+				30,
+				99
+			],
+			"inheritColor": false,
+			"name": null
+		},
+		"716739284089962577": {
+			"color": [
+				233,
+				30,
+				99,
+				1
+			],
+			"inheritColor": false,
+			"name": null
+		},
+		"719892211000672296": {
+			"color": [
+				233,
+				30,
+				99,
+				1
+			],
+			"inheritColor": false,
+			"name": null
+		},
+		"722724726425911316": {
+			"color": [
+				233,
+				30,
+				99,
+				1
+			],
+			"inheritColor": false,
+			"name": null
+		},
+		"722732084342423592": {
+			"color": [
+				233,
+				30,
+				99,
+				1
+			],
+			"inheritColor": false,
+			"name": null
+		},
+		"715240118952263691": {
+			"color": null,
+			"inheritColor": false,
+			"name": "announcements"
+		}
 	},
 	"settings": {
 		"changeChannelIcon": true,

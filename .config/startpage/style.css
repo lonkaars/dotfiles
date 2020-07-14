@@ -52,7 +52,7 @@ h3 {
 
 .columns {
 	display: grid;
-	grid-template-columns: repeat(3, 1fr);
+	grid-template-columns: repeat(4, 1fr);
 }
 
 .columns .column {
@@ -69,23 +69,26 @@ a {
 	text-decoration: none;
 	color: var(--pywal-color15);
 	position: relative;
-	left: 0;
-	transition: left .3s;
-}
-
-a::before {
-	content: '➜';
-	position: absolute;
-	left: -30px;
-	opacity: 0;
-	transition: left .3s, opacity .3s;
+	padding: 0;
+	transition: padding .3s;
 }
 
 a:hover {
-	left: 15px;
+	padding-left: 15px;
+}
+
+a::before {
+	content: '>';
+	position: absolute;
+	left: -20px;
+	opacity: 0;
+	transform: scaleX(0);
+	transition-property: left, transform, opacity;
+	transition-duration: .3s;
 }
 
 a:hover::before {
-	left: -15px;
+	left: 0px;
+	transform: scaleX(1);
 	opacity: 1;
 }

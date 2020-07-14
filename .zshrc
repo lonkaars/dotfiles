@@ -43,8 +43,7 @@ export jsbeautify_indent_with_tabs=true
 export NODE_EXTRA_CA_CERTS=/usr/share/ca-certificates/bitwarden.crt
 
 # NVM
-export NVM_DIR="$([ -z "${XDG_CONFIG_HOME-}" ] && printf %s "${HOME}/.nvm" || printf %s "${XDG_CONFIG_HOME}/nvm")"
-[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh" # This loads nvm
+source /usr/share/nvm/init-nvm.sh
 
 # mkcd
 function mkcd {
@@ -58,6 +57,11 @@ function clone {
 
 # gitignore
 function gi() { curl -sL https://www.toptal.com/developers/gitignore/api/$@ ;}
+
+# gnvim
+function gnvim {
+	i3-swallow /bin/gnvim -- "$@"
+}
 
 # ueberzug
 source "`ueberzug library`"
@@ -73,8 +77,8 @@ alias patchmc="node /home/loek/.local/share/bin/patch_minecraft_profiles.js"
 alias cls="clear"
 alias lowerpolybar="xdo lower -n Polybar -n tray && xdo lower -N Polybar"
 alias timesync="sudo ntpd -qg && sudo hwclock --systohc"
-alias v="nvim"
-alias vim="nvim"
+alias v="gnvim"
+alias vim="gnvim"
 alias copy="xclip -selection c"
 alias sdl="spotifydl"
 alias sctl="systemctl"
