@@ -3,13 +3,14 @@ set smooth-scroll "true"
 set scroll-full-overlap 0.01
 set scroll-step 100
 set font "JetBrainsMono NF 10"
+set selection-clipboard clipboard
 
 # recolor (dark mode)
 map <C-i> recolor
 set recolor "true"
 
-set default-bg rgba(28,28,28,0.92)
-set recolor-lightcolor rgba(198,198,198,0)
+set default-bg rgba(21,22,24,0.92)
+set recolor-lightcolor rgba(196,196,197,0)
 
 set recolor-reverse-video "true"
 set recolor-keephue "true"

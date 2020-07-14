@@ -21,7 +21,7 @@ module.exports = colors => {
 	--accent: ${String(color(colors.special.autoReadable.color6).rgb()).substr(4).slice(0, -1)};
 
 	--pywal-serverside: ${color(colors.special.background).darken(0.1).hex()};
-	--pywal-serverfolder-transparent: ${color(colors.special.background).darken(0.1).alpha(0.55).hsl().string()};
+	--pywal-serverfolder-transparent: ${color(colors.special.background).darken(0.1).alpha(0.75).hsl().string()};
 
 	--pywal-bg0: ${color(colors.special.background).hex()};
 	--pywal-bg1: ${color(colors.special.background).lighten(0.2).hex()};

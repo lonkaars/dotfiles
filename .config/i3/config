@@ -9,12 +9,12 @@ gaps outer $outer_gaps
 
 # border color
 # pywal-start
-client.focused #e4b695 #1c1c1c #c6c6c6 #e4b695 #8E7B6E
-client.focused_inactive #656565 #545454 #c6c6c6 #222222 #1c1c1c
-client.unfocused #1c1c1c #161616 #9E9E9E #1c1c1c #161616
-client.urgent #1c1c1c #e95678 #c6c6c6 #e95678 #e95678
-client.placeholder #000000 #0c0c0c #c6c6c6 #000000 #0c0c0c
-client.background #c6c6c6
+client.focused #303d57 #151618 #c4c4c5 #303d57 #434853
+client.focused_inactive #5F6061 #4f5051 #c4c4c5 #191A1D #151618
+client.unfocused #151618 #111213 #9C9C9E #151618 #111213
+client.urgent #151618 #e95678 #c4c4c5 #e95678 #e95678
+client.placeholder #000000 #0c0c0c #c4c4c5 #000000 #0c0c0c
+client.background #c4c4c5
 
 # pywal-end
 
@@ -67,7 +67,7 @@ bindsym $mod+d gaps inner current set $inner_gaps; gaps outer current set $outer
 # Autostart
 exec "polybar main -c ~/.config/polybar/config &"
 exec "node ~/.local/share/bin/pywal/wall.js &"
-exec "exec picom --experimental-backends &"
+exec "picom --experimental-backends -b"
 exec "node ~/.local/share/bin/pester/index.js &"
 exec "flameshot &"
 
@@ -107,9 +107,6 @@ bindsym $mod+Shift+a focus parent
 
 # focus the child container
 #bindsym $mod+d focus child
-
-# disable mouse teleports
-mouse_warping none
 
 # workspaces
 set $ws1 "1"

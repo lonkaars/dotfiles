@@ -88,7 +88,7 @@
 }
 
 .da-username {
-    filter: saturate(0.4) brightness(2);
+    filter: saturate(0.4) brightness(1.5);
 }
 
 .da-itemCard > div > div {

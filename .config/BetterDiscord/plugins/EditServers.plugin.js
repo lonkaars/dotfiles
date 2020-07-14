@@ -1,10 +1,12 @@
 //META{"name":"EditServers","authorId":"278543574059057154","invite":"Jx3TjNS","donate":"https://www.paypal.me/MircoWittrien","patreon":"https://www.patreon.com/MircoWittrien","website":"https://github.com/mwittrien/BetterDiscordAddons/tree/master/Plugins/EditServers","source":"https://raw.githubusercontent.com/mwittrien/BetterDiscordAddons/master/Plugins/EditServers/EditServers.plugin.js"}*//
 
 var EditServers = (_ => {
+	var changedGuilds = {}, settings = {};
+	
 	return class EditServers {
 		getName () {return "EditServers";}
 
-		getVersion () {return "2.2.1";}
+		getVersion () {return "2.2.2";}
 		
 		getAuthor () {return "DevilBro";}
 
@@ -12,7 +14,7 @@ var EditServers = (_ => {
 
 		constructor () {
 			this.changelog = {
-				"fixed":[["Context Menu Update","Fixes for the context menu update, yaaaaaay"]]
+				"fixed":[["Inbox update","Fixes for the inbox update"]]
 			};
 
 			this.patchedModules = {
@@ -20,14 +22,13 @@ var EditServers = (_ => {
 					Guild: "render",
 					GuildIconWrapper: "render",
 					MutualGuilds: "render",
-					FriendRow: "render",
 					QuickSwitcher: "render",
 					QuickSwitchChannelResult: "render",
 					GuildSidebar: "render",
 					GuildHeader: "render"
 				},
 				after: {
-					MessagesPopout: "render",
+					RecentsChannelHeader: "default",
 					Guild: "render",
 					BlobMask: "render",
 					GuildIconWrapper: "render",
@@ -78,7 +79,7 @@ var EditServers = (_ => {
 				onClick: _ => {
 					BDFDB.ModalUtils.confirm(this, "Are you sure you want to reset all Servers?", _ => {
 						BDFDB.DataUtils.remove(this, "servers");
-						BDFDB.ModuleUtils.forceAllUpdates(this);;
+						this.forceUpdateAll();;
 					});
 				},
 				children: BDFDB.LanguageUtils.LanguageStrings.RESET
@@ -120,7 +121,7 @@ var EditServers = (_ => {
 					let guild = BDFDB.LibraryModules.GuildStore.getGuild(e.methodArguments[0].id);
 					if (guild) {
 						if (e.methodArguments[0].id == "410787888507256842") return guild.banner;
-						let data = BDFDB.DataUtils.load(this, "servers", guild.id);
+						let data = changedGuilds[guild.id];
 						if (data && data.banner && !data.removeBanner) return data.banner;
 					}
 					return e.callOriginalMethod();
@@ -137,7 +138,7 @@ var EditServers = (_ => {
 					}
 				});
 				
-				BDFDB.ModuleUtils.forceAllUpdates(this);
+				this.forceUpdateAll();
 			}
 			else console.error(`%c[${this.getName()}]%c`, "color: #3a71c1; font-weight: 700;", "", "Fatal Error: Could not load BD functions!");
 		}
@@ -146,7 +147,7 @@ var EditServers = (_ => {
 			if (window.BDFDB && typeof BDFDB === "object" && BDFDB.loaded) {
 				this.stopping = true;
 				
-				BDFDB.ModuleUtils.forceAllUpdates(this);
+				this.forceUpdateAll();
 
 				for (let guildobj of BDFDB.GuildUtils.getAll()) if (guildobj.instance) delete guildobj.instance.props.guild.EditServersCachedBanner;
 
@@ -176,11 +177,11 @@ var EditServers = (_ => {
 								BDFDB.ContextMenuUtils.createItem(BDFDB.LibraryComponents.MenuItems.MenuItem, {
 									label: this.labels.submenu_resetsettings_text,
 									id: BDFDB.ContextMenuUtils.createItemId(this.name, "settings-reset"),
-									disabled: !BDFDB.DataUtils.load(this, "servers", e.instance.props.guild.id),
+									disabled: !changedGuilds[e.instance.props.guild.id],
 									action: _ => {
 										BDFDB.ContextMenuUtils.close(e.instance);
 										BDFDB.DataUtils.remove(this, "servers", e.instance.props.guild.id);
-										BDFDB.ModuleUtils.forceAllUpdates(this);
+										this.forceUpdateAll();
 									}
 								})
 							]
@@ -191,12 +192,12 @@ var EditServers = (_ => {
 		}
 
 		processGuild (e) {
-			if (BDFDB.GuildUtils.is(e.instance.props.guild) && BDFDB.DataUtils.get(this, "settings", "changeInGuildList")) {
+			if (BDFDB.GuildUtils.is(e.instance.props.guild) && settings.changeInGuildList) {
 				e.instance.props.guild = this.getGuildData(e.instance.props.guild.id);
 				if (e.returnvalue) {
-					let data = BDFDB.DataUtils.load(this, "servers", e.instance.props.guild.id);
+					let data = changedGuilds[e.instance.props.guild.id];
 					if (data && (data.color3 || data.color4)) {
-						let [children, index] = BDFDB.ReactUtils.findChildren(e.returnvalue, {name: ["GuildTooltip", "BDFDB_TooltipContainer"]});
+						let [children, index] = BDFDB.ReactUtils.findParent(e.returnvalue, {name: ["GuildTooltip", "BDFDB_TooltipContainer"]});
 						if (index > -1) children[index] = BDFDB.ReactUtils.createElement(BDFDB.LibraryComponents.TooltipContainer, {
 							tooltipConfig: {
 								type: "right",
@@ -214,12 +215,12 @@ var EditServers = (_ => {
 		}
 
 		processBlobMask (e) {
-			if (BDFDB.DataUtils.get(this, "settings", "changeInGuildList")) {
-				let [children, index] = BDFDB.ReactUtils.findChildren(e.returnvalue, {name: "NavItem"});
+			if (settings.changeInGuildList) {
+				let [children, index] = BDFDB.ReactUtils.findParent(e.returnvalue, {name: "NavItem"});
 				if (index > -1 && children[index].props.to && children[index].props.to.pathname) {
 					let guild = BDFDB.LibraryModules.GuildStore.getGuild((children[index].props.to.pathname.split("/channels/")[1] || "").split("/")[0]);
 					if (guild) {
-						let data = BDFDB.DataUtils.load(this, "servers", guild.id);
+						let data = changedGuilds[guild.id];
 						if (data) {
 							if (data.shortName) children[index].props.name = data.shortName.split("").join(" ");
 							else if (data.name && data.ignoreCustomName) children[index].props.name = guild.name;
@@ -230,14 +231,14 @@ var EditServers = (_ => {
 		}
 
 		processGuildAcronym (e) {
-			if (typeof e.returnvalue.props.children == "function" && BDFDB.DataUtils.get(this, "settings", "changeInGuildList")) {
+			if (typeof e.returnvalue.props.children == "function" && settings.changeInGuildList) {
 				let pathname = BDFDB.ReactUtils.getValue(e.instance, "props.to.pathname");
-				let data = pathname && BDFDB.DataUtils.load(this, "servers", (pathname.split("/channels/")[1] || "").split("/")[0]);
+				let data = pathname && changedGuilds[(pathname.split("/channels/")[1] || "").split("/")[0]];
 				if (data) {
 					let renderChildren = e.returnvalue.props.children;
 					e.returnvalue.props.children = (...args) => {
 						let renderedChildren = renderChildren(...args);
-						let [children, index] = BDFDB.ReactUtils.findChildren(renderedChildren, {props:[["className", BDFDB.disCN.guildiconacronym]]});
+						let [children, index] = BDFDB.ReactUtils.findParent(renderedChildren, {props:[["className", BDFDB.disCN.guildiconacronym]]});
 						if (index > -1) {
 							let fontGradient = BDFDB.ObjectUtils.is(data.color2);
 							children[index].props.style = Object.assign({}, children[index].props.style, {
@@ -257,7 +258,6 @@ var EditServers = (_ => {
 		
 		processGuildIconWrapper (e) {
 			if (BDFDB.GuildUtils.is(e.instance.props.guild)) {
-				let settings = BDFDB.DataUtils.get(this, "settings");
 				if (e.instance.props.className && e.instance.props.className.indexOf(BDFDB.disCN.guildfolderguildicon) > -1) e.instance.props.guild = this.getGuildData(e.instance.props.guild.id, settings.changeInGuildList);
 				else if (e.instance.props.className && e.instance.props.className.indexOf(BDFDB.disCN.listavatar) > -1) e.instance.props.guild = this.getGuildData(e.instance.props.guild.id, settings.changeInMutualGuilds);
 				else e.instance.props.guild = this.getGuildData(e.instance.props.guild.id);
@@ -266,9 +266,8 @@ var EditServers = (_ => {
 		
 		processGuildIcon (e) {
 			if (BDFDB.GuildUtils.is(e.instance.props.guild) && e.instance.props.style && (!e.instance.props.style.backgroundImage || e.instance.props.style.backgroundImage == "none")) {
-				let data = BDFDB.DataUtils.load(this, "servers", e.instance.props.guild.id);
+				let data = changedGuilds[e.instance.props.guild.id];
 				if (data) {
-					let settings = BDFDB.DataUtils.get(this, "settings");
 					if (e.instance.props.className && e.instance.props.className.indexOf(BDFDB.disCN.guildfolderguildicon) > -1) this.changeGuildIcon(e, data, settings.changeInGuildList);
 					else if (e.instance.props.className && e.instance.props.className.indexOf(BDFDB.disCN.listavatar) > -1 || BDFDB.ReactUtils.findConstructor(e.instance, "MutualGuild", {up: true})) this.changeGuildIcon(e, data, settings.changeInMutualGuilds);
 					else this.changeGuildIcon(e, data);
@@ -277,42 +276,37 @@ var EditServers = (_ => {
 		}
 
 		processMutualGuilds (e) {
-			if (BDFDB.DataUtils.get(this, "settings", "changeInMutualGuilds")) for (let i in e.instance.props.mutualGuilds) e.instance.props.mutualGuilds[i].guild = this.getGuildData(e.instance.props.mutualGuilds[i].guild.id);
-		}
-
-		processFriendRow (e) {
-			if (BDFDB.DataUtils.get(this, "settings", "changeInMutualGuilds")) for (let i in e.instance.props.mutualGuilds) e.instance.props.mutualGuilds[i] = this.getGuildData(e.instance.props.mutualGuilds[i].id);
+			if (settings.changeInMutualGuilds) for (let i in e.instance.props.mutualGuilds) e.instance.props.mutualGuilds[i].guild = this.getGuildData(e.instance.props.mutualGuilds[i].guild.id);
 		}
 
 		processQuickSwitcher (e) {
-			if (BDFDB.DataUtils.get(this, "settings", "changeInQuickSwitcher")) for (let i in e.instance.props.results) if (e.instance.props.results[i].type == "GUILD") e.instance.props.results[i].record = this.getGuildData(e.instance.props.results[i].record.id);
+			if (settings.changeInQuickSwitcher) for (let i in e.instance.props.results) if (e.instance.props.results[i].type == "GUILD") e.instance.props.results[i].record = this.getGuildData(e.instance.props.results[i].record.id);
 		}
 
 		processQuickSwitchChannelResult (e) {
-			if (e.instance.props.channel && e.instance.props.channel.guild_id && BDFDB.DataUtils.get(this, "settings", "changeInQuickSwitcher")) {
+			if (e.instance.props.channel && e.instance.props.channel.guild_id && settings.changeInQuickSwitcher) {
 				e.instance.props.children.props.children = this.getGuildData(e.instance.props.channel.guild_id).name;
 			}
 		}
 		
-		processMessagesPopout (e) {
-			if (BDFDB.DataUtils.get(this, "settings", "changeInRecentMentions")) {
-				let [children, index] = BDFDB.ReactUtils.findChildren(e.returnvalue, {name: "VerticalScroller"});
-				if (index > -1 && children[index].props.children && BDFDB.ArrayUtils.is(children[index].props.children[0])) for (let i in children[index].props.children[0]) {
-					let divider = children[index].props.children[0][i];
-					if (divider && divider.props && divider.props.className == BDFDB.disCN.messagespopoutchannelseparator) {
-						let channel = BDFDB.ReactUtils.findValue(children[index].props.children[0][parseInt(i)+1], "channel");
-						if (BDFDB.ChannelUtils.isTextChannel(channel)) {
-							let [children2, index2] = BDFDB.ReactUtils.findChildren(divider, {props:[["className", BDFDB.disCN.messagespopoutguildname]]});
-							if (index2 > -1) children2[index2].props.children = this.getGuildData(channel.guild_id).name;
-						}
-					}
+		processRecentsChannelHeader (e) {
+			if (settings.changeInRecentMentions && BDFDB.ArrayUtils.is(e.returnvalue.props.children)) {
+				for (let child of e.returnvalue.props.children) if (child && child.props && child.props.channel && child.type.displayName == "ChannelName") {
+					let oldType = child.type;
+					child.type = (...args) => {
+						let instance = oldType(...args);
+						let guildName = BDFDB.ReactUtils.findChild(instance, {props:[["className", BDFDB.disCN.recentmentionsguildname]]});
+						if (guildName) guildName.props.children = (this.getGuildData(e.instance.props.channel.guild_id) || {}).name || guildName.props.children;
+						return instance;
+					};
+					child.type.displayName = oldType.displayName;
 				}
 			}
 		}
 		
 		processGuildSidebar (e) {
 			if (e.instance.props.guild) {
-				let data = BDFDB.DataUtils.load(this, "servers", e.instance.props.guild.id);
+				let data = changedGuilds[e.instance.props.guild.id];
 				if (data) {
 					if (data.removeBanner) e.instance.props.guild = new BDFDB.DiscordObjects.Guild(Object.assign({}, e.instance.props.guild, {banner: null}));
 					else if (data.banner) e.instance.props.guild = new BDFDB.DiscordObjects.Guild(Object.assign({}, e.instance.props.guild, {banner: data.banner}));
@@ -322,7 +316,6 @@ var EditServers = (_ => {
 		
 		processGuildHeader (e) {
 			if (e.instance.props.guild) {
-				let settings = BDFDB.DataUtils.get(this, "settings");
 				if (settings.changeInGuildHeader) {
 					e.instance.props.guild = this.getGuildData(e.instance.props.guild.id);
 					let oldName = (BDFDB.LibraryModules.GuildStore.getGuild(e.instance.props.guild.id) || {}).name;
@@ -340,7 +333,7 @@ var EditServers = (_ => {
 		getGuildData (guildId, change = true) {
 			let guild = BDFDB.LibraryModules.GuildStore.getGuild(guildId);
 			if (!guild) return new BDFDB.DiscordObjects.Guild({});
-			let data = change && BDFDB.DataUtils.load(this, "servers", guild.id);
+			let data = change && changedGuilds[guild.id];
 			if (data) {
 				let newGuildObject = {}, nativeObject = new BDFDB.DiscordObjects.Guild(guild);
 				for (let key in nativeObject) newGuildObject[key] = nativeObject[key];
@@ -374,11 +367,18 @@ var EditServers = (_ => {
 				});
 			}
 		}
+		
+		forceUpdateAll () {
+			changedGuilds = BDFDB.DataUtils.load(this, "servers");
+			settings = BDFDB.DataUtils.get(this, "settings");
+			
+			BDFDB.ModuleUtils.forceAllUpdates(this);
+		}
 
 		openGuildSettingsModal (guildId) {
 			let guild = BDFDB.LibraryModules.GuildStore.getGuild(guildId);
 			if (!guild) return;
-			let data = BDFDB.DataUtils.load(this, "servers", guild.id) || {};
+			let data = changedGuilds[guild.id] || {};
 			
 			let currentIgnoreCustomNameState = data.ignoreCustomName;
 			
@@ -614,7 +614,7 @@ var EditServers = (_ => {
 						let changed = false;
 						if (Object.keys(data).every(key => !data[key]) && (changed = true)) BDFDB.DataUtils.remove(this, "servers", guild.id);
 						else if (!BDFDB.equals(olddata, data) && (changed = true)) BDFDB.DataUtils.save(data, this, "servers", guild.id);
-						if (changed) BDFDB.ModuleUtils.forceAllUpdates(this);;
+						if (changed) this.forceUpdateAll();;
 					}
 				}]
 			});

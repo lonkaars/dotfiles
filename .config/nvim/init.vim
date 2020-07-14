@@ -15,6 +15,7 @@ set conceallevel=0
 set mouse=a
 set linebreak " set wrap but don't wrap inside words
 set viminfo+='1000,n/home/loek/.local/nvim/viminfo
+set guifont=JetBrainsMono\ NF:h10
 let g:sneak#label = 1
 let g:which_key_map = {}
 let g:airline_powerline_fonts = 1
@@ -22,12 +23,12 @@ let g:minimap_highlight='Visual'
 hi! link CocFloating SneakScope
 cabbrev help tab help
 
-if ! filereadable(expand('~/.config/nvim/autoload/plug.vim'))
-	echo "Downloading junegunn/vim-plug to manage plugins..."
-	silent !mkdir -p ~/.config/nvim/autoload/
-	silent !curl "https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim" > ~/.config/nvim/autoload/plug.vim
-	autocmd VimEnter * PlugInstall
-endif
+" if ! filereadable(expand('~/.config/nvim/autoload/plug.vim'))
+" 	echo "Downloading junegunn/vim-plug to manage plugins..."
+" 	silent !mkdir -p ~/.config/nvim/autoload/
+" 	silent !curl "https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim" > ~/.config/nvim/autoload/plug.vim
+" 	autocmd VimEnter * PlugInstall
+" endif
 
 " plugged
 call plug#begin('~/.config/nvim/plugged')
