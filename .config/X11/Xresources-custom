@@ -1,0 +1,9 @@
+*.font: JetBrainsMono Nerd Font:style=Medium,Regular:pixelsize=13:antialias=true:hinting=true
+
+*.termname: st-256color
+*.shell: /bin/sh
+
+*.tabspaces: 4
+*.borderpx: 0
+
+Xcursor.theme: OpenZone_Black
