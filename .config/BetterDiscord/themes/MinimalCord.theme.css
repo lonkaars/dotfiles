@@ -136,3 +136,8 @@ section.da-container > .da-children > .da-tabBar > .da-item:not(.da-themed),
 .da-actionButton {
 	background-color: transparent !important;
 }
+
+.da-peopleColumn .da-peopleListItem {
+	border: 0 !important;
+}
+

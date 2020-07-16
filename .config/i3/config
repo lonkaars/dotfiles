@@ -9,12 +9,12 @@ gaps outer $outer_gaps
 
 # border color
 # pywal-start
-client.focused #303d57 #151618 #c4c4c5 #303d57 #434853
-client.focused_inactive #5F6061 #4f5051 #c4c4c5 #191A1D #151618
-client.unfocused #151618 #111213 #9C9C9E #151618 #111213
-client.urgent #151618 #e95678 #c4c4c5 #e95678 #e95678
-client.placeholder #000000 #0c0c0c #c4c4c5 #000000 #0c0c0c
-client.background #c4c4c5
+client.focused #bed5fb #312322 #cbc8c7 #bed5fb #888B9A
+client.focused_inactive #786C6B #645a59 #cbc8c7 #3B2A29 #312322
+client.unfocused #312322 #271C1B #A49F9D #312322 #271C1B
+client.urgent #312322 #e95678 #cbc8c7 #e95678 #e95678
+client.placeholder #000000 #0c0c0c #cbc8c7 #000000 #0c0c0c
+client.background #cbc8c7
 
 # pywal-end
 
@@ -41,7 +41,7 @@ for_window [class=".*"] border pixel 1
 # Keybinds
 bindsym $mod+Escape exec "dm-tool lock" 
 bindsym $mod+space exec "rofi -show drun -show-icons"
-bindsym $mod+Return exec konsole
+bindsym $mod+Return exec st
 bindsym $mod+p exec bwmenu
 bindsym Print exec "flameshot gui"
 

@@ -58,11 +58,6 @@ function clone {
 # gitignore
 function gi() { curl -sL https://www.toptal.com/developers/gitignore/api/$@ ;}
 
-# gnvim
-function gnvim {
-	i3-swallow /bin/gnvim -- "$@"
-}
-
 # ueberzug
 source "`ueberzug library`"
 
@@ -77,8 +72,8 @@ alias patchmc="node /home/loek/.local/share/bin/patch_minecraft_profiles.js"
 alias cls="clear"
 alias lowerpolybar="xdo lower -n Polybar -n tray && xdo lower -N Polybar"
 alias timesync="sudo ntpd -qg && sudo hwclock --systohc"
-alias v="gnvim"
-alias vim="gnvim"
+alias v="nvim"
+alias vim="nvim"
 alias copy="xclip -selection c"
 alias sdl="spotifydl"
 alias sctl="systemctl"
