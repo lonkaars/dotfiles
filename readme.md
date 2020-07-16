@@ -13,6 +13,7 @@ these are dotfiles
 - brave
 - rofi
 - konsole
+- [st](https://github.com/lonkaars/st)
 
 also includes jswal, my shitty inefficient wrapper for wal that adds readable colors and more things to theme and such
 
