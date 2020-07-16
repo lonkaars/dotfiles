@@ -1,0 +1,29 @@
+*.color0: #312322
+*.color1: #c3acaa
+*.color2: #8eb8fb
+*.color3: #f4b3aa
+*.color4: #c0c3ef
+*.color5: #e9bce1
+*.color6: #bed5fb
+*.color7: #cbc8c7
+*.color8: #645a59
+*.color9: #c3acaa
+*.color10: #8eb8fb
+*.color11: #f4b3aa
+*.color12: #c0c3ef
+*.color13: #e9bce1
+*.color14: #bed5fb
+*.color15: #cbc8c7
+*.foreground: #cbc8c7
+*.background: #312322
+*.cursorColor: #cbc8c7
+
+*.font: JetBrainsMono Nerd Font:style=Medium,Regular:pixelsize=13:antialias=true:hinting=true
+
+*.termname: st-256color
+*.shell: /bin/sh
+
+*.tabspaces: 4
+*.borderpx: 0
+
+Xcursor.theme: OpenZone_Black
