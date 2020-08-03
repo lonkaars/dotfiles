@@ -1,7 +1,12 @@
-foreach
-forof
-if
+set
 for
+forof
+throw
+beg
+lambda
+def
+foreach
+if
 newdocument
 newhtml
 try/except/else

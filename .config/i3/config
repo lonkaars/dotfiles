@@ -9,12 +9,12 @@ gaps outer $outer_gaps
 
 # border color
 # pywal-start
-client.focused #bed5fb #312322 #cbc8c7 #bed5fb #888B9A
-client.focused_inactive #786C6B #645a59 #cbc8c7 #3B2A29 #312322
-client.unfocused #312322 #271C1B #A49F9D #312322 #271C1B
-client.urgent #312322 #e95678 #cbc8c7 #e95678 #e95678
-client.placeholder #000000 #0c0c0c #cbc8c7 #000000 #0c0c0c
-client.background #cbc8c7
+client.focused #2b2b34 #141618 #c4c4c5 #2b2b34 #404145
+client.focused_inactive #5E6061 #4e5051 #c4c4c5 #181A1D #141618
+client.unfocused #141618 #101213 #9C9C9E #141618 #101213
+client.urgent #141618 #e95678 #c4c4c5 #e95678 #e95678
+client.placeholder #000000 #0c0c0c #c4c4c5 #000000 #0c0c0c
+client.background #c4c4c5
 
 # pywal-end
 
@@ -24,6 +24,7 @@ font pango:Fira Code 9
 # no idea what these do but they were in here by default
 exec --no-startup-id xss-lock --transfer-sleep-lock -- i3lock --nofork
 exec --no-startup-id nm-applet
+exec --no-startup-id xset r rate 250 40
 set $refresh_i3status killall -SIGUSR1 i3status
 
 # Voulme keybinds

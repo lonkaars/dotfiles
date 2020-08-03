@@ -1,3 +1,4 @@
+tsserver.restart
 clangd.install
 snippets.editSnippets
 workspace.showOutput

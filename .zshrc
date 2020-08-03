@@ -5,16 +5,16 @@ XDG_DATA_HOME="$HOME"/.local/share
 
 ZSH_THEME="agnoster"
 
-export ZSH="/home/loek/.local/share/oh-my-zsh"
+export ZSH="$HOME/.local/share/oh-my-zsh"
 export ADOTDIR="$XDG_CONFIG_HOME"/antigen
 
 source ~/.config/antigen.zsh
 antigen use oh-my-zsh
 antigen bundle git
-antigen bundle zsh-users/zsh-syntax-highlighting
-antigen bundle zsh-users/zsh-autosuggestions
 antigen theme agnoster
 antigen bundle arzzen/calc.plugin.zsh
+antigen bundle zsh-users/zsh-autosuggestions
+antigen bundle zsh-users/zsh-syntax-highlighting
 antigen apply
 
 source $ZSH/oh-my-zsh.sh
@@ -38,6 +38,7 @@ export ETESYNC_URL="https://superesc:9443"
 export jsbeautify_end_with_newline=true
 export jsbeautify_brace_style="preserve-inline"
 export jsbeautify_indent_with_tabs=true
+export jsbeautify_wrap_line_length=70
 
 # node certificate settings
 export NODE_EXTRA_CA_CERTS=/usr/share/ca-certificates/bitwarden.crt
@@ -75,7 +76,6 @@ alias timesync="sudo ntpd -qg && sudo hwclock --systohc"
 alias v="nvim"
 alias vim="nvim"
 alias copy="xclip -selection c"
-alias sdl="spotifydl"
 alias sctl="systemctl"
 alias ncp="ncmpcpp"
 alias xsiv="i3-swallow sxiv"
@@ -83,6 +83,8 @@ alias scrcpy="i3-swallow scrcpy"
 alias dnd="dragon-drag-and-drop"
 alias adda="git add -A"
 alias first="git commit -m \"first commit\""
+alias les="less"
+alias scdl="scdl --onlymp3 -l"
 
 # cursors
 alias cursorbl="printf '\033[1 q'"
