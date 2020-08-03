@@ -15,13 +15,19 @@ set conceallevel=0
 set mouse=a
 set linebreak " set wrap but don't wrap inside words
 set viminfo+='1000,n/home/loek/.local/nvim/viminfo
-set guifont=JetBrainsMono\ NF:h10
+set guifont=JetBrainsMono\ NF:h14
+let g:neovide_cursor_animation_length=0.13
+let g:neovide_cursor_vfx_mode="sonicboom"
+let g:neovide_cursor_vfx_opacity=50.0
+let g:neovide_cursor_trail_length=5.2
+let g:neovide_cursor_animation_length=0.10
 let g:sneak#label = 1
 let g:which_key_map = {}
 let g:airline_powerline_fonts = 1
 let g:minimap_highlight='Visual'
 hi! link CocFloating SneakScope
 cabbrev help tab help
+autocmd BufNewFile,BufRead *.jdscn set syntax=json
 
 " if ! filereadable(expand('~/.config/nvim/autoload/plug.vim'))
 " 	echo "Downloading junegunn/vim-plug to manage plugins..."
@@ -38,8 +44,7 @@ Plug 'tpope/vim-surround'
 Plug 'Chiel92/vim-autoformat'
 Plug 'itchyny/lightline.vim'
 Plug 'terryma/vim-multiple-cursors'
-" Plug 'ap/vim-css-color' "  color name highlighter
-Plug 'vim-scripts/colorizer' " better highlighter?
+Plug 'vim-scripts/colorizer'
 Plug 'aurieh/discord.nvim', { 'do': ':UpdateRemotePlugins'}
 Plug 'AndrewRadev/tagalong.vim'
 Plug 'tpope/vim-commentary'
@@ -49,6 +54,10 @@ Plug 'jbgutierrez/vim-better-comments'
 Plug 'junegunn/goyo.vim'
 Plug 'othree/eregex.vim'
 Plug 'psliwka/vim-smoothie'
+Plug 'tpope/vim-fugitive'
+Plug 'airblade/vim-gitgutter'
+Plug 'wellle/targets.vim'
+Plug 'dstein64/vim-startuptime'
 
 " language plugins
 Plug 'lervag/vimtex'
@@ -62,6 +71,7 @@ Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'ryanoasis/vim-devicons' "Icons for filetypes
 Plug 'junegunn/fzf.vim'
 Plug '/usr/local/opt/fzf'
+Plug 'puremourning/vimspector'
 
 " themes
 Plug 'arzg/vim-colors-xcode'
@@ -90,6 +100,30 @@ nnoremap <A-k> :m -2<CR>
 " leader keybindings
 nnoremap <silent> <leader> :WhichKey '<space>'<CR>
 
+map <leader>vo <Plug>VimspectorContinue
+map <leader>vq <Plug>VimspectorStop
+map <leader>vr <Plug>VimspectorRestart
+map <leader>vp <Plug>VimspectorPause
+map <leader>vb <Plug>VimspectorToggleBreakpoint
+map <leader>vc <Plug>VimspectorToggleConditionalBreakpoint
+map <leader>vf <Plug>VimspectorAddFunctionBreakpoint
+map <leader>vn <Plug>VimspectorStepOver
+map <leader>vi <Plug>VimspectorStepInto
+map <leader>vu <Plug>VimspectorStepOut
+let g:which_key_map.v = {
+			\ 'name': '+vimspector',
+			\ 'o': 'continue',
+			\ 'q': 'stop',
+			\ 'r': 'restart',
+			\ 'p': 'pause',
+			\ 'b': 'toggle-breakpoint',
+			\ 'c': 'toggle-conditional-breakpoint',
+			\ 'f': 'add-function-breakpoint',
+			\ 'n': 'step-over',
+			\ 'i': 'step-into',
+			\ 'u': 'step-out'
+			\ }
+
 map <leader>p "+p
 map <leader>y "+y
 let g:which_key_map.p = 'x11-paste'
@@ -101,8 +135,11 @@ let g:which_key_map.h = 'no-highlighting'
 map <leader>b :Autoformat<cr>
 let g:which_key_map.b = 'format-file'
 
-map <leader>w /\s\+$<CR>
-let g:which_key_map.w = 'trailing-whitespace'
+map <leader>s /\s\+$<CR>
+let g:which_key_map.s = 'trailing-whitespace'
+
+map <leader>w :w<CR>
+let g:which_key_map.w = 'write'
 
 map <leader>dv :!opout <c-r>%<cr><cr>
 map <leader>dc :w! <bar> !compiler <c-r>%<cr>
@@ -137,22 +174,21 @@ let g:which_key_map['.'] = {
 			\ 'p': 'polybar'
 			\ }
 
-colorscheme xcodedark
+colorscheme sonokai
 let g:lightline = {
 			\ 'colorscheme': 'pywal',
-			\ 'separator': { 'left': '', 'right': '' },
 			\ 'mode_map': {
-			\	'n' : 'NORM',
-			\	'i' : 'INS',
-			\	'R' : 'REP',
-			\	'v' : 'VIS',
-			\	'V' : 'V-L',
-			\	"\<C-v>": 'V-B',
-			\	'c' : 'CMD',
-			\	's' : 'SEL',
-			\	'S' : 'S-L',
-			\	"\<C-s>": 'S-B',
-			\	't': 'TERM'
+			\	'n' : 'norm',
+			\	'i' : 'ins',
+			\	'R' : 'rep',
+			\	'v' : 'vis',
+			\	'V' : 'v-l',
+			\	"\<C-v>": 'v-b',
+			\	'c' : 'cmd',
+			\	's' : 'sel',
+			\	'S' : 's-l',
+			\	"\<C-s>": 's-b',
+			\	't': 'term'
 			\ },
 			\ 'active': {
 			\	'left': [
@@ -160,8 +196,7 @@ let g:lightline = {
 			\		[ 'readonly', 'filename', 'modified']
 			\	],
 			\	'right': [
-			\		[ 'lineinfo' ],
-			\		[ 'filetype' ]
+			\		[ 'lineinfo' ]
 			\	]
 			\ },
 			\ }
