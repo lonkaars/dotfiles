@@ -45,7 +45,6 @@ Plug 'Chiel92/vim-autoformat'
 Plug 'itchyny/lightline.vim'
 Plug 'terryma/vim-multiple-cursors'
 Plug 'vim-scripts/colorizer'
-Plug 'aurieh/discord.nvim', { 'do': ':UpdateRemotePlugins'}
 Plug 'AndrewRadev/tagalong.vim'
 Plug 'tpope/vim-commentary'
 Plug 'liuchengxu/vim-which-key'
@@ -229,6 +228,31 @@ augroup END
 autocmd FileType tex let b:surround_{char2nr("q")} = "`\r'"
 autocmd FileType tex let b:surround_{char2nr('Q')} = "``\r''"
 
+" tab out of brackets
+function TabOutOfDelim()
+	let char = strcharpart(getline('.'), col('.') + 1, 1)
+	let valid = ")}]> "
+	if stridx(valid, char) != -1
+		norm l
+	endif
+endfunction
+
+function CocTabButton()
+	if pumvisible()
+		return "\<C-n>"
+	elseif <SID>check_back_space()
+		return "\<Tab>"
+	else
+		call coc#refresh()
+	endif
+endfunction
+
+" imap <silent><cmd> <Tab> call TabOutOfDelim() <bar> call CocTabButton()
+" imap <silent><cmd> <Tab> call CocTabButton() <bar> call TabOutOfDelim()
+imap <silent><cmd> <Tab> call CocTabButton()
+" imap <silent> <Tab> <Esc>:call TabOutOfDelim()<CR>a
+
+
 " coc.vim <tab> completion and <cr> stuffs
 inoremap <silent><expr> <TAB>
 			\ pumvisible() ? "\<C-n>" :
@@ -240,6 +264,12 @@ function! s:check_back_space() abort
 	let col = col('.') - 1
 	return !col || getline('.')[col - 1]  =~# '\s'
 endfunction
+
+if has("patch-8.1.1564")
+  set signcolumn=number
+else
+  set signcolumn=yes
+endif
 
 if has('patch8.1.1068')
 	" Use `complete_info` if your (Neo)Vim version supports it.
@@ -277,6 +307,6 @@ augroup TerminalStuff
 	" Clear old autocommands
 	au!
 	autocmd TermOpen * setlocal nonumber norelativenumber
+	autocmd TermOpen * set signcolumn=no
 augroup END
-
 

@@ -8,7 +8,7 @@
     "coc-neosnippet": ">=1.2.2",
     "coc-python": ">=1.2.12",
     "coc-snippets": ">=2.1.28",
-    "coc-tsserver": ">=1.5.3",
+    "coc-tsserver": ">=1.5.4",
     "coc-vimtex": ">=1.0.4"
   }
 }

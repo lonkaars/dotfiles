@@ -4,25 +4,25 @@
     --wallpaper: url("/home/loek/.config/wpg/wallpapers/pywal.png");
 
     /* Special */
-    --background: #141618;
-    --foreground: #c4c4c5;
-    --cursor: #c4c4c5;
+    --background: #1e1e1f;
+    --foreground: #c6c6c7;
+    --cursor: #c6c6c7;
 
     /* Colors */
-    --color0: #141618;
-    --color1: #071831;
-    --color2: #171823;
-    --color3: #0c2039;
-    --color4: #1e1f2a;
-    --color5: #212633;
-    --color6: #2b2b34;
-    --color7: #c4c4c5;
-    --color8: #4e5051;
-    --color9: #071831;
-    --color10: #171823;
-    --color11: #0c2039;
-    --color12: #1e1f2a;
-    --color13: #212633;
-    --color14: #2b2b34;
-    --color15: #c4c4c5;
+    --color0: #1e1e1f;
+    --color1: #666b6d;
+    --color2: #8a8c8d;
+    --color3: #c59683;
+    --color4: #a7aeb0;
+    --color5: #aabbbe;
+    --color6: #d1c494;
+    --color7: #c6c6c7;
+    --color8: #565657;
+    --color9: #666b6d;
+    --color10: #8a8c8d;
+    --color11: #c59683;
+    --color12: #a7aeb0;
+    --color13: #aabbbe;
+    --color14: #d1c494;
+    --color15: #c6c6c7;
 }

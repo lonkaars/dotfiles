@@ -9,12 +9,12 @@ gaps outer $outer_gaps
 
 # border color
 # pywal-start
-client.focused #2b2b34 #141618 #c4c4c5 #2b2b34 #404145
-client.focused_inactive #5E6061 #4e5051 #c4c4c5 #181A1D #141618
-client.unfocused #141618 #101213 #9C9C9E #141618 #101213
-client.urgent #141618 #e95678 #c4c4c5 #e95678 #e95678
-client.placeholder #000000 #0c0c0c #c4c4c5 #000000 #0c0c0c
-client.background #c4c4c5
+client.focused #d1c494 #1e1e1f #c6c6c7 #d1c494 #87826F
+client.focused_inactive #676768 #565657 #c6c6c7 #242425 #1e1e1f
+client.unfocused #1e1e1f #181819 #9E9EA0 #1e1e1f #181819
+client.urgent #1e1e1f #e95678 #c6c6c7 #e95678 #e95678
+client.placeholder #000000 #0c0c0c #c6c6c7 #000000 #0c0c0c
+client.background #c6c6c7
 
 # pywal-end
 
