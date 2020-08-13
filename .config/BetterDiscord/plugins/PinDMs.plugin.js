@@ -9,13 +9,17 @@ var PinDMs = (_ => {
 	return class PinDMs {
 		getName () {return "PinDMs";}
 
-		getVersion () {return "1.7.3";}
+		getVersion () {return "1.7.4";}
 
 		getAuthor () {return "DevilBro";}
 
 		getDescription () {return "Allows you to pin DMs, making them appear at the top of your DMs/Guild-list.";}
 
-		constructor () {			
+		constructor () {
+			this.changelog = {
+				"fixed":[["Sort by recent","Works again"]]
+			};
+			
 			this.patchedModules = {
 				before: {
 					PrivateChannelsList: "render",
@@ -238,7 +242,6 @@ var PinDMs = (_ => {
 									id: BDFDB.ContextMenuUtils.createItemId(this.name, "unpin-channellist"),
 									color: BDFDB.LibraryComponents.MenuItems.Colors.DANGER,
 									action: _ => {
-										BDFDB.ContextMenuUtils.close(instance);
 										this.removeFromCategory(id, currentCategory, "dmCategories");
 									}
 								}) : BDFDB.ContextMenuUtils.createItem(BDFDB.LibraryComponents.MenuItems.MenuItem, {
@@ -246,7 +249,6 @@ var PinDMs = (_ => {
 									id: BDFDB.ContextMenuUtils.createItemId(this.name, "new-channellist"),
 									color: BDFDB.LibraryComponents.MenuItems.Colors.BRAND,
 									action: _ => {
-										BDFDB.ContextMenuUtils.close(instance);
 										this.openCategorySettingsModal({
 											id: this.generateID("dmCategories").toString(),
 											name: `${this.labels.header_pinneddms_text} #${categories.length + 1}`,
@@ -263,7 +265,6 @@ var PinDMs = (_ => {
 									label: category.name || this.labels.header_pinneddms_text,
 									id: BDFDB.ContextMenuUtils.createItemId(this.name, "pin-channellist", category.id),
 									action: _ => {
-										BDFDB.ContextMenuUtils.close(instance);
 										if (currentCategory) this.removeFromCategory(id, currentCategory, "dmCategories");
 										this.addToCategory(id, category, "dmCategories");
 									}
@@ -276,7 +277,6 @@ var PinDMs = (_ => {
 						id: BDFDB.ContextMenuUtils.createItemId(this.name, pinnedInGuild ? "unpin-serverlist" : "pin-serverlist"),
 						danger: pinnedInGuild,
 						action: _ => {
-							BDFDB.ContextMenuUtils.close(instance);
 							if (!pinnedInGuild) this.addPin(id, "pinnedRecents");
 							else this.removePin(id, "pinnedRecents");
 						}
@@ -571,7 +571,7 @@ var PinDMs = (_ => {
 					if (e.node) {
 						BDFDB.DOMUtils.addClass(e.node, BDFDB.disCN._pindmsdmchannelpinned);
 						e.node.removeEventListener("mousedown", e.node.PinDMsMouseDownListener);
-						if (!BDFDB.DataUtils.get(this, "settings", "sortInRecentOrder")) {
+						if (!settings.sortInRecentOrder) {
 							e.node.setAttribute("draggable", false);
 							e.node.PinDMsMouseDownListener = event => {
 								if (!BDFDB.BDUtils.isPluginEnabled("PinDMs")) e.node.removeEventListener("mousedown", e.node.PinDMsMouseDownListener);
@@ -659,7 +659,7 @@ var PinDMs = (_ => {
 					if (this.isPinned(e.instance.props.channel.id, "pinnedRecents")) {
 						BDFDB.DOMUtils.addClass(e.node, BDFDB.disCN._pindmsrecentpinned);
 						e.node.removeEventListener("mousedown", e.node.PinDMsMouseDownListener);
-						if (!BDFDB.DataUtils.get(this, "settings", "sortInRecentOrderGuild")) {
+						if (!settings.sortInRecentOrderGuild) {
 							for (let child of e.node.querySelectorAll("a")) child.setAttribute("draggable", false);
 							e.node.PinDMsMouseDownListener = event => {
 								let mousemove = event2 => {
@@ -706,7 +706,7 @@ var PinDMs = (_ => {
 				if (e.node && e.methodname == "componentWillUnmount") {
 					BDFDB.ModuleUtils.forceAllUpdates(this, "PrivateChannelsList");
 				}
-				if (e.returnvalue && this.isPinned(e.instance.props.channel.id, "pinnedRecents") && BDFDB.DataUtils.get(this, "settings", "showPinIcon")) {
+				if (e.returnvalue && this.isPinned(e.instance.props.channel.id, "pinnedRecents") && settings.showPinIcon) {
 					let [children, index] = BDFDB.ReactUtils.findParent(e.returnvalue, {name:"BlobMask"});
 					if (index > -1) children[index].props.upperLeftBadge = BDFDB.ReactUtils.createElement(BDFDB.LibraryComponents.Badges.IconBadge, {
 						className: BDFDB.disCN.guildiconbadge,
@@ -771,8 +771,8 @@ var PinDMs = (_ => {
 		}
 		
 		sortDMsByTime (dms, type) {
-			if (dms.length > 1 && BDFDB.DataUtils.get(this, "settings", type == "dmCategories" ? "sortInRecentOrder" : "sortInRecentOrderGuild")) {
-				let timestamps = BDFDB.LibraryModules.DirectMessageStore.getPrivateChannelTimestamps();
+			if (dms.length > 1 && settings[type == "dmCategories" ? "sortInRecentOrder" : "sortInRecentOrderGuild"]) {
+				let timestamps = BDFDB.LibraryModules.DirectMessageStore.getPrivateChannelIds().map(BDFDB.LibraryModules.ChannelStore.getChannel).reduce((newObj, channel) => (newObj[channel.id] = channel.lastActiveTimestamp, newObj), {});
 				return [].concat(dms).sort(function (x, y) {return timestamps[x] > timestamps[y] ? -1 : timestamps[x] < timestamps[y] ? 1 : 0;});
 			}
 			else return dms;
@@ -1144,3 +1144,5 @@ var PinDMs = (_ => {
 		}
 	}
 })();
+
+module.exports = PinDMs;
