@@ -1,0 +1,29 @@
+mpd_host = "127.0.0.1"
+mpd_port = "6600"
+mpd_music_dir = "/home/loek/music"
+mpd_connection_timeout = "5"
+mpd_crossfade_time = "1"
+ncmpcpp_directory="/home/loek/.config/ncmpcpp"
+
+progressbar_look = "-> "
+progressbar_elapsed_color = "cyan"
+progressbar_color = "black"
+playlist_display_mode = "classic"
+autocenter_mode = "yes"
+centered_cursor = "yes"
+user_interface = "classic"
+
+header_visibility = "no"
+statusbar_visibility = "no"
+titles_visibility = "no"
+
+state_flags_color = blue
+main_window_color = white
+current_item_prefix = $(magenta)$r
+song_columns_list_format = (20)[]{a} (6f)[blue]{NE} (50)[white]{t|f:Title} (20)[blue]{} (7f)[magenta]{l}
+song_list_format = "{{%a - %t}|{%f}}{$R%l}"
+window_border_color = blue
+
+now_playing_prefix = "$b$6"
+now_playing_suffix = "$/b$9"
+
