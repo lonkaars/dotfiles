@@ -62,6 +62,9 @@ function gi() { curl -sL https://www.toptal.com/developers/gitignore/api/$@ ;}
 # ueberzug
 source "`ueberzug library`"
 
+# navi // cheatsheets
+source <(echo "$(navi widget zsh)")
+
 # aliases
 alias chrome="chromium"
 alias l="live-server"
@@ -69,7 +72,6 @@ alias r='ranger --choosedir=$HOME/.cache/rangerdir; LASTDIR=`cat $HOME/.cache/ra
 alias wacom="xsetwacom set $(xsetwacom list devices | grep stylus | grep -oP --color=never "(?<=id\:\s)([0-9]*)") area 0 0 15200 4275"
 alias reload="sudo systemctl restart lightdm"
 alias rwall="node ~/.local/share/bin/pywal/wall.js"
-alias patchmc="node /home/loek/.local/share/bin/patch_minecraft_profiles.js"
 alias cls="clear"
 alias lowerpolybar="xdo lower -n Polybar -n tray && xdo lower -N Polybar"
 alias timesync="sudo ntpd -qg && sudo hwclock --systohc"
