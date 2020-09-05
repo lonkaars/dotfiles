@@ -41,7 +41,7 @@ call plug#begin('~/.config/nvim/plugged')
 " quality of life
 Plug 'jiangmiao/auto-pairs'
 Plug 'tpope/vim-surround'
-Plug 'Chiel92/vim-autoformat'
+" Plug 'Chiel92/vim-autoformat'
 Plug 'itchyny/lightline.vim'
 Plug 'terryma/vim-multiple-cursors'
 Plug 'vim-scripts/colorizer'
@@ -82,6 +82,7 @@ Plug 'NLKNguyen/papercolor-theme'
 Plug 'scheakur/vim-scheakur'
 Plug 'mkarmona/materialbox'
 Plug 'morhetz/gruvbox'
+Plug 'co1ncidence/mountaineer'
 call plug#end()
 
 " keybinds
@@ -128,10 +129,13 @@ map <leader>y "+y
 let g:which_key_map.p = 'x11-paste'
 let g:which_key_map.y = 'x11-yank'
 
+map <leader>* y/<C-R>0<CR>
+let g:which_key_map['*'] = 'search-selected'
+
 map <leader>h :noh<cr>
 let g:which_key_map.h = 'no-highlighting'
 
-map <leader>b :Autoformat<cr>
+map <leader>b :norm gg=G``<cr>
 let g:which_key_map.b = 'format-file'
 
 map <leader>s /\s\+$<CR>
@@ -173,7 +177,7 @@ let g:which_key_map['.'] = {
 			\ 'p': 'polybar'
 			\ }
 
-colorscheme sonokai
+colorscheme mountaineer-grey
 let g:lightline = {
 			\ 'colorscheme': 'pywal',
 			\ 'mode_map': {

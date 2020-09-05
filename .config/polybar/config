@@ -42,7 +42,7 @@ padding = 0
 module-margin-left = 0
 module-margin-right = 0
 
-font-0 = "Scientifica:weight=regular:size=4;2"
+font-0 = "Scientifica-11.bdf:pixelsize=11:weight=regular:size=4;2"
 font-1 = "Weather Icons:antialias=false:size=6;2"
 font-2 = "Siji:size=8;2"
 font-3 = "Material Design Icons:antialias=false:size=8;2"
@@ -103,18 +103,18 @@ pseudo-transparency = false
 
 [color]
 
-bg = #1e1e1f
-fg = #c6c6c7
-fg-alt = #1e1e1f
+bg = #312322
+fg = #cbc8c7
+fg-alt = #312322
 
 alpha = #00000000
 
-shade1 = #A7AEB0
-shade2 = #B5B5A7
-shade3 = #C3BD9E
-shade4 = #D1C494
+shade1 = #C0C3EF
+shade2 = #BFC9F3
+shade3 = #BFCFF7
+shade4 = #BED5FB
 
-shade-fg = #1e1e1f
+shade-fg = #312322
 
 [module/alsa]
 type = internal/alsa

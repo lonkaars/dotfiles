@@ -1,12 +1,13 @@
 {
 	"changelog": {
-		"currentversion": "1.7.4"
+		"currentversion": "1.7.5"
 	},
 	"dmCategories": {
 		"3516090637537661": {
 			"collapsed": false,
 			"color": null,
 			"dms": [
+				"703197442098855997",
 				"642833698315698232",
 				"456428001463369729",
 				"390601823523962892",

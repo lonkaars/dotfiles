@@ -9,12 +9,12 @@ gaps outer $outer_gaps
 
 # border color
 # pywal-start
-client.focused #d1c494 #1e1e1f #c6c6c7 #d1c494 #87826F
-client.focused_inactive #676768 #565657 #c6c6c7 #242425 #1e1e1f
-client.unfocused #1e1e1f #181819 #9E9EA0 #1e1e1f #181819
-client.urgent #1e1e1f #e95678 #c6c6c7 #e95678 #e95678
-client.placeholder #000000 #0c0c0c #c6c6c7 #000000 #0c0c0c
-client.background #c6c6c7
+client.focused #bed5fb #312322 #cbc8c7 #bed5fb #888B9A
+client.focused_inactive #786C6B #645a59 #cbc8c7 #3B2A29 #312322
+client.unfocused #312322 #271C1B #A49F9D #312322 #271C1B
+client.urgent #312322 #e95678 #cbc8c7 #e95678 #e95678
+client.placeholder #000000 #0c0c0c #cbc8c7 #000000 #0c0c0c
+client.background #cbc8c7
 
 # pywal-end
 
@@ -24,7 +24,6 @@ font pango:Fira Code 9
 # no idea what these do but they were in here by default
 exec --no-startup-id xss-lock --transfer-sleep-lock -- i3lock --nofork
 exec --no-startup-id nm-applet
-exec --no-startup-id xset r rate 250 40
 set $refresh_i3status killall -SIGUSR1 i3status
 
 # Voulme keybinds
@@ -71,6 +70,8 @@ exec "node ~/.local/share/bin/pywal/wall.js &"
 exec "picom --experimental-backends -b"
 exec "node ~/.local/share/bin/pester/index.js &"
 exec "flameshot &"
+exec --no-startup-id "xset r rate 250 40"
+exec --no-startup-id "autocutsel &"
 
 # change focus
 bindsym $mod+h focus left
