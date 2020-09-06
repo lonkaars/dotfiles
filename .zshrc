@@ -3,7 +3,7 @@ XDG_CONFIG_HOME="$HOME"/.config
 XDG_CACHE_HOME="$HOME"/.cache
 XDG_DATA_HOME="$HOME"/.local/share
 
-ZSH_THEME="agnoster"
+ZSH_THEME="norm"
 
 export ZSH="$HOME/.local/share/oh-my-zsh"
 export ADOTDIR="$XDG_CONFIG_HOME"/antigen
@@ -11,7 +11,6 @@ export ADOTDIR="$XDG_CONFIG_HOME"/antigen
 source ~/.config/antigen.zsh
 antigen use oh-my-zsh
 antigen bundle git
-antigen theme agnoster
 antigen bundle arzzen/calc.plugin.zsh
 antigen bundle zsh-users/zsh-autosuggestions
 antigen bundle zsh-users/zsh-syntax-highlighting
