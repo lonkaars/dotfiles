@@ -103,18 +103,18 @@ pseudo-transparency = false
 
 [color]
 
-bg = #312322
-fg = #cbc8c7
-fg-alt = #312322
+bg = #191b1c
+fg = #c5c6c6
+fg-alt = #191b1c
 
 alpha = #00000000
 
-shade1 = #C0C3EF
-shade2 = #BFC9F3
-shade3 = #BFCFF7
-shade4 = #BED5FB
+shade1 = #74919D
+shade2 = #819FAA
+shade3 = #8EACB7
+shade4 = #9CBAC4
 
-shade-fg = #312322
+shade-fg = #191b1c
 
 [module/alsa]
 type = internal/alsa

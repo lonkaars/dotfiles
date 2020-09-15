@@ -3,7 +3,7 @@
 *.termname: st-256color
 *.shell: /bin/sh
 
-*.tabspaces: 4
+*.tabspaces: 12
 *.borderpx: 0
 
 Xcursor.theme: OpenZone_Black_Slim

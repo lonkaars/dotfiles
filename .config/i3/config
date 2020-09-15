@@ -9,12 +9,12 @@ gaps outer $outer_gaps
 
 # border color
 # pywal-start
-client.focused #bed5fb #312322 #cbc8c7 #bed5fb #888B9A
-client.focused_inactive #786C6B #645a59 #cbc8c7 #3B2A29 #312322
-client.unfocused #312322 #271C1B #A49F9D #312322 #271C1B
-client.urgent #312322 #e95678 #cbc8c7 #e95678 #e95678
-client.placeholder #000000 #0c0c0c #cbc8c7 #000000 #0c0c0c
-client.background #cbc8c7
+client.focused #9cbac4 #191b1c #c5c6c6 #9cbac4 #707D81
+client.focused_inactive #626565 #525454 #c5c6c6 #1E2022 #191b1c
+client.unfocused #191b1c #141616 #9D9F9F #191b1c #141616
+client.urgent #191b1c #e95678 #c5c6c6 #e95678 #e95678
+client.placeholder #000000 #0c0c0c #c5c6c6 #000000 #0c0c0c
+client.background #c5c6c6
 
 # pywal-end
 
@@ -36,7 +36,7 @@ floating_modifier $mod
 bindsym $mod+q kill
 
 # Replace window decorations with a border
-for_window [class=".*"] border pixel 1
+for_window [class=".*"] border pixel 2
 
 # Keybinds
 bindsym $mod+Escape exec "dm-tool lock" 
