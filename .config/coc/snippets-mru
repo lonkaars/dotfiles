@@ -1,6 +1,8 @@
-lambda
-__main__
+newhtml
 beg
+while
+__main__
+lambda
 set
 for
 forof
@@ -9,7 +11,6 @@ def
 foreach
 if
 newdocument
-newhtml
 try/except/else
 try/except
 \begin

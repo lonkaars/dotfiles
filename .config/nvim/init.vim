@@ -11,7 +11,6 @@ set noshowmode
 set ignorecase
 set smartcase
 set timeoutlen=500
-set conceallevel=0
 set mouse=a
 set linebreak " set wrap but don't wrap inside words
 set viminfo+='1000,n/home/loek/.local/nvim/viminfo
@@ -177,7 +176,7 @@ let g:which_key_map['.'] = {
 			\ 'p': 'polybar'
 			\ }
 
-colorscheme mountaineer-grey
+colorscheme mountaineer
 let g:lightline = {
 			\ 'colorscheme': 'pywal',
 			\ 'mode_map': {
@@ -204,6 +203,24 @@ let g:lightline = {
 			\ },
 			\ }
 source $HOME/.config/nvim/pywal/pywal.vim
+hi GitGutterAdd guibg=#000
+hi GitGutterChange guibg=#000
+hi GitGutterDelete guibg=#000
+hi GitGutterAddIntraLine guibg=#000
+hi GitGutterAddInvisible guibg=#000
+hi GitGutterChangeDelete guibg=#000
+hi GitGutterChangeInvisible guibg=#000
+hi GitGutterDeleteIntraLine guibg=#000
+hi GitGutterDeleteInvisible guibg=#000
+hi CocErrorSign guibg=#000
+hi CocGitAddedSign guibg=#000
+hi CocGitChangeRemovedSign guibg=#000
+hi CocGitChangedSign guibg=#000
+hi CocGitRemovedSign guibg=#000
+hi CocGitTopRemovedSign guibg=#000
+hi CocHintSign guibg=#000
+hi CocInfoSign guibg=#000
+hi CocWarningSign guibg=#000
 
 " vimtex config
 let g:tex_flavor = 'latex'

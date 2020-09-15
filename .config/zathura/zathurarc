@@ -9,8 +9,8 @@ set selection-clipboard clipboard
 map <C-i> recolor
 set recolor "true"
 
-set default-bg rgba(49,35,34,0.92)
-set recolor-lightcolor rgba(203,200,199,0)
+set default-bg rgba(25,27,28,0.92)
+set recolor-lightcolor rgba(197,198,198,0)
 
 set recolor-reverse-video "true"
 set recolor-keephue "true"

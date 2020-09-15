@@ -9,7 +9,7 @@ var PinDMs = (_ => {
 	return class PinDMs {
 		getName () {return "PinDMs";}
 
-		getVersion () {return "1.7.5";}
+		getVersion () {return "1.7.6";}
 
 		getAuthor () {return "DevilBro";}
 
@@ -17,7 +17,7 @@ var PinDMs = (_ => {
 
 		constructor () {
 			this.changelog = {
-				"fixed":[["All pinned","No longer acts weird if all DMs are pinned in a category"]]
+				"fixed":[["Sort By Recent","Now properly updates order when a new messages was sent/received"]]
 			};
 			
 			this.patchedModules = {
@@ -110,8 +110,9 @@ var PinDMs = (_ => {
 			};
 		}
 
-		getSettingsPanel () {
+		getSettingsPanel (collapseStates = {}) {
 			if (!window.BDFDB || typeof BDFDB != "object" || !BDFDB.loaded || !this.started) return;
+			settings = BDFDB.DataUtils.get(this, "settings");
 			let settingsPanel, settingsItems = [], innerItems = [];
 			
 			for (let key in settings) (!this.defaults.settings[key].inner ? settingsItems : innerItems).push(BDFDB.ReactUtils.createElement(BDFDB.LibraryComponents.SettingsSaveItem, {
@@ -780,7 +781,7 @@ var PinDMs = (_ => {
 		
 		sortDMsByTime (dms, type) {
 			if (dms.length > 1 && settings[type == "dmCategories" ? "sortInRecentOrder" : "sortInRecentOrderGuild"]) {
-				let timestamps = BDFDB.LibraryModules.DirectMessageStore.getPrivateChannelIds().map(BDFDB.LibraryModules.ChannelStore.getChannel).reduce((newObj, channel) => (newObj[channel.id] = channel.lastActiveTimestamp, newObj), {});
+				let timestamps = BDFDB.LibraryModules.DirectMessageStore.getPrivateChannelIds().reduce((newObj, channelId) => (newObj[channelId] = BDFDB.LibraryModules.UnreadChannelUtils.lastMessageId(channelId), newObj), {});
 				return [].concat(dms).sort(function (x, y) {return timestamps[x] > timestamps[y] ? -1 : timestamps[x] < timestamps[y] ? 1 : 0;});
 			}
 			else return dms;
