@@ -9,12 +9,12 @@ gaps outer $outer_gaps
 
 # border color
 # pywal-start
-client.focused #9cbac4 #191b1c #c5c6c6 #9cbac4 #707D81
-client.focused_inactive #626565 #525454 #c5c6c6 #1E2022 #191b1c
-client.unfocused #191b1c #141616 #9D9F9F #191b1c #141616
-client.urgent #191b1c #e95678 #c5c6c6 #e95678 #e95678
-client.placeholder #000000 #0c0c0c #c5c6c6 #000000 #0c0c0c
-client.background #c5c6c6
+client.focused #b3a18c #191a19 #c5c5c5 #b3a18c #797269
+client.focused_inactive #626462 #525352 #c5c5c5 #1E1F1E #191a19
+client.unfocused #191a19 #141514 #9E9E9E #191a19 #141514
+client.urgent #191a19 #e95678 #c5c5c5 #e95678 #e95678
+client.placeholder #000000 #0c0c0c #c5c5c5 #000000 #0c0c0c
+client.background #c5c5c5
 
 # pywal-end
 
@@ -43,7 +43,7 @@ bindsym $mod+Escape exec "dm-tool lock"
 bindsym $mod+space exec "rofi -show drun -show-icons"
 bindsym $mod+Return exec st
 bindsym $mod+p exec bwmenu
-bindsym Print exec "flameshot gui"
+bindsym Print exec "maim -sb 4 -c 255,255,255 | xclip -selection clipboard -t image/png"
 
 bindsym XF86AudioPlay exec "playerctl play-pause"
 bindsym XF86AudioNext exec "playerctl next"

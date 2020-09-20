@@ -1,22 +1,22 @@
-*.color0: #191b1c
-*.color1: #4C626B
-*.color2: #536569
-*.color3: #576E76
-*.color4: #74919D
-*.color5: #84A6B4
-*.color6: #9CBAC4
-*.color7: #C5C6C6
-*.color8: #525454
-*.color9: #4C626B
-*.color10: #536569
-*.color11: #576E76
-*.color12: #74919D
-*.color13: #84A6B4
-*.color14: #9CBAC4
-*.color15: #C5C6C6
-*.foreground: #c5c6c6
-*.background: #191b1c
-*.cursorColor: #c5c6c6
+*.color0: #191a19
+*.color1: #61543E
+*.color2: #565D34
+*.color3: #536063
+*.color4: #6B6543
+*.color5: #7C807E
+*.color6: #B3A18C
+*.color7: #C5C5C5
+*.color8: #525352
+*.color9: #61543E
+*.color10: #565D34
+*.color11: #536063
+*.color12: #6B6543
+*.color13: #7C807E
+*.color14: #B3A18C
+*.color15: #C5C5C5
+*.foreground: #c5c5c5
+*.background: #191a19
+*.cursorColor: #c5c5c5
 
 *.font: JetBrainsMono NF:style=Medium,Regular:size=10
 
@@ -24,6 +24,6 @@
 *.shell: /bin/sh
 
 *.tabspaces: 4
-*.borderpx: 12
+*.borderpx: 16
 
-Xcursor.theme: OpenZone_Black_Slim
+Xcursor.theme: OpenZone_Black

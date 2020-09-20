@@ -9,8 +9,8 @@
         "colors": {
             "bookmark_text": [
                 197,
-                198,
-                198
+                197,
+                197
             ],
             "frame": [
                 255,
@@ -20,42 +20,42 @@
             "ntp_background": [
                 25,
                 26,
-                27
+                25
             ],
             "ntp_text": [
                 25,
                 26,
-                27
+                25
             ],
             "tab_background_text": [
                 137,
-                139,
-                139
+                137,
+                137
             ],
             "tab_background_text_inactive": [
                 137,
-                139,
-                139
+                137,
+                137
             ],
             "tab_background_text_incognito": [
                 137,
-                139,
-                139
+                137,
+                137
             ],
             "tab_background_text_incognito_inactive": [
                 137,
-                139,
-                139
+                137,
+                137
             ],
             "tab_text": [
                 197,
-                198,
-                198
+                197,
+                197
             ],
             "toolbar": [
                 32,
-                35,
-                36
+                33,
+                32
             ],
             "button_background": [
                 255,
@@ -65,9 +65,9 @@
         },
         "tints": {
             "buttons": [
-                0.5416666666666666,
-                20.40816326530612,
-                76.86274509803923
+                0.08974358974358962,
+                21.78770949720669,
+                70.19607843137254
             ],
             "frame_inactive": [
                 -1,

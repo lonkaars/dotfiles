@@ -66,15 +66,12 @@ source <(echo "$(navi widget zsh)")
 
 # aliases
 alias chrome="chromium"
-alias l="live-server"
-alias r='ranger --choosedir=$HOME/.cache/rangerdir; LASTDIR=`cat $HOME/.cache/rangerdir`; cd "$LASTDIR"'
 alias wacom="xsetwacom set $(xsetwacom list devices | grep stylus | grep -oP --color=never "(?<=id\:\s)([0-9]*)") area 0 0 15200 4275"
 alias reload="sudo systemctl restart lightdm"
 alias rwall="node ~/.local/share/bin/pywal/wall.js"
 alias cls="clear"
 alias lowerpolybar="xdo lower -n Polybar -n tray && xdo lower -N Polybar"
 alias timesync="sudo ntpd -qg && sudo hwclock --systohc"
-alias v="nvim"
 alias vim="nvim"
 alias copy="xclip -selection c"
 alias sctl="systemctl"
@@ -86,6 +83,10 @@ alias adda="git add -A"
 alias first="git commit -m \"first commit\""
 alias les="less"
 alias scdl="scdl --onlymp3 -l"
+alias r="ranger"
+alias v="nvim"
+alias l="live-server"
+alias m="make"
 
 # cursors
 alias cursorbl="printf '\033[1 q'"

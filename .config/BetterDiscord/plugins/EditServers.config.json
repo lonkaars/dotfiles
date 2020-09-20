@@ -1,6 +1,6 @@
 {
 	"changelog": {
-		"currentversion": "2.2.2"
+		"currentversion": "2.2.3"
 	},
 	"servers": {
 		"624859996949315584": {
@@ -53,6 +53,7 @@
 	"settings": {
 		"addOriginalTooltip": true,
 		"changeInGuildHeader": true,
+		"changeInGuildInvites": true,
 		"changeInGuildList": true,
 		"changeInMutualGuilds": true,
 		"changeInQuickSwitcher": true,

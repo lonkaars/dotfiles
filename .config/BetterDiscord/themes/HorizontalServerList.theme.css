@@ -1,0 +1,17 @@
+/**
+ * @name Horizontal Server List
+ * @author Gibbu#1211
+ * @version 1.0.0
+ * @description Server list on bottom
+ * @source https://github.com/Gibbu/BetterDiscord-Themes/tree/master/HorizontalServerlist
+ * @website https://www.gibbu.me
+*/
+
+@import url('https://gibbu.github.io/BetterDiscord-Themes/HorizontalServerlist/base.css');
+/* @import url("https://gibbu.github.io/BetterDiscord-Themes/addons/bottomhsl.css"); */
+
+:root {
+  --HSL-server-icon-size: 48px;
+  --HSL-server-spacing: 16px;
+}
+
