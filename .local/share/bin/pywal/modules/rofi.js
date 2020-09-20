@@ -5,7 +5,7 @@ var color = require('color');
 module.exports = colors => {
 	var shade = color(colors.special.background).mix(color(colors.colors.color1), 0.2)
 	fs.writeFileSync(path.join(process.env.HOME, '/.config/rofi/pywal.rasi'), `* {
-	background-color: ${colors.special.background}33;
+	background-color: ${colors.special.background};
 	text-color: ${colors.special.foreground};
 	spacing: 0;
 	width: 720px;
