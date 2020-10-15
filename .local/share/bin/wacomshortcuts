@@ -1,0 +1,12 @@
+#!/bin/sh
+
+# tablet buttons
+xsetwacom set "Wacom Intuos PT S 2 Pad pad" Button 3 "key +super +alt +ctrl 1 -super -alt -ctrl"
+xsetwacom set "Wacom Intuos PT S 2 Pad pad" Button 1 "key +super +alt +ctrl 2 -super -alt -ctrl"
+xsetwacom set "Wacom Intuos PT S 2 Pad pad" Button 9 "key +super +alt +ctrl 3 -super -alt -ctrl"
+xsetwacom set "Wacom Intuos PT S 2 Pad pad" Button 8 "key +super +alt +ctrl 4 -super -alt -ctrl"
+
+# pen buttons
+setwacom Button 2 pan
+setwacom PanScrollThreshold 200
+
