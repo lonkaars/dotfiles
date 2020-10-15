@@ -1,6 +1,6 @@
 * {
-	background-color: #191a19;
-	text-color: #c5c5c5;
+	background-color: #050505;
+	text-color: #f0f0f0;
 	spacing: 0;
 	width: 720px;
 }
@@ -15,8 +15,8 @@ prompt {
 }
 
 textbox {
-	background-color: #191a19;
-	border-color: #191a19;
+	background-color: #050505;
+	border-color: #050505;
 	padding: 8px 16px;
 }
 
@@ -35,6 +35,6 @@ element {
 }
 
 element selected {
-	background-color: #b3a18c;
-	text-color: #191a19;
+	background-color: #ac8a8c;
+	text-color: #050505;
 }

@@ -1,4 +1,7 @@
 {
+	"changeLog": {
+		"version": "4.1.7"
+	},
 	"changelog": {
 		"currentversion": "4.1.5"
 	},

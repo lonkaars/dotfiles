@@ -5,8 +5,13 @@ module.exports = (_ => {
 		"info": {
 			"name": "EditServers",
 			"author": "DevilBro",
-			"version": "2.2.3",
+			"version": "2.2.4",
 			"description": "Allows you to change the icon, name and color of servers."
+		},
+		"changeLog": {
+			"fixed": {
+				"Server Invites": "No longer breaks server invites of non-joined servers"
+			}
 		}
 	};
     return !window.BDFDB_Global || (!window.BDFDB_Global.loaded && !window.BDFDB_Global.started) ? class {
@@ -23,7 +28,13 @@ module.exports = (_ => {
 					confirmText: "Download Now",
 					cancelText: "Cancel",
 					onCancel: _ => {delete window.BDFDB_Global.downloadModal;},
-					onConfirm: _ => {delete window.BDFDB_Global.downloadModal;require("request").get("https://mwittrien.github.io/BetterDiscordAddons/Library/0BDFDB.plugin.js", (error, response, body) => {require("fs").writeFile(require("path").join(BdApi.Plugins.folder, "0BDFDB.plugin.js"), body, _ => {});});}
+					onConfirm: _ => {
+						delete window.BDFDB_Global.downloadModal;
+						require("request").get("https://mwittrien.github.io/BetterDiscordAddons/Library/0BDFDB.plugin.js", (e, r, b) => {
+							if (!e && b && b.indexOf(`//META{"name":"`) > -1) require("fs").writeFile(require("path").join(BdApi.Plugins.folder, "0BDFDB.plugin.js"), b, _ => {});
+							else BdApi.alert("Error", "Could not download BDFDB library plugin, try again some time later.");
+						});
+					}
 				});
 			}
 			if (!window.BDFDB_Global.pluginQueue.includes(config.info.name)) window.BDFDB_Global.pluginQueue.push(config.info.name);
@@ -187,7 +198,7 @@ module.exports = (_ => {
 			}
 
 			processGuild (e) {
-				if (BDFDB.GuildUtils.is(e.instance.props.guild) && settings.changeInGuildList) {
+				if (BDFDB.GuildUtils.is(e.instance.props.guild) && e.instance.props.guild.joinedAt && settings.changeInGuildList) {
 					e.instance.props.guild = this.getGuildData(e.instance.props.guild.id);
 					if (e.returnvalue) {
 						let data = changedGuilds[e.instance.props.guild.id];
@@ -252,7 +263,7 @@ module.exports = (_ => {
 			}
 			
 			processGuildIconWrapper (e) {
-				if (BDFDB.GuildUtils.is(e.instance.props.guild)) {
+				if (BDFDB.GuildUtils.is(e.instance.props.guild) && e.instance.props.guild.joinedAt) {
 					if (e.instance.props.className && e.instance.props.className.indexOf(BDFDB.disCN.guildfolderguildicon) > -1) e.instance.props.guild = this.getGuildData(e.instance.props.guild.id, settings.changeInGuildList);
 					else if (e.instance.props.className && e.instance.props.className.indexOf(BDFDB.disCN.listavatar) > -1) e.instance.props.guild = this.getGuildData(e.instance.props.guild.id, settings.changeInMutualGuilds);
 					else e.instance.props.guild = this.getGuildData(e.instance.props.guild.id);
@@ -260,7 +271,7 @@ module.exports = (_ => {
 			}
 			
 			processGuildIcon (e) {
-				if (BDFDB.GuildUtils.is(e.instance.props.guild) && e.instance.props.style && (!e.instance.props.style.backgroundImage || e.instance.props.style.backgroundImage == "none")) {
+				if (BDFDB.GuildUtils.is(e.instance.props.guild) && e.instance.props.guild.joinedAt && e.instance.props.style && (!e.instance.props.style.backgroundImage || e.instance.props.style.backgroundImage == "none")) {
 					let data = changedGuilds[e.instance.props.guild.id];
 					if (data) {
 						if (e.instance.props.className && e.instance.props.className.indexOf(BDFDB.disCN.guildfolderguildicon) > -1) this.changeGuildIcon(e, data, settings.changeInGuildList);
@@ -324,7 +335,7 @@ module.exports = (_ => {
 			}
 			
 			processInviteGuildName (e) {
-				if (e.instance.props.guild && settings.changeInGuildInvites) {
+				if (e.instance.props.guild && e.instance.props.guild.joinedAt && settings.changeInGuildInvites) {
 					e.instance.props.guild = this.getGuildData(e.instance.props.guild.id);
 				}
 			}

@@ -5,7 +5,7 @@ module.exports = (_ => {
 		"info": {
 			"name": "QuickMention",
 			"author": "DevilBro",
-			"version": "1.0.1",
+			"version": "1.0.2",
 			"description": "Adds a mention entry to the message option toolbar."
 		}
 	};
@@ -23,7 +23,13 @@ module.exports = (_ => {
 					confirmText: "Download Now",
 					cancelText: "Cancel",
 					onCancel: _ => {delete window.BDFDB_Global.downloadModal;},
-					onConfirm: _ => {delete window.BDFDB_Global.downloadModal;require("request").get("https://mwittrien.github.io/BetterDiscordAddons/Library/0BDFDB.plugin.js", (error, response, body) => {require("fs").writeFile(require("path").join(BdApi.Plugins.folder, "0BDFDB.plugin.js"), body, _ => {});});}
+					onConfirm: _ => {
+						delete window.BDFDB_Global.downloadModal;
+						require("request").get("https://mwittrien.github.io/BetterDiscordAddons/Library/0BDFDB.plugin.js", (e, r, b) => {
+							if (!e && b && b.indexOf(`//META{"name":"`) > -1) require("fs").writeFile(require("path").join(BdApi.Plugins.folder, "0BDFDB.plugin.js"), b, _ => {});
+							else BdApi.alert("Error", "Could not download BDFDB library plugin, try again some time later.");
+						});
+					}
 				});
 			}
 			if (!window.BDFDB_Global.pluginQueue.includes(config.info.name)) window.BDFDB_Global.pluginQueue.push(config.info.name);
@@ -39,7 +45,7 @@ module.exports = (_ => {
 			onStop() {}
 		
 			onMessageOptionToolbar (e) {
-				if (e.instance.props.message.author.id != BDFDB.UserUtils.me.id && e.instance.props.message.type == BDFDB.DiscordConstants.MessageTypes.DEFAULT && (BDFDB.UserUtils.can("SEND_MESSAGES") || e.instance.props.channel.type == BDFDB.DiscordConstants.ChannelTypes.DM || e.instance.props.channel.type == BDFDB.DiscordConstants.ChannelTypes.GROUP_DM)) e.returnvalue.props.children.unshift(BDFDB.ReactUtils.createElement(BDFDB.LibraryComponents.TooltipContainer, {
+				if (!e.instance.props.expanded && e.instance.props.message.author.id != BDFDB.UserUtils.me.id && (BDFDB.UserUtils.can("SEND_MESSAGES") || e.instance.props.channel.type == BDFDB.DiscordConstants.ChannelTypes.DM || e.instance.props.channel.type == BDFDB.DiscordConstants.ChannelTypes.GROUP_DM)) e.returnvalue.props.children.unshift(BDFDB.ReactUtils.createElement(BDFDB.LibraryComponents.TooltipContainer, {
 					key: "mention",
 					text: BDFDB.LanguageUtils.LanguageStrings.MENTION,
 					children: BDFDB.ReactUtils.createElement(BDFDB.LibraryComponents.Clickable, {
@@ -50,8 +56,7 @@ module.exports = (_ => {
 							});
 						},
 						children: BDFDB.ReactUtils.createElement(BDFDB.LibraryComponents.SvgIcon, {
-							className: BDFDB.disCNS.messagetoolbaricon,
-							nativeClass: true,
+							className: BDFDB.disCN.messagetoolbaricon,
 							name: BDFDB.LibraryComponents.SvgIcon.Names.NOVA_AT
 						})
 					})

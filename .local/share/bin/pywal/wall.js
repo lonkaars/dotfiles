@@ -1,7 +1,7 @@
 var fs = require('fs');
 var path = require('path');
-var jswal = require(__dirname + '/jswal.js');
 var args = process.argv;
+var exec = require('child_process').execSync;
 
 var dir = Math.random() >= 0.9 ? 1 : 0;
 
@@ -18,4 +18,5 @@ var args = ['--bg-fill', walls[0]];
 if (walls.length == 1) args.push('--no-xinerama');
 if (walls.length == 2) args.push('--bg-fill', walls[1]);
 
-jswal(args);
+// jswal(args);
+exec(`feh --no-fehbg ${args.join(' ')}`)

@@ -29,6 +29,7 @@ export RESTIC_REPOSITORY=/mnt/g
 # environment variables
 export EDITOR='nvim'
 export FZF_DEFAULT_COMMAND='find .'
+export FZF_DEFAULT_OPTS="--color=16"
 export XCURSOR_PATH=${XCURSOR_PATH}:~/.local/share/icons
 export GOPATH=$HOME/.local/go
 export ETESYNC_URL="https://superesc:9443"
@@ -45,24 +46,8 @@ export NODE_EXTRA_CA_CERTS=/usr/share/ca-certificates/bitwarden.crt
 # NVM
 source /usr/share/nvm/init-nvm.sh
 
-# mkcd
-function mkcd {
-	mkdir "$1" && cd "$1"
-}
-
-# clone
-function clone {
-	git clone https://github.com/$1 && cd "${1#*/}"
-}
-
-# gitignore
-function gi() { curl -sL https://www.toptal.com/developers/gitignore/api/$@ ;}
-
 # ueberzug
 source "`ueberzug library`"
-
-# navi // cheatsheets
-source <(echo "$(navi widget zsh)")
 
 # aliases
 alias chrome="chromium"
@@ -83,10 +68,13 @@ alias adda="git add -A"
 alias first="git commit -m \"first commit\""
 alias les="less"
 alias scdl="scdl --onlymp3 -l"
+function b64d { echo $1 | base64 -d }
 alias r="ranger"
 alias v="nvim"
 alias l="live-server"
 alias m="make"
+alias y="yay"
+alias n="ncmpcpp"
 
 # cursors
 alias cursorbl="printf '\033[1 q'"

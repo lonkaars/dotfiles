@@ -1,9 +1,0 @@
-*.font: JetBrainsMono NF:style=Medium,Regular:size=10
-
-*.termname: st-256color
-*.shell: /bin/sh
-
-*.tabspaces: 4
-*.borderpx: 16
-
-Xcursor.theme: OpenZone_Black

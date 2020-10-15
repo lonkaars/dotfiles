@@ -112,25 +112,21 @@
 	margin: 0px !important;
 }
 
-body {
-	background: var(--pywal-transparent50) !important;
-}
-
 .da-privateChannelsHeaderContainer .da-numberBadge.da-base {
-	background-color: var(--pywal-color6) !important;
-	color: var(--pywal-readableOn-color6) !important;
+	background-color: rgb(var(--accent)) !important;
+	color: var(--pywal-bg0) !important;
 }
 
 .da-circleIcon,
 .da-circleIconButton {
-	color: var(--pywal-readable-color6) !important;
+	color: rgb(var(--accent)) !important;
 }
 
 section.da-container > .da-children > .da-tabBar > .da-item:not(.da-themed),
 .bd-guild .da-item,
 .da-tutorialContainer .da-pill .da-item {
-	background-color: var(--pywal-readable-color6) !important;
-	color: var(--pywal-readableOn-color6) !important;
+	background-color: rgb(var(--accent)) !important;
+	color: var(--pywal-bg0) !important;
 }
 
 .da-actionButton {
