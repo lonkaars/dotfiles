@@ -1,10 +1,27 @@
-@import url(file:///home/loek/.config/startpage/pywal.css);
+:root {
+	--color0: #050505;
+	--color1: #AC8A8C;
+	--color2: #8AAC8B;
+	--color3: #ACA98A;
+	--color4: #8F8AAC;
+	--color5: #AC8AAC;
+	--color6: #8AABAC;
+	--color7: #e7e7e7;
+	--color8: #676767;
+	--color9: #AC8A8C;
+	--color10: #8AAC8B;
+	--color11: #ACA98A;
+	--color12: #8F8AAC;
+	--color13: #AC8AAC;
+	--color14: #8AABAC;
+	--color15: #f0f0f0;
+}
 
 html, body {
 	margin: 0;
 	padding: 0;
-	background: var(--pywal-color0);
-	color: var(--pywal-color15);
+	background: var(--color0);
+	color: var(--color15);
 	font-family: "JetBrainsMono NF";
 }
 
@@ -38,8 +55,7 @@ h1 {
 	position: absolute;
 	top: 0;
 	left: 0;
-	background-color: var(--pywal-color8);
-	opacity: 0.2;
+	background-color: #000;
 	z-index: -2;
 	border-radius: 8px;
 }
@@ -67,7 +83,7 @@ a {
 	font-size: 14px;
 	font-weight: normal;
 	text-decoration: none;
-	color: var(--pywal-color15);
+	color: var(--color15);
 	position: relative;
 	padding: 0;
 	transition: padding .3s;

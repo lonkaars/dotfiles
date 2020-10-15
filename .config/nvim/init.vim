@@ -175,10 +175,14 @@ let g:which_key_map['.'] = {
 			\ 'c': 'picom',
 			\ 'p': 'polybar'
 			\ }
+" cmd maps
+cnoreabbrev W w
+cnoreabbrev sudow w !sudo tee %
 
+" colorscheme thingers
 colorscheme mountaineer
 let g:lightline = {
-			\ 'colorscheme': 'pywal',
+			\ 'colorscheme': 'mountaineer',
 			\ 'mode_map': {
 			\	'n' : 'norm',
 			\	'i' : 'ins',
@@ -208,26 +212,7 @@ let g:lightline = {
 			\	'right': [  ]
 			\ },
 			\ }
-source $HOME/.config/nvim/pywal/pywal.vim
-hi! SignColumn guibg=NONE ctermbg=NONE
-hi GitGutterAdd guibg=NONE
-hi GitGutterChange guibg=NONE
-hi GitGutterDelete guibg=NONE
-hi GitGutterAddIntraLine guibg=NONE
-hi GitGutterAddInvisible guibg=NONE
-hi GitGutterChangeDelete guibg=NONE
-hi GitGutterChangeInvisible guibg=NONE
-hi GitGutterDeleteIntraLine guibg=NONE
-hi GitGutterDeleteInvisible guibg=NONE
-hi CocErrorSign guibg=NONE
-hi CocGitAddedSign guibg=NONE
-hi CocGitChangeRemovedSign guibg=NONE
-hi CocGitChangedSign guibg=NONE
-hi CocGitRemovedSign guibg=NONE
-hi CocGitTopRemovedSign guibg=NONE
-hi CocHintSign guibg=NONE
-hi CocInfoSign guibg=NONE
-hi CocWarningSign guibg=NONE
+source $HOME/.config/nvim/mountaineer-lightline.vim
 
 " vimtex config
 let g:tex_flavor = 'latex'

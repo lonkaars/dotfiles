@@ -1,21 +1,26 @@
 //META{"name":"RemoveNicknames","authorId":"278543574059057154","invite":"Jx3TjNS","donate":"https://www.paypal.me/MircoWittrien","patreon":"https://www.patreon.com/MircoWittrien","website":"https://github.com/mwittrien/BetterDiscordAddons/tree/master/Plugins/RemoveNicknames","source":"https://raw.githubusercontent.com/mwittrien/BetterDiscordAddons/master/Plugins/RemoveNicknames/RemoveNicknames.plugin.js"}*//
 
 module.exports = (_ => {
-    const config = {
+	const config = {
 		"info": {
 			"name": "RemoveNicknames",
 			"author": "DevilBro",
-			"version": "1.3.0",
+			"version": "1.3.2",
 			"description": "Replace all nicknames with the actual accountnames."
+		},
+		"changeLog": {
+			"fixed": {
+				"Mentions": "Now also works for mentions inside quotes"
+			}
 		}
 	};
-    return !window.BDFDB_Global || (!window.BDFDB_Global.loaded && !window.BDFDB_Global.started) ? class {
+	return !window.BDFDB_Global || (!window.BDFDB_Global.loaded && !window.BDFDB_Global.started) ? class {
 		getName () {return config.info.name;}
 		getAuthor () {return config.info.author;}
 		getVersion () {return config.info.version;}
 		getDescription () {return config.info.description;}
 		
-        load() {
+		load() {
 			if (!window.BDFDB_Global || !Array.isArray(window.BDFDB_Global.pluginQueue)) window.BDFDB_Global = Object.assign({}, window.BDFDB_Global, {pluginQueue:[]});
 			if (!window.BDFDB_Global.downloadModal) {
 				window.BDFDB_Global.downloadModal = true;
@@ -23,17 +28,23 @@ module.exports = (_ => {
 					confirmText: "Download Now",
 					cancelText: "Cancel",
 					onCancel: _ => {delete window.BDFDB_Global.downloadModal;},
-					onConfirm: _ => {delete window.BDFDB_Global.downloadModal;require("request").get("https://mwittrien.github.io/BetterDiscordAddons/Library/0BDFDB.plugin.js", (error, response, body) => {require("fs").writeFile(require("path").join(BdApi.Plugins.folder, "0BDFDB.plugin.js"), body, _ => {});});}
+					onConfirm: _ => {
+						delete window.BDFDB_Global.downloadModal;
+						require("request").get("https://mwittrien.github.io/BetterDiscordAddons/Library/0BDFDB.plugin.js", (e, r, b) => {
+							if (!e && b && b.indexOf(`//META{"name":"`) > -1) require("fs").writeFile(require("path").join(BdApi.Plugins.folder, "0BDFDB.plugin.js"), b, _ => {});
+							else BdApi.alert("Error", "Could not download BDFDB library plugin, try again some time later.");
+						});
+					}
 				});
 			}
 			if (!window.BDFDB_Global.pluginQueue.includes(config.info.name)) window.BDFDB_Global.pluginQueue.push(config.info.name);
-        }
-        start() {}
-        stop() {}
-    } : (([Plugin, BDFDB]) => {
+		}
+		start() {this.load();}
+		stop() {}
+	} : (([Plugin, BDFDB]) => {
 		var settings = {};
 	
-        return class RemoveNicknames extends Plugin {
+		return class RemoveNicknames extends Plugin {
 			onLoad() {
 				this.defaults = {
 					settings: {
@@ -59,7 +70,8 @@ module.exports = (_ => {
 						MessageContent: "type",
 					},
 					after: {
-						TypingUsers: "render"
+						TypingUsers: "render",
+						Mention: "default"
 					}
 				};
 			}
@@ -76,7 +88,6 @@ module.exports = (_ => {
 				let settingsPanel, settingsItems = [], innerItems = [];
 				
 				for (let key in settings) (!this.defaults.settings[key].inner ? settingsItems : innerItems).push(BDFDB.ReactUtils.createElement(BDFDB.LibraryComponents.SettingsSaveItem, {
-					className: BDFDB.disCN.marginbottom8,
 					type: "Switch",
 					plugin: this,
 					keys: ["settings", key],
@@ -150,20 +161,19 @@ module.exports = (_ => {
 			}
 			
 			processMessageContent (e) {
-				if (BDFDB.ArrayUtils.is(e.instance.props.content) && settings.changeInMentions) for (let ele of e.instance.props.content) {
-					if (BDFDB.ReactUtils.isValidElement(ele) && ele.type && (ele.type.displayName || "").toLowerCase().indexOf("popout") > -1 && typeof ele.props.render == "function") {
-						if (BDFDB.ObjectUtils.get(ele, "props.children.type.displayName") == "Mention") {
-							let newName = this.getNewName(BDFDB.LibraryModules.UserStore.getUser(ele.props.render().props.userId));
-							if (newName) ele.props.children.props.children[0] = "@" + newName;
-						}
-					}
-				}
 				if (e.instance.props.message.type != BDFDB.DiscordConstants.MessageTypes.DEFAULT && e.instance.props.message.nick && settings.changeInChatWindow) {
 					let newName = this.getNewName(e.instance.props.message.author);
 					if (newName) {
 						e.instance.props.message = new BDFDB.DiscordObjects.Message(Object.assign({}, e.instance.props.message, {nick: newName}));
 						e.instance.props.children.props.message = e.instance.props.message;
 					}
+				}
+			}
+			
+			processMention (e) {
+				if (e.instance.props.userId && settings.changeInMentions) {
+					let newName = this.getNewName(BDFDB.LibraryModules.UserStore.getUser(e.instance.props.userId));
+					if (newName) e.returnvalue.props.children[0] = "@" + newName;
 				}
 			}
 
@@ -175,5 +185,5 @@ module.exports = (_ => {
 				return settings.addNickname ? (settings.swapPositions ? (member.nick + " (" + username + ")") : (username + " (" + member.nick + ")")) : username;
 			}
 		};
-    })(window.BDFDB_Global.PluginUtils.buildPlugin(config));
+	})(window.BDFDB_Global.PluginUtils.buildPlugin(config));
 })();

@@ -1,21 +1,26 @@
 //META{"name":"NotificationSounds","authorId":"278543574059057154","invite":"Jx3TjNS","donate":"https://www.paypal.me/MircoWittrien","patreon":"https://www.patreon.com/MircoWittrien","website":"https://github.com/mwittrien/BetterDiscordAddons/tree/master/Plugins/NotificationSounds","source":"https://raw.githubusercontent.com/mwittrien/BetterDiscordAddons/master/Plugins/NotificationSounds/NotificationSounds.plugin.js"}*//
 
 module.exports = (_ => {
-    const config = {
+	const config = {
 		"info": {
 			"name": "NotificationSounds",
 			"author": "DevilBro",
-			"version": "3.4.9",
+			"version": "3.5.1",
 			"description": "Allows you to replace the native sounds of Discord with your own."
+		},
+		"changeLog": {
+			"added": {
+				"Halloween": "Added discord's halloween call sound to the choices"
+			}
 		}
 	};
-    return !window.BDFDB_Global || (!window.BDFDB_Global.loaded && !window.BDFDB_Global.started) ? class {
+	return !window.BDFDB_Global || (!window.BDFDB_Global.loaded && !window.BDFDB_Global.started) ? class {
 		getName () {return config.info.name;}
 		getAuthor () {return config.info.author;}
 		getVersion () {return config.info.version;}
 		getDescription () {return config.info.description;}
 		
-        load() {
+		load() {
 			if (!window.BDFDB_Global || !Array.isArray(window.BDFDB_Global.pluginQueue)) window.BDFDB_Global = Object.assign({}, window.BDFDB_Global, {pluginQueue:[]});
 			if (!window.BDFDB_Global.downloadModal) {
 				window.BDFDB_Global.downloadModal = true;
@@ -23,61 +28,70 @@ module.exports = (_ => {
 					confirmText: "Download Now",
 					cancelText: "Cancel",
 					onCancel: _ => {delete window.BDFDB_Global.downloadModal;},
-					onConfirm: _ => {delete window.BDFDB_Global.downloadModal;require("request").get("https://mwittrien.github.io/BetterDiscordAddons/Library/0BDFDB.plugin.js", (error, response, body) => {require("fs").writeFile(require("path").join(BdApi.Plugins.folder, "0BDFDB.plugin.js"), body, _ => {});});}
+					onConfirm: _ => {
+						delete window.BDFDB_Global.downloadModal;
+						require("request").get("https://mwittrien.github.io/BetterDiscordAddons/Library/0BDFDB.plugin.js", (e, r, b) => {
+							if (!e && b && b.indexOf(`//META{"name":"`) > -1) require("fs").writeFile(require("path").join(BdApi.Plugins.folder, "0BDFDB.plugin.js"), b, _ => {});
+							else BdApi.alert("Error", "Could not download BDFDB library plugin, try again some time later.");
+						});
+					}
 				});
 			}
 			if (!window.BDFDB_Global.pluginQueue.includes(config.info.name)) window.BDFDB_Global.pluginQueue.push(config.info.name);
-        }
-        start() {}
-        stop() {}
-    } : (([Plugin, BDFDB]) => {
-		var audios, choices, firedEvents, repatchIncoming, callAudio;
-		const removeAllKey = "REMOVE_ALL_BDFDB_DEVILBRO_DO_NOT_COPY";
-				
-		const settingsAudio = new Audio();
+		}
+		start() {this.load();}
+		stop() {}
+	} : (([Plugin, BDFDB]) => {
+		var audios, choices, firedEvents;
 		
-		/* NEVER CHANGE THE SRC LINKS IN THE PLUGIN FILE, TO ADD NEW SONGS ADD THEM IN THE SETTINGS GUI IN THE PLUGINS PAGE */
+		const removeAllKey = "REMOVE_ALL_BDFDB_DEVILBRO_DO_NOT_COPY";
+		const defaultDevice = "default";
+		
+		var currentDevice = defaultDevice, createdAudios = {}, repatchIncoming;
+		
+		/* NEVER CHANGE THE SRC LINKS IN THE PLUGIN FILE, TO ADD NEW SOUNDS ADD THEM IN THE SETTINGS GUI IN THE PLUGINS PAGE */
 		const types = {
-			"message1":				{implemented:true,	name:"New Chatmessage",			src:"/assets/dd920c06a01e5bb8b09678581e29d56f.mp3",	mute:true,	focus:null,	include:true},
-			"dm":					{implemented:true,	name:"Direct Message",			src:"/assets/84c9fa3d07da865278bd77c97d952db4.mp3",	mute:true,	focus:true,	include:false},
-			"mentioned":			{implemented:true,	name:"Mentioned",				src:"/assets/a5f42064e8120e381528b14fd3188b72.mp3",	mute:true,	focus:true,	include:false},
-			"role":					{implemented:true,	name:"Mentioned (role)",		src:"/assets/a5f42064e8120e381528b14fd3188b72.mp3",	mute:true,	focus:true,	include:false},
-			"everyone":				{implemented:true,	name:"Mentioned (@everyone)",	src:"/assets/a5f42064e8120e381528b14fd3188b72.mp3",	mute:true,	focus:true,	include:false},
-			"here":					{implemented:true,	name:"Mentioned (@here)",		src:"/assets/a5f42064e8120e381528b14fd3188b72.mp3",	mute:true,	focus:true,	include:false},
-			"deafen":				{implemented:true,	name:"Voicechat Deafen",		src:"/assets/e4d539271704b87764dc465b1a061abd.mp3",	mute:false,	focus:null,	include:true},
-			"mute":					{implemented:true,	name:"Voicechat Mute",			src:"/assets/429d09ee3b86e81a75b5e06d3fb482be.mp3",	mute:false,	focus:null,	include:true},
-			"disconnect":			{implemented:true,	name:"Voicechat Disconnect",	src:"/assets/7e125dc075ec6e5ae796e4c3ab83abb3.mp3",	mute:false,	focus:null,	include:true},
-			"undeafen":				{implemented:true,	name:"Voicechat Undeafen",		src:"/assets/5a000a0d4dff083d12a1d4fc2c7cbf66.mp3",	mute:false,	focus:null,	include:true},
-			"unmute":				{implemented:true,	name:"Voicechat Unmute",		src:"/assets/43805b9dd757ac4f6b9b58c1a8ee5f0d.mp3",	mute:false,	focus:null,	include:true},
-			"user_join":			{implemented:true,	name:"Voicechat User Joined",	src:"/assets/5dd43c946894005258d85770f0d10cff.mp3",	mute:false,	focus:null,	include:true},
-			"user_leave":			{implemented:true,	name:"Voicechat User Left",		src:"/assets/4fcfeb2cba26459c4750e60f626cebdc.mp3",	mute:false,	focus:null,	include:true},
-			"user_moved":			{implemented:true,	name:"Voicechat User Moved",	src:"/assets/e81d11590762728c1b811eadfa5be766.mp3",	mute:false,	focus:null,	include:true},
-			"reconnect":			{implemented:false,	name:"Voicechat Reconnect",		src:"/assets/471cfd0005b112ff857705e894bf41a6.mp3",	mute:true,	focus:null,	include:true},
-			"ptt_start":			{implemented:true,	name:"Push2Talk Start",			src:"/assets/8b63833c8d252fedba6b9c4f2517c705.mp3",	mute:false,	focus:null,	include:true},
-			"ptt_stop":				{implemented:true,	name:"Push2Talk Stop",			src:"/assets/74ab980d6890a0fa6aa0336182f9f620.mp3",	mute:false,	focus:null,	include:true},
-			"call_calling":			{implemented:true,	name:"Outgoing Call",			src:"/assets/c6e92752668dde4eee5923d70441579f.mp3",	mute:false,	focus:null,	include:true},
-			"call_ringing":			{implemented:true,	name:"Incoming Call",			src:"/assets/84a1b4e11d634dbfa1e5dd97a96de3ad.mp3",	mute:true,	focus:null,	include:true},
-			"call_ringing_beat":	{implemented:false,	name:"Incoming Call Beat",		src:"/assets/b9411af07f154a6fef543e7e442e4da9.mp3",	mute:true,	focus:null,	include:true},
-			"stream_started":		{implemented:true,	name:"Stream Started",			src:"/assets/9ca817f41727edc1b2f1bc4f1911107c.mp3",	mute:false,	focus:null,	include:true},
-			"stream_ended":			{implemented:true,	name:"Stream Ended",			src:"/assets/4e30f98aa537854f79f49a76af822bbc.mp3",	mute:false,	focus:null,	include:true},
-			"stream_user_joined":	{implemented:true,	name:"Stream User Joined",		src:"/assets/5827bbf9a67c61cbb0e02ffbf434b654.mp3",	mute:false,	focus:null,	include:true},
-			"stream_user_left":		{implemented:true,	name:"Stream User Left",		src:"/assets/7cdcdcbc426cc43583365a671c24b740.mp3",	mute:false,	focus:null,	include:true},
-			"ddr-down":				{implemented:true,	name:"HotKeys Window Down",		src:"/assets/71f048f8aa7d4b24bf4268a87cbbb192.mp3",	mute:false,	focus:null,	include:true},
-			"ddr-left":				{implemented:true,	name:"HotKeys Window Left",		src:"/assets/1de04408e62b5d52ae3ebbb91e9e1978.mp3",	mute:false,	focus:null,	include:true},
-			"ddr-right":			{implemented:true,	name:"HotKeys Window Right",	src:"/assets/2c0433f93db8449e4a82b76dc520cb29.mp3",	mute:false,	focus:null,	include:true},
-			"ddr-up":				{implemented:true,	name:"HotKeys Window Up",		src:"/assets/68472713f7a62c7c37e0a6a5d5a1faeb.mp3",	mute:false,	focus:null,	include:true},
-			"mention1":				{implemented:false,	name:"Mention Ping",			src:"/assets/fa4d62c3cbc80733bf1f01b9c6f181de.mp3",	mute:true,	focus:null,	include:true},
-			"mention2":				{implemented:false,	name:"Mention Ping 2",			src:"/assets/a5f42064e8120e381528b14fd3188b72.mp3",	mute:true,	focus:null,	include:true},
-			"mention3":				{implemented:false,	name:"Mention Ping 3",			src:"/assets/84c9fa3d07da865278bd77c97d952db4.mp3",	mute:true,	focus:null,	include:true},
-			"message2":				{implemented:false,	name:"New Chatmessage 2",		src:"/assets/15fe810f6cfab609c7fcda61652b9b34.mp3",	mute:true,	focus:null,	include:true},
-			"message3":				{implemented:false,	name:"New Chatmessage 3",		src:"/assets/53ce6a92d3c233e8b4ac529d34d374e4.mp3",	mute:true,	focus:null,	include:true},
-			"human_man":			{implemented:false,	name:"Human Man Voice",			src:"/assets/a37dcd6272ae41cf49295d58c9806fe3.mp3",	mute:true,	focus:null,	include:true},
-			"robot_man":			{implemented:false,	name:"Robot Man Voice",			src:"/assets/66598bea6e59eb8acdf32cf2d9d75ba9.mp3",	mute:true,	focus:null,	include:true},
-			"discodo":				{implemented:false,	name:"Unknown",					src:"/assets/ae7d16bb2eea76b9b9977db0fad66658.mp3",	mute:true,	focus:null,	include:true},
-			"overlayunlock":		{implemented:false,	name:"Overlay Unlocked",		src:"/assets/ad322ffe0a88436296158a80d5d11baa.mp3",	mute:true,	focus:null,	include:true}
+			"message1":					{implemented:true,	name:"New Chatmessage",			src:"/assets/dd920c06a01e5bb8b09678581e29d56f.mp3",	mute:true,	focus:null,	include:true},
+			"dm":						{implemented:true,	name:"Direct Message",			src:"/assets/84c9fa3d07da865278bd77c97d952db4.mp3",	mute:true,	focus:true,	include:false},
+			"mentioned":				{implemented:true,	name:"Mentioned",				src:"/assets/a5f42064e8120e381528b14fd3188b72.mp3",	mute:true,	focus:true,	include:false},
+			"role":						{implemented:true,	name:"Mentioned (role)",		src:"/assets/a5f42064e8120e381528b14fd3188b72.mp3",	mute:true,	focus:true,	include:false},
+			"everyone":					{implemented:true,	name:"Mentioned (@everyone)",	src:"/assets/a5f42064e8120e381528b14fd3188b72.mp3",	mute:true,	focus:true,	include:false},
+			"here":						{implemented:true,	name:"Mentioned (@here)",		src:"/assets/a5f42064e8120e381528b14fd3188b72.mp3",	mute:true,	focus:true,	include:false},
+			"deafen":					{implemented:true,	name:"Voicechat Deafen",		src:"/assets/e4d539271704b87764dc465b1a061abd.mp3",	mute:false,	focus:null,	include:true},
+			"mute":						{implemented:true,	name:"Voicechat Mute",			src:"/assets/429d09ee3b86e81a75b5e06d3fb482be.mp3",	mute:false,	focus:null,	include:true},
+			"disconnect":				{implemented:true,	name:"Voicechat Disconnect",	src:"/assets/7e125dc075ec6e5ae796e4c3ab83abb3.mp3",	mute:false,	focus:null,	include:true},
+			"undeafen":					{implemented:true,	name:"Voicechat Undeafen",		src:"/assets/5a000a0d4dff083d12a1d4fc2c7cbf66.mp3",	mute:false,	focus:null,	include:true},
+			"unmute":					{implemented:true,	name:"Voicechat Unmute",		src:"/assets/43805b9dd757ac4f6b9b58c1a8ee5f0d.mp3",	mute:false,	focus:null,	include:true},
+			"user_join":				{implemented:true,	name:"Voicechat User Joined",	src:"/assets/5dd43c946894005258d85770f0d10cff.mp3",	mute:false,	focus:null,	include:true},
+			"user_leave":				{implemented:true,	name:"Voicechat User Left",		src:"/assets/4fcfeb2cba26459c4750e60f626cebdc.mp3",	mute:false,	focus:null,	include:true},
+			"user_moved":				{implemented:true,	name:"Voicechat User Moved",	src:"/assets/e81d11590762728c1b811eadfa5be766.mp3",	mute:false,	focus:null,	include:true},
+			"reconnect":				{implemented:false,	name:"Voicechat Reconnect",		src:"/assets/471cfd0005b112ff857705e894bf41a6.mp3",	mute:true,	focus:null,	include:true},
+			"ptt_start":				{implemented:true,	name:"Push2Talk Start",			src:"/assets/8b63833c8d252fedba6b9c4f2517c705.mp3",	mute:false,	focus:null,	include:true},
+			"ptt_stop":					{implemented:true,	name:"Push2Talk Stop",			src:"/assets/74ab980d6890a0fa6aa0336182f9f620.mp3",	mute:false,	focus:null,	include:true},
+			"call_calling":				{implemented:true,	name:"Outgoing Call",			src:"/assets/c6e92752668dde4eee5923d70441579f.mp3",	mute:false,	focus:null,	include:true},
+			"call_ringing":				{implemented:true,	name:"Incoming Call",			src:"/assets/84a1b4e11d634dbfa1e5dd97a96de3ad.mp3",	mute:true,	focus:null,	include:true},
+			"call_ringing_beat":		{implemented:false,	name:"Incoming Call Beat",		src:"/assets/b9411af07f154a6fef543e7e442e4da9.mp3",	mute:true,	focus:null,	include:true},
+			"call_ringing_halloween":	{implemented:false,	name:"Incoming Call Halloween",	src:"/assets/bceeb2ba92c01584dcaafc957f769bae.mp3",	mute:true,	focus:null,	include:true},
+			"stream_started":			{implemented:true,	name:"Stream Started",			src:"/assets/9ca817f41727edc1b2f1bc4f1911107c.mp3",	mute:false,	focus:null,	include:true},
+			"stream_ended":				{implemented:true,	name:"Stream Ended",			src:"/assets/4e30f98aa537854f79f49a76af822bbc.mp3",	mute:false,	focus:null,	include:true},
+			"stream_user_joined":		{implemented:true,	name:"Stream User Joined",		src:"/assets/5827bbf9a67c61cbb0e02ffbf434b654.mp3",	mute:false,	focus:null,	include:true},
+			"stream_user_left":			{implemented:true,	name:"Stream User Left",		src:"/assets/7cdcdcbc426cc43583365a671c24b740.mp3",	mute:false,	focus:null,	include:true},
+			"ddr-down":					{implemented:true,	name:"HotKeys Window Down",		src:"/assets/71f048f8aa7d4b24bf4268a87cbbb192.mp3",	mute:false,	focus:null,	include:true},
+			"ddr-left":					{implemented:true,	name:"HotKeys Window Left",		src:"/assets/1de04408e62b5d52ae3ebbb91e9e1978.mp3",	mute:false,	focus:null,	include:true},
+			"ddr-right":				{implemented:true,	name:"HotKeys Window Right",	src:"/assets/2c0433f93db8449e4a82b76dc520cb29.mp3",	mute:false,	focus:null,	include:true},
+			"ddr-up":					{implemented:true,	name:"HotKeys Window Up",		src:"/assets/68472713f7a62c7c37e0a6a5d5a1faeb.mp3",	mute:false,	focus:null,	include:true},
+			"mention1":					{implemented:false,	name:"Mention Ping",			src:"/assets/fa4d62c3cbc80733bf1f01b9c6f181de.mp3",	mute:true,	focus:null,	include:true},
+			"mention2":					{implemented:false,	name:"Mention Ping 2",			src:"/assets/a5f42064e8120e381528b14fd3188b72.mp3",	mute:true,	focus:null,	include:true},
+			"mention3":					{implemented:false,	name:"Mention Ping 3",			src:"/assets/84c9fa3d07da865278bd77c97d952db4.mp3",	mute:true,	focus:null,	include:true},
+			"message2":					{implemented:false,	name:"New Chatmessage 2",		src:"/assets/15fe810f6cfab609c7fcda61652b9b34.mp3",	mute:true,	focus:null,	include:true},
+			"message3":					{implemented:false,	name:"New Chatmessage 3",		src:"/assets/53ce6a92d3c233e8b4ac529d34d374e4.mp3",	mute:true,	focus:null,	include:true},
+			"human_man":				{implemented:false,	name:"Human Man Voice",			src:"/assets/a37dcd6272ae41cf49295d58c9806fe3.mp3",	mute:true,	focus:null,	include:true},
+			"robot_man":				{implemented:false,	name:"Robot Man Voice",			src:"/assets/66598bea6e59eb8acdf32cf2d9d75ba9.mp3",	mute:true,	focus:null,	include:true},
+			"discodo":					{implemented:false,	name:"Discodo Launch",			src:"/assets/ae7d16bb2eea76b9b9977db0fad66658.mp3",	mute:true,	focus:null,	include:true},
+			"overlayunlock":			{implemented:false,	name:"Overlay Unlocked",		src:"/assets/ad322ffe0a88436296158a80d5d11baa.mp3",	mute:true,	focus:null,	include:true}
 		};
 
-		/* NEVER CHANGE THE SRC LINKS IN THE PLUGIN FILE, TO ADD NEW SONGS ADD THEM IN THE SETTINGS GUI IN THE PLUGINS PAGE */
+		/* NEVER CHANGE THE SRC LINKS IN THE PLUGIN FILE, TO ADD NEW SOUNDS ADD THEM IN THE SETTINGS GUI IN THE PLUGINS PAGE */
 		const defaultAudios = {
 			"---": {
 				"---":						null
@@ -95,8 +109,73 @@ module.exports = (_ => {
 		};
 		
 		for (let id in types) if (types[id].include) defaultAudios.Discord[types[id].name] = types[id].src;
+		
+		const WebAudioSound = class WebAudioSound {
+			constructor (type) {
+				this._name = type;
+				this._src = audios[choices[type].category][choices[type].sound] || types[type].src;
+				this._volume = choices[type].volume;
+			}
+			loop () {
+				this._ensureAudio().then(audio => {
+					audio.loop = true;
+					audio.play();
+				});
+			}
+			play () {
+				this._ensureAudio().then(audio => {
+					audio.loop = false;
+					audio.play();
+				});
+			}
+			pause () {
+				this._audio.then(audio => {
+					audio.pause();
+				});
+			}
+			stop () {
+				this._destroyAudio();
+			}
+			setTime (time) {
+				this._audio.then(audio => {
+					audio.currentTime = time;
+				});
+			}
+			setLoop (loop) {
+				this._audio.then(audio => {
+					audio.loop = loop;
+				});
+			}
+			_destroyAudio () {
+				if (this._audio) {
+					this._audio.then(audio => {
+						audio.pause();
+						audio.src = "";
+					});
+					this._audio = null;
+				}
+			}
+			_ensureAudio () {
+				return this._audio = this._audio || new Promise((callback, errorCallback) => {
+					let audio = new Audio;
+					audio.src = this._src;
+					audio.onloadeddata = _ => {
+						audio.volume = Math.min((BDFDB.LibraryModules.MediaDeviceUtils.getOutputVolume() / 100) * (this._volume / 100), 1);
+						BDFDB.LibraryModules.PlatformUtils.embedded && audio.setSinkId(currentDevice || defaultDevice);
+						callback(audio);
+					};
+					audio.onerror = _ => {
+						return errorCallback(new Error("could not play audio"))
+					};
+					audio.onended = _ => {
+						return this._destroyAudio()
+					};
+					audio.load();
+				}), this._audio;
+			}
+		};
 	
-        return class NotificationSounds extends Plugin {
+		return class NotificationSounds extends Plugin {
 			onLoad() {
 				audios = {};
 				choices = {};
@@ -110,6 +189,27 @@ module.exports = (_ => {
 			}
 			
 			onStart() {
+				if (BDFDB.LibraryModules.PlatformUtils.embedded) {
+					let change = _ => {
+						if (window.navigator.mediaDevices && window.navigator.mediaDevices.enumerateDevices) {
+							window.navigator.mediaDevices.enumerateDevices().then(enumeratedDevices => {
+								let id = BDFDB.LibraryModules.MediaDeviceUtils.getOutputDeviceId();
+								let allDevices = BDFDB.LibraryModules.MediaDeviceUtils.getOutputDevices();
+								let filteredDevices = enumeratedDevices.filter(d => d.kind == "audiooutput" && d.deviceId != "communications");
+								let deviceIndex = BDFDB.LibraryModules.ArrayUtils(allDevices).sortBy(d => d.index).findIndex(d => d.id == id);
+								let deviceViaId = allDevices[id];
+								let deviceViaIndex = filteredDevices[deviceIndex];
+								if (deviceViaId && deviceViaIndex && deviceViaIndex.label != deviceViaId.name) deviceViaIndex = filteredDevices.find(d => d.label == deviceViaId.name);
+								currentDevice = deviceViaIndex ? deviceViaIndex.deviceId : defaultDevice;
+							}).catch(_ => {
+								currentDevice = defaultDevice;
+							});
+						}
+					};
+					BDFDB.StoreChangeUtils.add(this, BDFDB.LibraryModules.MediaDeviceUtils, change);
+					change();
+				}
+				
 				BDFDB.PatchUtils.patch(this, BDFDB.LibraryModules.DispatchApiUtils, "dirtyDispatch", {before: e => {
 					if (BDFDB.ObjectUtils.is(e.methodArguments[0]) && e.methodArguments[0].type == BDFDB.DiscordConstants.ActionTypes.MESSAGE_CREATE && e.methodArguments[0].message) {
 						let message = e.methodArguments[0].message;
@@ -167,23 +267,12 @@ module.exports = (_ => {
 					else e.callOriginalMethod();
 				}});
 				BDFDB.PatchUtils.patch(this, BDFDB.LibraryModules.SoundUtils, "createSound", {after: e => {
-					let type = e.methodArguments[0];
-					let audio = new Audio();
-					audio.src = choices[type].src;
-					audio.volume = choices[type].volume/100;
-					e.returnValue.play = _ => {
-						if (!audio.paused || this.dontPlayAudio(type)) return;
-						audio.currentTime = 0;
-						audio.loop = false;
-						audio.play();
-					};
-					e.returnValue.loop = _ => {
-						if (!audio.paused || this.dontPlayAudio(type)) return;
-						audio.currentTime = 0;
-						audio.loop = true;
-						audio.play();
-					};
-					e.returnValue.stop = _ => {audio.pause();}
+					if (choices[e.methodArguments[0]]) {
+						let audio = new WebAudioSound(e.methodArguments[0]);
+						createdAudios[e.methodArguments[0]] = audio;
+						return audio;
+					}
+					else BDFDB.LogUtils.warn(`Could not create sound for "${e.methodArguments[0]}".`, this.name);
 				}});
 				
 				
@@ -196,7 +285,10 @@ module.exports = (_ => {
 				if (callListenerModule) {
 					callListenerModule.terminate();
 					BDFDB.PatchUtils.patch(this, callListenerModule, "handleRingUpdate", {instead: e => {
-						BDFDB.LibraryModules.CallUtils.getCalls().filter(call => call.ringing.length > 0 && BDFDB.LibraryModules.VoiceUtils.getCurrentClientVoiceChannelId() === call.channelId).length > 0 && !BDFDB.LibraryModules.SoundStateUtils.isSoundDisabled("call_calling") && !BDFDB.LibraryModules.StreamerModeStore.disableSounds ? callAudio.loop() : callAudio.stop();
+						if (BDFDB.LibraryModules.CallUtils.getCalls().filter(call => call.ringing.length > 0 && BDFDB.LibraryModules.VoiceUtils.getCurrentClientVoiceChannelId() === call.channelId).length > 0 && !BDFDB.LibraryModules.SoundStateUtils.isSoundDisabled("call_calling") && !BDFDB.LibraryModules.StreamerModeStore.disableSounds) {
+							createdAudios["call_calling"].loop();
+						}
+						else createdAudios["call_calling"].stop();
 					}});
 					callListenerModule.initialize();
 				}
@@ -205,7 +297,7 @@ module.exports = (_ => {
 			}
 			
 			onStop() {
-				settingsAudio.pause();
+				for (let type in createdAudios) if (createdAudios[type]) createdAudios[type].stop();
 			}
 
 			getSettingsPanel (collapseStates = {}) {				
@@ -258,8 +350,7 @@ module.exports = (_ => {
 											searchable: true,
 											onChange: category => {
 												choices[type].category = category.value;
-												choices[type].song = Object.keys(audios[category.value] || {})[0];
-												choices[type].src = audios[choices[type].category][choices[type].song] || types[type].src;
+												choices[type].sound = Object.keys(audios[category.value] || {})[0];
 												this.saveChoice(type, true);
 												BDFDB.PluginUtils.refreshSettingsPanel(this, settingsPanel, collapseStates);
 											}
@@ -271,14 +362,13 @@ module.exports = (_ => {
 									shrink: 0,
 									basis: "31%",
 									children: BDFDB.ReactUtils.createElement(BDFDB.LibraryComponents.FormComponents.FormItem, {
-										title: "Song",
+										title: "Sound",
 										children: BDFDB.ReactUtils.createElement(BDFDB.LibraryComponents.Select, {
-											value: choices[type].song,
+											value: choices[type].sound,
 											options: Object.keys(audios[choices[type].category] || {}).map(name => ({value:name, label:name})),
 											searchable: true,
-											onChange: song => {
-												choices[type].song = song.value;
-												choices[type].src = audios[choices[type].category][choices[type].song] || types[type].src;
+											onChange: sound => {
+												choices[type].sound = sound.value;
 												this.saveChoice(type, true);
 												BDFDB.PluginUtils.refreshSettingsPanel(this, settingsPanel, collapseStates);
 											}
@@ -313,9 +403,9 @@ module.exports = (_ => {
 				};
 
 				let successSavedAudio = data => {
-					BDFDB.NotificationUtils.toast(`Song ${data.song} was added to category ${data.category}.`, {type:"success"});
+					BDFDB.NotificationUtils.toast(`Sound ${data.sound} was added to category ${data.category}.`, {type:"success"});
 					if (!audios[data.category]) audios[data.category] = {};
-					audios[data.category][data.song] = data.source;
+					audios[data.category][data.sound] = data.source;
 					BDFDB.DataUtils.save(audios, this, "audios");
 					BDFDB.PluginUtils.refreshSettingsPanel(this, settingsPanel, collapseStates);
 					
@@ -324,7 +414,7 @@ module.exports = (_ => {
 				let settingsPanel, settingsItems = [];
 			
 				settingsItems.push(BDFDB.ReactUtils.createElement(BDFDB.LibraryComponents.CollapseContainer, {
-					title: "Add new Song",
+					title: "Add new Sound",
 					collapseStates: collapseStates,
 					children: [
 						BDFDB.ReactUtils.createElement(BDFDB.LibraryComponents.Flex, {
@@ -334,7 +424,7 @@ module.exports = (_ => {
 									children: BDFDB.ReactUtils.createElement(BDFDB.LibraryComponents.FormComponents.FormItem, {
 										title: "Categoryname",
 										children: BDFDB.ReactUtils.createElement(BDFDB.LibraryComponents.TextInput, {
-											className: "input-newsong input-category",
+											className: "input-newsound input-category",
 											value: "",
 											placeholder: "Categoryname"
 										})
@@ -342,11 +432,11 @@ module.exports = (_ => {
 								}),
 								BDFDB.ReactUtils.createElement(BDFDB.LibraryComponents.Flex.Child, {
 									children: BDFDB.ReactUtils.createElement(BDFDB.LibraryComponents.FormComponents.FormItem, {
-										title: "Songname",
+										title: "Soundname",
 										children: BDFDB.ReactUtils.createElement(BDFDB.LibraryComponents.TextInput, {
-											className: "input-newsong input-song",
+											className: "input-newsound input-sound",
 											value: "",
-											placeholder: "Songname"
+											placeholder: "Soundname"
 										})
 									})
 								})
@@ -360,7 +450,7 @@ module.exports = (_ => {
 									children: BDFDB.ReactUtils.createElement(BDFDB.LibraryComponents.FormComponents.FormItem, {
 										title: "Source",
 										children: BDFDB.ReactUtils.createElement(BDFDB.LibraryComponents.TextInput, {
-											className: "input-newsong input-source",
+											className: "input-newsound input-source",
 											type: "file",
 											filter: ["audio", "video"],
 											useFilePath: true,
@@ -372,20 +462,20 @@ module.exports = (_ => {
 								BDFDB.ReactUtils.createElement(BDFDB.LibraryComponents.Button, {
 									style: {marginBottom: 1},
 									onClick: _ => {
-										for (let input of settingsPanel.querySelectorAll(".input-newsong " + BDFDB.dotCN.input)) if (!input.value || input.value.length == 0 || input.value.trim().length == 0) return BDFDB.NotificationUtils.toast("Fill out all fields to add a new song.", {type:"danger"});
+										for (let input of settingsPanel.querySelectorAll(".input-newsound " + BDFDB.dotCN.input)) if (!input.value || input.value.length == 0 || input.value.trim().length == 0) return BDFDB.NotificationUtils.toast("Fill out all fields to add a new sound.", {type:"danger"});
 										let category = settingsPanel.querySelector(".input-category " + BDFDB.dotCN.input).value.trim();
-										let song = settingsPanel.querySelector(".input-song " + BDFDB.dotCN.input).value.trim();
+										let sound = settingsPanel.querySelector(".input-sound " + BDFDB.dotCN.input).value.trim();
 										let source = settingsPanel.querySelector(".input-source " + BDFDB.dotCN.input).value.trim();
 										if (source.indexOf("http") == 0) BDFDB.LibraryRequires.request(source, (error, response, result) => {
 											if (response) {
 												let type = response.headers["content-type"];
-												if (type && (type.indexOf("octet-stream") > -1 || type.indexOf("audio") > -1 || type.indexOf("video") > -1)) return successSavedAudio({category, song, source});
+												if (type && (type.indexOf("octet-stream") > -1 || type.indexOf("audio") > -1 || type.indexOf("video") > -1)) return successSavedAudio({category, sound, source});
 											}
 											BDFDB.NotificationUtils.toast("Use a valid direct link to a video or audio source. They usually end on something like .mp3, .mp4 or .wav.", {type:"danger"});
 										});
 										else BDFDB.LibraryRequires.fs.readFile(source, (error, response) => {
 											if (error) BDFDB.NotificationUtils.toast("Could not fetch file. Please make sure the file exists.", {type:"danger"});
-											else return successSavedAudio({category, song, source:`data:audio/mpeg;base64,${response.toString("base64")}`});
+											else return successSavedAudio({category, sound, source:`data:audio/mpeg;base64,${response.toString("base64")}`});
 										});
 									},
 									children: BDFDB.LanguageUtils.LanguageStrings.SAVE
@@ -405,11 +495,11 @@ module.exports = (_ => {
 					children: Object.keys(BDFDB.ObjectUtils.filter(types, typedata => !typedata.implemented)).map(type => createSoundCard(type)).flat(10).filter(n => n)
 				}));
 				
-				let removeableCategories = [{value:removeAllKey, label:BDFDB.LanguageUtils.LanguageStrings.FORM_LABEL_ALL}].concat(Object.keys(audios).filter(category => !(defaultAudios[category] && !Object.keys(audios[category] || {}).filter(song => defaultAudios[category][song] === undefined).length)).map(name => ({value:name, label:name})));
-				let removeableSongs = {};
-				for (let category of removeableCategories) removeableSongs[category.value] = [{value:removeAllKey, label:BDFDB.LanguageUtils.LanguageStrings.FORM_LABEL_ALL}].concat(Object.keys(audios[category.value] || {}).filter(song => !(defaultAudios[category.value] && defaultAudios[category.value][song] !== undefined)).map(name => ({value:name, label:name})));
+				let removeableCategories = [{value:removeAllKey, label:BDFDB.LanguageUtils.LanguageStrings.FORM_LABEL_ALL}].concat(Object.keys(audios).filter(category => !(defaultAudios[category] && !Object.keys(audios[category] || {}).filter(sound => defaultAudios[category][sound] === undefined).length)).map(name => ({value:name, label:name})));
+				let removeableSounds = {};
+				for (let category of removeableCategories) removeableSounds[category.value] = [{value:removeAllKey, label:BDFDB.LanguageUtils.LanguageStrings.FORM_LABEL_ALL}].concat(Object.keys(audios[category.value] || {}).filter(sound => !(defaultAudios[category.value] && defaultAudios[category.value][sound] !== undefined)).map(name => ({value:name, label:name})));
 				settingsItems.push(BDFDB.ReactUtils.createElement(BDFDB.LibraryComponents.CollapseContainer, {
-					title: "Remove Songs",
+					title: "Remove Sounds",
 					collapseStates: collapseStates,
 					children: BDFDB.ReactUtils.createElement(BDFDB.LibraryComponents.Flex, {
 						className: BDFDB.disCN.margintop4,
@@ -427,11 +517,11 @@ module.exports = (_ => {
 										options: removeableCategories,
 										searchable: true,
 										onChange: (category, instance) => {
-											let songSelectIns = BDFDB.ReactUtils.findOwner(BDFDB.ReactUtils.findOwner(instance, {name:["BDFDB_Modal", "BDFDB_SettingsPanel"], up:true}), {key:"REMOVE_SONG"});
-											if (songSelectIns && removeableSongs[category.value]) {
-												songSelectIns.props.options = removeableSongs[category.value];
-												songSelectIns.props.value = removeAllKey;
-												BDFDB.ReactUtils.forceUpdate(songSelectIns);
+											let soundSelectIns = BDFDB.ReactUtils.findOwner(BDFDB.ReactUtils.findOwner(instance, {name:["BDFDB_Modal", "BDFDB_SettingsPanel"], up:true}), {key:"REMOVE_SOUND"});
+											if (soundSelectIns && removeableSounds[category.value]) {
+												soundSelectIns.props.options = removeableSounds[category.value];
+												soundSelectIns.props.value = removeAllKey;
+												BDFDB.ReactUtils.forceUpdate(soundSelectIns);
 											}
 										}
 									})
@@ -442,11 +532,11 @@ module.exports = (_ => {
 								shrink: 0,
 								basis: "35%",
 								children: BDFDB.ReactUtils.createElement(BDFDB.LibraryComponents.FormComponents.FormItem, {
-									title: "Song",
+									title: "Sound",
 									children: BDFDB.ReactUtils.createElement(BDFDB.LibraryComponents.Select, {
-										key: "REMOVE_SONG",
+										key: "REMOVE_SOUND",
 										value: removeAllKey,
-										options: removeableSongs[removeAllKey],
+										options: removeableSounds[removeAllKey],
 										searchable: true
 									})
 								})
@@ -461,20 +551,20 @@ module.exports = (_ => {
 									onClick: (event, instance) => {
 										let wrapperIns = BDFDB.ReactUtils.findOwner(instance, {name:["BDFDB_Modal", "BDFDB_SettingsPanel"], up:true});
 										let categorySelectIns = BDFDB.ReactUtils.findOwner(wrapperIns, {key:"REMOVE_CATEGORY"});
-										let songSelectIns = BDFDB.ReactUtils.findOwner(wrapperIns, {key:"REMOVE_SONG"});
-										if (categorySelectIns && songSelectIns) {
-											let songAmount = 0;
+										let soundSelectIns = BDFDB.ReactUtils.findOwner(wrapperIns, {key:"REMOVE_SOUND"});
+										if (categorySelectIns && soundSelectIns) {
+											let soundAmount = 0;
 											let catAll = categorySelectIns.props.value == removeAllKey;
-											let songAll = songSelectIns.props.value == removeAllKey;
-											if (catAll) songAmount = BDFDB.ArrayUtils.sum(Object.keys(audios).map(category => Object.keys(audios[category] || {}).filter(song => !(defaultAudios[category] && defaultAudios[category][song] !== undefined)).length));
-											else if (songAll) songAmount = Object.keys(audios[categorySelectIns.props.value] || {}).filter(song => !(defaultAudios[categorySelectIns.props.value] && defaultAudios[categorySelectIns.props.value][song] !== undefined)).length;
-											else if (audios[categorySelectIns.props.value][songSelectIns.props.value]) songAmount = 1;
+											let soundAll = soundSelectIns.props.value == removeAllKey;
+											if (catAll) soundAmount = BDFDB.ArrayUtils.sum(Object.keys(audios).map(category => Object.keys(audios[category] || {}).filter(sound => !(defaultAudios[category] && defaultAudios[category][sound] !== undefined)).length));
+											else if (soundAll) soundAmount = Object.keys(audios[categorySelectIns.props.value] || {}).filter(sound => !(defaultAudios[categorySelectIns.props.value] && defaultAudios[categorySelectIns.props.value][sound] !== undefined)).length;
+											else if (audios[categorySelectIns.props.value][soundSelectIns.props.value]) soundAmount = 1;
 											
-											if (songAmount) BDFDB.ModalUtils.confirm(this, `Are you sure you want to delete ${songAmount} added song${songAmount == 1 ? "" : "s"}?`, _ => {
+											if (soundAmount) BDFDB.ModalUtils.confirm(this, `Are you sure you want to delete ${soundAmount} added sound${soundAmount == 1 ? "" : "s"}?`, _ => {
 												if (catAll) BDFDB.DataUtils.remove(this, "audios");
-												else if (songAll) BDFDB.DataUtils.remove(this, "audios", categorySelectIns.props.value);
+												else if (soundAll) BDFDB.DataUtils.remove(this, "audios", categorySelectIns.props.value);
 												else {
-													delete audios[categorySelectIns.props.value][songSelectIns.props.value];
+													delete audios[categorySelectIns.props.value][soundSelectIns.props.value];
 													if (BDFDB.ObjectUtils.isEmpty(audios[categorySelectIns.props.value])) delete audios[categorySelectIns.props.value];
 													BDFDB.DataUtils.save(audios, this, "audios");
 												}
@@ -482,7 +572,7 @@ module.exports = (_ => {
 												this.loadChoices();
 												BDFDB.PluginUtils.refreshSettingsPanel(this, settingsPanel, collapseStates);
 											});
-											else BDFDB.NotificationUtils.toast("No songs to delete.", {type:"danger"});
+											else BDFDB.NotificationUtils.toast("No sounds to delete.", {type:"danger"});
 										}
 									},
 									children: BDFDB.LanguageUtils.LanguageStrings.DELETE
@@ -498,14 +588,15 @@ module.exports = (_ => {
 			onSettingsClosed () {
 				if (this.SettingsUpdated) {
 					delete this.SettingsUpdated;
-					settingsAudio.pause();
+					for (let type in createdAudios) if (createdAudios[type]) createdAudios[type].stop();
+					createdAudios = {};
 					this.forceUpdateAll();
 				}
 			}
 		
 			forceUpdateAll () {
 				repatchIncoming = true;
-				callAudio = BDFDB.LibraryModules.SoundUtils.createSound("call_calling");
+				createdAudios["call_calling"] = BDFDB.LibraryModules.SoundUtils.createSound("call_calling");
 				BDFDB.PatchUtils.forceAllUpdates(this);
 			}
 		
@@ -537,16 +628,19 @@ module.exports = (_ => {
 			loadChoices () {
 				let loadedChoices = BDFDB.DataUtils.load(this, "choices");
 				for (let type in types) {
-					let choice = loadedChoices[type] || {}, songFound = false;
-					for (let category in audios) if (choice.category == category) for (let song in audios[category]) if (choice.song == song) {
-						songFound = true;
+					let choice = loadedChoices[type] || {}, soundFound = false;
+					// REMOVE 06.10.2020
+					choice.sound = choice.song || choice.sound;
+					delete choice.song;
+					delete choice.src;
+					for (let category in audios) if (choice.category == category) for (let sound in audios[category]) if (choice.sound == sound) {
+						soundFound = true;
 						break;
 					}
-					if (!songFound) choice = {
+					if (!soundFound) choice = {
 						category: "---",
-						song: "---",
+						sound: "---",
 						volume: 100,
-						src: types[type].src,
 						mute: types[type].mute,
 						focus: types[type].focus
 					};
@@ -560,19 +654,15 @@ module.exports = (_ => {
 				BDFDB.DataUtils.save(choices[type], this, "choices", type);
 				if (play) {
 					this.SettingsUpdated = true;
-					this.playAudio(type, settingsAudio);
+					this.playAudio(type);
 				}
 			}
 
-			playAudio (type, audio) {
-				if (!audio) {
-					if (this.dontPlayAudio(type)) return;
-					audio = new Audio();
-				}
-				else audio.pause();
-				audio.src = choices[type].src;
-				audio.volume = choices[type].volume/100;
-				audio.play();
+			playAudio (type) {
+				if (this.dontPlayAudio(type) || BDFDB.LibraryModules.StreamerModeStore.disableSounds) return;
+				if (createdAudios[type]) createdAudios[type].stop();
+				createdAudios[type] = new WebAudioSound(type);
+				createdAudios[type].play();
 			}
 
 			isSuppressMentionEnabled (guildId, channelId) {
@@ -590,5 +680,5 @@ module.exports = (_ => {
 				BDFDB.TimeUtils.timeout(_ => {firedEvents[type] = false;},3000);
 			}
 		};
-    })(window.BDFDB_Global.PluginUtils.buildPlugin(config));
+	})(window.BDFDB_Global.PluginUtils.buildPlugin(config));
 })();

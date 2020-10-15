@@ -9,12 +9,12 @@ gaps outer $outer_gaps
 
 # border color
 # pywal-start
-client.focused #b3a18c #191a19 #c5c5c5 #b3a18c #797269
-client.focused_inactive #626462 #525352 #c5c5c5 #1E1F1E #191a19
-client.unfocused #191a19 #141514 #9E9E9E #191a19 #141514
-client.urgent #191a19 #e95678 #c5c5c5 #e95678 #e95678
-client.placeholder #000000 #0c0c0c #c5c5c5 #000000 #0c0c0c
-client.background #c5c5c5
+client.focused          #f0f0f0 #050505 #f0f0f0 #111111 #222222
+client.focused_inactive #050505 #050505 #f0f0f0 #050505 #050505
+client.unfocused        #050505 #050505 #f0f0f0 #050505 #050505
+client.urgent           #050505 #ac8a8c #f0f0f0 #ac8a8c #ac8a8c
+client.placeholder      #000000 #0c0c0c #f0f0f0 #050505 #050505
+client.background       #c7c5ca
 
 # pywal-end
 
@@ -40,6 +40,7 @@ for_window [class=".*"] border pixel 2
 
 # Keybinds
 bindsym $mod+Escape exec "dm-tool lock" 
+bindsym $mod+b exec "polybar-msg cmd toggle" 
 bindsym $mod+space exec "rofi -show drun -show-icons"
 bindsym $mod+Return exec st
 bindsym $mod+p exec bwmenu
@@ -67,11 +68,15 @@ bindsym $mod+d gaps inner current set $inner_gaps; gaps outer current set $outer
 # Autostart
 exec "polybar main -c ~/.config/polybar/config &"
 exec "node ~/.local/share/bin/pywal/wall.js &"
-exec "picom --experimental-backends -b"
-exec "node ~/.local/share/bin/pester/index.js &"
-exec "flameshot &"
+exec "picom -b"
+exec "xbanish &"
 exec --no-startup-id "xset r rate 250 40"
 exec --no-startup-id "autocutsel &"
+
+bindsym Mod1+Control+Mod4+1 exec "sh -c 'export PATH=~/.local/share/bin:$PATH && setwacom Area 0 0 15200 9500 && setwacom MapToOutput 1920x1080+0+0    && setwacom Suppress 2 && setwacom RawSample 7'"
+bindsym Mod1+Control+Mod4+2 exec "sh -c 'export PATH=~/.local/share/bin:$PATH && setwacom Area 0 0 15200 9500 && setwacom MapToOutput 1920x1080+1920+0 && setwacom Suppress 2 && setwacom RawSample 7'"
+bindsym Mod1+Control+Mod4+3 exec "sh -c 'export PATH=~/.local/share/bin:$PATH && setwacom Area 0 0 7600  4275 && setwacom MapToOutput 1920x1080+0+0    && setwacom Suppress 0 && setwacom RawSample 1'"
+bindsym Mod1+Control+Mod4+4 exec "sh -c 'export PATH=~/.local/share/bin:$PATH && setwacom Area 0 0 15200 4275 && setwacom MapToOutput 3840x1080+0+0    && setwacom Suppress 2 && setwacom RawSample 7'"
 
 # change focus
 bindsym $mod+h focus left
@@ -144,10 +149,13 @@ bindsym $mod+Shift+8 move container to workspace number $ws8
 for_window [class="Steam"] floating enable
 for_window [class="cinquo"] floating enable
 for_window [title="Farge"] floating enable
+for_window [title="^\[floating\].*"] floating enable
 for_window [window_type=notification] floating enable
 
 for_window [class="Unturned.x86_64"] floating disable
 for_window [class="Unturned.x86_64"] fullscreen disable
+for_window [class="Minecraft.*"] floating enable
+for_window [class="Minecraft.*"] fullscreen enable
 
 # reload the configuration file
 bindsym $mod+Shift+c reload
