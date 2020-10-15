@@ -70,6 +70,7 @@ exec "polybar main -c ~/.config/polybar/config &"
 exec "node ~/.local/share/bin/pywal/wall.js &"
 exec "picom -b"
 exec "xbanish &"
+exec "redshift &"
 exec --no-startup-id "xset r rate 250 40"
 exec --no-startup-id "autocutsel &"
 
