@@ -1,0 +1,2 @@
+#!/bin/sh
+xsetwacom set "Wacom Intuos PT S 2 Pen stylus" $@
