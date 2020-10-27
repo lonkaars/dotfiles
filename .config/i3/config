@@ -9,7 +9,7 @@ gaps outer $outer_gaps
 
 # border color
 # pywal-start
-client.focused          #f0f0f0 #050505 #f0f0f0 #111111 #222222
+client.focused          #222222 #222222 #f0f0f0 #111111 #222222
 client.focused_inactive #050505 #050505 #f0f0f0 #050505 #050505
 client.unfocused        #050505 #050505 #f0f0f0 #050505 #050505
 client.urgent           #050505 #ac8a8c #f0f0f0 #ac8a8c #ac8a8c
@@ -71,6 +71,7 @@ exec "node ~/.local/share/bin/pywal/wall.js &"
 exec "picom -b"
 exec "xbanish &"
 exec "redshift &"
+exec "dunst &"
 exec --no-startup-id "xset r rate 250 40"
 exec --no-startup-id "autocutsel &"
 

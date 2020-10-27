@@ -12,6 +12,7 @@ set ignorecase
 set smartcase
 set timeoutlen=500
 set mouse=a
+set cino=N-s
 set linebreak " set wrap but don't wrap inside words
 set viminfo+='1000,n/home/loek/.local/nvim/viminfo
 set guifont=JetBrainsMono\ NF:h14
@@ -40,7 +41,6 @@ call plug#begin('~/.config/nvim/plugged')
 " quality of life
 Plug 'jiangmiao/auto-pairs'
 Plug 'tpope/vim-surround'
-" Plug 'Chiel92/vim-autoformat'
 Plug 'itchyny/lightline.vim'
 Plug 'terryma/vim-multiple-cursors'
 Plug 'vim-scripts/colorizer'
@@ -56,13 +56,13 @@ Plug 'tpope/vim-fugitive'
 Plug 'airblade/vim-gitgutter'
 Plug 'wellle/targets.vim'
 Plug 'dstein64/vim-startuptime'
+Plug 'vim-scripts/DoxygenToolkit.vim'
 
 " language plugins
 Plug 'lervag/vimtex'
 Plug 'pangloss/vim-javascript'
 Plug 'hail2u/vim-css3-syntax'
 Plug 'octol/vim-cpp-enhanced-highlight'
-Plug 'vim-scripts/c.vim'
 
 " 'vim=ide'
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
@@ -213,6 +213,7 @@ let g:lightline = {
 			\ },
 			\ }
 source $HOME/.config/nvim/mountaineer-lightline.vim
+hi! SignColumn guibg=NONE ctermbg=NONE
 
 " vimtex config
 let g:tex_flavor = 'latex'
@@ -310,7 +311,7 @@ let g:which_key_map.c = {
 inoremap <silent><expr> <c-space> coc#refresh()
 
 " auto-comment uit
-autocmd FileType * setlocal formatoptions-=c formatoptions-=r formatoptions-=o
+" autocmd FileType * setlocal formatoptions-=c formatoptions-=r formatoptions-=o
 
 " which key register dict
 call which_key#register('<Space>', "g:which_key_map")

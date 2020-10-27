@@ -68,6 +68,7 @@ alias adda="git add -A"
 alias first="git commit -m \"first commit\""
 alias les="less"
 alias scdl="scdl --onlymp3 -l"
+alias screenrecord='giph -s -b 4 -c 255,255,255 $(date +"$HOME/%Y-%m-%d_%H-%M-%S.mp4")'
 function b64d { echo $1 | base64 -d }
 alias r="ranger"
 alias v="nvim"

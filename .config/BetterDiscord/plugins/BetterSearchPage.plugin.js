@@ -1,21 +1,29 @@
-//META{"name":"BetterSearchPage","authorId":"278543574059057154","invite":"Jx3TjNS","donate":"https://www.paypal.me/MircoWittrien","patreon":"https://www.patreon.com/MircoWittrien","website":"https://github.com/mwittrien/BetterDiscordAddons/tree/master/Plugins/BetterSearchPage","source":"https://raw.githubusercontent.com/mwittrien/BetterDiscordAddons/master/Plugins/BetterSearchPage/BetterSearchPage.plugin.js"}*//
+/**
+ * @name BetterSearchPage
+ * @authorId 278543574059057154
+ * @invite Jx3TjNS
+ * @donate https://www.paypal.me/MircoWittrien
+ * @patreon https://www.patreon.com/MircoWittrien
+ * @website https://github.com/mwittrien/BetterDiscordAddons/tree/master/Plugins/BetterSearchPage
+ * @source https://raw.githubusercontent.com/mwittrien/BetterDiscordAddons/master/Plugins/BetterSearchPage/BetterSearchPage.plugin.js
+ */
 
 module.exports = (_ => {
-    const config = {
+	const config = {
 		"info": {
 			"name": "BetterSearchPage",
 			"author": "DevilBro",
-			"version": "1.1.5",
-			"description": "Adds some extra controls to the search results page."
+			"version": "1.1.6",
+			"description": "Add some extra controls to the search results page"
 		}
 	};
-    return !window.BDFDB_Global || (!window.BDFDB_Global.loaded && !window.BDFDB_Global.started) ? class {
+	return !window.BDFDB_Global || (!window.BDFDB_Global.loaded && !window.BDFDB_Global.started) ? class {
 		getName () {return config.info.name;}
 		getAuthor () {return config.info.author;}
 		getVersion () {return config.info.version;}
 		getDescription () {return config.info.description;}
 		
-        load() {
+		load() {
 			if (!window.BDFDB_Global || !Array.isArray(window.BDFDB_Global.pluginQueue)) window.BDFDB_Global = Object.assign({}, window.BDFDB_Global, {pluginQueue:[]});
 			if (!window.BDFDB_Global.downloadModal) {
 				window.BDFDB_Global.downloadModal = true;
@@ -23,23 +31,29 @@ module.exports = (_ => {
 					confirmText: "Download Now",
 					cancelText: "Cancel",
 					onCancel: _ => {delete window.BDFDB_Global.downloadModal;},
-					onConfirm: _ => {delete window.BDFDB_Global.downloadModal;require("request").get("https://mwittrien.github.io/BetterDiscordAddons/Library/0BDFDB.plugin.js", (error, response, body) => {require("fs").writeFile(require("path").join(BdApi.Plugins.folder, "0BDFDB.plugin.js"), body, _ => {});});}
+					onConfirm: _ => {
+						delete window.BDFDB_Global.downloadModal;
+						require("request").get("https://mwittrien.github.io/BetterDiscordAddons/Library/0BDFDB.plugin.js", (e, r, b) => {
+							if (!e && b && b.indexOf(`* @name BDFDB`) > -1) require("fs").writeFile(require("path").join(BdApi.Plugins.folder, "0BDFDB.plugin.js"), b, _ => {});
+							else BdApi.alert("Error", "Could not download BDFDB library plugin, try again some time later.");
+						});
+					}
 				});
 			}
 			if (!window.BDFDB_Global.pluginQueue.includes(config.info.name)) window.BDFDB_Global.pluginQueue.push(config.info.name);
-        }
-        start() {}
-        stop() {}
-    } : (([Plugin, BDFDB]) => {
+		}
+		start() {this.load();}
+		stop() {}
+	} : (([Plugin, BDFDB]) => {
 		var settings = {};
 		
-        return class BetterSearchPage extends Plugin {
+		return class BetterSearchPage extends Plugin {
 			onLoad() {
 				this.defaults = {
 					settings: {
-						addFirstLast:	{value:true, 	description:"Adds a first and last page button."},
-						addJumpTo:		{value:true, 	description:"Adds a jump to input field (press enter to jump)."},
-						cloneToTheTop:	{value:true, 	description:"Clones the controls to the top of the results page."}
+						addFirstLast:	{value:true, 	description:"Add a first and last page button"},
+						addJumpTo:		{value:true, 	description:"Add a jump to input field (press enter to jump)"},
+						cloneToTheTop:	{value:true, 	description:"Clone the controls to the top of the results page"}
 					}
 				};
 				
@@ -63,7 +77,6 @@ module.exports = (_ => {
 				let settingsPanel, settingsItems = [];
 				
 				for (let key in settings) settingsItems.push(BDFDB.ReactUtils.createElement(BDFDB.LibraryComponents.SettingsSaveItem, {
-					className: BDFDB.disCN.marginbottom8,
 					type: "Switch",
 					plugin: this,
 					keys: ["settings", key],
@@ -120,7 +133,7 @@ module.exports = (_ => {
 								"aria-label": BDFDB.LanguageUtils.LibraryStrings.first,
 								onClick: _ => {if (currentPage != 1) doJump(1);},
 								children: BDFDB.ReactUtils.createElement(BDFDB.LibraryComponents.Clickable, {
-									className: BDFDB.DOMUtils.formatClassName(BDFDB.disCN.searchresultspaginationbutton, currentPage == 1 && BDFDB.disCN.searchresultspaginationdisabled, BDFDB.disCN.focusable),
+									className: BDFDB.DOMUtils.formatClassName(BDFDB.disCN.searchresultspaginationbutton, currentPage == 1 && BDFDB.disCN.searchresultspaginationdisabled),
 									children: BDFDB.ReactUtils.createElement(BDFDB.LibraryComponents.SvgIcon, {
 										className: BDFDB.disCN.searchresultspaginationicon,
 										name: BDFDB.LibraryComponents.SvgIcon.Names.LEFT_DOUBLE_CARET
@@ -133,7 +146,7 @@ module.exports = (_ => {
 								"aria-label": BDFDB.LanguageUtils.LibraryStrings.last,
 								onClick: _ => {if (currentPage != maxPage) doJump(maxPage);},
 								children: BDFDB.ReactUtils.createElement(BDFDB.LibraryComponents.Clickable, {
-									className: BDFDB.DOMUtils.formatClassName(BDFDB.disCN.searchresultspaginationbutton, currentPage >= maxPage && BDFDB.disCN.searchresultspaginationdisabled, BDFDB.disCN.focusable),
+									className: BDFDB.DOMUtils.formatClassName(BDFDB.disCN.searchresultspaginationbutton, currentPage >= maxPage && BDFDB.disCN.searchresultspaginationdisabled),
 									children: BDFDB.ReactUtils.createElement(BDFDB.LibraryComponents.SvgIcon, {
 										className: BDFDB.disCN.searchresultspaginationicon,
 										name: BDFDB.LibraryComponents.SvgIcon.Names.RIGHT_DOUBLE_CARET
@@ -174,5 +187,5 @@ module.exports = (_ => {
 				}
 			}
 		};
-    })(window.BDFDB_Global.PluginUtils.buildPlugin(config));
+	})(window.BDFDB_Global.PluginUtils.buildPlugin(config));
 })();
