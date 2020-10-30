@@ -1,6 +1,6 @@
 {
 	"changeLog": {
-		"version": "2.2.4"
+		"version": "2.2.5"
 	},
 	"changelog": {
 		"currentversion": "2.2.3"
@@ -55,6 +55,7 @@
 	},
 	"settings": {
 		"addOriginalTooltip": true,
+		"changeInChat": true,
 		"changeInGuildHeader": true,
 		"changeInGuildInvites": true,
 		"changeInGuildList": true,

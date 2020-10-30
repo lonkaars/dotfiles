@@ -1,26 +1,35 @@
-//META{"name":"EditServers","authorId":"278543574059057154","invite":"Jx3TjNS","donate":"https://www.paypal.me/MircoWittrien","patreon":"https://www.patreon.com/MircoWittrien","website":"https://github.com/mwittrien/BetterDiscordAddons/tree/master/Plugins/EditServers","source":"https://raw.githubusercontent.com/mwittrien/BetterDiscordAddons/master/Plugins/EditServers/EditServers.plugin.js"}*//
+/**
+ * @name EditServers
+ * @authorId 278543574059057154
+ * @invite Jx3TjNS
+ * @donate https://www.paypal.me/MircoWittrien
+ * @patreon https://www.patreon.com/MircoWittrien
+ * @website https://github.com/mwittrien/BetterDiscordAddons/tree/master/Plugins/EditServers
+ * @source https://raw.githubusercontent.com/mwittrien/BetterDiscordAddons/master/Plugins/EditServers/EditServers.plugin.js
+ */
 
 module.exports = (_ => {
-    const config = {
+	const config = {
 		"info": {
 			"name": "EditServers",
 			"author": "DevilBro",
-			"version": "2.2.4",
-			"description": "Allows you to change the icon, name and color of servers."
+			"version": "2.2.5",
+			"description": "Allow you to change the icon, name and color of servers"
 		},
 		"changeLog": {
-			"fixed": {
-				"Server Invites": "No longer breaks server invites of non-joined servers"
+			"improved": {
+				"Welcome Message": "Now also changes the server name in the welcome message"
 			}
 		}
 	};
-    return !window.BDFDB_Global || (!window.BDFDB_Global.loaded && !window.BDFDB_Global.started) ? class {
+	
+	return !window.BDFDB_Global || (!window.BDFDB_Global.loaded && !window.BDFDB_Global.started) ? class {
 		getName () {return config.info.name;}
 		getAuthor () {return config.info.author;}
 		getVersion () {return config.info.version;}
 		getDescription () {return config.info.description;}
 		
-        load() {
+		load() {
 			if (!window.BDFDB_Global || !Array.isArray(window.BDFDB_Global.pluginQueue)) window.BDFDB_Global = Object.assign({}, window.BDFDB_Global, {pluginQueue:[]});
 			if (!window.BDFDB_Global.downloadModal) {
 				window.BDFDB_Global.downloadModal = true;
@@ -31,20 +40,20 @@ module.exports = (_ => {
 					onConfirm: _ => {
 						delete window.BDFDB_Global.downloadModal;
 						require("request").get("https://mwittrien.github.io/BetterDiscordAddons/Library/0BDFDB.plugin.js", (e, r, b) => {
-							if (!e && b && b.indexOf(`//META{"name":"`) > -1) require("fs").writeFile(require("path").join(BdApi.Plugins.folder, "0BDFDB.plugin.js"), b, _ => {});
+							if (!e && b && b.indexOf(`* @name BDFDB`) > -1) require("fs").writeFile(require("path").join(BdApi.Plugins.folder, "0BDFDB.plugin.js"), b, _ => {});
 							else BdApi.alert("Error", "Could not download BDFDB library plugin, try again some time later.");
 						});
 					}
 				});
 			}
 			if (!window.BDFDB_Global.pluginQueue.includes(config.info.name)) window.BDFDB_Global.pluginQueue.push(config.info.name);
-        }
-        start() {}
-        stop() {}
-    } : (([Plugin, BDFDB]) => {
+		}
+		start() {this.load();}
+		stop() {}
+	} : (([Plugin, BDFDB]) => {
 		var changedGuilds = {}, settings = {};
 	
-        return class EditServers extends Plugin {
+		return class EditServers extends Plugin {
 			onLoad() {
 				this.defaults = {
 					settings: {
@@ -52,6 +61,7 @@ module.exports = (_ => {
 						changeInGuildList:		{value:true, 	inner:true,		description:"Server List"},
 						changeInGuildHeader:	{value:true, 	inner:true,		description:"Server Header"},
 						changeInGuildInvites:	{value:true, 	inner:true,		description:"Server Invites"},
+						changeInChat:			{value:true, 	inner:true,		description:"Chat (Welcome Message, etc.)"},
 						changeInMutualGuilds:	{value:true, 	inner:true,		description:"Mutual Servers"},
 						changeInRecentMentions:	{value:true, 	inner:true,		description:"Recent Mentions Popout"},
 						changeInQuickSwitcher:	{value:true, 	inner:true,		description:"Quick Switcher"}
@@ -75,7 +85,8 @@ module.exports = (_ => {
 						BlobMask: "render",
 						GuildIconWrapper: "render",
 						GuildIcon: "render",
-						GuildHeader: "render"
+						GuildHeader: "render",
+						WelcomeArea: "default"
 					}
 				};
 				
@@ -115,7 +126,6 @@ module.exports = (_ => {
 				let settingsPanel, settingsItems = [], innerItems = [];
 				
 				for (let key in settings) if (!this.defaults.settings[key].inner) settingsItems.push(BDFDB.ReactUtils.createElement(BDFDB.LibraryComponents.SettingsSaveItem, {
-					className: BDFDB.disCN.marginbottom8,
 					type: "Switch",
 					plugin: this,
 					keys: ["settings", key],
@@ -126,7 +136,6 @@ module.exports = (_ => {
 					title: "Change Servers in:",
 					first: settingsItems.length == 0,
 					children: Object.keys(settings).map(key => this.defaults.settings[key].inner && BDFDB.ReactUtils.createElement(BDFDB.LibraryComponents.SettingsSaveItem, {
-						className: BDFDB.disCN.marginbottom8,
 						type: "Switch",
 						plugin: this,
 						keys: ["settings", key],
@@ -136,7 +145,6 @@ module.exports = (_ => {
 				}));
 				settingsItems.push(BDFDB.ReactUtils.createElement(BDFDB.LibraryComponents.SettingsItem, {
 					type: "Button",
-					className: BDFDB.disCN.marginbottom8,
 					color: BDFDB.LibraryComponents.Button.Colors.RED,
 					label: "Reset all Servers",
 					onClick: _ => {
@@ -244,16 +252,16 @@ module.exports = (_ => {
 						let renderChildren = e.returnvalue.props.children;
 						e.returnvalue.props.children = (...args) => {
 							let renderedChildren = renderChildren(...args);
-							let [children, index] = BDFDB.ReactUtils.findParent(renderedChildren, {props:[["className", BDFDB.disCN.guildiconacronym]]});
-							if (index > -1) {
+							let guildAcronym = BDFDB.ReactUtils.findChild(renderedChildren, {props:[["className", BDFDB.disCN.guildiconacronym]]});
+							if (guildAcronym) {
 								let fontGradient = BDFDB.ObjectUtils.is(data.color2);
-								children[index].props.style = Object.assign({}, children[index].props.style, {
+								guildAcronym.props.style = Object.assign({}, guildAcronym.props.style, {
 									background: BDFDB.ObjectUtils.is(data.color1) ? BDFDB.ColorUtils.createGradient(data.color1) : BDFDB.ColorUtils.convert(data.color1, "RGBA"),
 									color: !fontGradient && BDFDB.ColorUtils.convert(data.color2, "RGBA")
 								});
-								if (fontGradient) children[index].props.children = BDFDB.ReactUtils.createElement(BDFDB.LibraryComponents.TextGradientElement, {
+								if (fontGradient) guildAcronym.props.children = BDFDB.ReactUtils.createElement(BDFDB.LibraryComponents.TextGradientElement, {
 									gradient: BDFDB.ColorUtils.createGradient(data.color2),
-									children: children[index].props.children
+									children: guildAcronym.props.children
 								});
 							}
 							return renderedChildren;
@@ -337,6 +345,19 @@ module.exports = (_ => {
 			processInviteGuildName (e) {
 				if (e.instance.props.guild && e.instance.props.guild.joinedAt && settings.changeInGuildInvites) {
 					e.instance.props.guild = this.getGuildData(e.instance.props.guild.id);
+				}
+			}
+			
+			processWelcomeArea (e) {
+				if (e.instance.props.channel && settings.changeInChat) {
+					let name = (BDFDB.LibraryModules.GuildStore.getGuild(e.instance.props.channel.guild_id) || {}).name;
+					let guildName = name && BDFDB.ReactUtils.findChild(e.returnvalue, {props:[["className", "titleName-3-Lp3Z"]]});
+					if (guildName && guildName.props && BDFDB.ArrayUtils.is(guildName.props.children)) {
+						for (let child of guildName.props.children) if (child && child.props && BDFDB.ArrayUtils.is(child.props.children) && child.props.children[0] == name) {
+							child.props.children = [(this.getGuildData(e.instance.props.channel.guild_id) || {}).name || name];
+							break;
+						}
+					}
 				}
 			}
 			
@@ -456,6 +477,7 @@ module.exports = (_ => {
 												BDFDB.ReactUtils.createElement(BDFDB.LibraryComponents.SettingsItem, {
 													className: "input-removeicon",
 													type: "Switch",
+													margin: 0,
 													grow: 0,
 													label: BDFDB.LanguageUtils.LanguageStrings.REMOVE,
 													tag: BDFDB.LibraryComponents.FormComponents.FormTitle.Tags.H5,
@@ -502,6 +524,7 @@ module.exports = (_ => {
 												BDFDB.ReactUtils.createElement(BDFDB.LibraryComponents.SettingsItem, {
 													className: "input-removebanner",
 													type: "Switch",
+													margin: 0,
 													grow: 0,
 													label: BDFDB.LanguageUtils.LanguageStrings.REMOVE,
 													tag: BDFDB.LibraryComponents.FormComponents.FormTitle.Tags.H5,
@@ -1079,5 +1102,5 @@ module.exports = (_ => {
 				}
 			}
 		};
-    })(window.BDFDB_Global.PluginUtils.buildPlugin(config));
+	})(window.BDFDB_Global.PluginUtils.buildPlugin(config));
 })();
