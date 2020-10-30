@@ -36,7 +36,7 @@ floating_modifier $mod
 bindsym $mod+q kill
 
 # Replace window decorations with a border
-for_window [class=".*"] border pixel 2
+for_window [class=".*"] border pixel 0
 
 # Keybinds
 bindsym $mod+Escape exec "dm-tool lock" 
@@ -72,6 +72,7 @@ exec "picom -b"
 exec "xbanish &"
 exec "redshift &"
 exec "dunst &"
+exec "flashfocus &"
 exec --no-startup-id "xset r rate 250 40"
 exec --no-startup-id "autocutsel &"
 
