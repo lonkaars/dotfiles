@@ -1,26 +1,34 @@
-//META{"name":"EditChannels","authorId":"278543574059057154","invite":"Jx3TjNS","donate":"https://www.paypal.me/MircoWittrien","patreon":"https://www.patreon.com/MircoWittrien","website":"https://github.com/mwittrien/BetterDiscordAddons/tree/master/Plugins/EditChannels","source":"https://raw.githubusercontent.com/mwittrien/BetterDiscordAddons/master/Plugins/EditChannels/EditChannels.plugin.js"}*//
+/**
+ * @name EditChannels
+ * @authorId 278543574059057154
+ * @invite Jx3TjNS
+ * @donate https://www.paypal.me/MircoWittrien
+ * @patreon https://www.patreon.com/MircoWittrien
+ * @website https://github.com/mwittrien/BetterDiscordAddons/tree/master/Plugins/EditChannels
+ * @source https://raw.githubusercontent.com/mwittrien/BetterDiscordAddons/master/Plugins/EditChannels/EditChannels.plugin.js
+ */
 
 module.exports = (_ => {
-    const config = {
+	const config = {
 		"info": {
 			"name": "EditChannels",
 			"author": "DevilBro",
-			"version": "4.1.7",
-			"description": "Allows you to rename and recolor channelnames."
+			"version": "4.1.8",
+			"description": "Allow you to rename and recolor channelnames"
 		},
 		"changeLog": {
 			"fixed": {
-				"Autocomplete Menu": "Works again"
+				"Works again": "Yas"
 			}
 		}
 	};
-    return !window.BDFDB_Global || (!window.BDFDB_Global.loaded && !window.BDFDB_Global.started) ? class {
+	return !window.BDFDB_Global || (!window.BDFDB_Global.loaded && !window.BDFDB_Global.started) ? class {
 		getName () {return config.info.name;}
 		getAuthor () {return config.info.author;}
 		getVersion () {return config.info.version;}
 		getDescription () {return config.info.description;}
 		
-        load() {
+		load() {
 			if (!window.BDFDB_Global || !Array.isArray(window.BDFDB_Global.pluginQueue)) window.BDFDB_Global = Object.assign({}, window.BDFDB_Global, {pluginQueue:[]});
 			if (!window.BDFDB_Global.downloadModal) {
 				window.BDFDB_Global.downloadModal = true;
@@ -31,20 +39,20 @@ module.exports = (_ => {
 					onConfirm: _ => {
 						delete window.BDFDB_Global.downloadModal;
 						require("request").get("https://mwittrien.github.io/BetterDiscordAddons/Library/0BDFDB.plugin.js", (e, r, b) => {
-							if (!e && b && b.indexOf(`//META{"name":"`) > -1) require("fs").writeFile(require("path").join(BdApi.Plugins.folder, "0BDFDB.plugin.js"), b, _ => {});
+							if (!e && b && b.indexOf(`* @name BDFDB`) > -1) require("fs").writeFile(require("path").join(BdApi.Plugins.folder, "0BDFDB.plugin.js"), b, _ => {});
 							else BdApi.alert("Error", "Could not download BDFDB library plugin, try again some time later.");
 						});
 					}
 				});
 			}
 			if (!window.BDFDB_Global.pluginQueue.includes(config.info.name)) window.BDFDB_Global.pluginQueue.push(config.info.name);
-        }
-        start() {}
-        stop() {}
-    } : (([Plugin, BDFDB]) => {
+		}
+		start() {this.load();}
+		stop() {}
+	} : (([Plugin, BDFDB]) => {
 		var changedChannels = {}, settings = {};
 	
-        return class EditChannels extends Plugin {
+		return class EditChannels extends Plugin {
 			onLoad() {
 				this.defaults = {
 					settings: {
@@ -69,8 +77,8 @@ module.exports = (_ => {
 						AuditLog: "render",
 						SettingsInvites: "render",
 						HeaderBarContainer: "render",
-						ChannelCategoryItem: "render",
-						ChannelItem: "render",
+						ChannelCategoryItem: "default",
+						ChannelItem: "default",
 						QuickSwitchChannelResult: "render",
 						MessageContent: "type"
 					},
@@ -78,8 +86,8 @@ module.exports = (_ => {
 						AutocompleteChannelResult: "render",
 						AuditLog: "render",
 						HeaderBarContainer: "render",
-						ChannelCategoryItem: "render",
-						ChannelItem: "render",
+						ChannelCategoryItem: "default",
+						ChannelItem: "default",
 						QuickSwitchChannelResult: "render",
 						RecentsChannelHeader: "default"
 					}
@@ -126,7 +134,6 @@ module.exports = (_ => {
 				let settingsPanel, settingsItems = [];
 				
 				for (let key in settings) if (!this.defaults.settings[key].inner) settingsItems.push(BDFDB.ReactUtils.createElement(BDFDB.LibraryComponents.SettingsSaveItem, {
-					className: BDFDB.disCN.marginbottom8,
 					type: "Switch",
 					plugin: this,
 					keys: ["settings", key],
@@ -137,7 +144,6 @@ module.exports = (_ => {
 					title: "Change Channels in:",
 					first: settingsItems.length == 0,
 					children: Object.keys(settings).map(key => this.defaults.settings[key].inner && BDFDB.ReactUtils.createElement(BDFDB.LibraryComponents.SettingsSaveItem, {
-						className: BDFDB.disCN.marginbottom8,
 						type: "Switch",
 						plugin: this,
 						keys: ["settings", key],
@@ -147,7 +153,6 @@ module.exports = (_ => {
 				}));
 				settingsItems.push(BDFDB.ReactUtils.createElement(BDFDB.LibraryComponents.SettingsItem, {
 					type: "Button",
-					className: BDFDB.disCN.marginbottom8,
 					color: BDFDB.LibraryComponents.Button.Colors.RED,
 					label: "Reset all Channels",
 					onClick: _ => {
@@ -169,12 +174,13 @@ module.exports = (_ => {
 				}
 			}
 		
-			forceUpdateAll () {
+			forceUpdateAll (instant = false) {
 				changedChannels = BDFDB.DataUtils.load(this, "channels");
 				settings = BDFDB.DataUtils.get(this, "settings");
 				
 				this.changeAppTitle();
 				BDFDB.PatchUtils.forceAllUpdates(this);
+				BDFDB.ChannelUtils.rerenderAll(instant);
 				BDFDB.ReactUtils.forceUpdate(BDFDB.ReactUtils.findOwner(document.querySelector(BDFDB.dotCN.app), {name:"Channel", unlimited:true}));
 			}
 
@@ -200,7 +206,7 @@ module.exports = (_ => {
 										disabled: !changedChannels[e.instance.props.channel.id],
 										action: _ => {
 											BDFDB.DataUtils.remove(this, "channels", e.instance.props.channel.id);
-											this.forceUpdateAll();
+											this.forceUpdateAll(true);
 										}
 									})
 								]
@@ -285,9 +291,15 @@ module.exports = (_ => {
 					if (!e.returnvalue) e.instance.props.channel = this.getChannelData(e.instance.props.channel.id);
 					else {
 						let onMouseEnter = e.returnvalue.props.onMouseEnter || ( _ => {});
-						e.returnvalue.props.onMouseEnter = event => {e.instance.setState({hovered: true});};
+						e.returnvalue.props.onMouseEnter = event => {
+							onMouseEnter(event);
+							e.instance.setState({hovered: true});
+						};
 						let onMouseLeave = e.returnvalue.props.onMouseLeave || ( _ => {});
-						e.returnvalue.props.onMouseLeave = event => {e.instance.setState({hovered: false});};
+						e.returnvalue.props.onMouseLeave = event => {
+							onMouseLeave(event);
+							e.instance.setState({hovered: false});
+						};
 						let modify = BDFDB.ObjectUtils.extract(Object.assign({}, e.instance.props, e.instance.state), "muted", "locked", "selected", "unread", "connected", "hovered");
 						let categoryName = BDFDB.ReactUtils.findChild(e.returnvalue, {props:[["className", BDFDB.disCN.categoryname]]});
 						if (categoryName) this.changeChannelColor(categoryName, e.instance.props.channel.id, modify);
@@ -302,9 +314,15 @@ module.exports = (_ => {
 					if (!e.returnvalue) e.instance.props.channel = this.getChannelData(e.instance.props.channel.id);
 					else {
 						let onMouseEnter = e.returnvalue.props.onMouseEnter || ( _ => {});
-						e.returnvalue.props.onMouseEnter = event => {e.instance.setState({hovered: true});};
+						e.returnvalue.props.onMouseEnter = event => {
+							onMouseEnter(event);
+							e.instance.setState({hovered: true});
+						};
 						let onMouseLeave = e.returnvalue.props.onMouseLeave || ( _ => {});
-						e.returnvalue.props.onMouseLeave = event => {e.instance.setState({hovered: false});};
+						e.returnvalue.props.onMouseLeave = event => {
+							onMouseLeave(event);
+							e.instance.setState({hovered: false});
+						};
 						let modify = BDFDB.ObjectUtils.extract(Object.assign({}, e.instance.props, e.instance.state), "muted", "locked", "selected", "unread", "connected", "hovered");
 						let channelName = BDFDB.ReactUtils.findChild(e.returnvalue, {props:[["className", BDFDB.disCN.channelname]]});
 						if (channelName) this.changeChannelColor(channelName, e.instance.props.channel.id, modify);
@@ -510,7 +528,8 @@ module.exports = (_ => {
 						}),
 						BDFDB.ReactUtils.createElement(BDFDB.LibraryComponents.SettingsItem, {
 							type: "Switch",
-							className: BDFDB.disCN.marginbottom20 + " input-inheritcolor",
+							className: "input-inheritcolor",
+							margin: 20,
 							label: this.labels.modal_inheritcolor_text,
 							tag: BDFDB.LibraryComponents.FormComponents.FormTitle.Tags.H5,
 							value: channel.type == 4 && data.inheritColor,
@@ -537,7 +556,7 @@ module.exports = (_ => {
 							let changed = false;
 							if (Object.keys(data).every(key => data[key] == null || data[key] == false) && (changed = true)) BDFDB.DataUtils.remove(this, "channels", channel.id);
 							else if (!BDFDB.equals(oldData, data) && (changed = true)) BDFDB.DataUtils.save(data, this, "channels", channel.id);
-							if (changed) this.forceUpdateAll();
+							if (changed) this.forceUpdateAll(true);
 						}
 					}]
 				});
@@ -758,5 +777,5 @@ module.exports = (_ => {
 				}
 			}
 		};
-    })(window.BDFDB_Global.PluginUtils.buildPlugin(config));
+	})(window.BDFDB_Global.PluginUtils.buildPlugin(config));
 })();
