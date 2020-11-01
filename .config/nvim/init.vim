@@ -68,7 +68,6 @@ Plug 'octol/vim-cpp-enhanced-highlight'
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'ryanoasis/vim-devicons' "Icons for filetypes
 Plug 'junegunn/fzf.vim'
-Plug '/usr/local/opt/fzf'
 Plug 'puremourning/vimspector'
 
 " themes
@@ -134,6 +133,9 @@ let g:which_key_map['*'] = 'search-selected'
 map <leader>h :noh<cr>
 let g:which_key_map.h = 'no-highlighting'
 
+map <leader>f :FZF<cr>
+let g:which_key_map.f = 'fzf'
+
 map <leader>b :norm gg=G``<cr>
 let g:which_key_map.b = 'format-file'
 
@@ -162,18 +164,19 @@ let g:which_key_map.t = {
 			\ }
 
 map <leader>.v :tabnew ~/.config/nvim/init.vim<cr>
-
 map <leader>.c :tabnew ~/.config/picom.conf<cr>
 map <leader>.z :tabnew ~/.zshrc<cr>
 map <leader>.i :tabnew ~/.config/i3/config<cr>
 map <leader>.p :tabnew ~/.config/polybar/config.ini<cr>
+map <leader>.x :tabnew ~/.config/xb.rc<cr>
 let g:which_key_map['.'] = {
 			\ 'name': '+config',
 			\ 'v': 'vim',
 			\ 'z': 'zsh',
 			\ 'i': 'i3',
 			\ 'c': 'picom',
-			\ 'p': 'polybar'
+			\ 'p': 'polybar',
+			\ 'x': 'xbindkeysrc'
 			\ }
 " cmd maps
 cnoreabbrev W w

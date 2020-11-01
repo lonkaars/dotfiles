@@ -1,0 +1,87 @@
+"dm-tool lock"
+	Mod4 + Escape
+"polybar-msg cmd toggle" 
+	Mod4 + b
+"rofi -show drun -show-icons"
+	Mod4 + space
+"st"
+	Mod4 + Return
+"bwmenu"
+	Mod4 + p
+"flost fzmp -A"
+	Mod4 + a
+"maim -sb 4 -c 255,255,255 | xclip -selection clipboard -t image/png"
+	Print
+
+
+
+"pactl set-sink-volume @DEFAULT_SINK@ -5%"
+	Mod1+Mod4+minus
+"pactl set-sink-volume @DEFAULT_SINK@ +5%"
+	Mod1+Mod4+equal
+
+"pactl set-sink-volume @DEFAULT_SINK@ +5%"
+	XF86AudioRaiseVolume
+"pactl set-sink-volume @DEFAULT_SINK@ -5%"
+	XF86AudioLowerVolume
+"pactl set-sink-mute @DEFAULT_SINK@ toggle"
+	XF86AudioMute
+
+"playerctl play-pause"
+	XF86AudioPlay
+"playerctl next"
+	XF86AudioNext
+"playerctl previous"
+	XF86AudioPrev
+
+"mpc toggle"
+	Mod1+Mod4+k
+"mpc next"
+	Mod1+Mod4+l
+"mpc prev"
+	Mod1+Mod4+j
+
+
+
+"sh -c 'export PATH=~/.local/share/bin:$PATH && setwacom Area 0 0 15200 9500 && setwacom MapToOutput 1920x1080+0+0    && setwacom Suppress 2 && setwacom RawSample 7'"
+	Mod1 + Control + Mod4 + 1
+"sh -c 'export PATH=~/.local/share/bin:$PATH && setwacom Area 0 0 15200 9500 && setwacom MapToOutput 1920x1080+1920+0 && setwacom Suppress 2 && setwacom RawSample 7'"
+	Mod1 + Control + Mod4 + 2
+"sh -c 'export PATH=~/.local/share/bin:$PATH && setwacom Area 0 0 7600  4275 && setwacom MapToOutput 1920x1080+0+0    && setwacom Suppress 0 && setwacom RawSample 1'"
+	Mod1 + Control + Mod4 + 3
+"sh -c 'export PATH=~/.local/share/bin:$PATH && setwacom Area 0 0 15200 4275 && setwacom MapToOutput 3840x1080+0+0    && setwacom Suppress 2 && setwacom RawSample 7'"
+	Mod1 + Control + Mod4 + 4
+
+
+
+"i3-msg focus left"
+	Mod4 + h
+"i3-msg focus down"
+	Mod4 + j
+"i3-msg focus up"
+	Mod4 + k
+"i3-msg focus right"
+	Mod4 + l
+
+"i3-msg move left"
+	Mod4 + Shift + h
+"i3-msg move down"
+	Mod4 + Shift + j
+"i3-msg move up"
+	Mod4 + Shift + k
+"i3-msg move right"
+	Mod4 + Shift + l
+
+"i3-msg resize grow width 10 px"
+	Mod4 + period
+"i3-msg resize shrink width 10 px"
+	Mod4 + comma
+
+"i3-msg kill" 
+	Mod4 + q
+
+"i3-msg reload"
+	Mod4 + Shift + c
+"i3-msg restart"
+	Mod4 + Shift + r
+
