@@ -61,15 +61,14 @@ alias vim="nvim"
 alias copy="xclip -selection c"
 alias sctl="systemctl"
 alias ncp="ncmpcpp"
-alias xsiv="i3-swallow sxiv"
-alias scrcpy="i3-swallow scrcpy"
-alias dnd="dragon-drag-and-drop"
+alias dnd="dragon-drag-and-drop -x"
 alias adda="git add -A"
 alias first="git commit -m \"first commit\""
 alias les="less"
 alias scdl="scdl --onlymp3 -l"
 alias screenrecord='giph -s -b 4 -c 255,255,255 $(date +"$HOME/%Y-%m-%d_%H-%M-%S.mp4")'
 function b64d { echo $1 | base64 -d }
+function genplaylist { find $1 -name "*.flac" | sort -V > playlists/$1.m3u }
 alias r="ranger"
 alias v="nvim"
 alias l="live-server"

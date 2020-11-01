@@ -1,6 +1,6 @@
 # variables
 set $mod Mod4
-set $inner_gaps 10
+set $inner_gaps 16
 set $outer_gaps 0
 
 # set gaps
@@ -8,7 +8,6 @@ gaps inner $inner_gaps
 gaps outer $outer_gaps
 
 # border color
-# pywal-start
 client.focused          #222222 #222222 #f0f0f0 #111111 #222222
 client.focused_inactive #050505 #050505 #f0f0f0 #050505 #050505
 client.unfocused        #050505 #050505 #f0f0f0 #050505 #050505
@@ -16,46 +15,18 @@ client.urgent           #050505 #ac8a8c #f0f0f0 #ac8a8c #ac8a8c
 client.placeholder      #000000 #0c0c0c #f0f0f0 #050505 #050505
 client.background       #c7c5ca
 
-# pywal-end
+# Replace window decorations with a border
+for_window [class=".*"] border pixel 0
 
 # font
-font pango:Fira Code 9
+font pango:Inter 9
 
 # no idea what these do but they were in here by default
 exec --no-startup-id xss-lock --transfer-sleep-lock -- i3lock --nofork
 exec --no-startup-id nm-applet
 set $refresh_i3status killall -SIGUSR1 i3status
 
-# Voulme keybinds
-bindsym XF86AudioRaiseVolume exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ +5% && $refresh_i3status
-bindsym XF86AudioLowerVolume exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ -5% && $refresh_i3status
-bindsym XF86AudioMute exec --no-startup-id pactl set-sink-mute @DEFAULT_SINK@ toggle && $refresh_i3status
-
-# window interactions
 floating_modifier $mod
-bindsym $mod+q kill
-
-# Replace window decorations with a border
-for_window [class=".*"] border pixel 0
-
-# Keybinds
-bindsym $mod+Escape exec "dm-tool lock" 
-bindsym $mod+b exec "polybar-msg cmd toggle" 
-bindsym $mod+space exec "rofi -show drun -show-icons"
-bindsym $mod+Return exec st
-bindsym $mod+p exec bwmenu
-bindsym Print exec "maim -sb 4 -c 255,255,255 | xclip -selection clipboard -t image/png"
-
-bindsym XF86AudioPlay exec "playerctl play-pause"
-bindsym XF86AudioNext exec "playerctl next"
-bindsym XF86AudioPrev exec "playerctl previous"
-
-# 60% keyboard media controls
-bindsym Mod1+Mod4+k exec "mpc toggle"
-bindsym Mod1+Mod4+l exec "mpc next"
-bindsym Mod1+Mod4+j exec "mpc prev"
-bindsym Mod1+Mod4+minus exec "pactl set-sink-volume @DEFAULT_SINK@ -5%"
-bindsym Mod1+Mod4+equal exec "pactl set-sink-volume @DEFAULT_SINK@ +5%"
 
 # Gaps
 bindsym $mod+i gaps inner current plus 5
@@ -73,31 +44,9 @@ exec "xbanish &"
 exec "redshift &"
 exec "dunst &"
 exec "flashfocus &"
-exec --no-startup-id "xset r rate 250 40"
-exec --no-startup-id "autocutsel &"
-
-bindsym Mod1+Control+Mod4+1 exec "sh -c 'export PATH=~/.local/share/bin:$PATH && setwacom Area 0 0 15200 9500 && setwacom MapToOutput 1920x1080+0+0    && setwacom Suppress 2 && setwacom RawSample 7'"
-bindsym Mod1+Control+Mod4+2 exec "sh -c 'export PATH=~/.local/share/bin:$PATH && setwacom Area 0 0 15200 9500 && setwacom MapToOutput 1920x1080+1920+0 && setwacom Suppress 2 && setwacom RawSample 7'"
-bindsym Mod1+Control+Mod4+3 exec "sh -c 'export PATH=~/.local/share/bin:$PATH && setwacom Area 0 0 7600  4275 && setwacom MapToOutput 1920x1080+0+0    && setwacom Suppress 0 && setwacom RawSample 1'"
-bindsym Mod1+Control+Mod4+4 exec "sh -c 'export PATH=~/.local/share/bin:$PATH && setwacom Area 0 0 15200 4275 && setwacom MapToOutput 3840x1080+0+0    && setwacom Suppress 2 && setwacom RawSample 7'"
-
-# change focus
-bindsym $mod+h focus left
-bindsym $mod+j focus down
-bindsym $mod+k focus up
-bindsym $mod+l focus right
-
-# move focused window
-bindsym $mod+Shift+h move left
-bindsym $mod+Shift+j move down
-bindsym $mod+Shift+k move up
-bindsym $mod+Shift+l move right
-
-# resize focused window
-bindsym $mod+bracketright resize grow height 10 px
-bindsym $mod+bracketleft resize shrink height 10 px
-bindsym $mod+period resize grow width 10 px
-bindsym $mod+comma resize shrink width 10 px
+exec "xbindkeys -f ~/.config/xb.rc"
+exec "xset r rate 250 40"
+exec "autocutsel &"
 
 # split in horizontal orientation
 bindsym $mod+bar split h
@@ -114,9 +63,6 @@ bindsym $mod+Alt+space focus mode_toggle
 
 # focus the parent container
 bindsym $mod+Shift+a focus parent
-
-# focus the child container
-#bindsym $mod+d focus child
 
 # workspaces
 set $ws1 "1"
@@ -151,6 +97,7 @@ bindsym $mod+Shift+8 move container to workspace number $ws8
 # always floating windows
 for_window [class="Steam"] floating enable
 for_window [class="cinquo"] floating enable
+for_window [class="Conky"] floating enable
 for_window [title="Farge"] floating enable
 for_window [title="^\[floating\].*"] floating enable
 for_window [window_type=notification] floating enable
@@ -160,16 +107,3 @@ for_window [class="Unturned.x86_64"] fullscreen disable
 for_window [class="Minecraft.*"] floating enable
 for_window [class="Minecraft.*"] fullscreen enable
 
-# reload the configuration file
-bindsym $mod+Shift+c reload
-# restart i3 inplace (preserves your layout/session, can be used to upgrade i3)
-bindsym $mod+Shift+r restart
-# exit i3 (logs you out of your X session)
-# bindsym $mod+Shift+e exec "i3-nagbar -t warning -m 'You pressed the exit shortcut. Do you really want to exit i3? This will end your X session.' -B 'Yes, exit i3' 'i3-msg exit'"
-
-# bar {
-# 	mode hide
-# 	hidden_state hide
-# 	modifier none
-# 	tray_output none
-# }
