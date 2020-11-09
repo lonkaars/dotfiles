@@ -1,0 +1,34 @@
+/**
+ * @name mountaineer
+ * @author Loekaars#8205
+ * @version 1.0.0
+ * @description based off vim
+*/
+
+:root {
+	--accent: 172, 138, 140;
+
+	--pywal-serverside: #000000;
+
+	--pywal-bg0: #050505;
+	--pywal-bg1: #111111;
+	--pywal-bg2: #111111;
+	--pywal-bg3: #181818;
+
+	--pywal-color0: #050505;
+	--pywal-color1: #AC8A8C;
+	--pywal-color2: #8AAC8B;
+	--pywal-color3: #ACA98A;
+	--pywal-color4: #8F8AAC;
+	--pywal-color5: #AC8AAC;
+	--pywal-color6: #8AABAC;
+	--pywal-color7: #e7e7e7;
+	--pywal-color8: #676767;
+	--pywal-color9: #AC8A8C;
+	--pywal-color10: #8AAC8B;
+	--pywal-color11: #ACA98A;
+	--pywal-color12: #8F8AAC;
+	--pywal-color13: #AC8AAC;
+	--pywal-color14: #8AABAC;
+	--pywal-color15: #f0f0f0;
+}
