@@ -130,7 +130,7 @@ ramp-headphones-1 = 󰟎
 [module/date]
 type = internal/date
 interval = 1.0
-time = 󰃭 %A, %B %d
+time = 󰃭 %{T2}%A%{T-}, %B %d
 format = <label>
 format-background = ${color.bg}
 format-foreground = ${color.fg}
@@ -141,7 +141,7 @@ label = %time%
 [module/time]
 type = internal/date
 interval = 1.0
-time = 󰅐 %H:%M
+time = 󰥔 %{T2}%H:%M%{T-}
 format = <label>
 format-background = ${color.bg}
 format-foreground = ${color.fg}
