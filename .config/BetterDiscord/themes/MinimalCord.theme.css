@@ -102,7 +102,7 @@ section.da-container > .da-children > .da-tabBar > .da-item:not(.da-themed),
 	border: 0 !important;
 }
 
-.da-app .da-base .da-content .da-container {
+.da-app .da-base .da-content .da-container .da-tabBody {
 	background: var(--background) !important;
 }
 
