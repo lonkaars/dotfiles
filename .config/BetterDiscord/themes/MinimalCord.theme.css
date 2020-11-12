@@ -5,7 +5,7 @@
  * @description Changes Discord enough to give it a fresh feel while also making it darker. Supports both Light and Dark themes.
  * @source https://github.com/Gibbu/BetterDiscord-Themes/tree/master/MinimalCord
  * @website https://www.gibbu.me
-*/
+ */
 
 @import url('https://fonts.googleapis.com/css?family=Roboto:300,400,500,700,900');
 @import url("https://gibbu.github.io/BetterDiscord-Themes/MinimalCord/base.css");
@@ -14,94 +14,59 @@
 @import url('https://monstrousdev.github.io/themes/addons/user-tags.css');
 
 :root {
-    /* --accent: 233, 86, 120; DEFAULT: 22, 188, 249 */
-    --chat-avatar-size: 48px; /* Changes size of chat avatars | DEFAULT: 40px */
-    --search-results-width: 25vw; /* Width of server results. For a fixed width use px. | DEFAULT: 25vw */
-    --emoji-picker-height: 260px; /* Height of Emoji picker | DEFAULT: 260px */
-    --font: 'JetBrainsMono NF';
+	/* --accent: 233, 86, 120; DEFAULT: 22, 188, 249 */
+	--chat-avatar-size: 48px; /* Changes size of chat avatars | DEFAULT: 40px */
+	--search-results-width: 25vw; /* Width of server results. For a fixed width use px. | DEFAULT: 25vw */
+	--emoji-picker-height: 260px; /* Height of Emoji picker | DEFAULT: 260px */
+	--font: 'JetBrainsMono NF';
 }
 
 .theme-dark {
-    --foreground-1: var(--pywal-bg0) !important;
-    --foreground-2: var(--pywal-bg1) !important;
-    --foreground-divider: var(--pywal-color15) !important;
-    --background-primary: var(--pywal-bg3) !important;
-    --background-secondary: var(--pywal-bg2) !important;
-    --background-tertiary: var(--pywal-bg0) !important;
-    --background-floating: var(--pywal-bg0) !important;
-    --background-1: var(--pywal-bg0) !important;
-    --background-2: var(--pywal-serverside) !important;
-    --box-shadow: 0 3px 30px -5px #0008 !important;
-    --scrollbar: var(--pywal-bg1) !important;
-    --tooltips: var(--pywal-bg2) !important;
-    --pages-box: var(--message-box) !important;
-    --pages-box-footer: var(--pywal-bg0) !important;
-    --pages-separator: #ffffff0d !important;
-    --user-popout: var(--dropdown) !important;
-    --user-popout-body: var(--pywal-bg0) !important;
-    --user-popout-message: var(--pywal-color0) !important;
-    --settings-box: var(--message-box) !important;
-    --settings-box-hover: var(--pywal-color0) !important;
-    --settings-box-footer: var(--pywal-color0) !important;
-    --settings-input: var(--pywal-color0) !important;
-    --settings-paginator: #00000033 !important;
-    --settings-separator: #ffffff0d !important;
-    --dropdown: var(--pywal-bg1) !important;
-    --dropdown-header: var(--pywal-bg3) !important;
-    --dropdown-item-hover: var(--pywal-bg1) !important;
-    --message-box: #0000 !important;
-    --message-box-divider: var(--pywal-bg2) !important;
-    --message-embed: var(--pywal-bg2) !important;
-    --message-button: var(--pywal-bg3) !important;
-    --server-background: var(--pywal-serverside) !important;
-    --server-selected: var(--pywal-serverside) !important;
-    --search-filter-hover: var(--pywal-bg1) !important;
-    --search-result-header: var(--pywal-bg1) !important;
-    --channel-selected: var(--pywal-bg2) !important;
-    --channel-selected-bg: var(--channel-selected) !important;
-    --channel-hovered: var(--pywal-bg1) !important;
-    --channel-hovered-bg: var(--pywal-bg1) !important;
-    --modal-connection: var(--background-1) !important;
-    --modal-list: var(--pywal-color0) !important;
-    --modal-badge-invert: invert(0) !important;
-    --modal-bg1-search: var(--search-filter-hover) !important;
-    --text-1: #fff !important;
-    --text-2: #c9c9c9 !important;
-    --text-3: #999a9b !important;
-    --text-4: #717173 !important;
-    --text-dark: #565759 !important;
+	--background-light: var(--pywal-bg2) !important;
+	--background: var(--pywal-bg0) !important;
+	--background-alt: var(--pywal-bg1) !important;
+	--background-dark: var(--pywal-serverside) !important;
+
+	--text-normal: var(--pywal-color7);
+	--text-muted: var(--pywal-color8);
+	--text-focus: var(--pywal-color15);
+
+	--foreground-1: var(--background) !important;
+	--background-primary: var(--background) !important;
+
+	--box-shadow: 0;
 }
 
 .da-attachWrapper, .da-buttons {
-    width: 0;
-    overflow: hidden;
+	width: 0;
+	overflow: hidden;
 }
 
 .da-channelTextArea {
-    margin-top: 0 !important;
-    margin-bottom: 8px !important;
+	margin-top: 0 !important;
+	margin-bottom: 8px !important;
 }
 
 .da-form {
-    margin-left: 0 !important;
-    margin-right: 0 !important;
+	margin-left: 0 !important;
+	margin-right: 0 !important;
 }
 
 .da-username {
-    filter: saturate(0.4) brightness(1.5);
+	filter: saturate(0.4) brightness(1.5);
 }
 
 .da-itemCard > div > div {
-    background: var(--background-secondary) !important;
+	background: var(--background-secondary) !important;
 }
 
 .da-channelTextArea > div {
-    box-shadow: none !important;
-    background: var(--foreground-1) !important;
+	box-shadow: none !important;
+	background: var(--foreground-1) !important;
 }
 
 .da-form::before {
-    background: transparent !important;
+	background: transparent !important;
 }
 
 .da-nowPlayingColumn {
@@ -135,5 +100,9 @@ section.da-container > .da-children > .da-tabBar > .da-item:not(.da-themed),
 
 .da-peopleColumn .da-peopleListItem {
 	border: 0 !important;
+}
+
+.da-app .da-base .da-content .da-container {
+	background: var(--background) !important;
 }
 
