@@ -60,6 +60,11 @@
 	background: var(--background) !important;
 }
 
+.da-channelTextArea > div {
+	box-shadow: none !important;
+	background: var(--background) !important;
+}
+
 .da-form::before {
 	background: transparent !important;
 }
