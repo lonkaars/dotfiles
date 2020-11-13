@@ -57,20 +57,11 @@
 }
 
 .da-itemCard > div > div {
-	background: var(--background-secondary) !important;
-}
-
-.da-channelTextArea > div {
-	box-shadow: none !important;
-	background: var(--foreground-1) !important;
+	background: var(--background) !important;
 }
 
 .da-form::before {
 	background: transparent !important;
-}
-
-.da-nowPlayingColumn {
-	background: var(--background-1) !important;
 }
 
 .da-videoControls {
@@ -79,7 +70,7 @@
 
 .da-privateChannelsHeaderContainer .da-numberBadge.da-base {
 	background-color: rgb(var(--accent)) !important;
-	color: var(--pywal-bg0) !important;
+	color: var(--background) !important;
 }
 
 .da-circleIcon,
@@ -91,7 +82,7 @@ section.da-container > .da-children > .da-tabBar > .da-item:not(.da-themed),
 .bd-guild .da-item,
 .da-tutorialContainer .da-pill .da-item {
 	background-color: rgb(var(--accent)) !important;
-	color: var(--pywal-bg0) !important;
+	color: var(--background) !important;
 }
 
 .da-actionButton {
