@@ -8,8 +8,29 @@ set selection-clipboard clipboard
 map <C-i> recolor
 set recolor "true"
 
-set default-bg rgb(5,5,5)
-set recolor-lightcolor rgba(240,240,240,0)
-
 set recolor-reverse-video "true"
 set recolor-keephue "true"
+
+
+set default-bg				"#121213"
+set statusbar-bg			"#121213"
+set inputbar-bg				"#121213"
+set completion-highlight-fg	"#121213"
+set completion-bg			"#121213"
+set notification-error-fg	"#121213"
+set notification-warning-fg	"#121213"
+set notification-fg			"#121213"
+
+set default-fg			"#f9ece8"
+set inputbar-fg			"#f9ece8"
+set completion-fg		"#f9ece8"
+set statusbar-fg		"#f9ece8"
+set recolor-lightcolor	rgba(2249,236,232,0)
+
+set notification-error-bg "#DE9DAC"
+set notification-warning-bg "#DE9DAC"
+set completion-highlight-bg "#DE9DAC"
+set highlight-color "#DE9DAC"
+
+set highlight-active-color "#C3AFF7"
+set notification-bg "#C3AFF7"

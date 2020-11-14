@@ -29,12 +29,12 @@ hi! link CocFloating SneakScope
 cabbrev help tab help
 autocmd BufNewFile,BufRead *.jdscn set syntax=json
 
-" if ! filereadable(expand('~/.config/nvim/autoload/plug.vim'))
-" 	echo "Downloading junegunn/vim-plug to manage plugins..."
-" 	silent !mkdir -p ~/.config/nvim/autoload/
-" 	silent !curl "https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim" > ~/.config/nvim/autoload/plug.vim
-" 	autocmd VimEnter * PlugInstall
-" endif
+if ! filereadable(expand('~/.config/nvim/autoload/plug.vim'))
+	echo "Downloading junegunn/vim-plug to manage plugins..."
+	silent !mkdir -p ~/.config/nvim/autoload/
+	silent !curl "https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim" > ~/.config/nvim/autoload/plug.vim
+	autocmd VimEnter * PlugInstall
+endif
 
 " plugged
 call plug#begin('~/.config/nvim/plugged')
@@ -63,6 +63,9 @@ Plug 'lervag/vimtex'
 Plug 'pangloss/vim-javascript'
 Plug 'hail2u/vim-css3-syntax'
 Plug 'octol/vim-cpp-enhanced-highlight'
+Plug 'dart-lang/dart-vim-plugin'
+Plug 'bartlomiejdanek/vim-dart'
+Plug 'natebosch/dartlang-snippets'
 
 " 'vim=ide'
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
@@ -81,6 +84,7 @@ Plug 'scheakur/vim-scheakur'
 Plug 'mkarmona/materialbox'
 Plug 'morhetz/gruvbox'
 Plug 'co1ncidence/mountaineer'
+Plug 'co1ncidence/bliss'
 call plug#end()
 
 " keybinds
@@ -167,7 +171,7 @@ map <leader>.v :tabnew ~/.config/nvim/init.vim<cr>
 map <leader>.c :tabnew ~/.config/picom.conf<cr>
 map <leader>.z :tabnew ~/.zshrc<cr>
 map <leader>.i :tabnew ~/.config/i3/config<cr>
-map <leader>.p :tabnew ~/.config/polybar/config.ini<cr>
+map <leader>.p :tabnew ~/.config/polybar/config<cr>
 map <leader>.x :tabnew ~/.config/xb.rc<cr>
 let g:which_key_map['.'] = {
 			\ 'name': '+config',
@@ -183,9 +187,9 @@ cnoreabbrev W w
 cnoreabbrev sudow w !sudo tee %
 
 " colorscheme thingers
-colorscheme mountaineer
+colorscheme bliss
 let g:lightline = {
-			\ 'colorscheme': 'mountaineer',
+			\ 'colorscheme': 'bliss',
 			\ 'mode_map': {
 			\	'n' : 'norm',
 			\	'i' : 'ins',
@@ -215,7 +219,7 @@ let g:lightline = {
 			\	'right': [  ]
 			\ },
 			\ }
-source $HOME/.config/nvim/mountaineer-lightline.vim
+source $HOME/.config/nvim/bliss-lightline.vim
 hi! SignColumn guibg=NONE ctermbg=NONE
 
 " vimtex config

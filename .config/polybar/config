@@ -98,9 +98,9 @@ pseudo-transparency = false
 
 [color]
 
-bg = #050505
-fg = #f0f0f0
-fg-alt = #050505
+bg = #121213
+fg = #fdf9f7
+fg-alt = #121213
 
 alpha = #00000000
 

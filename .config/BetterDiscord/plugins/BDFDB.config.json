@@ -1,9 +1,0 @@
-{
-	"settings": {
-		"showSupportBadges": true,
-		"showToasts": true
-	},
-	"welcomeScreen": {
-		"seen": false
-	}
-}

@@ -8,8 +8,6 @@
 	Mod4 + Return
 "bwmenu"
 	Mod4 + p
-"flost fzmp -A"
-	Mod4 + a
 "maim -sb 4 -c 255,255,255 | xclip -selection clipboard -t image/png"
 	Print
 

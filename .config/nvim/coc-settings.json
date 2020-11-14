@@ -4,6 +4,19 @@
 			"command": "clangd",
 			"rootPatterns": ["compile_flags.txt", "compile_commands.json"],
 			"filetypes": ["c", "cc", "cpp", "c++", "objc", "objcpp"]
+		},
+		"dart": {
+			"command": "dart",
+			"args": [
+				"/opt/dart-sdk/bin/snapshots/analysis_server.dart.snapshot",
+				"--lsp",
+				"--client-id",
+				"vim",
+				"--client-version",
+				"coc.nvim"
+			],
+			"filetypes": ["dart"],
+			"trace.server": "verbose"
 		}
 	}
 }

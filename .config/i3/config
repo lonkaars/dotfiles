@@ -8,12 +8,12 @@ gaps inner $inner_gaps
 gaps outer $outer_gaps
 
 # border color
-client.focused          #222222 #222222 #f0f0f0 #111111 #222222
-client.focused_inactive #050505 #050505 #f0f0f0 #050505 #050505
-client.unfocused        #050505 #050505 #f0f0f0 #050505 #050505
-client.urgent           #050505 #ac8a8c #f0f0f0 #ac8a8c #ac8a8c
-client.placeholder      #000000 #0c0c0c #f0f0f0 #050505 #050505
-client.background       #c7c5ca
+client.focused          #262427 #262427 #fdf9f7 #262427 #262427
+client.focused_inactive #121213 #121213 #fdf9f7 #121213 #121213
+client.unfocused        #121213 #121213 #fdf9f7 #121213 #121213
+client.urgent           #121213 #de9dac #fdf9f7 #de9dac #de9dac
+client.placeholder      #000000 #0c0c0c #fdf9f7 #121213 #121213
+client.background       #f9ece8
 
 # Replace window decorations with a border
 for_window [class=".*"] border pixel 0
@@ -44,9 +44,10 @@ exec "xbanish &"
 exec "redshift &"
 exec "dunst &"
 exec "flashfocus &"
-exec "xbindkeys -f ~/.config/xb.rc"
 exec "xset r rate 250 40"
 exec "autocutsel &"
+exec "xbindkeys -f ~/.config/xbindkeys/main"
+exec "xbindkeys -f ~/.config/xbindkeys/delay"
 
 # split in horizontal orientation
 bindsym $mod+bar split h
@@ -104,6 +105,4 @@ for_window [window_type=notification] floating enable
 
 for_window [class="Unturned.x86_64"] floating disable
 for_window [class="Unturned.x86_64"] fullscreen disable
-for_window [class="Minecraft.*"] floating enable
-for_window [class="Minecraft.*"] fullscreen enable
 
