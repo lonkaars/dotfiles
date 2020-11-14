@@ -1,0 +1,34 @@
+/**
+ * @name bliss
+ * @author Loekaars#8205
+ * @version 1.0.0
+ * @description based off co1ncidence's vim theme
+*/
+
+:root {
+	--accent: 175, 192, 247;
+
+	--pywal-serverside: #0c0c0c;
+
+	--pywal-bg0: #121213;
+	--pywal-bg1: #222222;
+	--pywal-bg2: #222222;
+	--pywal-bg3: #2d2d2d;
+
+	--pywal-color0:  #121213;
+	--pywal-color1:  #DE9DAC;
+	--pywal-color2:  #9DDEAF;
+	--pywal-color3:  #DEDD9D;
+	--pywal-color4:  #9DACDE;
+	--pywal-color5:  #AF9DDE;
+	--pywal-color6:  #9DCCDE;
+	--pywal-color7:  #f4e0d8;
+	--pywal-color8:  #393b3b;
+	--pywal-color9:  #F7AFC0;
+	--pywal-color10: #AFF7C3;
+	--pywal-color11: #F7F6AF;
+	--pywal-color12: #AFC0F7;
+	--pywal-color13: #C3AFF7;
+	--pywal-color14: #AFE3F7;
+	--pywal-color15: #f9ece8;
+}

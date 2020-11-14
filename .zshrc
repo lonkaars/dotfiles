@@ -68,7 +68,8 @@ alias les="less"
 alias scdl="scdl --onlymp3 -l"
 alias screenrecord='giph -s -b 4 -c 255,255,255 $(date +"$HOME/%Y-%m-%d_%H-%M-%S.mp4")'
 function b64d { echo $1 | base64 -d }
-function genplaylist { find $1 -name "*.flac" | sort -V > playlists/$1.m3u }
+function genplaylist { find $1 -name "*.flac" | sort -V > ../playlists/$1.m3u }
+function bgcol { convert -size 1x1 xc:$1 /tmp/bgcol.png && feh --bg-tile /tmp/bgcol.png }
 alias r="ranger"
 alias v="nvim"
 alias l="live-server"

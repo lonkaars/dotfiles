@@ -1,20 +1,20 @@
 :root {
-	--color0: #050505;
-	--color1: #AC8A8C;
-	--color2: #8AAC8B;
-	--color3: #ACA98A;
-	--color4: #8F8AAC;
-	--color5: #AC8AAC;
-	--color6: #8AABAC;
-	--color7: #e7e7e7;
-	--color8: #676767;
-	--color9: #AC8A8C;
-	--color10: #8AAC8B;
-	--color11: #ACA98A;
-	--color12: #8F8AAC;
-	--color13: #AC8AAC;
-	--color14: #8AABAC;
-	--color15: #f0f0f0;
+	--color0:  #121213;
+	--color1:  #DE9DAC;
+	--color2:  #9DDEAF;
+	--color3:  #DEDD9D;
+	--color4:  #9DACDE;
+	--color5:  #AF9DDE;
+	--color6:  #9DCCDE;
+	--color7:  #f4e0d8;
+	--color8:  #393b3b;
+	--color9:  #F7AFC0;
+	--color10: #AFF7C3;
+	--color11: #F7F6AF;
+	--color12: #AFC0F7;
+	--color13: #C3AFF7;
+	--color14: #AFE3F7;
+	--color15: #f9ece8;
 }
 
 html, body {
