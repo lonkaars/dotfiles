@@ -8,7 +8,7 @@
 	Mod4 + Return
 "bwmenu"
 	Mod4 + p
-"maim -sb 4 -c 255,255,255 | xclip -selection clipboard -t image/png"
+"maim -usb 4 -c 255,255,255 | xclip -selection clipboard -t image/png"
 	Print
 
 
