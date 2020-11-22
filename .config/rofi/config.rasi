@@ -1,0 +1,53 @@
+configuration {
+	modi: "drun,run,window,ssh";
+	lines: 7;
+	font: "JetBrainsMono NF 10";
+	matching: "fuzzy";
+	separator-style: "none";
+	hide-scrollbar: true;
+	kb-remove-to-eol: "Control+Shift+e";
+	kb-accept-entry: "Control+m,Return,KP_Enter";
+	kb-row-up: "Up,Control+k,Shift+Tab,Shift+ISO_Left_Tab";
+	kb-row-down: "Down,Control+j";
+}
+
+* {
+	background-color: #121213;
+	text-color: #f4e0d8;
+	spacing: 0;
+	width: 450;
+	line-padding: 5;
+	line-margin: 5;
+	--padding: 16px;
+}
+
+inputbar {
+	children: [prompt, entry];
+}
+
+prompt {
+	padding: @--padding;
+}
+
+textbox {
+	padding: @--padding;
+}
+
+entry {
+	padding: @--padding;
+}
+
+listview {
+	cycle: false;
+	margin: 0 0 -1px 0;
+	scrollbar: false;
+}
+
+element {
+	padding: @--padding;
+}
+
+element selected {
+	background-color: #AF9DDE;
+	text-color: @background-color;
+}
