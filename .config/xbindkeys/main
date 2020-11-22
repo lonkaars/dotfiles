@@ -2,7 +2,7 @@
 	Mod4 + Escape
 "polybar-msg cmd toggle" 
 	Mod4 + b
-"rofi -show drun -show-icons"
+"rofi -show drun"
 	Mod4 + space
 "st"
 	Mod4 + Return
@@ -10,6 +10,8 @@
 	Mod4 + p
 "maim -usb 4 -c 255,255,255 | xclip -selection clipboard -t image/png"
 	Print
+"sh -c addtoqueue"
+	Mod4 + a
 
 
 

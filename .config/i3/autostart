@@ -1,0 +1,12 @@
+#!/bin/sh
+polybar main -c ~/.config/polybar/config &
+node ~/.local/share/bin/pywal/wall.js &
+picom -b
+xbanish &
+redshift &
+dunst &
+flashfocus &
+xset r rate 250 40
+autocutsel &
+zsh -c "source ~/.zshrc && xbindkeys -f ~/.config/xbindkeys/main"
+

@@ -1,6 +1,6 @@
 configuration {
 	modi: "drun,run,window,ssh";
-	lines: 7;
+	lines: 4;
 	font: "JetBrainsMono NF 10";
 	matching: "fuzzy";
 	separator-style: "none";
@@ -18,7 +18,7 @@ configuration {
 	width: 450;
 	line-padding: 5;
 	line-margin: 5;
-	--padding: 16px;
+	--padding: 12px;
 }
 
 inputbar {

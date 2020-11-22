@@ -1,10 +1,11 @@
+#!/bin/zsh
 systemctl --user import-environment DISPLAY
 
 export _JAVA_AWT_WM_NONREPARENTING=1
 export TZ='Europe/Amsterdam'
 
 /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1 &
-exec xrdb /home/loek/.config/X11/Xresources &
+xrdb /home/loek/.config/X11/Xresources &
 autocutsel &
 
 i3
