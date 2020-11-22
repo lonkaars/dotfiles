@@ -221,6 +221,24 @@ let g:lightline = {
 			\ }
 source $HOME/.config/nvim/bliss-lightline.vim
 hi! SignColumn guibg=NONE ctermbg=NONE
+hi GitGutterAdd guibg=NONE
+hi GitGutterChange guibg=NONE
+hi GitGutterDelete guibg=NONE
+hi GitGutterAddIntraLine guibg=NONE
+hi GitGutterAddInvisible guibg=NONE
+hi GitGutterChangeDelete guibg=NONE
+hi GitGutterChangeInvisible guibg=NONE
+hi GitGutterDeleteIntraLine guibg=NONE
+hi GitGutterDeleteInvisible guibg=NONE
+hi CocErrorSign guibg=NONE
+hi CocGitAddedSign guibg=NONE
+hi CocGitChangeRemovedSign guibg=NONE
+hi CocGitChangedSign guibg=NONE
+hi CocGitRemovedSign guibg=NONE
+hi CocGitTopRemovedSign guibg=NONE
+hi CocHintSign guibg=NONE
+hi CocInfoSign guibg=NONE
+hi CocWarningSign guibg=NONE
 
 " vimtex config
 let g:tex_flavor = 'latex'
@@ -241,7 +259,7 @@ let g:vimtex_compiler_latexmk = {
 			\ ],
 			\}
 
-" auto start compilation (!not tested!)
+" auto start compilation
 augroup vimtex_config
 	autocmd User VimtexEventInitPost silent VimtexCompile
 augroup END
