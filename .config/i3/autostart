@@ -1,4 +1,6 @@
 #!/bin/sh
+/usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1 &
+xrdb /home/loek/.config/X11/Xresources &
 polybar main -c ~/.config/polybar/config &
 node ~/.local/share/bin/pywal/wall.js &
 picom -b
