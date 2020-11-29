@@ -1,2 +1,0 @@
-#!/bin/sh
-st -T "[floating]" -g 150x40 -e $@
