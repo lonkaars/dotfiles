@@ -19,7 +19,7 @@ source "`ueberzug library`"
 # aliases
 alias wacom="xsetwacom set $(xsetwacom list devices | grep stylus | grep -oP --color=never "(?<=id\:\s)([0-9]*)") area 0 0 15200 4275"
 alias reload="sudo systemctl restart lightdm"
-alias rwall="node ~/.local/share/bin/pywal/wall.js"
+alias rwall="feh --bg-fill -z ~/.local/walls"
 alias cls="clear"
 alias timesync="sudo ntpd -qg && sudo hwclock --systohc"
 alias vim="nvim"
