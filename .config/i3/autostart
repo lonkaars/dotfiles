@@ -1,8 +1,9 @@
 #!/bin/sh
 /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1 &
+light-locker &
 xrdb /home/loek/.config/X11/Xresources &
 polybar main -c ~/.config/polybar/config &
-node ~/.local/share/bin/pywal/wall.js &
+feh --bg-fill -z ~/.local/walls &
 picom -b
 xbanish &
 redshift &

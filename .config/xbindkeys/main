@@ -1,4 +1,4 @@
-"dm-tool lock"
+"light-locker-command -l"
 	Mod4 + Escape
 "polybar-msg cmd toggle" 
 	Mod4 + b
