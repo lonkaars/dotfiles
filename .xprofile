@@ -4,7 +4,5 @@ systemctl --user import-environment DISPLAY
 export _JAVA_AWT_WM_NONREPARENTING=1
 export TZ='Europe/Amsterdam'
 
-light-locker &
-
 i3
 
