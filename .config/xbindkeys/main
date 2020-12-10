@@ -76,6 +76,10 @@
 	Mod4 + period
 "i3-msg resize shrink width 10 px"
 	Mod4 + comma
+"i3-msg resize grow height 10 px"
+	Mod4 + bracketright
+"i3-msg resize shrink height 10 px"
+	Mod4 + bracketleft
 
 "i3-msg kill" 
 	Mod4 + q
