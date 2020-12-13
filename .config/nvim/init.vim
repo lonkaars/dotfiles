@@ -243,6 +243,7 @@ hi CocInfoSign guibg=NONE
 hi CocWarningSign guibg=NONE
 
 " vimtex config
+let g:tex_flavor = 'latex'
 let g:vimtex_compiler_latexmk = {
 			\ 'backend' : 'nvim',
 			\ 'background' : 1,
