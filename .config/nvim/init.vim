@@ -149,12 +149,14 @@ let g:which_key_map.s = 'trailing-whitespace'
 map <leader>w :w<CR>
 let g:which_key_map.w = 'write'
 
-map <leader>dv :!opout <c-r>%<cr><cr>
-map <leader>dc :w! <bar> !compiler <c-r>%<cr>
+map <leader>dv :VimtexView<cr>
+map <leader>dc :VimtexCompile<cr>
+map <leader>dt :VimtexTocToggle<cr>
 let g:which_key_map.d = {
 			\ 'name': '+document',
 			\ 'v': 'view',
-			\ 'c': 'compile'
+			\ 'c': 'compile',
+			\ 't': 'table-of-contents'
 			\ }
 
 map <leader>ts :sp term://zsh<cr>i
@@ -241,7 +243,6 @@ hi CocInfoSign guibg=NONE
 hi CocWarningSign guibg=NONE
 
 " vimtex config
-let g:tex_flavor = 'latex'
 let g:vimtex_compiler_latexmk = {
 			\ 'backend' : 'nvim',
 			\ 'background' : 1,
