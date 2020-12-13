@@ -4,6 +4,8 @@
 	Mod4 + b
 "rofi -show drun"
 	Mod4 + space
+"rofi -show window"
+	Alt + Tab
 "st"
 	Mod4 + Return
 "bwmenu"
