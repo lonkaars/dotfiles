@@ -1,5 +1,5 @@
 configuration {
-	modi: "drun,run,window,ssh";
+	modi: "drun,run";
 	lines: 4;
 	font: "JetBrainsMono NF 10";
 	matching: "fuzzy";
