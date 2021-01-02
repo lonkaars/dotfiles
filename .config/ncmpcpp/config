@@ -21,7 +21,7 @@ state_flags_color = blue
 main_window_color = white
 current_item_prefix = $(magenta)$r
 song_columns_list_format = (20)[]{a} (6f)[blue]{NE} (50)[white]{t|f:Title} (20)[blue]{} (7f)[magenta]{l}
-song_list_format = "{{%a - %t}|{%f}}{$R%l}"
+song_list_format = " {{%a - %t}|{%f}}{$R%l} "
 window_border_color = blue
 
 now_playing_prefix = "$b$6"
