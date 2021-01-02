@@ -32,17 +32,17 @@ foreground = ${color.fg}
 radius-top = 0.0
 radius-bottom = 0.0
 
-padding = 4
+padding = 6
 
-module-margin-left = 2
-module-margin-right = 2
+module-margin-left = 3
+module-margin-right = 3
 
 font-0 = "Product Sans:pixelsize=11:weight=regular:size=0;2"
 font-1 = "Product Sans:pixelsize=11:weight=bold:size=0;2"
 font-2 = "Material Design Icons:size=12;2"
 
 modules-left = time date 
-modules-center = weather mpd
+modules-center = covid weather mpd
 modules-right = alsa whoami
 
 separator =
@@ -106,24 +106,13 @@ alpha = #00000000
 
 [module/alsa]
 type = internal/alsa
-
 format-volume = <ramp-volume> <label-volume>
-format-volume-background = ${color.bg}
-format-volume-foreground = ${color.fg}
-format-volume-padding = ${barsettings.padding}
-
 label-volume = %percentage%%
-
 format-muted-prefix = "󰖁 "
-format-muted-background = ${color.fg}
-format-muted-foreground = ${color.bg}
-format-muted-padding = ${barsettings.padding}
 label-muted = "Muted"
-
 ramp-volume-0 = 󰕿
 ramp-volume-1 = 󰖀
 ramp-volume-2 = 󰕾
-
 ramp-headphones-0 = 󰋋
 ramp-headphones-1 = 󰟎
 
@@ -132,10 +121,6 @@ type = internal/date
 interval = 1.0
 time = 󰃭 %{T2}%A%{T-}, %B %d
 format = <label>
-format-background = ${color.bg}
-format-foreground = ${color.fg}
-format-padding = ${barsettings.padding}
-
 label = %time%
 
 [module/time]
@@ -143,20 +128,14 @@ type = internal/date
 interval = 1.0
 time = 󰥔 %{T2}%H:%M%{T-}
 format = <label>
-format-background = ${color.bg}
-format-foreground = ${color.fg}
-format-padding = ${barsettings.padding}
-
 label = %time%
 
 [module/mpd]
 type = internal/mpd
 format-online = 󰎇 <label-song>
 format-offline = 
-
 icon-play = 󰐊
 icon-pause = 󰏤
-
 label-song = %{T2}%artist%%{T-}: %title%
 label-song-maxlen = 50
 label-song-ellipsis = true
@@ -167,17 +146,18 @@ exec = ~/.config/polybar-forecast/target/release/polybar-forecast
 interval = 120
 exec-if = ping openweathermap.org -c 1
 label-font = 2
-format-background = ${color.bg}
-format-foreground = ${color.fg}
-format-padding = ${barsettings.padding}
+
+[module/covid]
+type = custom/script
+exec = covid
+interval = 120
+exec-if = ping disease.sh -c 1
+label-font = 2
 
 [module/whoami]
 type = custom/script
 exec = echo "󰀄 %{T2}$(whoami)%{T-}@%{T2}$(hostname)%{T-}"
 interval = 9999999
 label-font = 2
-format-background = ${color.bg}
-format-foreground = ${color.fg}
-format-padding = ${barsettings.padding}
 
 ; vim:ft=dosini
