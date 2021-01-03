@@ -19,7 +19,7 @@
 *.background: #121213
 *.cursorColor: #fdf9f7
 
-*.font: JetBrainsMono NF:style=Medium,Regular:size=9.5
+*.font: JetBrainsMono NF:style=Medium,Regular:size=9
 
 *.termname: st-256color
 *.shell: /bin/sh
