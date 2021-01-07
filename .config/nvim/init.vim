@@ -14,7 +14,7 @@ set timeoutlen=500
 set mouse=a
 set cino=N-s
 set linebreak " set wrap but don't wrap inside words
-set viminfo+='1000,n/home/loek/.local/nvim/viminfo
+set viminfo+='1000,n~/.local/nvim/viminfo
 set guifont=JetBrainsMono\ NF:h14
 let g:neovide_cursor_animation_length=0.13
 let g:neovide_cursor_vfx_mode="sonicboom"
