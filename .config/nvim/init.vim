@@ -66,6 +66,7 @@ Plug 'octol/vim-cpp-enhanced-highlight'
 Plug 'dart-lang/dart-vim-plugin'
 Plug 'bartlomiejdanek/vim-dart'
 Plug 'natebosch/dartlang-snippets'
+Plug 'ianks/vim-tsx'
 
 " 'vim=ide'
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
@@ -90,8 +91,6 @@ call plug#end()
 " keybinds
 tnoremap <Esc> <C-\><C-n>
 
-nnoremap tn :tabnext<CR>
-nnoremap tp :tabprevious<CR>
 nnoremap tt :tabnew<CR>
 
 nmap <CR> o<Esc>
