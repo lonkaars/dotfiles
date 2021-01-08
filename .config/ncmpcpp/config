@@ -3,7 +3,7 @@ mpd_port = "6600"
 mpd_music_dir = "/mnt/e/mpd/music"
 mpd_connection_timeout = "5"
 mpd_crossfade_time = "1"
-ncmpcpp_directory="$HOME/.config/ncmpcpp"
+ncmpcpp_directory=".config/ncmpcpp"
 
 progressbar_look = "-> "
 progressbar_elapsed_color = "cyan"
