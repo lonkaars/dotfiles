@@ -26,7 +26,6 @@ let g:which_key_map = {}
 let g:airline_powerline_fonts = 1
 let g:minimap_highlight='Visual'
 hi! link CocFloating SneakScope
-cabbrev help tab help
 autocmd BufNewFile,BufRead *.jdscn set syntax=json
 
 if ! filereadable(expand('~/.config/nvim/autoload/plug.vim'))
@@ -42,6 +41,7 @@ call plug#begin('~/.config/nvim/plugged')
 Plug 'jiangmiao/auto-pairs'
 Plug 'tpope/vim-surround'
 Plug 'itchyny/lightline.vim'
+Plug 'itchyny/vim-gitbranch'
 Plug 'terryma/vim-multiple-cursors'
 Plug 'vim-scripts/colorizer'
 Plug 'AndrewRadev/tagalong.vim'
@@ -210,7 +210,7 @@ let g:lightline = {
 			\		[ 'readonly', 'filename', 'modified']
 			\	],
 			\	'right': [
-			\		[ 'lineinfo' ]
+			\		[ 'gitbranch', 'lineinfo' ]
 			\	]
 			\ },
 			\ 'inactive': {
@@ -219,7 +219,13 @@ let g:lightline = {
 			\	],
 			\	'right': [  ]
 			\ },
+			\ 'component_function': {
+			\ 	'gitbranch': 'gitbranch#name'
+			\ },
 			\ }
+let g:lightline.tabline = {
+		    \ 'left': [ [ 'tabs' ] ],
+		    \ 'right': [ ] }
 source $HOME/.config/nvim/bliss-lightline.vim
 hi! SignColumn guibg=NONE ctermbg=NONE
 hi GitGutterAdd guibg=NONE

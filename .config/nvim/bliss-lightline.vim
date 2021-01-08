@@ -1,7 +1,7 @@
 let s:bg = [ '#121213', 'NONE' ]
 let s:fg = [ '#fdf9f7', 'NONE' ]
 let s:mode = [ '#222222', 'NONE' ]
-let s:faint = [ '#393b3b', 'NONE' ]
+let s:faint = [ '#454949', 'NONE' ]
 let s:none = [ 'NONE', 'NONE' ]
 let s:test = [ '#ff00ff', 'NONE' ]
 
@@ -17,9 +17,9 @@ let s:p.inactive.middle = copy(s:p.normal.middle)
 let s:p.insert.left = copy(s:p.normal.left)
 let s:p.replace.left = copy(s:p.insert.left)
 let s:p.visual.left = copy(s:p.insert.left)
-let s:p.tabline.left = copy(s:p.normal.middle)
-let s:p.tabline.tabsel = [ [ s:fg, s:faint ] ]
-let s:p.tabline.middle = copy(s:p.normal.middle)
-let s:p.tabline.right = copy(s:p.normal.middle)
+let s:p.tabline.left = copy(s:p.normal.right)
+let s:p.tabline.tabsel = [ [ s:fg, s:mode ] ]
+let s:p.tabline.middle = copy(s:p.normal.right)
+let s:p.tabline.right = copy(s:p.normal.right)
 
 let g:lightline#colorscheme#bliss#palette = lightline#colorscheme#flatten(s:p)
