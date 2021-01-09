@@ -72,6 +72,9 @@
 [experimental]
     per_monitor_dpi = false
 
+[shortcuts]
+	close_all = mod4+c
+
 [urgency_low]
     background = "#121213"
     foreground = "#de9dac"
