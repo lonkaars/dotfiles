@@ -27,32 +27,20 @@ alias copy="xclip -selection c"
 alias clipout="xclip -selection c -out"
 alias ncp="ncmpcpp"
 alias dnd="dragon-drag-and-drop -x"
-alias adda="git add -A"
-alias first="git commit -m \"first commit\""
-alias les="less"
 alias scdl="scdl --onlymp3 -l"
 alias screenrecord='giph -s -b 4 -c 255,255,255 $(date +"$HOME/%Y-%m-%d_%H-%M-%S.mp4")'
 
 # one letters
 alias r="ranger"
 alias v="nvim"
-alias l="live-server"
+alias l="less"
 alias m="make"
 alias y="yay"
 alias n="ncmpcpp"
 
 # functions
-function b64d { echo $1 | base64 -d }
 function genplaylist { find $1 -name "*.flac" | sort -V > ../playlists/$1.m3u }
 function bgcol { convert -size 1x1 xc:$1 /tmp/bgcol.png && feh --bg-tile /tmp/bgcol.png }
-
-# cursors
-alias cursorbl="printf '\033[1 q'"
-alias cursorul="printf '\033[4 q'"
-alias cursorbar="printf '\033[6 q'"
-
-# dircolors
-eval "`dircolors ~/.config/dircolors`"
 
 # cleanup
 rm -rf ~/.Wurst\ encryption ~/.xsession-errors ~/.xsession-errors.old ~/.zshrc.zwc ~/.lesshst ~/.lyrics ~/.android ~/.zcalc_history .git-credentials .node_repl_history .python_history
