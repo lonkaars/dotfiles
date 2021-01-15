@@ -150,11 +150,13 @@ let g:which_key_map.w = 'write'
 
 map <leader>dv :VimtexView<cr>
 map <leader>dc :VimtexCompile<cr>
+map <leader>de :VimtexErrors<cr>
 map <leader>dt :VimtexTocToggle<cr>
 let g:which_key_map.d = {
 			\ 'name': '+document',
 			\ 'v': 'view',
 			\ 'c': 'compile',
+			\ 'e': 'errors',
 			\ 't': 'table-of-contents'
 			\ }
 
