@@ -15,7 +15,7 @@ set mouse=a
 set cino=N-s
 set linebreak " set wrap but don't wrap inside words
 set viminfo+='1000,n~/.local/nvim/viminfo
-set guifont=JetBrainsMono\ NF:h14
+set guifont=JetBrainsMono\ NF:h12
 let g:neovide_cursor_animation_length=0.13
 let g:neovide_cursor_vfx_mode="sonicboom"
 let g:neovide_cursor_vfx_opacity=50.0
@@ -63,6 +63,7 @@ Plug 'lervag/vimtex'
 Plug 'pangloss/vim-javascript'
 Plug 'hail2u/vim-css3-syntax'
 Plug 'octol/vim-cpp-enhanced-highlight'
+Plug 'vim-python/python-syntax'
 Plug 'dart-lang/dart-vim-plugin'
 Plug 'bartlomiejdanek/vim-dart'
 Plug 'natebosch/dartlang-snippets'
@@ -71,7 +72,6 @@ Plug 'ianks/vim-tsx'
 " 'vim=ide'
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'ryanoasis/vim-devicons' "Icons for filetypes
-Plug 'junegunn/fzf.vim'
 Plug 'puremourning/vimspector'
 
 " themes
@@ -357,4 +357,7 @@ augroup TerminalStuff
 	autocmd TermOpen * setlocal nonumber norelativenumber
 	autocmd TermOpen * set signcolumn=no
 augroup END
+
+" python-syntax
+let g:python_highlight_all = 1
 
