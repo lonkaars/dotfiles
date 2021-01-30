@@ -32,13 +32,13 @@ foreground = ${color.fg}
 radius-top = 0.0
 radius-bottom = 0.0
 
-padding = 6
+padding = 5
 
-module-margin-left = 3
-module-margin-right = 3
+module-margin-left = 2
+module-margin-right = 2
 
-font-0 = "Product Sans:pixelsize=11:weight=regular:size=0;2"
-font-1 = "Product Sans:pixelsize=11:weight=bold:size=0;2"
+font-0 = "Inter:pixelsize=11:weight=regular:size=0;2"
+font-1 = "Inter:pixelsize=11:weight=bold:size=0;2"
 font-2 = "Material Design Icons:size=12;2"
 
 modules-left = time date 
