@@ -29,7 +29,7 @@ alias ncp="ncmpcpp"
 alias dnd="dragon-drag-and-drop -x"
 alias scdl="scdl --onlymp3 -l"
 alias screenrecord='giph -s -b 4 -c 255,255,255 $(date +"$HOME/%Y-%m-%d_%H-%M-%S.mp4")'
-alias deemix="deemix -b FLAC"
+alias deemix="deemix -b FLAC -p ~/dl"
 
 # one letters
 alias r="ranger"
