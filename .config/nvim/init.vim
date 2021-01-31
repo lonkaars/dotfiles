@@ -68,6 +68,7 @@ Plug 'dart-lang/dart-vim-plugin'
 Plug 'bartlomiejdanek/vim-dart'
 Plug 'natebosch/dartlang-snippets'
 Plug 'ianks/vim-tsx'
+Plug 'cespare/vim-toml'
 
 " 'vim=ide'
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
