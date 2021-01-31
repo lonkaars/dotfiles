@@ -43,6 +43,9 @@ alias n="ncmpcpp"
 function genplaylist { find $1 -name "*.flac" | sort -V > ../playlists/$1.m3u }
 function bgcol { convert -size 1x1 xc:$1 /tmp/bgcol.png && feh --bg-tile /tmp/bgcol.png }
 
+# the fuck
+eval $(thefuck --alias)
+
 # cleanup
 rm -rf ~/.Wurst\ encryption ~/.xsession-errors ~/.xsession-errors.old ~/.zshrc.zwc ~/.lesshst ~/.lyrics ~/.android ~/.zcalc_history .git-credentials .node_repl_history .python_history
 alias nvidia-settings=nvidia-settings --config="$XDG_CONFIG_HOME"/nvidia/settings
