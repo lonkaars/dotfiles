@@ -8,6 +8,7 @@
     "coc-json": ">=1.2.6",
     "coc-neosnippet": ">=1.2.2",
     "coc-python": ">=1.2.12",
+    "coc-rls": ">=1.1.6",
     "coc-snippets": ">=2.2.1",
     "coc-tsserver": ">=1.5.8",
     "coc-vimtex": ">=1.0.4"
