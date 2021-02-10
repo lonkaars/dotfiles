@@ -15,7 +15,7 @@ set mouse=a
 set cino=N-s
 set linebreak " set wrap but don't wrap inside words
 set viminfo+='1000,n~/.local/nvim/viminfo
-set guifont=JetBrainsMono\ NF:h12
+set guifont=JetBrainsMono\ Nerd\ Font:h12
 let g:neovide_cursor_animation_length=0.13
 let g:neovide_cursor_vfx_mode="sonicboom"
 let g:neovide_cursor_vfx_opacity=50.0
@@ -69,6 +69,7 @@ Plug 'bartlomiejdanek/vim-dart'
 Plug 'natebosch/dartlang-snippets'
 Plug 'ianks/vim-tsx'
 Plug 'cespare/vim-toml'
+Plug 'tikhomirov/vim-glsl'
 
 " 'vim=ide'
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
