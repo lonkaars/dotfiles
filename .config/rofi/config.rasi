@@ -1,7 +1,7 @@
 configuration {
 	modi: "drun,run";
 	lines: 4;
-	font: "JetBrainsMono NF 10";
+	font: "JetBrainsMono Nerd Font 10";
 	matching: "fuzzy";
 	separator-style: "none";
 	hide-scrollbar: true;

@@ -1,3 +1,3 @@
 #!/bin/sh
-st -T "[floating]" -g 150x40 -e fzmp -A
+st -T "[floating]" -g 120x20 -e fzmp -A
 

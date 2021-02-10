@@ -2,7 +2,7 @@
 /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1 &
 xrdb ~/.config/X11/Xresources &
 polybar main -c ~/.config/polybar/config &
-feh --bg-fill -z ~/.local/walls &
+zsh -c "rwall" &
 picom -b
 xbanish &
 redshift &
@@ -10,5 +10,5 @@ dunst &
 flashfocus &
 xset r rate 250 40
 autocutsel &
-zsh -c "source ~/.zshrc && xbindkeys -f ~/.config/xbindkeys/main"
+zsh -c "xbindkeys -f ~/.config/xbindkeys/main"
 

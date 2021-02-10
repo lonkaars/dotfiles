@@ -18,7 +18,7 @@
 	--chat-avatar-size: 48px; /* Changes size of chat avatars | DEFAULT: 40px */
 	--search-results-width: 25vw; /* Width of server results. For a fixed width use px. | DEFAULT: 25vw */
 	--emoji-picker-height: 260px; /* Height of Emoji picker | DEFAULT: 260px */
-	--font: 'JetBrainsMono NF';
+	--font: 'JetBrainsMono Nerd Font';
 }
 
 .theme-dark {
