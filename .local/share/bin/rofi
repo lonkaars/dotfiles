@@ -1,0 +1,11 @@
+#!/bin/sh
+
+get_color() {
+	xrdb -query | grep $1 | head -n1 | cut -f2 | cat
+}
+
+export ROFIBGCOLOR="$(get_color background)"
+export ROFIFGCOLOR="$(get_color foreground)"
+export ROFIACCOLOR="$(get_color color5)"
+
+/bin/rofi $@

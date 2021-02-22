@@ -18,13 +18,3 @@
 *.foreground: #fdf9f7
 *.background: #121213
 *.cursorColor: #fdf9f7
-
-*.font: JetBrainsMono Nerd Font:style=Medium,Regular:size=9
-
-*.termname: st-256color
-*.shell: /bin/sh
-
-*.tabspaces: 4
-*.borderpx: 16
-
-Xcursor.theme: OpenZone_Black

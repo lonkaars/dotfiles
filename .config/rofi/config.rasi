@@ -12,8 +12,8 @@ configuration {
 }
 
 * {
-	background-color: #121213;
-	text-color: #f4e0d8;
+	background-color: ${ROFIBGCOLOR};
+	text-color: ${ROFIFGCOLOR};
 	spacing: 0;
 	width: 450;
 	line-padding: 5;
@@ -48,6 +48,6 @@ element {
 }
 
 element selected {
-	background-color: #AF9DDE;
+	background-color: ${ROFIACCOLOR};
 	text-color: @background-color;
 }

@@ -1,0 +1,95 @@
+#!/bin/sh
+
+get_color() {
+	xrdb -query | grep $1 | head -n1 | cut -f2 | cat
+}
+
+switch_xrdb() {
+	cat ~/.config/X11/base ~/.config/X11/$1 | xrdb
+}
+
+switch_dunst() {
+	read -r -d '' conf << EOF
+	frame_color = "$(get_color color1)"
+
+	[urgency_low]
+	background = "$(get_color background)"
+	foreground = "$(get_color color1)"
+	timeout = 10
+
+	[urgency_normal]
+	background = "$(get_color background)"
+	foreground = "$(get_color foreground)"
+	timeout = 10
+
+	[urgency_critical]
+	background = "$(get_color color1)"
+	foreground = "$(get_color background)"
+	frame_color = "$(get_color color1)"
+	timeout = 0
+EOF
+	echo "$conf" | cat ~/.config/dunst/base - > ~/.config/dunst/dunstrc
+}
+
+reload_terms() {
+	read -r -d '' escape_msgs << EOF
+	\033]11;$(get_color background)\007
+	\033]10;$(get_color foreground)\007
+	\033]12;$(get_color foreground)\007
+	\033]14;$(get_color background)\007
+	\033]13;$(get_color foreground)\007
+	\033]17;$(get_color color8)\007
+	\033]708;$(get_color background)\007
+	\033]4;0;$(get_color color0)\007
+	\033]4;1;$(get_color color1)\007
+	\033]4;2;$(get_color color2)\007
+	\033]4;3;$(get_color color3)\007
+	\033]4;4;$(get_color color4)\007
+	\033]4;5;$(get_color color5)\007
+	\033]4;6;$(get_color color6)\007
+	\033]4;7;$(get_color color7)\007
+	\033]4;8;$(get_color color8)\007
+	\033]4;9;$(get_color color9)\007
+	\033]4;10;$(get_color color10)\007
+	\033]4;11;$(get_color color11)\007
+	\033]4;12;$(get_color color12)\007
+	\033]4;13;$(get_color color13)\007
+	\033]4;14;$(get_color color14)\007
+	\033]4;15;$(get_color color15)\007
+EOF
+	escape_msgs=$(printf "$escape_msgs" | tr -d '\n')
+	find /dev/pts -exec sh -c "printf \"$escape_msgs\n\" > {}" \; 2> /dev/null
+}
+
+reload_dunst() {
+	killall dunst
+	dunst & disown
+}
+
+reload_polybar() {
+	polybar-msg cmd restart
+}
+
+switch_cfgs() {
+	echo "switching to $1 mode..."
+	
+	switch_xrdb $1
+	switch_dunst $1
+
+	echo $1 > ~/.local/share/mode/active
+	rm ~/.local/share/mode/dark ~/.local/share/mode/light
+	touch ~/.local/share/mode/$1
+}
+
+[[ $1 == "dark" || $1 == "light" ]] && switch_cfgs $1
+
+reload_apps() {
+	echo "reloading programs..."
+
+	reload_polybar
+	reload_dunst
+	reload_terms
+}
+
+reload_apps
+
