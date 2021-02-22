@@ -88,6 +88,7 @@ Plug 'mkarmona/materialbox'
 Plug 'morhetz/gruvbox'
 Plug 'co1ncidence/mountaineer'
 Plug 'co1ncidence/bliss'
+Plug 'lonkaars/blubber'
 call plug#end()
 
 " keybinds
@@ -192,7 +193,15 @@ cnoreabbrev W w
 cnoreabbrev sudow w !sudo tee %
 
 " colorscheme thingers
-colorscheme bliss
+
+if filereadable(expand('~/.local/share/mode/light'))
+	colorscheme blubber
+	source $HOME/.config/nvim/blubber-lightline.vim
+else
+	colorscheme bliss
+	source $HOME/.config/nvim/bliss-lightline.vim
+endif
+
 let g:lightline = {
 			\ 'colorscheme': 'bliss',
 			\ 'mode_map': {
@@ -230,7 +239,6 @@ let g:lightline = {
 let g:lightline.tabline = {
 		    \ 'left': [ [ 'tabs' ] ],
 		    \ 'right': [ ] }
-source $HOME/.config/nvim/bliss-lightline.vim
 hi! SignColumn guibg=NONE ctermbg=NONE
 hi GitGutterAdd guibg=NONE
 hi GitGutterChange guibg=NONE

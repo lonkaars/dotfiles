@@ -37,8 +37,8 @@ padding = 5
 module-margin-left = 2
 module-margin-right = 2
 
-font-0 = "Inter:pixelsize=11:weight=regular:size=0;3"
-font-1 = "Inter:pixelsize=11:weight=bold:size=0;3"
+font-0 = "Inter:pixelsize=11:weight=regular:size=0;2"
+font-1 = "Inter:pixelsize=11:weight=bold:size=0;2"
 font-2 = "Material Design Icons:size=12;2"
 
 modules-left = time date 
@@ -98,9 +98,9 @@ pseudo-transparency = false
 
 [color]
 
-bg = #121213
-fg = #fdf9f7
-fg-alt = #121213
+bg = ${xrdb:background:#121213}
+fg = ${xrdb:foreground:#fdf9f7}
+fg-alt = ${xrdb:background:#121213}
 
 alpha = #00000000
 

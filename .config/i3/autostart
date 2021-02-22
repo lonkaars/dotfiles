@@ -1,6 +1,6 @@
 #!/bin/sh
 /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1 &
-xrdb ~/.config/X11/Xresources &
+cat ~/.config/X11/base ~/.config/X11/dark | xrdb &
 polybar main -c ~/.config/polybar/config &
 zsh -c "rwall" &
 picom -b
