@@ -1,7 +1,7 @@
 #!/bin/sh
 
 get_color() {
-	xrdb -query | grep $1 | head -n1 | cut -f2 | cat
+	xrdb -query | grep $1 | head -n1 | cut -f2
 }
 
 switch_xrdb() {
