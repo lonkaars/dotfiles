@@ -75,6 +75,7 @@ Plug 'tikhomirov/vim-glsl'
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'ryanoasis/vim-devicons' "Icons for filetypes
 Plug 'puremourning/vimspector'
+Plug 'samoshkin/vim-mergetool'
 
 " themes
 Plug 'arzg/vim-colors-xcode'

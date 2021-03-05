@@ -49,20 +49,20 @@ mouse_middle_click = close_all
 mouse_right_click = close_current
 
 # vim: ft=cfg
-frame_color = "#8c627a"
+frame_color = "#DE9DAC"
 
 	[urgency_low]
-	background = "#fdf9f7"
-	foreground = "#8c627a"
+	background = "#121213"
+	foreground = "#DE9DAC"
 	timeout = 10
 
 	[urgency_normal]
-	background = "#fdf9f7"
-	foreground = "#121213"
+	background = "#121213"
+	foreground = "#fdf9f7"
 	timeout = 10
 
 	[urgency_critical]
-	background = "#8c627a"
-	foreground = "#fdf9f7"
-	frame_color = "#8c627a"
+	background = "#DE9DAC"
+	foreground = "#121213"
+	frame_color = "#DE9DAC"
 	timeout = 0
