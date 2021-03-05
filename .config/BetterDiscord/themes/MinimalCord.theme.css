@@ -21,7 +21,8 @@
 	--font: 'JetBrainsMono Nerd Font';
 }
 
-.theme-dark {
+.theme-dark,
+.theme-light {
 	--background-light: var(--pywal-bg2) !important;
 	--background: var(--pywal-bg0) !important;
 	--background-alt: var(--pywal-bg1) !important;
