@@ -1,5 +1,5 @@
 let mapleader = " "
-set number relativenumber
+" set number relativenumber
 set tabstop=4
 set wrap
 set ai
@@ -43,7 +43,6 @@ Plug 'tpope/vim-surround'
 Plug 'itchyny/lightline.vim'
 Plug 'itchyny/vim-gitbranch'
 Plug 'terryma/vim-multiple-cursors'
-Plug 'vim-scripts/colorizer'
 Plug 'AndrewRadev/tagalong.vim'
 Plug 'tpope/vim-commentary'
 Plug 'liuchengxu/vim-which-key'
@@ -57,6 +56,7 @@ Plug 'airblade/vim-gitgutter'
 Plug 'wellle/targets.vim'
 Plug 'dstein64/vim-startuptime'
 Plug 'vim-scripts/DoxygenToolkit.vim'
+Plug 'rrethy/vim-hexokinase', { 'do': 'make hexokinase' }
 
 " language plugins
 Plug 'lervag/vimtex'
@@ -101,6 +101,11 @@ nmap <CR> o<Esc>
 
 nnoremap <A-j> :m +1<CR>
 nnoremap <A-k> :m -2<CR>
+
+imap <C-h> <Left>
+imap <C-j> <Down>
+imap <C-k> <Up>
+imap <C-l> <Right>
 
 " leader keybindings
 nnoremap <silent> <leader> :WhichKey '<space>'<CR>
@@ -192,6 +197,17 @@ let g:which_key_map['.'] = {
 " cmd maps
 cnoreabbrev W w
 cnoreabbrev sudow w !sudo tee %
+
+" hexokinase
+
+let g:Hexokinase_optInPatterns = [
+			\ 'full_hex',
+			\ 'triple_hex',
+			\ 'rgb',
+			\ 'rgba',
+			\ 'hsl',
+			\ 'hsla'
+			\ ]
 
 " colorscheme thingers
 
