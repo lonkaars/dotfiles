@@ -8,7 +8,7 @@
 	Alt + Tab
 "st"
 	Mod4 + Return
-"sh -c 'source ~/.bwsession && bwmenu'"
+"bwmenu"
 	Mod4 + p
 "maim -usb 4 -c 255,255,255 | xclip -selection clipboard -t image/png"
 	Print

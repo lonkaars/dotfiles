@@ -10,6 +10,9 @@ dunst &
 flashfocus &
 xset r rate 250 40
 autocutsel &
-sh ~/.bwunlock &
+
+# bw unlock <password> --raw | keyctl padd user bw_session @u
+sh ~/config/i3/unlock_bitwarden &
+
 zsh -c "xbindkeys -f ~/.config/xbindkeys/main"
 
