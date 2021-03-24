@@ -10,5 +10,6 @@ dunst &
 flashfocus &
 xset r rate 250 40
 autocutsel &
+sh ~/.bwunlock &
 zsh -c "xbindkeys -f ~/.config/xbindkeys/main"
 

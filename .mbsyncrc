@@ -1,0 +1,24 @@
+IMAPAccount pipeframe
+Host mail.pipeframe.xyz
+Port 993
+User loek@mail.pipeframe.xyz
+PassCmd "bw get password efc4ddc3-cd2d-4090-b570-abea0113217a"
+SSLType IMAPS
+CertificateFile /etc/ssl/certs/ca-certificates.crt
+
+IMAPStore pipeframe-remote
+Account pipeframe
+
+MaildirStore pipeframe-local
+SubFolders Verbatim
+Path ~/docs/mail/pipeframe/
+Inbox ~/docs/mail/pipeframe/Inbox
+
+Channel pipeframe
+Far :pipeframe-remote:
+Near :pipeframe-local:
+# Patterns "/Inbox" "/Drafts" "/Junk" "/Sent" "/Trash" "/Archive"
+Patterns *
+Create Both
+SyncState *
+

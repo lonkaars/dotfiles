@@ -1,0 +1,66 @@
+# name
+set realname = "Loek Le Blansch"
+set from = "loek@pipeframe.xyz"
+
+# e-mail server
+set folder = ~/docs/mail/pipeframe/
+set spoolfile = "+Inbox"
+set record = "+Sent"
+set trash = "+Trash"
+set postponed = "+Drafts"
+
+# imap credentials
+set imap_user = "loek@mail.pipeframe.xyz"
+set imap_pass = "`bw get password efc4ddc3-cd2d-4090-b570-abea0113217a`"
+
+# smtp credentials
+set smtp_pass = $imap_pass
+set smtp_url=smtp://$imap_user@mail.pipeframe.xyz:587
+set ssl_force_tls = yes
+
+# mail check timeout
+set mail_check = 60
+
+# mailboxes
+mailboxes +Inbox +Drafts +Junk +Sent +Trash +Archive
+
+# keybinds
+macro index,pager A "<save-message>=Archive<enter>" "Archive Message"
+
+# contacts
+set alias_file = "~/.config/neomutt/aliases"
+set sort_alias = alias
+set reverse_alias = yes
+source $alias_file
+
+# miscellaneous options
+set fast_reply = yes
+set confirmappend = no
+set delete = yes
+set include = yes
+set sort = threads
+set header_cache = "~/.neomutt/hcache"
+set edit_headers
+set editor = "nvim"
+set mime_type_query_command = "xdg-mime query filetype"
+set sendmail = "/usr/bin/msmtp"
+set query_command = "/usr/bin/lbdbq"
+
+# colors
+color hdrdefault blue black
+color quoted blue black
+color signature blue black
+color attachment red black
+color prompt brightmagenta black
+color message brightred black
+color error brightred black
+color indicator black red
+color status white black
+color tree white black
+color normal white black
+color markers red black
+color search white black
+color tilde brightmagenta black
+color index blue black ~F
+color index red black "~N|~O"
+
