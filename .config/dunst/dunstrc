@@ -51,18 +51,18 @@ mouse_right_click = close_current
 # vim: ft=cfg
 frame_color = "#DE9DAC"
 
-	[urgency_low]
-	background = "#121213"
-	foreground = "#DE9DAC"
-	timeout = 10
+[urgency_low]
+background = "#121213"
+foreground = "#DE9DAC"
+timeout = 10
 
-	[urgency_normal]
-	background = "#121213"
-	foreground = "#fdf9f7"
-	timeout = 10
+[urgency_normal]
+background = "#121213"
+foreground = "#fdf9f7"
+timeout = 10
 
-	[urgency_critical]
-	background = "#DE9DAC"
-	foreground = "#121213"
-	frame_color = "#DE9DAC"
-	timeout = 0
+[urgency_critical]
+background = "#DE9DAC"
+foreground = "#121213"
+frame_color = "#DE9DAC"
+timeout = 0

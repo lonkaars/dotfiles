@@ -11,27 +11,5 @@ set recolor "true"
 set recolor-reverse-video "true"
 set recolor-keephue "true"
 
+include ./colors
 
-set default-bg				"#121213"
-set statusbar-bg			"#121213"
-set inputbar-bg				"#121213"
-set completion-highlight-fg	"#121213"
-set completion-bg			"#121213"
-set notification-error-fg	"#121213"
-set notification-warning-fg	"#121213"
-set notification-fg			"#121213"
-set recolor-lightcolor		"#121213"
-
-set default-fg			"#f9ece8"
-set inputbar-fg			"#f9ece8"
-set completion-fg		"#f9ece8"
-set statusbar-fg		"#f9ece8"
-set recolor-darkcolor	"#f9ece8"
-
-set notification-error-bg "#DE9DAC"
-set notification-warning-bg "#DE9DAC"
-set completion-highlight-bg "#DE9DAC"
-set highlight-color "#DE9DAC"
-
-set highlight-active-color "#C3AFF7"
-set notification-bg "#C3AFF7"
