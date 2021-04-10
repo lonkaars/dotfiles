@@ -1,29 +1,17 @@
 snippet newdocument "Starting point for a new LaTeX document"
-\\documentclass[12pt, a4paper, hidelinks]{article}
+\\documentclass[12pt, a4paper]{article}
 \\setlength{\\marginparwidth}{2.54cm}
 
-% Packages
+\\usepackage[margin=1in]{geometry}
 \\usepackage{fullpage}
 
-% Skip
-\\bigskipamount=.7cm
-\\medskipamount=.4cm
-\\parindent=.3cm
+\\bigskipamount=7mm
+\\medskipamount=4mm
+\\parindent=0mm
 
-% Document
 \\begin{document}
-	${0}
+${0}
 \\end{document}
-endsnippet
-
-snippet nonumberedchapters "Removes chapter numbers"
-% Unnumber chapter headings
-\\makeatletter
-\\def\\@seccntformat#1{
-	\\expandafter\\ifx\\csname c@#1\\endcsname\\c@section\\else
-	\\csname the#1\\endcsname\\quad
-	\\fi}
-\\makeatother
 endsnippet
 
 snippet beg "begin{} / end{}" bA

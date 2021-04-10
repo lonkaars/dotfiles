@@ -1,8 +1,9 @@
 let mapleader = " "
 " set number relativenumber
-set tabstop=4
 set wrap
-set ai
+set autoindent
+set noexpandtab
+set tabstop=4
 set shiftwidth=4
 set termguicolors
 set shortmess=I
@@ -387,4 +388,6 @@ augroup END
 
 " python-syntax
 let g:python_highlight_all = 1
+let g:python_recommended_style = 0
+" autocmd FileType python setlocal noexpandtab
 
