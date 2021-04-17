@@ -390,4 +390,5 @@ augroup END
 " let g:python_highlight_all = 1
 let g:python_recommended_style = 0
 " autocmd FileType python setlocal noexpandtab
+au BufRead,BufNewFile *.py set expandtab
 
