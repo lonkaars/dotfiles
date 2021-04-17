@@ -22,7 +22,7 @@ bottom = false
 fixed-center = true
 
 width = 100%
-height = 32
+height = 24
 offset-x = 0
 offset-y = 0
 
@@ -32,13 +32,13 @@ foreground = ${color.fg}
 radius-top = 0.0
 radius-bottom = 0.0
 
-padding = 5
+padding = 3
 
-module-margin-left = 2
-module-margin-right = 2
+module-margin-left = 1
+module-margin-right = 1
 
-font-0 = "Inter:pixelsize=11:weight=regular:size=0;2"
-font-1 = "Inter:pixelsize=11:weight=bold:size=0;2"
+font-0 = "JetBrains Mono Nerd Font:pixelsize=9:weight=regular:size=0;2"
+font-1 = "JetBrains Mono Nerd Font:pixelsize=9:weight=bold:size=0;2"
 font-2 = "Material Design Icons:size=12;2"
 
 modules-left = time date 
@@ -119,14 +119,14 @@ ramp-headphones-1 = 󰟎
 [module/date]
 type = internal/date
 interval = 1.0
-time = 󰃭 %{T2}%A%{T-}, %B %d
+time = %{T2}%A%{T-}, %B %d
 format = <label>
 label = %time%
 
 [module/time]
 type = internal/date
 interval = 1.0
-time = 󰥔 %{T2}%H:%M%{T-}
+time = %{T2}%H:%M%{T-}
 format = <label>
 label = %time%
 
@@ -149,7 +149,7 @@ label-font = 2
 
 [module/whoami]
 type = custom/script
-exec = echo "󰀄 %{T2}$(whoami)%{T-}@%{T2}$(hostname)%{T-}"
+exec = echo "%{T2}$(whoami)%{T-}@%{T2}$(hostname)%{T-}"
 interval = 9999999
 label-font = 2
 
