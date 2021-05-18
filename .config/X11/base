@@ -7,3 +7,10 @@
 *.borderpx: 16
 
 Xcursor.theme: OpenZone_Black
+
+Xft.dpi: 96
+Xft.hinting: 1
+Xft.hintstyle: hintslight
+Xft.antialias: 1
+Xft.rgba: rgb
+
