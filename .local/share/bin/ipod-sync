@@ -1,0 +1,25 @@
+#!/bin/sh
+
+UUID="81CC-A462"
+
+read -r -d '' commands << EOF
+echo "mounting..."
+sudo mount "/dev/disk/by-uuid/$UUID" /mnt/ipod -o uid=loek,gid=users
+echo "mounted"
+
+echo "copying music..."
+musicopy
+
+echo "pushing scrobbler.log to last.fm..."
+pyapplier -y -f /mnt/ipod/.scrobbler.log
+
+echo "unmounting..."
+sudo umount /mnt/ipod
+echo "done! exiting..."
+sleep 1
+EOF
+
+st -T "[floating]" -g "100x15--154-140" -e sh -c "$commands"
+
+
+
