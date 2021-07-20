@@ -4,12 +4,14 @@ plugins=(
 	git
 	zsh-autosuggestions
 	zsh-syntax-highlighting
-	calc
 	)
 
 # oh-my-zsh
 export ZSH="$HOME/.local/share/oh-my-zsh"
 source $ZSH/oh-my-zsh.sh
+
+# shift-tab fix
+bindkey '^[[Z' reverse-menu-complete
 
 compinit -D
 
@@ -30,8 +32,10 @@ alias clipout="xclip -selection c -out"
 alias ncp="ncmpcpp"
 alias dnd="dragon-drag-and-drop -x"
 alias scdl="scdl --onlymp3 -l"
-alias screenrecord='giph -s -b 4 -c 255,255,255 $(date +"$HOME/%Y-%m-%d_%H-%M-%S.mp4")'
+alias screenrecord='giph -f 60 -s -b 4 -c 255,255,255 $(date +"$HOME/%Y-%m-%d_%H-%M-%S.mp4")'
 alias deemix="deemix -b FLAC -p ~/dl"
+function = () { python2 -c "print ($*)" }
+aliases[=]="noglob ="
 
 # one letters
 alias r="ranger"
