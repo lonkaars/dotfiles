@@ -60,6 +60,16 @@ EOF
 	echo "$conf" > ~/.config/zathura/colors
 }
 
+switch_gtk() {
+	if [[ $1 == "light" ]]; then
+		sed "s/-Dark/-Light/" -i ~/.config/gtk-3.0/settings.ini
+		sed "s/gtk-application-prefer-dark-theme.*/gtk-application-prefer-dark-theme=false/" -i ~/.config/gtk-3.0/settings.ini
+	else
+		sed "s/-Light/-Dark/" -i ~/.config/gtk-3.0/settings.ini
+		sed "s/gtk-application-prefer-dark-theme.*/gtk-application-prefer-dark-theme=true/" -i ~/.config/gtk-3.0/settings.ini
+	fi
+}
+
 reload_terms() {
 	read -r -d '' escape_msgs << EOF
 \033]11;$(get_color background)\007
@@ -105,6 +115,7 @@ switch_cfgs() {
 	switch_xrdb $1
 	switch_dunst $1
 	switch_zathura $1
+	switch_gtk $1
 
 	echo $1 > ~/.local/share/mode/active
 	rm ~/.local/share/mode/dark ~/.local/share/mode/light

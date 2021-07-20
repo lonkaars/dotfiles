@@ -2,6 +2,11 @@
 
 UUID="81CC-A462"
 
+if test ! -h "/dev/disk/by-uuid/$UUID"; then
+	notify-send "ipod-sync" "can't find disk with uuid $UUID"
+	exit 1
+fi
+
 read -r -d '' commands << EOF
 echo "mounting..."
 sudo mount "/dev/disk/by-uuid/$UUID" /mnt/ipod -o uid=loek,gid=users
@@ -20,6 +25,5 @@ sleep 1
 EOF
 
 st -T "[floating]" -g "100x15--154-140" -e sh -c "$commands"
-
 
 

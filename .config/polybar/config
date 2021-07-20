@@ -98,9 +98,9 @@ pseudo-transparency = false
 
 [color]
 
-bg = ${xrdb:background:#121213}
-fg = ${xrdb:foreground:#fdf9f7}
-fg-alt = ${xrdb:background:#121213}
+bg = ${xrdb:background:#0f1419}
+fg = ${xrdb:foreground:#f8f8f0}
+fg-alt = ${xrdb:background:#0f1419}
 
 alpha = #00000000
 
@@ -132,10 +132,11 @@ label = %time%
 
 [module/mpd]
 type = internal/mpd
-format-online = 󰎇 <label-song>
-format-offline = 
-icon-play = 󰐊
-icon-pause = 󰏤
+format-online = <toggle> <label-song>
+format-offline = [mpd offline]
+format-stopped = 
+icon-play = 󰏤
+icon-pause = 󰐊
 label-song = %{T2}%artist%%{T-}: %title%
 label-song-maxlen = 50
 label-song-ellipsis = true

@@ -3,8 +3,8 @@ let mapleader = " "
 set wrap
 set autoindent
 set noexpandtab
-set tabstop=4
-set shiftwidth=4
+set tabstop=2
+set shiftwidth=2
 set termguicolors
 set shortmess=I
 set splitbelow splitright
@@ -45,7 +45,7 @@ Plug 'itchyny/lightline.vim'
 Plug 'itchyny/vim-gitbranch'
 Plug 'terryma/vim-multiple-cursors'
 Plug 'AndrewRadev/tagalong.vim'
-Plug 'tpope/vim-commentary'
+Plug 'terrortylor/nvim-comment'
 Plug 'liuchengxu/vim-which-key'
 Plug 'justinmk/vim-sneak'
 Plug 'jbgutierrez/vim-better-comments'
@@ -58,17 +58,18 @@ Plug 'wellle/targets.vim'
 Plug 'dstein64/vim-startuptime'
 Plug 'vim-scripts/DoxygenToolkit.vim'
 Plug 'rrethy/vim-hexokinase', { 'do': 'make hexokinase' }
+Plug 'dkarter/bullets.vim'
 
 " language plugins
 Plug 'lervag/vimtex'
-Plug 'pangloss/vim-javascript'
+" Plug 'pangloss/vim-javascript'
 Plug 'hail2u/vim-css3-syntax'
 Plug 'octol/vim-cpp-enhanced-highlight'
 Plug 'vim-python/python-syntax'
 Plug 'dart-lang/dart-vim-plugin'
 Plug 'bartlomiejdanek/vim-dart'
 Plug 'natebosch/dartlang-snippets'
-Plug 'ianks/vim-tsx'
+Plug 'HerringtonDarkholme/yats.vim'
 Plug 'cespare/vim-toml'
 Plug 'tikhomirov/vim-glsl'
 
@@ -88,8 +89,8 @@ Plug 'NLKNguyen/papercolor-theme'
 Plug 'scheakur/vim-scheakur'
 Plug 'mkarmona/materialbox'
 Plug 'morhetz/gruvbox'
-Plug 'co1ncidence/mountaineer'
-Plug 'co1ncidence/bliss'
+Plug '~/.config/nvim/local/bliss'
+Plug '~/.config/nvim/local/polarlight.vim'
 Plug 'lonkaars/blubber'
 call plug#end()
 
@@ -216,8 +217,8 @@ if filereadable(expand('~/.local/share/mode/light'))
 	colorscheme blubber
 	source $HOME/.config/nvim/blubber-lightline.vim
 else
-	colorscheme bliss
-	source $HOME/.config/nvim/bliss-lightline.vim
+	colorscheme polarlight
+	source $HOME/.config/nvim/local/polarlight.vim/lightline.vim
 endif
 
 let g:lightline = {
@@ -391,4 +392,11 @@ augroup END
 let g:python_recommended_style = 0
 " autocmd FileType python setlocal noexpandtab
 au BufRead,BufNewFile *.py set expandtab
+
+function! SynStack()
+	if !exists("*synstack")
+		return
+	endif
+	echo map(synstack(line('.'), col('.')), 'synIDattr(v:val, "name")')
+endfunc
 
