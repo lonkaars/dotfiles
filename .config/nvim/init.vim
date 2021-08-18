@@ -12,6 +12,7 @@ set noshowmode
 set ignorecase
 set smartcase
 set timeoutlen=500
+set updatetime=100
 set mouse=a
 set cino=N-s
 set linebreak " set wrap but don't wrap inside words
