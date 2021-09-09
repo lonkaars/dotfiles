@@ -1,6 +1,5 @@
 configuration {
 	modi: "drun,run";
-	lines: 6;
 	font: "JetBrainsMono Nerd Font 9";
 	matching: "fuzzy";
 	separator-style: "none";
@@ -41,6 +40,7 @@ listview {
 	cycle: false;
 	margin: 0 0 -1px 0;
 	scrollbar: false;
+	lines: 6;
 }
 
 element {
@@ -50,4 +50,9 @@ element {
 element selected {
 	background-color: ${ROFIACCOLOR};
 	text-color: @background-color;
+}
+
+element-text {
+	background-color: inherit;
+	text-color: inherit;
 }
