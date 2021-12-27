@@ -37,8 +37,9 @@ alias dnd="dragon-drag-and-drop -x"
 alias scdl="scdl --onlymp3 -l"
 alias screenrecord='giph -f 60 -s -b 4 -c 255,255,255 $(date +"$HOME/%Y-%m-%d_%H-%M-%S.mp4")'
 alias deemix="deemix -b FLAC -p ~/dl"
+alias docxtopdf="soffice --headless --convert-to pdf"
 
-function = () { python3 -c "print($*)" }
+function = () { python3 -c "from math import *; deg = pi / 180; print($*)" }
 aliases[=]="noglob ="
 alias 16="python3 -c 'import sys;print(f\"{int(sys.stdin.read().strip()):x}\")'"
 

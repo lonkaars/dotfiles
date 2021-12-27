@@ -93,6 +93,15 @@ Plug 'morhetz/gruvbox'
 Plug '~/.config/nvim/local/bliss'
 Plug '~/.config/nvim/local/polarlight.vim'
 Plug 'lonkaars/blubber'
+
+" tryout themes
+Plug 'https://github.com/mcchrish/zenbones.nvim'
+Plug 'https://github.com/Mangeshrex/uwu.vim'
+Plug 'https://github.com/metalelf0/jellybeans-nvim'
+Plug 'https://github.com/lifepillar/vim-wwdc17-theme'
+Plug 'https://github.com/jdsimcoe/abstract.vim'
+Plug 'https://github.com/ts-26a/vim-darkspace'
+Plug 'https://github.com/iandwelker/rose-pine-vim'
 call plug#end()
 
 " keybinds
@@ -109,6 +118,8 @@ imap <C-h> <Left>
 imap <C-j> <Down>
 imap <C-k> <Up>
 imap <C-l> <Right>
+
+command WordQuotesToLatex :%s/‘/`/g | :%s/’/'/g
 
 " leader keybindings
 nnoremap <silent> <leader> :WhichKey '<space>'<CR>
@@ -243,7 +254,7 @@ let g:lightline = {
 			\		[ 'readonly', 'filename', 'modified']
 			\	],
 			\	'right': [
-			\		[ 'gitbranch', 'lineinfo' ]
+			\		[ 'lineinfo' ]
 			\	]
 			\ },
 			\ 'inactive': {
@@ -251,9 +262,6 @@ let g:lightline = {
 			\		[ 'readonly', 'filename', 'modified']
 			\	],
 			\	'right': [  ]
-			\ },
-			\ 'component_function': {
-			\ 	'gitbranch': 'gitbranch#name'
 			\ },
 			\ }
 let g:lightline.tabline = {

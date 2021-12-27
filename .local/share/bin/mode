@@ -97,16 +97,16 @@ reload_terms() {
 \033]4;15;$(get_color color15)\007
 EOF
 	escape_msgs=$(printf "$escape_msgs" | tr -d '\n')
-	find /dev/pts -exec sh -c "printf \"$escape_msgs\n\" > {}" \; 2> /dev/null
+	find /dev/pts -exec sh -c "printf \"$escape_msgs\" > {}" \; 2> /dev/null
 }
 
 reload_dunst() {
 	killall dunst
-	dunst & disown
+	dunst &> /dev/null & disown
 }
 
 reload_polybar() {
-	polybar-msg cmd restart
+	polybar-msg cmd restart &> /dev/null
 }
 
 switch_cfgs() {
@@ -118,7 +118,7 @@ switch_cfgs() {
 	switch_gtk $1
 
 	echo $1 > ~/.local/share/mode/active
-	rm ~/.local/share/mode/dark ~/.local/share/mode/light
+	rm ~/.local/share/mode/dark ~/.local/share/mode/light 2> /dev/null
 	touch ~/.local/share/mode/$1
 }
 
