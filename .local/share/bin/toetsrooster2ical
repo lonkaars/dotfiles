@@ -1,0 +1,38 @@
+#!/bin/python3
+
+import sys
+import xlrd
+from datetime import datetime
+import json
+from icalendar import Calendar, Event
+from uuid import uuid4 as uuid
+import pytz
+
+workbook = xlrd.open_workbook(sys.argv[1])
+sheet = workbook.sheet_by_index(0)
+cal = Calendar()
+
+cal.add('prodid', 'toetsrooster2ical')
+cal.add('version', '2.0')
+
+def time_to_tuple(timestr):
+	return (int(timestr[0:2]), int(timestr[3:5]))
+
+for toets in range(8, sheet.nrows):
+	toetsdata = sheet.row_values(toets)
+	event = Event()
+
+	date = xlrd.xldate_as_tuple(toetsdata[10], workbook.datemode)
+	times = toetsdata[11].split(" - ")
+
+	event.add('summary', toetsdata[4])
+	event.add('dtstart', datetime(*date[0:3], *time_to_tuple(times[0])))
+	event.add('dtend', datetime(*date[0:3], *time_to_tuple(times[1])))
+	event.add('location', toetsdata[14])
+
+	cal.add_component(event)
+
+f = open('out.ics', 'wb')
+f.write(cal.to_ical())
+f.close()
+
