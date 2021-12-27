@@ -1,0 +1,16 @@
+#!/bin/sh
+file=$1
+foldername=$(basename "$file" .flac)
+
+echo "mkdir \"$foldername\""
+mkdir "$foldername"
+
+echo "mv \"$file\" \"$foldername\""
+mv "$file" "$foldername"
+
+echo "extract folder.png"
+metaflac --export-picture-to="${foldername}/folder.png" "${foldername}/${file}"
+
+echo "make sure folder.png is a png"
+magick "${foldername}/folder.png" "${foldername}/folder.png"
+
