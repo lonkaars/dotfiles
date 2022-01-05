@@ -40,7 +40,8 @@ module-margin-right = 1
 font-0 = "JetBrains Mono Nerd Font:pixelsize=9:weight=regular:size=0;2"
 font-1 = "JetBrains Mono Nerd Font:pixelsize=9:weight=bold:size=0;2"
 font-2 = "Material Design Icons:size=12;2"
-font-3 = "mplus Nerd Font:pixelsize=9:weight=bold:size=0;2"
+font-3 = "Noto Sans JP:pixelsize=9:weight=bold:size=0;2"
+font-4 = "Noto Sans KR:pixelsize=9:weight=bold:size=0;2"
 
 modules-left = time date 
 modules-center = weather mpd
