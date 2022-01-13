@@ -1,0 +1,9 @@
+#!/bin/sh
+ENGINE="$(ibus engine)"
+
+case $ENGINE in
+	"anthy") echo "jp" ;;
+	"xkb:us::eng") echo "us" ;;
+	"xkb:us:intl:eng") echo "us-intl" ;;
+*) ;;
+esac
