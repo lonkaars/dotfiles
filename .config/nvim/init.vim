@@ -92,6 +92,7 @@ Plug 'mkarmona/materialbox'
 Plug 'morhetz/gruvbox'
 Plug '~/.config/nvim/local/bliss'
 Plug '~/.config/nvim/local/polarlight.vim'
+Plug '~/.config/nvim/local/autonyaa.vim'
 Plug 'lonkaars/blubber'
 
 " tryout themes
