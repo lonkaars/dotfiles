@@ -117,6 +117,7 @@ switch_cfgs() {
 	switch_zathura $1
 	switch_gtk $1
 
+	mkdir -p ~/.local/share/mode
 	echo $1 > ~/.local/share/mode/active
 	rm ~/.local/share/mode/dark ~/.local/share/mode/light 2> /dev/null
 	touch ~/.local/share/mode/$1
