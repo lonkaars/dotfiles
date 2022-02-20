@@ -1,0 +1,45 @@
+#!/bin/sh
+
+defaults () {
+	# smoothing
+	setwacom Suppress 2
+	setwacom RawSample 5
+	
+	# full pen area
+	setwacom Area 0 0 15200 9500
+
+	setwacom Rotate none
+}
+
+topleft() {
+	notify-send "screen 1 only (landscape)"
+
+	setwacom MapToOutput 1920x1080+0+410
+}
+
+bottomleft() {
+	notify-send "screen 2 only (portrait)"
+
+	setwacom Rotate ccw
+	setwacom MapToOutput 1080x1920+1920+0
+}
+
+topright() {
+	notify-send "screen 1 only [osu] (landscape)"
+
+	setwacom Suppress 0
+	setwacom RawSample 1
+
+	setwacom Area 0 1623 7600 5898
+	setwacom MapToOutput 1920x1080+0+410
+}
+
+bottomright() {
+	notify-send "both screens (landscape)"
+
+	setwacom Area 0 0 11875 7600
+	setwacom MapToOutput 3000x1920+0+0
+}
+
+defaults
+$1

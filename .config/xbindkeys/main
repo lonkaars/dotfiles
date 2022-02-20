@@ -45,13 +45,13 @@
 
 
 
-"sh -c 'export PATH=~/.local/share/bin:$PATH && setwacom Area 0 0 15200 9500 && setwacom MapToOutput 1920x1080+0+410    && setwacom Suppress 2 && setwacom RawSample 5'"
+"~/.local/share/bin/wacommode topleft"
 	Mod1 + Control + Mod4 + 1
-"sh -c 'export PATH=~/.local/share/bin:$PATH && setwacom Area 0 0 15200 9500 && setwacom MapToOutput 1920x1080+1920+0 && setwacom Suppress 2 && setwacom RawSample 5'"
+"~/.local/share/bin/wacommode bottomleft"
 	Mod1 + Control + Mod4 + 2
-"sh -c 'export PATH=~/.local/share/bin:$PATH && setwacom Area 0 1623 7600 5898 && setwacom MapToOutput 1920x1080+0+410    && setwacom Suppress 0 && setwacom RawSample 1'"
+"~/.local/share/bin/wacommode topright"
 	Mod1 + Control + Mod4 + 3
-"sh -c 'export PATH=~/.local/share/bin:$PATH && setwacom Area 0 0 11875 7600 && setwacom MapToOutput 3000x1920+0+0    && setwacom Suppress 2 && setwacom RawSample 5'"
+"~/.local/share/bin/wacommode bottomright"
 	Mod1 + Control + Mod4 + 4
 
 
