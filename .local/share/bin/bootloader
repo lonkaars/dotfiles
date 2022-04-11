@@ -1,0 +1,13 @@
+#!/bin/sh
+
+bye () {
+	echo "run me as root!"
+	exit 1
+}
+
+[ $(id -g) -ne 0 ] && bye
+
+mount /boot
+pacman --noconfirm -S linux
+grub-install --target=x86_64-efi --efi-directory=/boot --bootloader-id=GRUB
+grub-mkconfig -o /boot/grub/grub.cfg
