@@ -70,6 +70,37 @@ switch_gtk() {
 	fi
 }
 
+switch_fcitx5() {
+	accent="$(get_color color9)"
+	read -r -d '' conf << EOF
+[InputPanel]
+NormalColor=$(get_color foreground)
+HighlightCandidateColor=$(get_color background)
+HighlightColor=$(get_color color13)
+HighlightBackgroundColor=$(get_color background)
+
+[InputPanel/Background]
+Color=$(get_color background)
+BorderColor=${accent}
+
+[InputPanel/Highlight]
+Color=${accent}
+
+[Menu/Background]
+Color=$(get_color background)
+
+[Menu]
+NormalColor=$(get_color foreground)
+
+[Menu/Highlight]
+Color=${accent}
+
+[Menu/Separator]
+Color=$(get_color color7)
+EOF
+	echo "$conf" | cat ~/.local/share/fcitx5/themes/loek/base.conf - > ~/.local/share/fcitx5/themes/loek/theme.conf
+}
+
 reload_terms() {
 	read -r -d '' escape_msgs << EOF
 \033]11;$(get_color background)\007
@@ -109,6 +140,10 @@ reload_polybar() {
 	polybar-msg cmd restart &> /dev/null
 }
 
+reload_fcitx5() {
+	fcitx5 -rd &> /dev/null & disown
+}
+
 switch_cfgs() {
 	echo "switching to $1 mode..."
 	
@@ -116,6 +151,7 @@ switch_cfgs() {
 	switch_dunst $1
 	switch_zathura $1
 	switch_gtk $1
+	switch_fcitx5 $1
 
 	mkdir -p ~/.local/share/mode
 	echo $1 > ~/.local/share/mode/active
@@ -131,6 +167,7 @@ reload_apps() {
 	reload_polybar
 	reload_dunst
 	reload_terms
+	reload_fcitx5
 }
 
 reload_apps
