@@ -1,4 +1,4 @@
-"i3lock -c 121213"
+"light-locker-command -l"
 	Mod4 + Escape
 "polybar-msg cmd toggle" 
 	Mod4 + b
@@ -8,6 +8,8 @@
 	Alt + Tab
 "st"
 	Mod4 + Return
+"st -T '[floating]'"
+	Mod4 + Mod1 + Return
 "bwmenu"
 	Mod4 + p
 "maim -usb 4 -c 255,255,255 | xclip -selection clipboard -t image/png"

@@ -27,6 +27,7 @@ let g:sneak#label = 1
 let g:which_key_map = {}
 let g:airline_powerline_fonts = 1
 let g:minimap_highlight='Visual'
+let g:python3_host_prog='/usr/bin/python3'
 hi! link CocFloating SneakScope
 autocmd BufNewFile,BufRead *.jdscn set syntax=json
 
@@ -49,7 +50,7 @@ Plug 'AndrewRadev/tagalong.vim'
 Plug 'terrortylor/nvim-comment'
 Plug 'liuchengxu/vim-which-key'
 Plug 'justinmk/vim-sneak'
-Plug 'jbgutierrez/vim-better-comments'
+" Plug 'jbgutierrez/vim-better-comments'
 Plug 'junegunn/goyo.vim'
 Plug 'othree/eregex.vim'
 Plug 'psliwka/vim-smoothie'
@@ -60,6 +61,7 @@ Plug 'dstein64/vim-startuptime'
 Plug 'vim-scripts/DoxygenToolkit.vim'
 Plug 'rrethy/vim-hexokinase', { 'do': 'make hexokinase' }
 Plug 'dkarter/bullets.vim'
+Plug 'editorconfig/editorconfig-vim'
 
 " language plugins
 Plug 'lervag/vimtex'
@@ -73,6 +75,7 @@ Plug 'natebosch/dartlang-snippets'
 Plug 'HerringtonDarkholme/yats.vim'
 Plug 'cespare/vim-toml'
 Plug 'tikhomirov/vim-glsl'
+" Plug 'gabrielelana/vim-markdown'
 
 " 'vim=ide'
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
@@ -410,3 +413,19 @@ function! SynStack()
 	echo map(synstack(line('.'), col('.')), 'synIDattr(v:val, "name")')
 endfunc
 
+" markdown
+let g:markdown_enable_spell_checking = 0
+au FileType markdown set expandtab
+
+" binary files
+augroup Binary
+  au!
+  au BufReadPre  *.bin let &bin=1
+  au BufReadPost *.bin if &bin | %!xxd
+  au BufReadPost *.bin set ft=xxd | endif
+  au BufWritePre *.bin if &bin | %!xxd -r
+  au BufWritePre *.bin endif
+  au BufWritePost *.bin if &bin | %!xxd
+  au BufWritePost *.bin set nomod | endif
+  au BufWritePost *.bin set noeol
+augroup END

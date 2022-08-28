@@ -1,5 +1,6 @@
 mpd_host = "127.0.0.1"
 mpd_port = "6600"
+#mpd_host = "/mnt/e/mpd/socket"
 mpd_music_dir = "/mnt/e/mpd/music"
 mpd_connection_timeout = "5"
 mpd_crossfade_time = "1"
@@ -11,7 +12,7 @@ progressbar_color = "black"
 playlist_display_mode = "classic"
 autocenter_mode = "yes"
 centered_cursor = "yes"
-user_interface = "classic"
+user_interface = "alternative"
 
 header_visibility = "no"
 statusbar_visibility = "no"
@@ -26,4 +27,3 @@ window_border_color = blue
 
 now_playing_prefix = "$b$6"
 now_playing_suffix = "$/b$9"
-

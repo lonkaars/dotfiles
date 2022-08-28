@@ -1,0 +1,2 @@
+#!/bin/sh
+convert -size 1x1 xc:$1 /tmp/bgcol.png && feh --bg-tile /tmp/bgcol.png && rm /tmp/bgcol.png

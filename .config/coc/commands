@@ -1,3 +1,4 @@
+python.setInterpreter
 tsserver.restart
 clangd.install
 snippets.editSnippets

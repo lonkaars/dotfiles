@@ -1,8 +1,8 @@
 ZSH_THEME="norm"
+zstyle ':omz:update' mode reminder
 
 plugins=(
 	git
-	zsh-autosuggestions
 	zsh-syntax-highlighting
 	)
 
@@ -43,8 +43,6 @@ function = () { python3 -c "from math import *; deg = pi / 180; print($*)" }
 aliases[=]="noglob ="
 alias 16="python3 -c 'import sys;print(f\"{int(sys.stdin.read().strip()):x}\")'"
 
-alias :tada:="echo '🎉'"
-
 # one letters
 alias r="ranger"
 alias v="nvim"
@@ -53,16 +51,13 @@ alias m="neomutt"
 alias mk="make"
 alias y="yay"
 alias n="ncmpcpp"
-
-# functions
-function genplaylist { find $1 -name "*.flac" | sort -V > ../playlists/$1.m3u }
-function bgcol { convert -size 1x1 xc:$1 /tmp/bgcol.png && feh --bg-tile /tmp/bgcol.png }
+alias c="khal"
 
 # the fuck
 eval $(thefuck --alias)
 
 # cleanup
-rm -rf ~/.Wurst\ encryption ~/.xsession-errors ~/.xsession-errors.old ~/.zshrc.zwc ~/.lesshst ~/.lyrics ~/.android ~/.zcalc_history .git-credentials .node_repl_history .python_history
+rm -rf ~/.xsession-errors ~/.xsession-errors.old ~/.zshrc.zwc ~/.lesshst ~/.lyrics ~/.android ~/.zcalc_history .git-credentials .node_repl_history .python_history
 alias nvidia-settings=nvidia-settings --config="$XDG_CONFIG_HOME"/nvidia/settings
 alias gpg2="gpg2 --homedir $XDG_DATA_HOME/gnupg"
 

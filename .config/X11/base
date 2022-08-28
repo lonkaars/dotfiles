@@ -1,4 +1,4 @@
-*.font: JetBrainsMono Nerd Font:style=Medium,Regular:size=9
+*.font: JetBrainsMono Nerd Font:size=9:antialias=true:autohint=true
 
 *.termname: st-256color
 *.shell: /bin/sh

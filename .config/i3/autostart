@@ -10,8 +10,9 @@ dunst &
 flashfocus &
 xset r rate 250 40
 autocutsel &
-ibus-daemon -drxR &
-jellyfin-mpv-shim &
+redshift -l 52:6 &
+fcitx5 -d
+nicotine &
 
 # bw unlock <password> --raw | keyctl padd user bw_session @u
 sh ~/.config/i3/unlock_bitwarden &
