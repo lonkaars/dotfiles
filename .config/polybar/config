@@ -45,7 +45,7 @@ font-4 = "Noto Sans KR:pixelsize=9:weight=bold:size=0;2"
 
 modules-left = time date 
 modules-center = weather mpd
-modules-right = keyboard alsa whoami
+modules-right = keyboard volume whoami
 
 separator =
 
@@ -55,7 +55,7 @@ dim-value = 1.0
 
 wm-name = 
 
-locale = 
+locale=ja_JP.UTF-8
 
 wm-restack = i3
 
@@ -106,8 +106,8 @@ fg-alt = ${xrdb:background:#0f1419}
 
 alpha = #00000000
 
-[module/alsa]
-type = internal/alsa
+[module/volume]
+type = internal/pulseaudio
 format-volume = <ramp-volume> <label-volume>
 label-volume = %percentage%%
 format-muted-prefix = "󰖁 "
@@ -121,14 +121,14 @@ ramp-headphones-1 = 󰟎
 [module/date]
 type = internal/date
 interval = 1.0
-time = %{T2}%A%{T-}, %B %d
+time = %{T2}%m月%d日 %{T-}(%a)
 format = <label>
 label = %time%
 
 [module/time]
 type = internal/date
 interval = 1.0
-time = %{T2}%H:%M%{T-}
+time = %{T2}%H時%M分%{T-}
 format = <label>
 label = %time%
 
