@@ -155,7 +155,7 @@ switch_cfgs() {
 
 	mkdir -p ~/.local/share/mode
 	echo $1 > ~/.local/share/mode/active
-	rm ~/.local/share/mode/dark ~/.local/share/mode/light 2> /dev/null
+	rm -f ~/.local/share/mode/dark ~/.local/share/mode/light
 	touch ~/.local/share/mode/$1
 }
 

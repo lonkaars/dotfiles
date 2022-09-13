@@ -1,9 +1,9 @@
 #!/bin/sh
-ENGINE="$(ibus engine)"
+CONTROLLER="`qdbus 'org.fcitx.Fcitx5' '/controller' 'org.fcitx.Fcitx.Controller1.CurrentInputMethod'`"
 
-case $ENGINE in
-	"anthy") echo "jp" ;;
-	"xkb:us::eng") echo "us" ;;
-	"xkb:us:intl:eng") echo "us-intl" ;;
+case $CONTROLLER in
+	"keyboard-us") echo "us" ;;
+	"keyboard-us-intl") echo "us-intl" ;;
+	"mozc") echo "jp" ;;
 *) ;;
 esac

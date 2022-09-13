@@ -1,6 +1,6 @@
 # variables
 set $mod Mod4
-set $inner_gaps 16
+set $inner_gaps 10
 set $outer_gaps 0
 
 # set gaps
