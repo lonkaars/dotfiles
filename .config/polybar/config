@@ -145,7 +145,7 @@ label-font = 2
 
 [module/whoami]
 type = custom/script
-exec = echo "%{T2}$(whoami)%{T-}@%{T2}$(hostname)%{T-}"
+exec = echo "%{T2}$(whoami)%{T-}@%{T2}$(cat /etc/hostname)%{T-}"
 interval = 9999999
 label-font = 2
 
