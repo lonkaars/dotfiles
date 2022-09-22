@@ -1,6 +1,14 @@
 [barsettings]
 padding = 1.9
 
+[color]
+bg = ${xrdb:background:#fdf9f7}
+fg = ${xrdb:foreground:#121213}
+fg-alt = ${xrdb:background:#fdf9f7}
+fg-half = ${xrdb:color8:#bbb8b7}
+
+alpha = #00000000
+
 [global/wm]
 margin-bottom = 50
 margin-top = 0
@@ -39,12 +47,18 @@ module-margin-right = 1
 
 font-0 = "JetBrains Mono Nerd Font:pixelsize=8:weight=regular:size=0;2"
 font-1 = "JetBrains Mono Nerd Font:pixelsize=8:weight=bold:size=0;2"
-font-2 = "Noto Sans JP:pixelsize=8:weight=bold:size=0;2"
-font-3 = "Noto Sans KR:pixelsize=8:weight=bold:size=0;2"
+font-2 = "Noto Sans JP:pixelsize=8:weight=medium:size=0;2"
+font-3 = "Noto Sans KR:pixelsize=8:weight=medium:size=0;2"
 
-modules-left = time date 
+{% if yadm.hostname == "thoncc" %}
+modules-left = time date rooster
+modules-center = battery1 battery2 brightness
+modules-right = wireless keyboard volume whoami
+{% else %}
+modules-left = time date
 modules-center = weather mpd
 modules-right = keyboard volume whoami
+{% endif %}
 
 separator =
 
@@ -54,7 +68,7 @@ dim-value = 1.0
 
 wm-name = 
 
-locale=ja_JP.UTF-8
+locale = ja_JP.UTF-8
 
 wm-restack = i3
 
@@ -76,8 +90,6 @@ cursor-scroll =
 throttle-output = 5
 throttle-output-for = 10
 
-throttle-input-for = 30
-
 screenchange-reload = false
 
 compositing-background = source
@@ -86,24 +98,11 @@ compositing-overline = over
 compositing-underline = over
 compositing-border = over
 
-format-foreground = 
-format-background = 
-format-underline =
-format-overline =
-format-spacing =
-format-padding =
-format-margin =
-format-offset =
+format-foreground = ${color.fg}
+format-background = ${color.bg}
+format-padding = ${barsettings.padding}
 
 pseudo-transparency = false
-
-[color]
-
-bg = ${xrdb:background:#0f1419}
-fg = ${xrdb:foreground:#f8f8f0}
-fg-alt = ${xrdb:background:#0f1419}
-
-alpha = #00000000
 
 [module/volume]
 type = internal/pulseaudio
@@ -114,7 +113,7 @@ label-muted = "muted"
 [module/date]
 type = internal/date
 interval = 1.0
-time = %{T2}%m月%d日 %{T-}(%a)
+time = %m月%d日 %A
 format = <label>
 label = %time%
 
@@ -125,17 +124,6 @@ time = %{T2}%H時%M分%{T-}
 format = <label>
 label = %time%
 
-[module/mpd]
-type = internal/mpd
-format-online = <toggle> <label-song>
-format-offline = [mpd offline]
-format-stopped = 
-icon-play =  
-icon-pause =  
-label-song = %{T2}%artist%%{T-}: %title%
-label-song-maxlen = 50
-label-song-ellipsis = true
-
 [module/weather]
 type = custom/script
 exec = ~/.config/polybar-forecast/target/release/polybar-forecast
@@ -145,14 +133,10 @@ label-font = 2
 
 [module/whoami]
 type = custom/script
-exec = echo "%{T2}$(whoami)%{T-}@%{T2}$(cat /etc/hostname)%{T-}"
+exec = echo "%{T2}$(id -u -n)%{T-}@%{T2}$(uname -n)%{T-}"
 interval = 9999999
 label-font = 2
 
-[module/keyboard]
-type = custom/script
-exec = ~/.local/share/bin/kbindicator
-interval = 5
-label-font = 1
+{% include "config.{{ yadm.hostname }}" %}
 
 ; vim:ft=dosini

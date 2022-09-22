@@ -1,0 +1,23 @@
+#!/bin/sh
+/usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1 &
+cat ~/.config/X11/base ~/.config/X11/light | xrdb &
+polybar main -c ~/.config/polybar/config &
+zsh -c "rwall" &
+picom -b
+xbanish &
+dunst &
+flashfocus &
+xset r rate 250 40
+autocutsel &
+fcitx5 -d
+zsh -c "xbindkeys -f ~/.config/xbindkeys/main"
+xdimmer -t 45 -p 3 &
+light-locker --no-late-locking &
+
+# bw unlock <password> --raw | keyctl padd user bw_session @u
+sh ~/.config/i3/unlock_bitwarden &
+
+# auto start lazy script
+sleep 2
+[[ -f ~/do.sh ]] && source ~/do.sh
+

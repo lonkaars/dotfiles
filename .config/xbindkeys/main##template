@@ -2,9 +2,9 @@
 	Mod4 + Escape
 "polybar-msg cmd toggle" 
 	Mod4 + b
-"rofi -show drun"
+"rofi -show drun -no-default-config"
 	Mod4 + space
-"rofi -show window"
+"rofi -show window -no-default-config"
 	Alt + Tab
 "st"
 	Mod4 + Return
@@ -12,29 +12,39 @@
 	Mod4 + Mod1 + Return
 "bwmenu"
 	Mod4 + p
-"maim -usb 4 -c 255,255,255 | xclip -selection clipboard -t image/png"
+"maim -usb 4 -c 0,0,0 | xclip -selection clipboard -t image/png"
 	Print
 "addtoqueue"
 	Mod4 + a
 
 
 
+"pactl set-sink-volume @DEFAULT_SINK@ -1%"
+	Mod1+Mod4+minus
+"pactl set-sink-volume @DEFAULT_SINK@ +1%"
+	Mod1+Mod4+equal
+
+"pactl set-sink-volume @DEFAULT_SINK@ +1%"
+	XF86AudioRaiseVolume
+"pactl set-sink-volume @DEFAULT_SINK@ -1%"
+	XF86AudioLowerVolume
+
+"pactl set-sink-mute @DEFAULT_SINK@ toggle"
+	XF86AudioMute
+"pactl set-source-mute @DEFAULT_SOURCE@ toggle"
+	XF86AudioMicMute
+
+{% if yadm.hostname == "thoncc" %}
+"xbacklight -inc 10 -time 100 -fps 60"
+	XF86MonBrightnessUp
+"xbacklight -dec 10 -time 100 -fps 60"
+	XF86MonBrightnessDown
+{% else %}
 "brightness - 20"
 	Shift+Mod4 + minus
 "brightness + 20"
 	Shift+Mod4 + equal
-
-"pactl set-sink-volume @DEFAULT_SINK@ -5%"
-	Mod1+Mod4+minus
-"pactl set-sink-volume @DEFAULT_SINK@ +5%"
-	Mod1+Mod4+equal
-
-"pactl set-sink-volume @DEFAULT_SINK@ +5%"
-	XF86AudioRaiseVolume
-"pactl set-sink-volume @DEFAULT_SINK@ -5%"
-	XF86AudioLowerVolume
-"pactl set-sink-mute @DEFAULT_SINK@ toggle"
-	XF86AudioMute
+{% endif %}
 
 "playerctl play-pause"
 	XF86AudioPlay
