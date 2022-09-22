@@ -1,0 +1,3 @@
+#!/bin/sh
+[[ `lsb_release -si` -ne "Arch" ]] && exit
+yay --noconfirm -S - < packages-arch
