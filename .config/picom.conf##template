@@ -1,8 +1,16 @@
+backend = "glx";
 shadow = true;
+{% if yadm.hostname == "thoncc" %}
+shadow-radius = 24;
+shadow-opacity = 0.15;
+shadow-offset-y = -24;
+shadow-offset-x = -24;
+{% else %}
 shadow-radius = 48;
 shadow-opacity = 0.3;
 shadow-offset-y = -48;
 shadow-offset-x = -48;
+{% endif %}
 corner-radius = 8;
 
 shadow-exclude = [

@@ -14,7 +14,11 @@ configuration {
 	background-color: ${ROFIBGCOLOR};
 	text-color: ${ROFIFGCOLOR};
 	spacing: 0;
+{% if yadm.hostname == "thoncc" %}
+	width: 400;
+{% else %}
 	width: 450;
+{% endif %}
 	line-padding: 0;
 	line-margin: 0;
 	--padding: 8px;
@@ -40,7 +44,11 @@ listview {
 	cycle: false;
 	margin: 0 0 -1px 0;
 	scrollbar: false;
+{% if yadm.hostname == "thoncc" %}
+	lines: 5;
+{% else %}
 	lines: 6;
+{% endif %}
 }
 
 element {

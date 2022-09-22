@@ -40,10 +40,10 @@ foreground = ${color.fg}
 radius-top = 0.0
 radius-bottom = 0.0
 
-padding = 3
+padding = 2
 
-module-margin-left = 1
-module-margin-right = 1
+module-margin-left = 0
+module-margin-right = 0
 
 font-0 = "JetBrains Mono Nerd Font:pixelsize=8:weight=regular:size=0;2"
 font-1 = "JetBrains Mono Nerd Font:pixelsize=8:weight=bold:size=0;2"
