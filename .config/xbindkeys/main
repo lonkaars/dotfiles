@@ -19,6 +19,11 @@
 
 
 
+"brightness - 20"
+	Shift+Mod4 + minus
+"brightness + 20"
+	Shift+Mod4 + equal
+
 "pactl set-sink-volume @DEFAULT_SINK@ -5%"
 	Mod1+Mod4+minus
 "pactl set-sink-volume @DEFAULT_SINK@ +5%"
