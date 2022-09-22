@@ -5,7 +5,7 @@
     "theme": {
         "images": { "theme_frame": "bg.png" },
         "colors": {
-            "frame":                                  [ 255, 255, 255 ],
+            "frame":                                  [ 15,  20,  25  ],
             "button_background":                      [ 255, 255, 255 ],
             "ntp_background":                         [ 15,  20,  25  ],
             "ntp_text":                               [ 15,  20,  25  ],
