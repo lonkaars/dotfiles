@@ -50,6 +50,7 @@ Plug 'AndrewRadev/tagalong.vim'
 Plug 'terrortylor/nvim-comment'
 Plug 'liuchengxu/vim-which-key'
 Plug 'justinmk/vim-sneak'
+
 " Plug 'jbgutierrez/vim-better-comments'
 Plug 'junegunn/goyo.vim'
 Plug 'othree/eregex.vim'
@@ -318,37 +319,16 @@ augroup END
 autocmd FileType tex let b:surround_{char2nr("q")} = "`\r'"
 autocmd FileType tex let b:surround_{char2nr('Q')} = "``\r''"
 
-" tab out of brackets
-function TabOutOfDelim()
-	let char = strcharpart(getline('.'), col('.') + 1, 1)
-	let valid = ")}]> "
-	if stridx(valid, char) != -1
-		norm l
-	endif
-endfunction
-
-function CocTabButton()
-	if pumvisible()
-		return "\<C-n>"
-	elseif <SID>check_back_space()
-		return "\<Tab>"
-	else
-		call coc#refresh()
-	endif
-endfunction
-
-" imap <silent><cmd> <Tab> call TabOutOfDelim() <bar> call CocTabButton()
-" imap <silent><cmd> <Tab> call CocTabButton() <bar> call TabOutOfDelim()
-imap <silent><cmd> <Tab> call CocTabButton()
-" imap <silent> <Tab> <Esc>:call TabOutOfDelim()<CR>a
-
-
 " coc.vim <tab> completion and <cr> stuffs
+function! CheckBackspace() abort
+  let col = col('.') - 1
+  return !col || getline('.')[col - 1]  =~# '\s'
+endfunction
 inoremap <silent><expr> <TAB>
-			\ pumvisible() ? "\<C-n>" :
-			\ <SID>check_back_space() ? "\<TAB>" :
-			\ coc#refresh()
-inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
+      \ coc#pum#visible() ? coc#pum#next(1) :
+      \ CheckBackspace() ? "\<Tab>" :
+      \ coc#refresh()
+inoremap <expr><S-TAB> coc#pum#visible() ? coc#pum#prev(1) : "\<C-h>"
 
 function! s:check_back_space() abort
 	let col = col('.') - 1
