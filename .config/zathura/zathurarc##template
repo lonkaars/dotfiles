@@ -1,7 +1,11 @@
 set scroll-page-aware "true"
 set scroll-full-overlap 0.01
 set scroll-step 100
+{% if yadm.hostname == "thoncc" %}
+set font "JetBrainsMono Nerd Font 8"
+{% else %}
 set font "JetBrainsMono Nerd Font 9"
+{% endif %}
 set selection-clipboard clipboard
 
 # recolor (dark mode)
