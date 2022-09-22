@@ -1,0 +1,21 @@
+{% if yadm.hostname == "thoncc" %}
+*.font: JetBrainsMono Nerd Font:style=Medium,Regular:size=7.5
+*.borderpx: 8
+Xcursor.theme: OpenZone_Black_Slim
+{% else %}
+*.font: JetBrainsMono Nerd Font:size=9:antialias=true:autohint=true
+*.borderpx: 16
+Xcursor.theme: OpenZone_Black
+{% endif %}
+
+*.termname: st-256color
+*.shell: /bin/sh
+
+*.tabspaces: 4
+
+Xft.dpi: 96
+Xft.hinting: 1
+Xft.hintstyle: hintslight
+Xft.antialias: 1
+Xft.rgba: rgb
+
