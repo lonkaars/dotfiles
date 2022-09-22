@@ -1,9 +1,7 @@
 [Settings]
 gtk-application-prefer-dark-theme=true
-gtk-theme-name=Skeuos-Blue-Dark
 gtk-icon-theme-name=Adwaita
 gtk-font-name=Inter 11
-gtk-cursor-theme-name=OpenZone_Black
 gtk-cursor-theme-size=0
 gtk-toolbar-style=GTK_TOOLBAR_BOTH
 gtk-toolbar-icon-size=GTK_ICON_SIZE_LARGE_TOOLBAR
@@ -14,3 +12,10 @@ gtk-enable-input-feedback-sounds=1
 gtk-xft-antialias=1
 gtk-xft-hinting=1
 gtk-xft-hintstyle=hintfull
+{% if yadm.hostname == "thoncc" %}
+gtk-theme-name=Skeuos-Blue-Light
+gtk-cursor-theme-name=OpenZone_Black_Slim
+{% else %}
+gtk-theme-name=Skeuos-Blue-Dark
+gtk-cursor-theme-name=OpenZone_Black
+{% endif %}
