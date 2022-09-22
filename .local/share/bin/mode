@@ -1,5 +1,7 @@
 #!/bin/sh
 
+MODE="$1"
+
 get_color() {
 	xrdb -query | grep $1 | head -n1 | cut -f2
 }
@@ -159,7 +161,8 @@ switch_cfgs() {
 	touch ~/.local/share/mode/$1
 }
 
-[[ $1 == "dark" || $1 == "light" ]] && switch_cfgs $1
+[[ $MODE == "restore" ]] && MODE=`cat ~/.local/share/mode/active`
+[[ $MODE == "dark" || $MODE == "light" ]] && switch_cfgs $MODE
 
 reload_apps() {
 	echo "reloading programs..."

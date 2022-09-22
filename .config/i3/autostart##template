@@ -1,6 +1,10 @@
 #!/bin/sh
 /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1 &
+{% if yadm.hostname == "thoncc" %}
 cat ~/.config/X11/base ~/.config/X11/light | xrdb &
+{% else %}
+cat ~/.config/X11/base ~/.config/X11/dark | xrdb &
+{% endif %}
 polybar main -c ~/.config/polybar/config &
 zsh -c "rwall" &
 picom -b
