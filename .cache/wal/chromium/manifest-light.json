@@ -4,9 +4,9 @@
     "name": "pywal",
     "theme": {
 		"images": { "theme_frame": "bg.png" },	
-        "colors": {
+    "colors": {
 			"bookmark_text": [ 18, 18, 19 ],
-			"frame": [ 0, 0, 0 ],
+			"frame": [ 253, 249, 247 ],
 			"ntp_background": [ 253, 249, 247 ],
 			"ntp_text": [ 253, 249, 247 ],
 			"tab_background_text": [ 18, 18, 19 ],
