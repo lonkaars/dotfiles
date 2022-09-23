@@ -103,6 +103,32 @@ EOF
 	echo "$conf" | cat ~/.local/share/fcitx5/themes/loek/base.conf - > ~/.local/share/fcitx5/themes/loek/theme.conf
 }
 
+switch_startpage() {
+	read -r -d '' conf << EOF
+/* AUTOMATICALLY GENERATED, DO NOT EDIT */
+
+:root {
+	--color0:  $(get_color color0);
+	--color1:  $(get_color color1);
+	--color2:  $(get_color color2);
+	--color3:  $(get_color color3);
+	--color4:  $(get_color color4);
+	--color5:  $(get_color color5);
+	--color6:  $(get_color color6);
+	--color7:  $(get_color color7);
+	--color8:  $(get_color color8);
+	--color9:  $(get_color color9);
+	--color10:  $(get_color color10);
+	--color11:  $(get_color color11);
+	--color12:  $(get_color color12);
+	--color13:  $(get_color color13);
+	--color14:  $(get_color color14);
+	--color15:  $(get_color color15);
+}
+EOF
+	echo "$conf" > ~/.config/startpage/colors.css
+}
+
 switch_chrome() {
 	cd ~/.cache/wal/chromium
 	rm -f Cached Theme.pak bg.png manifest.json
@@ -162,6 +188,7 @@ switch_cfgs() {
 	switch_gtk $1
 	switch_fcitx5 $1
 	switch_chrome $1
+	switch_startpage $1
 
 	mkdir -p ~/.local/share/mode
 	echo $1 > ~/.local/share/mode/active

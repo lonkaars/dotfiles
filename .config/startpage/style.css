@@ -1,5 +1,4 @@
 :root {
-{% if yadm.hostname == "thoncc" %}
 	--color0:  #fdf9f7;
 	--color1:  #8c627a;
 	--color2:  #628c6e;
@@ -16,24 +15,6 @@
 	--color13: #5a5072;
 	--color14: #506872;
 	--color15: #393b3b;
-{% else %}
-	--color0:  #0f1419;
-	--color1:  #ff3f4f;
-	--color2:  #81f900;
-	--color3:  #ffd945;
-	--color4:  #45a1ed;
-	--color5:  #ef47c5;
-	--color6:  #19d1e5;
-	--color7:  #f8f8f0;
-	--color8:  #495162;
-	--color9:  #f95c76;
-	--color10: #7dfc5a;
-	--color11: #f9ce70;
-	--color12: #6395f2;
-	--color13: #ea79fc;
-	--color14: #88f0fc;
-	--color15: #fffff4;
-{% endif %}
 }
 
 html, body {
