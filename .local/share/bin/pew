@@ -1,0 +1,3 @@
+#!/bin/sh
+
+kill -9 $(xprop | grep "_NET_WM_PID(CARDINAL)" | cut -d' ' -f3)
