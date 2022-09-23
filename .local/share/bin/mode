@@ -103,6 +103,13 @@ EOF
 	echo "$conf" | cat ~/.local/share/fcitx5/themes/loek/base.conf - > ~/.local/share/fcitx5/themes/loek/theme.conf
 }
 
+switch_chrome() {
+	cd ~/.cache/wal/chromium
+	rm -f Cached Theme.pak bg.png manifest.json
+	ln -sf "bg-$1.png" bg.png
+	ln -sf "manifest-$1.json" manifest.json
+}
+
 reload_terms() {
 	read -r -d '' escape_msgs << EOF
 \033]11;$(get_color background)\007
@@ -154,6 +161,7 @@ switch_cfgs() {
 	switch_zathura $1
 	switch_gtk $1
 	switch_fcitx5 $1
+	switch_chrome $1
 
 	mkdir -p ~/.local/share/mode
 	echo $1 > ~/.local/share/mode/active
