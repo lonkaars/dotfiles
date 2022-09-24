@@ -15,6 +15,7 @@ xset r rate 250 40
 autocutsel &
 fcitx5 -d
 zsh -c "xbindkeys -f ~/.config/xbindkeys/main"
+xfsettingsd &
 {% if yadm.hostname == "thoncc" %}
 xdimmer -t 45 -p 3 &
 light-locker --no-late-locking &

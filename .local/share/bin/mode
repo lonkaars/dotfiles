@@ -92,6 +92,7 @@ switch_gtk() {
 		sed "s/-Light/-Dark/" -i ~/.config/gtk-3.0/settings.ini
 		sed "s/gtk-application-prefer-dark-theme.*/gtk-application-prefer-dark-theme=true/" -i ~/.config/gtk-3.0/settings.ini
 	fi
+	grep gtk-theme-name .config/gtk-3.0/settings.ini | cut -f2 -d= | xargs xfconf-query -c xsettings -p /Net/ThemeName -s
 }
 
 switch_fcitx5() {
