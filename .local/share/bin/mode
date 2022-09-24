@@ -153,7 +153,7 @@ EOF
 
 switch_chrome() {
 	cd ~/.cache/wal/chromium
-	rm -f Cached Theme.pak bg.png manifest.json
+	rm -f 'Cached Theme.pak' 'bg.png' 'manifest.json'
 	convert -size 100x100 "xc:`get_color background`" bg.png
   BG_ALT=$(mix_rgb $(get_color color8) $(get_color color0) '0.2')
 	jq -nc \
