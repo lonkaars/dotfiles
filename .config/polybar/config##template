@@ -1,13 +1,7 @@
 [barsettings]
 padding = 1.9
 
-[color]
-bg = ${xrdb:background:#fdf9f7}
-fg = ${xrdb:foreground:#121213}
-fg-alt = ${xrdb:background:#fdf9f7}
-fg-half = ${xrdb:color8:#bbb8b7}
-
-alpha = #00000000
+include-file = ./colors
 
 [global/wm]
 margin-bottom = 50

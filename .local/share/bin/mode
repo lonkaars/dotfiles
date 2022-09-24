@@ -193,6 +193,22 @@ switch_chrome() {
 		}' > manifest.json
 }
 
+switch_polybar() {
+	read -r -d '' conf << EOF
+[color]
+bg = \${xrdb:background:$(get_color background)}
+fg = \${xrdb:foreground:$(get_color foreground)}
+fg-alt = \${xrdb:background:$(get_color background)}
+fg-half = \${xrdb:color8:$(get_color color8)}
+
+alpha = #00000000
+
+; vim:ft=dosini
+EOF
+	echo "$conf" > ~/.config/polybar/colors
+
+}
+
 reload_terms() {
 	read -r -d '' escape_msgs << EOF
 \033]11;$(get_color background)\007
@@ -246,6 +262,7 @@ switch_cfgs() {
 	switch_fcitx5 $1
 	switch_chrome $1
 	switch_startpage $1
+	switch_polybar $1
 
 	mkdir -p ~/.local/share/mode
 	echo $1 > ~/.local/share/mode/active
