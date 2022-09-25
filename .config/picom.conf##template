@@ -19,7 +19,7 @@ shadow-exclude = [
 ]
 
 rounded-corners-exclude = [
-	"!I3_FLOATING_WINDOW@:c && WM_CLASS@:s != 'rofi'"
+	"!I3_FLOATING_WINDOW@:c && WM_CLASS@:s != 'rofi' && WM_CLASS@:s != 'dunst'"
 ]
 
 wintypes: {
