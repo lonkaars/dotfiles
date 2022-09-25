@@ -2,15 +2,26 @@
 
 these are dotfiles
 
-- discord
 - zsh
-- nvim
+- nvim + coc
 - i3
 - polybar
+- chromium and it's forks
 - zathura
-- brave
 - rofi
 - [st](https://github.com/lonkaars/st)
+- xresources
+- fcitx5
+- gtk3
+- neomutt + imapnotify + mbsync
+- mpd + ncmpcpp
+- dunst
+- xfsettingsd
+- discord
+
+i use these dotfiles on a desktop computer (superesc) and a laptop (thoncc).
+use `yadm config local.hostname <superesc|thoncc>` before `yadm alt` to choose
+which config files should be used if your hostname is something else.
 
 ## installation
 
