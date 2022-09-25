@@ -1,0 +1,17 @@
+#!/bin/sh
+
+caffeine
+
+FRAMERATE="$2"
+RESOLUTION="$1"
+DEVICE="/dev/$(readlink /dev/v4l/by-id/usb-MACROSILICON_USB_Video-* | head -n1 | cut -c7-)"
+
+mpv --demuxer-lavf-format=video4linux2 \
+	--demuxer-lavf-o-set=input_format=mjpeg,framerate="$FRAMERATE",resolution="$RESOLUTION" \
+	--cache=no \
+	--pause=no \
+	--force-seekable=no \
+	--no-osc \
+	--no-input-default-bindings \
+	"av://v4l2:$DEVICE"
+	# &> /dev/null & disown

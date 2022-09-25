@@ -1,5 +1,0 @@
-#!/bin/node
-var args = process.argv;
-var image = args.find(a => a.match(/\.(png|jpeg|jpg)/g));
-var wal = require(__dirname + "/pywal/jswal.js");
-wal(["--bg-fill", image]);

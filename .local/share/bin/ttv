@@ -1,8 +1,0 @@
-#!/bin/sh
-streamlink twitch.tv/$1 best -p "mpv --fs=no --geometry=75%" & disown
-brave --user-data-dir=/tmp --app="https://twitch.tv/$1/chat?popout=" & disown
-
-sleep 5
-PPPID=$(awk '{print $4}' "/proc/$PPID/stat")
-kill $PPPID
-
