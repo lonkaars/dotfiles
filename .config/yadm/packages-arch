@@ -110,8 +110,10 @@ xclip
 xdg-user-dirs
 xdo
 xf86-input-wacom
+xfce4-settings
 xinit-xsession
 xorg
+xsettingsd
 yadm
 zathura-git
 zathura-pdf-mupdf
