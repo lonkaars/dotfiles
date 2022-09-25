@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<channel name="xfce4-keyboard-shortcuts" version="1.0">
+  <property name="commands" type="empty">
+    <property name="default" type="empty">
+    </property>
+    <property name="custom" type="empty">
+    </property>
+  </property>
+  <property name="xfwm4" type="empty">
+    <property name="default" type="empty">
+    </property>
+  </property>
+  <property name="providers" type="array">
+    <value type="string" value="commands"/>
+  </property>
+</channel>

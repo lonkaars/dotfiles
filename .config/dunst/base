@@ -1,14 +1,13 @@
-[shortcuts]
-close_all = mod4+c
-
 [global]
 monitor = 0
 follow = none
-geometry = "400x5-50+82"
+height = 50
+width = 300
+origin = top-right
+offset = 22x42
 indicate_hidden = yes
 shrink = no
 transparency = 0
-notification_height = 0
 separator_height = 2
 padding = 16
 horizontal_padding = 16
@@ -39,8 +38,6 @@ browser = /usr/bin/firefox -new-tab
 always_run_script = true
 title = Dunst
 class = Dunst
-startup_notification = false
-verbosity = mesg
 corner_radius = 0
 ignore_dbusclose = false
 force_xinerama = false

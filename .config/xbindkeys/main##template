@@ -16,6 +16,8 @@
 	Print
 "addtoqueue"
 	Mod4 + a
+"dunstctl close-all"
+	Mod4 + c
 
 
 
