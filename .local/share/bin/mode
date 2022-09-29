@@ -92,7 +92,7 @@ switch_gtk() {
 		sed "s/-Light/-Dark/" -i ~/.config/gtk-3.0/settings.ini
 		sed "s/gtk-application-prefer-dark-theme.*/gtk-application-prefer-dark-theme=true/" -i ~/.config/gtk-3.0/settings.ini
 	fi
-	grep gtk-theme-name .config/gtk-3.0/settings.ini | cut -f2 -d= | xargs xfconf-query -c xsettings -p /Net/ThemeName -s
+	grep gtk-theme-name ~/.config/gtk-3.0/settings.ini | cut -f2 -d= | xargs xfconf-query -c xsettings -p /Net/ThemeName -s
 }
 
 switch_fcitx5() {
@@ -131,6 +131,8 @@ switch_startpage() {
 /* AUTOMATICALLY GENERATED, DO NOT EDIT */
 
 :root {
+	--background:  $(get_color background);
+	--foreground:  $(get_color foreground);
 	--color0:  $(get_color color0);
 	--color1:  $(get_color color1);
 	--color2:  $(get_color color2);
@@ -206,7 +208,18 @@ alpha = #00000000
 ; vim:ft=dosini
 EOF
 	echo "$conf" > ~/.config/polybar/colors
+}
 
+switch_vim_lightline() {
+	read -r -d '' conf << EOF
+let s:bg = [ '$(get_color background)', 'NONE' ]
+let s:fg = [ '$(get_color foreground)', 'NONE' ]
+let s:mode = [ '$(get_color color0)', 'NONE' ]
+let s:faint = [ '$(get_color color8)', 'NONE' ]
+let s:none = [ 'NONE', 'NONE' ]
+let s:test = [ '#ff00ff', 'NONE' ]
+EOF
+	echo "$conf" | cat - ~/.config/nvim/lightline-base.vim > ~/.config/nvim/lightline.vim
 }
 
 reload_terms() {
@@ -263,6 +276,7 @@ switch_cfgs() {
 	switch_chrome $1
 	switch_startpage $1
 	switch_polybar $1
+	switch_vim_lightline $1
 
 	mkdir -p ~/.local/share/mode
 	echo $1 > ~/.local/share/mode/active

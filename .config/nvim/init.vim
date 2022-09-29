@@ -231,15 +231,14 @@ let g:Hexokinase_optInPatterns = [
 " colorscheme thingers
 
 if filereadable(expand('~/.local/share/mode/light'))
-	colorscheme blubber
-	source $HOME/.config/nvim/blubber-lightline.vim
+	colorscheme rose-pine-light
 else
-	colorscheme polarlight
-	source $HOME/.config/nvim/local/polarlight.vim/lightline.vim
+	colorscheme rose-pine-dark
 endif
 
+source $HOME/.config/nvim/lightline.vim
 let g:lightline = {
-			\ 'colorscheme': 'bliss',
+			\ 'colorscheme': 'auto',
 			\ 'mode_map': {
 			\	'n' : 'norm',
 			\	'i' : 'ins',
