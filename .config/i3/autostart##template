@@ -5,6 +5,7 @@ cat ~/.config/X11/base ~/.config/X11/light | xrdb &
 {% else %}
 cat ~/.config/X11/base ~/.config/X11/dark | xrdb &
 {% endif %}
+xfsettingsd &
 polybar main -c ~/.config/polybar/config &
 zsh -c "rwall" &
 picom -b
@@ -14,7 +15,6 @@ flashfocus &
 autocutsel &
 fcitx5 -d
 zsh -c "xbindkeys -f ~/.config/xbindkeys/main"
-xfsettingsd &
 {% if yadm.hostname == "thoncc" %}
 xdimmer -t 45 -p 3 &
 light-locker --no-late-locking &
