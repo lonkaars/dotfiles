@@ -77,6 +77,7 @@ Plug 'HerringtonDarkholme/yats.vim'
 Plug 'cespare/vim-toml'
 Plug 'tikhomirov/vim-glsl'
 " Plug 'gabrielelana/vim-markdown'
+Plug 'vim-scripts/syntaxm4.vim'
 
 " 'vim=ide'
 Plug 'neoclide/coc.nvim', {'branch': 'release'}

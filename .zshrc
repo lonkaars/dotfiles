@@ -56,6 +56,9 @@ alias c="khal"
 # the fuck
 eval $(thefuck --alias)
 
+# bat
+alias bat="bat -pp --theme=base16"
+
 # cleanup
 rm -rf ~/.xsession-errors ~/.xsession-errors.old ~/.zshrc.zwc ~/.lesshst ~/.lyrics ~/.android ~/.zcalc_history .git-credentials .node_repl_history .python_history
 alias nvidia-settings=nvidia-settings --config="$XDG_CONFIG_HOME"/nvidia/settings
