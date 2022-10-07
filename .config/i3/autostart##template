@@ -5,7 +5,6 @@ cat ~/.config/X11/base ~/.config/X11/light | xrdb &
 {% else %}
 cat ~/.config/X11/base ~/.config/X11/dark | xrdb &
 {% endif %}
-xfsettingsd &
 polybar main -c ~/.config/polybar/config &
 zsh -c "rwall" &
 picom -b

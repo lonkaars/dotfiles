@@ -265,6 +265,16 @@ reload_fcitx5() {
 	fcitx5 -rd &> /dev/null & disown
 }
 
+reload_gtk() {
+	# this is max jank but xfsettingsd does other things besides live gtk theme
+	# reloading, and i don't like having it running constantly because it fucks
+	# up fcitx5 and xbindkeys
+	xfsettingsd &> /dev/null &
+	PID=$!
+	sleep 1
+	kill $PID
+}
+
 switch_cfgs() {
 	echo "switching to $1 mode..."
 	
@@ -294,6 +304,7 @@ reload_apps() {
 	reload_dunst
 	reload_terms
 	reload_fcitx5
+	reload_gtk
 }
 
 reload_apps
