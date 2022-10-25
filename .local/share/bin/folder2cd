@@ -1,0 +1,23 @@
+#!/bin/sh
+
+FILEEXT="flac"
+set -e
+
+convert() {
+	wav="${1%.flac}-cd.wav"
+	echo "ffmpeg -loglevel warning -y -i \"$1\" -sample_fmt s16 -ar 44100 \"$wav\""
+	ffmpeg -loglevel warning -y -i "$1" -sample_fmt s16 -ar 44100 "$wav"
+}
+
+export -f convert
+parallel -j4 convert ::: *.$FILEEXT
+
+FILES=`find . -name '*-cd.wav' -printf '%f\n' | sort -n`
+echo "$FILES" | xargs -d"\n" -t wodim -sao -audio -pad speed=20
+
+echo "wodim -eject"
+wodim -eject
+
+echo "rm -f *-cd.wav"
+rm -f *-cd.wav
+
