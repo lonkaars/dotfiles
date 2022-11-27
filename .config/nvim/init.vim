@@ -125,7 +125,11 @@ imap <C-j> <Down>
 imap <C-k> <Up>
 imap <C-l> <Right>
 
-command WordQuotesToLatex :%s/‘/`/g | :%s/’/'/g
+command WordQuotesToLatex
+			\ :%s/‘/`/ge |
+			\ :%s/’/'/ge |
+			\ :%s/“/"/ge |
+			\ :%s/”/"/ge
 
 " leader keybindings
 nnoremap <silent> <leader> :WhichKey '<space>'<CR>

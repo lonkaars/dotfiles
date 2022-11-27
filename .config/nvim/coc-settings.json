@@ -29,6 +29,10 @@
 			"command": "sql-language-server",
 			"args" : ["up", "--method", "stdio"],
 			"filetypes": ["sql", "mysql"]
+		},
+		"vhdl": {
+			"command": "vhdl_ls",
+			"filetypes": ["v", "vhd"]
 		}
 	}
 }
