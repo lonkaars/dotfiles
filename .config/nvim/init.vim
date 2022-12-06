@@ -116,6 +116,7 @@ tnoremap <Esc> <C-\><C-n>
 nnoremap tt :tabnew<CR>
 
 nmap <CR> o<Esc>
+nmap <leader>qf <Plug>(coc-fix-current)
 
 nnoremap <A-j> :m +1<CR>
 nnoremap <A-k> :m -2<CR>
@@ -413,3 +414,6 @@ augroup Binary
   au BufWritePost *.bin set nomod | endif
   au BufWritePost *.bin set noeol
 augroup END
+
+" sneak
+let g:sneak#use_ic_scs = 0
