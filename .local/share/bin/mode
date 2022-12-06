@@ -172,11 +172,12 @@ switch_chrome() {
 			"theme": {
 				"images": { "theme_frame": "bg.png" },
 				"colors": {
-					"frame": $bg,
+					"frame": $fg,
 					"button_background": $fg,
 					"ntp_background": $bg,
 					"ntp_text": $bg,
 					"toolbar": $bg_alt,
+					"toolbar_button_icon": $fg,
 					"tab_background_text": $fg_alt,
 					"tab_background_text_inactive": $fg_alt,
 					"tab_background_text_incognito": $fg_alt,
