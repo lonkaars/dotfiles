@@ -172,7 +172,7 @@ switch_chrome() {
 			"theme": {
 				"images": { "theme_frame": "bg.png" },
 				"colors": {
-					"frame": $bg,
+					"frame": $fg,
 					"button_background": $fg,
 					"ntp_background": $bg,
 					"ntp_text": $bg,
