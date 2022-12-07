@@ -38,6 +38,7 @@ alias scdl="scdl --onlymp3 -l"
 alias screenrecord='giph -f 60 -s -b 4 -c 255,255,255 $(date +"$HOME/%Y-%m-%d_%H-%M-%S.mp4")'
 alias deemix="deemix -b FLAC -p ~/dl"
 alias docxtopdf="soffice --headless --convert-to pdf"
+alias fd='cd "`find . -type d | fzf`"'
 
 function = () { python3 -c "from math import *; deg = pi / 180; print($*)" }
 aliases[=]="noglob ="
