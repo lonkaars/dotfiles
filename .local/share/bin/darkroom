@@ -1,0 +1,18 @@
+#!/bin/sh
+
+SCREENS="`xrandr | grep ' connected ' | cut -f1 -d' '`"
+
+mxr() {
+	for screen in $SCREENS; do
+		xrandr --output "$screen" $@
+	done
+}
+
+if [ -e "$XDG_CACHE_HOME/darkroom" ]; then
+	rm -f "$XDG_CACHE_HOME/darkroom"
+	mxr --gamma '1:1:1' --brightness '1.0'
+else
+	mkdir -p "$XDG_CACHE_HOME"
+	touch "$XDG_CACHE_HOME/darkroom"
+	mxr --gamma '1:0.0001:0.0001' --brightness '-1.0'
+fi
