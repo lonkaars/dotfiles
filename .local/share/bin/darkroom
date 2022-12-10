@@ -10,9 +10,11 @@ mxr() {
 
 if [ -e "$XDG_CACHE_HOME/darkroom" ]; then
 	rm -f "$XDG_CACHE_HOME/darkroom"
-	mxr --gamma '1:1:1' --brightness '1.0'
+	mxr --gamma '1:1:1'
 else
 	mkdir -p "$XDG_CACHE_HOME"
 	touch "$XDG_CACHE_HOME/darkroom"
-	mxr --gamma '1:0.0001:0.0001' --brightness '-1.0'
+	killall -q redshift # redshift hijacks gamma
+	mxr --gamma '1:0.0001:0.0001'
+	lights darkroom
 fi

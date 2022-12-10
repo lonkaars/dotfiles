@@ -1,0 +1,5 @@
+#!/bin/sh
+cmd="$1"
+[[ -z "$cmd" ]] && cmd="toggle"
+curl -X POST "$HASS_SERVER/api/webhook/$cmd"
+
