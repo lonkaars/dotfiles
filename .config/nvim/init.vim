@@ -14,15 +14,19 @@ set smartcase
 set timeoutlen=500
 set updatetime=100
 set mouse=a
-set cino=N-s
+set cino=N-s,E-s,l1,g-1
 set linebreak " set wrap but don't wrap inside words
 set viminfo+='1000,n~/.local/nvim/viminfo
-set guifont=JetBrainsMono\ Nerd\ Font:h12
+set guifont=JetBrainsMono\ Nerd\ Font:h9
 let g:neovide_cursor_animation_length=0.13
 let g:neovide_cursor_vfx_mode="sonicboom"
 let g:neovide_cursor_vfx_opacity=50.0
 let g:neovide_cursor_trail_length=5.2
-let g:neovide_cursor_animation_length=0.10
+let g:neovide_cursor_animation_length=0.04
+let g:neovide_padding_top=12
+let g:neovide_padding_left=12
+let g:neovide_padding_right=12
+let g:neovide_padding_bottom=12
 let g:sneak#label = 1
 let g:which_key_map = {}
 let g:airline_powerline_fonts = 1
