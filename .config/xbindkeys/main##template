@@ -110,3 +110,9 @@
 "i3-msg restart"
 	Mod4 + Shift + r
 
+"fcitx5-remote -s keyboard-us"
+	XF86Launch5 + Release
+"fcitx5-remote -s keyboard-us-intl"
+	XF86Launch6 + Release
+"fcitx5-remote -s mozc"
+	XF86Launch7 + Release
