@@ -350,12 +350,7 @@ else
   set signcolumn=yes
 endif
 
-if has('patch8.1.1068')
-	" Use `complete_info` if your (Neo)Vim version supports it.
-	inoremap <expr> <cr> complete_info()["selected"] != "-1" ? "\<C-y>" : "\<C-g>u\<CR>"
-else
-	imap <expr> <cr> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
-endif
+inoremap <silent><expr> <CR> coc#pum#visible() ? coc#pum#confirm() : "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
 
 " coc code navigation
 map <silent> <leader>cd <Plug>(coc-definition)
@@ -421,3 +416,8 @@ augroup END
 
 " sneak
 let g:sneak#use_ic_scs = 0
+
+" fcitx5
+autocmd InsertEnter * call system("fcitx5-temp-restore &")
+autocmd InsertLeave * call system("fcitx5-temp-off &")
+

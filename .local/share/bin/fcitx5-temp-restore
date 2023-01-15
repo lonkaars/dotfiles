@@ -1,0 +1,7 @@
+#!/bin/sh
+[ ! -e "$XDG_DATA_HOME/fcitx5/state" ] && exit
+[ ! -e "$XDG_DATA_HOME/fcitx5/ime_name" ] && exit
+
+[ `cat "$XDG_DATA_HOME/fcitx5/state"` = "1" ] && fcitx5-remote -c
+[ `cat "$XDG_DATA_HOME/fcitx5/state"` = "2" ] && fcitx5-remote -o
+cat "$XDG_DATA_HOME/fcitx5/ime_name" | xargs fcitx5-remote -s
