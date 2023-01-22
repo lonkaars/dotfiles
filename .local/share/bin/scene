@@ -1,0 +1,24 @@
+#!/bin/sh
+
+CACHE_FILE="$XDG_CACHE_HOME/hass-scenes"
+update_cache() {
+	rm -f "$CACHE_FILE"
+	curl -s -X GET \
+		-H "Authorization: Bearer $HASS_TOKEN" \
+		-H "Content-Type: application/json" \
+		"$HASS_SERVER/api/states" |\
+	jq --raw-output ".[] | \"\\(.attributes.friendly_name) (\\(.entity_id))\"" |\
+	grep '(scene\..*)$' > "$CACHE_FILE"
+}
+
+[ ! -e "$CACHE_FILE" -o "$1" = "update" ] && update_cache
+
+entity="$(cat "$CACHE_FILE" |\
+	rofi -dmenu |\
+	sed 's/^.*(\(.*\))$/\1/' |\
+	jq --raw-input)"
+jq -n --argjson entity "$entity" '{"entity_id": $entity}' |\
+	curl -s -X POST -d @- \
+		-H "Authorization: Bearer $HASS_TOKEN" \
+		-H "Content-Type: application/json" \
+		"$HASS_SERVER/api/services/scene/turn_on" > /dev/null

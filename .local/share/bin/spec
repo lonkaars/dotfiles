@@ -1,0 +1,2 @@
+#!/bin/sh
+sox "$1" -n spectrogram -o - | feh --class floating -
