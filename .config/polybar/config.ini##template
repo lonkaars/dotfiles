@@ -1,7 +1,7 @@
 [barsettings]
 padding = 1.9
 
-include-file = ./colors
+include-file = ./colors.ini
 
 [global/wm]
 margin-bottom = 50
@@ -81,9 +81,6 @@ cursor-click =
 cursor-scroll = 
 
 [settings]
-throttle-output = 5
-throttle-output-for = 10
-
 screenchange-reload = false
 
 compositing-background = source
@@ -137,6 +134,6 @@ exec = ~/.local/share/bin/kbindicator
 interval = 3
 label-font = 1
 
-{% include "config.{{ yadm.hostname }}" %}
+{% include "config.{{ yadm.hostname }}.ini" %}
 
 ; vim:ft=dosini
