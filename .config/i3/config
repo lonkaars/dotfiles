@@ -1,0 +1,99 @@
+# variables
+set $mod Mod4
+set $inner_gaps 10
+set $outer_gaps 0
+
+# set gaps
+gaps inner $inner_gaps
+gaps outer $outer_gaps
+
+# border color
+client.focused          #262427 #262427 #fdf9f7 #262427 #262427
+client.focused_inactive #121213 #121213 #fdf9f7 #121213 #121213
+client.unfocused        #121213 #121213 #fdf9f7 #121213 #121213
+client.urgent           #121213 #de9dac #fdf9f7 #de9dac #de9dac
+client.placeholder      #000000 #0c0c0c #fdf9f7 #121213 #121213
+client.background       #f9ece8
+
+# Replace window decorations with a border
+for_window [class=".*"] border pixel 0
+
+# font
+font pango:Inter 9
+
+# no idea what these do but they were in here by default
+exec --no-startup-id xss-lock --transfer-sleep-lock -- i3lock --nofork
+exec --no-startup-id nm-applet
+set $refresh_i3status killall -SIGUSR1 i3status
+
+floating_modifier $mod
+
+# Gaps
+bindsym $mod+i gaps inner current plus 5
+bindsym $mod+Shift+i gaps inner current minus 5
+bindsym $mod+o gaps outer current plus 5
+bindsym $mod+Shift+o gaps outer current minus 5
+bindsym $mod+n gaps inner current set -1; gaps outer current set 0
+bindsym $mod+d gaps inner current set $inner_gaps; gaps outer current set $outer_gaps;
+
+# Autostart
+exec "sh ~/.config/i3/autostart"
+
+# split in horizontal orientation
+bindsym $mod+bar split h
+bindsym $mod+minus split v
+
+# enter fullscreen mode for the focused container
+bindsym $mod+f fullscreen toggle
+
+# toggle tiling / floating
+bindsym $mod+Shift+space floating toggle
+
+# change focus between tiling / floating windows
+bindsym $mod+Alt+space focus mode_toggle
+
+# focus the parent container
+bindsym $mod+Shift+a focus parent
+
+# workspaces
+set $ws1 "1"
+set $ws2 "2"
+set $ws3 "3"
+set $ws4 "4"
+set $ws5 "5"
+set $ws6 "6"
+set $ws7 "7"
+set $ws8 "8"
+
+# switch to workspace
+bindsym $mod+1 workspace number $ws1
+bindsym $mod+2 workspace number $ws2
+bindsym $mod+3 workspace number $ws3
+bindsym $mod+4 workspace number $ws4
+bindsym $mod+5 workspace number $ws5
+bindsym $mod+6 workspace number $ws6
+bindsym $mod+7 workspace number $ws7
+bindsym $mod+8 workspace number $ws8
+
+# move focused container to workspace
+bindsym $mod+Shift+1 move container to workspace number $ws1
+bindsym $mod+Shift+2 move container to workspace number $ws2
+bindsym $mod+Shift+3 move container to workspace number $ws3
+bindsym $mod+Shift+4 move container to workspace number $ws4
+bindsym $mod+Shift+5 move container to workspace number $ws5
+bindsym $mod+Shift+6 move container to workspace number $ws6
+bindsym $mod+Shift+7 move container to workspace number $ws7
+bindsym $mod+Shift+8 move container to workspace number $ws8
+
+# always floating windows
+for_window [class="Steam"] floating enable
+for_window [class="cinquo"] floating enable
+for_window [class="RAIL"] floating enable
+for_window [class="Conky"] floating enable
+for_window [title="Farge"] floating enable
+for_window [title="^\[floating\].*"] floating enable
+for_window [window_type=notification] floating enable
+
+for_window [class="Unturned.x86_64"] floating disable
+for_window [class="Unturned.x86_64"] fullscreen disable
+

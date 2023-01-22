@@ -5,7 +5,7 @@ cat ~/.config/X11/base ~/.config/X11/light | xrdb &
 {% else %}
 cat ~/.config/X11/base ~/.config/X11/dark | xrdb &
 {% endif %}
-polybar main -c ~/.config/polybar/config &
+polybar &
 zsh -c "rwall" &
 picom -b
 xbanish &
