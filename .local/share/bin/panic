@@ -1,0 +1,5 @@
+#!/bin/sh
+i3-msg focus output primary > /dev/null
+i3-msg workspace 'panic1' > /dev/null
+i3-msg focus output right > /dev/null
+i3-msg workspace 'panic2' > /dev/null
