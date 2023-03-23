@@ -1,0 +1,56 @@
+# This is a copy of keymap table for debugging.
+# Nothing happens when you edit this file manually.
+status	key	command
+Composition	Backspace	Backspace
+Composition	Ctrl Enter	Commit
+Composition	Ctrl Left	MoveCursorToBeginning
+Composition	Ctrl Right	MoveCursorToEnd
+Composition	Ctrl h	MoveCursorLeft
+Composition	Ctrl l	MoveCursorRight
+Composition	ESC	Cancel
+Composition	End	MoveCursorToEnd
+Composition	Enter	Commit
+Composition	Home	MoveCursorToBeginning
+Composition	Left	MoveCursorLeft
+Composition	Right	MoveCursorRight
+Composition	Space	Convert
+Composition	Tab	PredictAndConvert
+Conversion	Backspace	Cancel
+Conversion	Ctrl Enter	Commit
+Conversion	Ctrl h	SegmentWidthShrink
+Conversion	Ctrl j	ConvertNext
+Conversion	Ctrl k	ConvertPrev
+Conversion	Ctrl l	SegmentWidthExpand
+Conversion	Down	ConvertNext
+Conversion	ESC	Cancel
+Conversion	End	SegmentFocusLast
+Conversion	Enter	CommitOnlyFirstSegment
+Conversion	Home	SegmentFocusFirst
+Conversion	Left	SegmentFocusLeft
+Conversion	Right	SegmentFocusRight
+Conversion	Shift Left	SegmentWidthShrink
+Conversion	Shift Right	SegmentWidthExpand
+Conversion	Shift Space	ConvertPrev
+Conversion	Shift Tab	ConvertPrev
+Conversion	Shift Up	ConvertPrevPage
+Conversion	Space	ConvertNext
+Conversion	Tab	ConvertNext
+Conversion	Up	ConvertPrev
+Precomposition	Backspace	Revert
+Precomposition	Ctrl Backspace	Reconvert
+Precomposition	Space	InsertSpace
+Composition	ASCII	InsertCharacter
+Composition	Kanji	IMEOff
+Composition	OFF	IMEOff
+Composition	ON	IMEOn
+Conversion	F1	ReportBug
+Conversion	F3	ReportBug
+Conversion	Kanji	IMEOff
+Conversion	OFF	IMEOff
+Conversion	ON	IMEOn
+DirectInput	Kanji	IMEOn
+DirectInput	ON	IMEOn
+Precomposition	ASCII	InsertCharacter
+Precomposition	Kanji	IMEOff
+Precomposition	OFF	IMEOff
+Precomposition	ON	IMEOn
