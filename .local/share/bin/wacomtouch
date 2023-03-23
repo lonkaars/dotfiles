@@ -1,0 +1,14 @@
+#!/bin/sh
+# print if wacom tablet has touch on or off
+bye() {
+	echo $1
+	exit
+}
+
+[ ! -e /dev/input/by-id/usb-Wacom_Co._Ltd._Intuos_PTS-if01-event-mouse ] && bye
+
+if evtest --query /dev/input/by-id/usb-Wacom_Co._Ltd._Intuos_PTS-if01-event-mouse EV_SW SW_MUTE_DEVICE; then
+	bye "touch on"
+else
+	bye "touch off"
+fi

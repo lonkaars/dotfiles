@@ -48,8 +48,10 @@ wintypes: {
 };
 
 animations = true;
-animation-stiffness = 500.0;
-animation-dampening = 20.0;
-animation-window-mass = 0.1;
-animation-for-open-window = "zoom";
+animation-stiffness-tag-change = 350.0;
+animation-stiffness-in-tag = 350.0;
+animation-window-mass = 0.8;
+animation-dampening = 25.0;
+animation-for-open-window = "none";
+animation-clamping = false;
 

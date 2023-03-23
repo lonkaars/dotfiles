@@ -50,8 +50,8 @@ modules-center = battery1 battery2 brightness
 modules-right = wireless keyboard volume whoami
 {% else %}
 modules-left = time date
-modules-center = weather mpd
-modules-right = keyboard volume whoami
+modules-center = mpd
+modules-right = wacomtouch keyboard volume whoami
 {% endif %}
 
 separator =
@@ -114,13 +114,6 @@ interval = 1.0
 time = %{T2}%H時%M分%{T-}
 format = <label>
 label = %time%
-
-[module/weather]
-type = custom/script
-exec = ~/.config/polybar-forecast/target/release/polybar-forecast
-interval = 120
-exec-if = ping openweathermap.org -c 1
-label-font = 2
 
 [module/whoami]
 type = custom/script

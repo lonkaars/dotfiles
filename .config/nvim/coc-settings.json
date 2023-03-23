@@ -26,13 +26,12 @@
 			"args":["-cli", "/bin/arduino-cli", "-clangd", "/bin/clangd", "-cli-config", "/home/loek/.arduino15/arduino-cli.yaml"]
 		},
 		"sql": {
-			"command": "sql-language-server",
-			"args" : ["up", "--method", "stdio"],
+			"command": "sqls",
 			"filetypes": ["sql", "mysql"]
 		},
 		"vhdl": {
 			"command": "vhdl_ls",
-			"filetypes": ["v", "vhd"]
+			"filetypes": ["vhdl"]
 		}
 	}
 }
