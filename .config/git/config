@@ -1,0 +1,29 @@
+[user]
+	email = loek@pipeframe.xyz
+	name = lonkaars
+	signingkey = 1081FFE2B963ADB5BDCF4DA6D0E3BC76E355B6CC
+[credential]
+	helper = cache --timeout 7200
+	helper = store
+[color]
+	ui = true
+[filter "lfs"]
+	clean = git-lfs clean -- %f
+	smudge = git-lfs smudge -- %f
+	process = git-lfs filter-process
+	required = true
+[pull]
+	rebase = false
+[alias]
+	adda = add -A
+	a = add -A
+	c = commit
+	s = status
+	ps = push
+	pl = pull
+	l = log
+	d = diff
+[init]
+	defaultBranch = master
+[commit]
+	gpgsign = true
