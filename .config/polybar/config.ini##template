@@ -45,7 +45,7 @@ font-2 = "Noto Sans JP:pixelsize=8:weight=medium:size=0;2"
 font-3 = "Noto Sans KR:pixelsize=8:weight=medium:size=0;2"
 
 {% if yadm.hostname == "thoncc" %}
-modules-left = time date rooster
+modules-left = time date rooster mpd
 modules-center = battery1 battery2 brightness
 modules-right = wireless keyboard volume whoami
 {% else %}
@@ -126,6 +126,17 @@ type = custom/script
 exec = ~/.local/share/bin/kbindicator
 interval = 3
 label-font = 1
+
+[module/mpd]
+type = internal/mpd
+format-online = <toggle> <label-song>
+format-offline =
+format-stopped =
+icon-play = 
+icon-pause = 
+label-song = %{T2}%artist%%{T-}: %title%
+label-song-maxlen = 50
+label-song-ellipsis = true
 
 {% include "config.{{ yadm.hostname }}.ini" %}
 
