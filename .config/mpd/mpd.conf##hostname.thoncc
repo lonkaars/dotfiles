@@ -1,0 +1,23 @@
+music_directory "/mnt/mpd/music"
+playlist_directory "/mnt/mpd/playlists"
+
+pid_file "/mnt/mpd/mpd.pid"
+state_file "/mnt/mpd/mpdstate"
+
+bind_to_address		"*"
+port				"6600"
+restore_paused		"yes"
+
+replaygain "track"
+replaygain_preamp "0"
+
+database {
+	plugin "proxy"
+	host "pipeframe.xyz"
+}
+
+audio_output {
+	type			"pulse"
+	name			"desktop output"
+}
+
