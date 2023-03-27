@@ -127,17 +127,6 @@ exec = ~/.local/share/bin/kbindicator
 interval = 3
 label-font = 1
 
-[module/mpd]
-type = internal/mpd
-format-online = <toggle> <label-song>
-format-offline =
-format-stopped =
-icon-play = 
-icon-pause = 
-label-song = %{T2}%artist%%{T-}: %title%
-label-song-maxlen = 50
-label-song-ellipsis = true
-
 {% include "config.{{ yadm.hostname }}.ini" %}
 
 ; vim:ft=dosini
