@@ -208,7 +208,7 @@ alpha = #00000000
 
 ; vim:ft=dosini
 EOF
-	echo "$conf" > ~/.config/polybar/colors
+	echo "$conf" > ~/.config/polybar/colors.ini
 }
 
 switch_vim_lightline() {
