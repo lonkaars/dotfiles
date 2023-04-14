@@ -320,10 +320,6 @@ let g:vimtex_compiler_latexmk = {
 			\ ],
 			\}
 
-" auto start compilation
-augroup vimtex_config
-	autocmd User VimtexEventInitPost silent VimtexCompile
-augroup END
 " TeX quotes
 autocmd FileType tex let b:surround_{char2nr("q")} = "`\r'"
 autocmd FileType tex let b:surround_{char2nr('Q')} = "``\r''"
