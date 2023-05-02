@@ -47,17 +47,17 @@ set sendmail = "/usr/bin/msmtp"
 set query_command = "/usr/bin/lbdbq"
 
 # colors
-color hdrdefault blue black
+color hdrdefault blue default
 color quoted blue black
 color signature blue black
 color attachment red black
 color prompt brightmagenta black
-color message brightred black
+color message brightred default
 color error brightred black
 color indicator black red
-color status white black
+color status white default
 color tree white black
-color normal white black
+# color normal white black
 color markers red black
 color search white black
 color tilde brightmagenta black
