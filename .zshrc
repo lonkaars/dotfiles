@@ -65,3 +65,5 @@ rm -rf ~/.xsession-errors ~/.xsession-errors.old ~/.zshrc.zwc ~/.lesshst ~/.lyri
 alias nvidia-settings=nvidia-settings --config="$XDG_CONFIG_HOME"/nvidia/settings
 alias gpg2="gpg2 --homedir $XDG_DATA_HOME/gnupg"
 
+# conda
+# . "/opt/f4pga/xc7/conda/etc/profile.d/conda.sh"

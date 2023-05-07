@@ -1,5 +1,6 @@
 {
 	"suggest.noselect": true,
+  "python.jediEnabled": false,
 	"languageserver": {
 		"clangd": {
 			"command": "clangd",

@@ -133,8 +133,8 @@ imap <C-l> <Right>
 command WordQuotesToLatex
 			\ :%s/‘/`/ge |
 			\ :%s/’/'/ge |
-			\ :%s/“/"/ge |
-			\ :%s/”/"/ge
+			\ :%s/“/``/ge |
+			\ :%s/”/''/ge
 
 " leader keybindings
 nnoremap <silent> <leader> :WhichKey '<space>'<CR>
