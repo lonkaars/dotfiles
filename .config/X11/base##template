@@ -1,5 +1,5 @@
 {% if yadm.hostname == "thoncc" %}
-*.font: JetBrainsMono Nerd Font:style=Medium,Regular:size=7.5
+*.font: JetBrainsMono Nerd Font:size=7.5:antialias=true:autohint=true
 *.borderpx: 8
 Xcursor.theme: OpenZone_Black_Slim
 {% else %}

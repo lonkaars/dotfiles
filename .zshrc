@@ -1,4 +1,4 @@
-ZSH_THEME="norm"
+ZSH_THEME="loek"
 zstyle ':omz:update' mode reminder
 
 plugins=(
