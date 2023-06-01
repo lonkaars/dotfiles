@@ -1,5 +1,6 @@
 let mapleader = " "
 " set number relativenumber
+set modeline
 set wrap
 set autoindent
 set noexpandtab
@@ -135,6 +136,11 @@ command WordQuotesToLatex
 			\ :%s/’/'/ge |
 			\ :%s/“/``/ge |
 			\ :%s/”/''/ge
+command WordQuotesToAscii
+			\ :%s/‘/'/ge |
+			\ :%s/’/'/ge |
+			\ :%s/“/"/ge |
+			\ :%s/”/"/ge
 
 " leader keybindings
 nnoremap <silent> <leader> :WhichKey '<space>'<CR>
