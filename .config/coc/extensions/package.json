@@ -10,7 +10,8 @@
     "coc-python": ">=1.2.12",
     "coc-rust-analyzer": ">=0.68.2",
     "coc-tsserver": ">=1.5.8",
-    "coc-vimtex": ">=1.1.5"
+    "coc-vimtex": ">=1.1.5",
+    "coc-lua": ">=2.0.5"
   },
   "disabled": [],
   "locked": [],
