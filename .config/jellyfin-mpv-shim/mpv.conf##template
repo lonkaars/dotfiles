@@ -1,0 +1,4 @@
+{% include "../mpv/mpv.conf" %}
+
+# better japanese font for watching with japanese subtitles
+sub-font 'Hiragino Kaku Gothic ProN'
