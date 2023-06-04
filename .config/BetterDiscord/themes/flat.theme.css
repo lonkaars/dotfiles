@@ -1,0 +1,45 @@
+/**
+ * @name flat
+ * @author lonkaars
+ * @version 0
+*/
+
+/** this is a lazy theme, do not report bugs */
+
+/* debug colors:
+.theme-dark, .theme-light {
+	--background-primary: #f0f;
+	--background-secondary: #ff0;
+	--background-secondary-alt: #ff8;
+	--background-tertiary: #0f0;
+	--text-primary: #000;
+	--text-secondary: #00f;
+	--accent: #0ff;
+	--accent-alt: #8ff;
+	--error: #f00;
+	--error-alt: #f88;
+}
+*/
+
+:root, .theme-dark, .theme-light {
+	--channeltextarea-background: var(--background-primary);
+	--modal-background: var(--background-primary);
+	--modal-footer-background: var(--background-secondary);
+	--channels-default: var(--text-primary);
+	--interactive-muted: var(--text-secondary);
+	--interactive-normal: var(--text-primary);
+	--channel-icon: var(--text-primary);
+	--header-primary: var(--text-primary);
+	--header-secondary: var(--text-secondary);
+	--brand-experiment: var(--accent);
+	--background-floating: var(--background-tertiary);
+	--status-danger: var(--error);
+	--brand-experiment-360: var(--accent-alt);
+	--text-normal: var(--text-primary);
+	--input-background: var(--background-tertiary);
+	--button-danger-background: var(--error);
+	--scrollbar-auto-thumb: var(--background-tertiary);
+	--scrollbar-auto-track: var(--background-secondary);
+	--background-modifier-selected: var(--background-tertiary);
+}
+

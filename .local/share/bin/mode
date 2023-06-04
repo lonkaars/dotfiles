@@ -223,6 +223,39 @@ EOF
 	echo "$conf" | cat - ~/.config/nvim/lightline-base.vim > ~/.config/nvim/lightline.vim
 }
 
+switch_discord() {
+	read -r -d '' conf << EOF
+/**
+ * @name mode
+ * @author mode
+ * @version 0
+*/
+
+/* AUTOMATICALLY GENERATED, DO NOT EDIT */
+
+.theme-dark, .theme-light {
+	--background-primary: $(get_color background);
+	--background-secondary: $(get_color background);
+	--background-secondary-alt: $(get_color background);
+	--text-primary: $(get_color foreground);
+	--text-secondary: $(get_color color15);
+	--accent: $(get_color color4);
+	--accent-alt: $(get_color color12);
+	--error: $(get_color color1);
+	--error-alt: $(get_color color9);
+}
+
+.theme-dark {
+	--background-tertiary: $(mix_rgb $(get_color background) '#000000' '0.7');
+}
+
+.theme-light {
+	--background-tertiary: $(get_color background);
+}
+EOF
+	echo "$conf" > ~/.config/BetterDiscord/themes/mode.theme.css
+}
+
 reload_terms() {
 	read -r -d '' escape_msgs << EOF
 \033]11;$(get_color background)\007
@@ -288,6 +321,7 @@ switch_cfgs() {
 	switch_startpage $1
 	switch_polybar $1
 	switch_vim_lightline $1
+	switch_discord $1
 
 	mkdir -p ~/.local/share/mode
 	echo $1 > ~/.local/share/mode/active
