@@ -158,8 +158,8 @@ switch_chrome() {
 	cd ~/.cache/wal/chromium
 	rm -f 'Cached Theme.pak' 'bg.png' 'manifest.json'
 	convert -size 100x100 "xc:`get_color background`" bg.png
-  BG_ALT=$(mix_rgb $(get_color color7) $(get_color color0) '0.2')
-  FG_ALT=$(mix_rgb $(get_color color15) $(get_color color8) '0.6')
+  BG_ALT=$(mix_rgb $(get_color color7) $(get_color color0) '0.03')
+  FG_ALT=$(mix_rgb $(get_color color15) $(get_color color8) '0.60')
 	jq -nc \
 		--argjson bg     "`get_color_rgb_array background`" \
 		--argjson bg_alt "`hex_to_rgb_array $BG_ALT`" \
