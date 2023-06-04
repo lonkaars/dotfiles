@@ -104,6 +104,7 @@ Plug '~/.config/nvim/local/bliss'
 Plug '~/.config/nvim/local/polarlight.vim'
 Plug '~/.config/nvim/local/autonyaa.vim'
 Plug 'lonkaars/blubber'
+Plug 'romgrk/github-light.vim'
 
 " tryout themes
 Plug 'https://github.com/mcchrish/zenbones.nvim'
@@ -247,7 +248,7 @@ let g:Hexokinase_optInPatterns = [
 " colorscheme thingers
 
 if filereadable(expand('~/.local/share/mode/light'))
-	colorscheme rose-pine-light
+	colorscheme github-light
 else
 	colorscheme rose-pine-dark
 endif
