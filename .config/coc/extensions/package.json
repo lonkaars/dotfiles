@@ -11,9 +11,10 @@
     "coc-rust-analyzer": ">=0.68.2",
     "coc-tsserver": ">=1.5.8",
     "coc-vimtex": ">=1.1.5",
-    "coc-lua": ">=2.0.5"
+    "coc-lua": ">=2.0.5",
+    "coc-deno": ">=3.12.0"
   },
   "disabled": [],
   "locked": [],
-  "lastUpdate": 1663853823511
+  "lastUpdate": 1687433956734
 }

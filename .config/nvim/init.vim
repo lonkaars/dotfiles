@@ -19,20 +19,23 @@ set cino=N-s,E-s,l1,g-1
 set linebreak " set wrap but don't wrap inside words
 set viminfo+='1000,n~/.local/nvim/viminfo
 set guifont=JetBrainsMono\ Nerd\ Font:h9
+let g:neovide_scroll_animation_length = 0.3
 let g:neovide_cursor_animation_length=0.13
 let g:neovide_cursor_vfx_mode="sonicboom"
 let g:neovide_cursor_vfx_opacity=50.0
-let g:neovide_cursor_trail_length=5.2
+let g:neovide_cursor_trail_length=2.2
 let g:neovide_cursor_animation_length=0.04
-let g:neovide_padding_top=12
-let g:neovide_padding_left=12
-let g:neovide_padding_right=12
-let g:neovide_padding_bottom=12
+let g:neovide_padding_top=16
+let g:neovide_padding_left=16
+let g:neovide_padding_right=16
+let g:neovide_padding_bottom=16
+set linespace=4
 let g:sneak#label = 1
 let g:which_key_map = {}
 let g:airline_powerline_fonts = 1
 let g:minimap_highlight='Visual'
 let g:python3_host_prog='/usr/bin/python3'
+let g:vimtex_quickfix_open_on_warning = 0
 hi! link CocFloating SneakScope
 autocmd BufNewFile,BufRead *.jdscn set syntax=json
 
@@ -308,6 +311,9 @@ hi CocGitTopRemovedSign guibg=NONE
 hi CocHintSign guibg=NONE
 hi CocInfoSign guibg=NONE
 hi CocWarningSign guibg=NONE
+
+" fix disappearing CocFadeOut
+hi! link Conceal Comment
 
 " vimtex config
 let g:tex_flavor = 'latex'

@@ -1,0 +1,2 @@
+#!/bin/sh
+play -q -n synth whitenoise band -n 650 1300 vol 0.01 & disown
