@@ -2,8 +2,10 @@
 
 caffeine
 
-FRAMERATE="$2"
-RESOLUTION="$1"
+WIDTH="$1"
+HEIGHT="$2"
+FRAMERATE="$3"
+RESOLUTION="${WIDTH}x${HEIGHT}"
 DEVICE="/dev/$(readlink /dev/v4l/by-id/usb-MACROSILICON_USB_Video-* | head -n1 | cut -c7-)"
 
 CAPTURE_FL="$(pw-link -oI | grep 'usb-MACROSILICON_USB_Video-.*:capture_AUX0' | cut -f3 -d' ')"
@@ -17,6 +19,10 @@ echo "link $CAPTURE_FL -> $OUTPUT_FL"
 
 pw-link "$CAPTURE_FL" "$OUTPUT_FL"
 pw-link "$CAPTURE_FR" "$OUTPUT_FR"
+
+v4l2-ctl -d "$DEVICE" --set-parm "$FRAMERATE"
+v4l2-ctl -d "$DEVICE" --set-fmt-video "width=$WIDTH,height=$HEIGHT,pixelformat=MJPG"
+v4l2-ctl -d "$DEVICE" --set-ctrl "brightness=0,contrast=128,saturation=128,hue=0"
 
 mpv --demuxer-lavf-format=video4linux2 \
 	--demuxer-lavf-o-set=input_format=mjpeg,framerate="$FRAMERATE",resolution="$RESOLUTION" \

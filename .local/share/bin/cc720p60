@@ -1,2 +1,2 @@
 #!/bin/sh
-ccpreview 1280x720 60
+ccpreview 1280 720 60

@@ -10,7 +10,6 @@ zsh -c "rwall" &
 picom -b
 xbanish &
 dunst &
-flashfocus &
 autocutsel &
 fcitx5 -d
 zsh -c "xbindkeys -f ~/.config/xbindkeys/main"
@@ -25,7 +24,10 @@ nicotine &
 # bw unlock <password> --raw | keyctl padd user bw_session @u
 sh ~/.config/i3/unlock_bitwarden &
 
-# auto start lazy script
+# auto start lazy script after everything else
 sleep 2
 [[ -f ~/do.sh ]] && source ~/do.sh
 
+# flashfocus doesn't work when starting early(?)
+sleep 9
+flashfocus &
