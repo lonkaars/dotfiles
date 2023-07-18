@@ -20,6 +20,7 @@ light-locker --no-late-locking &
 redshift -l 52:6 &
 nicotine &
 {% endif %}
+zsh -c "flashfocus" &
 
 # bw unlock <password> --raw | keyctl padd user bw_session @u
 sh ~/.config/i3/unlock_bitwarden &
@@ -28,6 +29,3 @@ sh ~/.config/i3/unlock_bitwarden &
 sleep 2
 [[ -f ~/do.sh ]] && source ~/do.sh
 
-# flashfocus doesn't work when starting early(?)
-sleep 9
-flashfocus &
