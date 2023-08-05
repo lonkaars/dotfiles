@@ -1,2 +1,13 @@
 #!/bin/sh
-play -q -n synth whitenoise band -n 650 1300 vol 0.01 & disown
+# use sox to play very quiet noise for keeping bluetooth headphones connected
+
+# arguments used:
+# -q                quiet mode (don't output progress bar)
+# -n                null input filename (because synth is used as input)
+# -r 44100          sample rate (44.1 KHz)
+# -b 32 -e signed   signed 32-bit
+# -c 2              create two channels (ouput stereo)
+# synth whitenoise  start with white noise
+# band -n 650 1300  bandpass filter between 650-1300 Hz
+# vol 0.01          very quiet
+play -q -n -r 44100 -b 32 -e signed -c 2 synth whitenoise band -n 650 1300 vol 0.01 & disown

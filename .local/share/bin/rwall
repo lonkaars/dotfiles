@@ -1,2 +1,4 @@
 #!/bin/sh
-ls -d ~/.local/walls/current | sort -R | head -n1 | xargs feh --bg-fill -z
+FOLDER="$HOME/.local/walls/current"
+[ -n "$1" ] && FOLDER="$1"
+ls -d "$FOLDER" | sort -R | head -n1 | xargs feh --bg-fill -z
