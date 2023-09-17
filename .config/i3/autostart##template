@@ -1,7 +1,7 @@
 #!/bin/sh
 . "$HOME/.profile"
 /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1 &
-cat "$XDG_CONFIG_HOME/X11/$(cat "$XDG_DATA_HOME/mode/active")" | xrdb -merge &
+cat "$XDG_CONFIG_HOME/X11/$(cat "$XDG_DATA_HOME/mode/active")" | xrdb -override &
 polybar &
 rwall &
 picom -b

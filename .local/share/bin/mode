@@ -29,7 +29,7 @@ mix_rgb() {
 }
 
 switch_xrdb() {
-	cat ~/.config/X11/base ~/.config/X11/$1 | xrdb
+	xrdb -override "$XDG_CONFIG_HOME/X11/$1"
 }
 
 switch_dunst() {
@@ -52,7 +52,7 @@ foreground = "$(get_color background)"
 frame_color = "$(get_color color1)"
 timeout = 0
 EOF
-	echo "$conf" | cat ~/.config/dunst/base - > ~/.config/dunst/dunstrc
+	echo "$conf" | cat "$XDG_CONFIG_HOME/dunst/base" - > "$XDG_CONFIG_HOME/dunst/dunstrc"
 }
 
 switch_zathura() {
@@ -81,18 +81,19 @@ set highlight-color         "$(get_color color9)"
 set highlight-active-color "$(get_color color13)"
 set notification-bg        "$(get_color color13)"
 EOF
-	echo "$conf" > ~/.config/zathura/colors
+	echo "$conf" > "$XDG_CONFIG_HOME/zathura/colors"
 }
 
 switch_gtk() {
-	if [[ $1 == "light" ]]; then
-		sed "s/-Dark/-Light/" -i ~/.config/gtk-3.0/settings.ini
-		sed "s/gtk-application-prefer-dark-theme.*/gtk-application-prefer-dark-theme=false/" -i ~/.config/gtk-3.0/settings.ini
+	GTK_3_SETTINGS_INI="$XDG_CONFIG_HOME/gtk-3.0/settings.ini"
+	if [ $1 == "light" ]; then
+		sed "s/-Dark/-Light/" -i "$GTK_3_SETTINGS_INI"
+		sed "s/gtk-application-prefer-dark-theme.*/gtk-application-prefer-dark-theme=false/" -i "$GTK_3_SETTINGS_INI"
 	else
-		sed "s/-Light/-Dark/" -i ~/.config/gtk-3.0/settings.ini
-		sed "s/gtk-application-prefer-dark-theme.*/gtk-application-prefer-dark-theme=true/" -i ~/.config/gtk-3.0/settings.ini
+		sed "s/-Light/-Dark/" -i "$GTK_3_SETTINGS_INI"
+		sed "s/gtk-application-prefer-dark-theme.*/gtk-application-prefer-dark-theme=true/" -i "$GTK_3_SETTINGS_INI"
 	fi
-	grep gtk-theme-name ~/.config/gtk-3.0/settings.ini | cut -f2 -d= | xargs xfconf-query -c xsettings -p /Net/ThemeName -s
+	grep gtk-theme-name "$GTK_3_SETTINGS_INI" | cut -f2 -d= | xargs xfconf-query -c xsettings -p /Net/ThemeName -s
 }
 
 switch_fcitx5() {
@@ -123,7 +124,7 @@ Color=${accent}
 [Menu/Separator]
 Color=$(get_color color7)
 EOF
-	echo "$conf" | cat ~/.local/share/fcitx5/themes/loek/base.conf - > ~/.local/share/fcitx5/themes/loek/theme.conf
+	echo "$conf" | cat "$XDG_DATA_HOME/fcitx5/themes/loek/base.conf" - > "$XDG_DATA_HOME/fcitx5/themes/loek/theme.conf"
 }
 
 switch_startpage() {
@@ -151,7 +152,7 @@ switch_startpage() {
 	--color15:  $(get_color color15);
 }
 EOF
-	echo "$conf" > ~/.config/startpage/colors.css
+	echo "$conf" > "$XDG_CONFIG_HOME/startpage/colors.css"
 }
 
 switch_chrome() {
@@ -208,7 +209,7 @@ alpha = #00000000
 
 ; vim:ft=dosini
 EOF
-	echo "$conf" > ~/.config/polybar/colors.ini
+	echo "$conf" > "$XDG_CONFIG_HOME/polybar/colors.ini"
 }
 
 switch_vim_lightline() {
@@ -220,7 +221,7 @@ let s:faint = [ '$(get_color color8)', 'NONE' ]
 let s:none = [ 'NONE', 'NONE' ]
 let s:test = [ '#ff00ff', 'NONE' ]
 EOF
-	echo "$conf" | cat - ~/.config/nvim/lightline-base.vim > ~/.config/nvim/lightline.vim
+	echo "$conf" | cat - "$XDG_CONFIG_HOME/nvim/lightline-base.vim" > "$XDG_CONFIG_HOME/nvim/lightline.vim"
 }
 
 switch_discord() {
@@ -253,7 +254,7 @@ switch_discord() {
 	--background-tertiary: $(get_color background);
 }
 EOF
-	echo "$conf" > ~/.config/BetterDiscord/themes/mode.theme.css
+	echo "$conf" > "$XDG_CONFIG_HOME/BetterDiscord/themes/mode.theme.css"
 }
 
 reload_terms() {
@@ -323,14 +324,14 @@ switch_cfgs() {
 	switch_vim_lightline $1
 	switch_discord $1
 
-	mkdir -p ~/.local/share/mode
-	echo $1 > ~/.local/share/mode/active
-	rm -f ~/.local/share/mode/dark ~/.local/share/mode/light
-	touch ~/.local/share/mode/$1
+	mkdir -p "$XDG_DATA_HOME/mode"
+	echo $1 > "$XDG_DATA_HOME/mode/active"
+	rm -f "$XDG_DATA_HOME/mode/dark" "$XDG_DATA_HOME/mode/light"
+	touch "$XDG_DATA_HOME/mode/$1"
 }
 
-[[ $MODE == "restore" ]] && MODE=`cat ~/.local/share/mode/active`
-[[ $MODE == "dark" || $MODE == "light" ]] && switch_cfgs $MODE
+[ $MODE = "restore" ] && MODE="$(cat "$XDG_DATA_HOME/mode/active")"
+[ $MODE = "dark" -o $MODE = "light" ] && switch_cfgs $MODE
 
 reload_apps() {
 	echo "reloading programs..."
