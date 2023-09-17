@@ -1,22 +1,12 @@
-#!/bin/zsh
+#!/bin/sh
+. ~/.profile
+
 systemctl --user import-environment DISPLAY
-
-export _JAVA_AWT_WM_NONREPARENTING=1
-export _JAVA_OPTIONS='-Dawt.useSystemAAFontSettings=on'
-export _JAVA_OPTIONS='-Dswing.defaultlaf=com.sun.java.swing.plaf.gtk.GTKLookAndFeel'
-export TZ='Europe/Amsterdam'
-
-xrandr --dpi 92
-
-if [ -d /etc/X11/xinit/xinitrc.d ] ; then
- for f in /etc/X11/xinit/xinitrc.d/?*.sh ; do
-  [ -x "$f" ] && . "$f"
- done
- unset f
-fi
+xrdb -merge "$XDG_CONFIG_HOME/X11/base"
 
 # https://github.com/swaywm/sway/wiki#gtk-applications-take-20-seconds-to-start
 dbus-update-activation-environment --systemd DISPLAY
+
 
 i3
 

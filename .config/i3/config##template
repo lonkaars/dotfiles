@@ -41,7 +41,7 @@ bindsym $mod+n gaps inner current set -1; gaps outer current set 0
 bindsym $mod+d gaps inner current set $inner_gaps; gaps outer current set $outer_gaps;
 
 # Autostart
-exec "sh ~/.config/i3/autostart"
+exec "~/.config/i3/autostart"
 
 # split in horizontal orientation
 bindsym $mod+bar split h
