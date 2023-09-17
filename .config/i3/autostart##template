@@ -1,5 +1,5 @@
 #!/bin/sh
-. ~/.profile
+. "$HOME/.profile"
 /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1 &
 cat "$XDG_CONFIG_HOME/X11/$(cat "$XDG_DATA_HOME/mode/active")" | xrdb -merge &
 polybar &
@@ -9,7 +9,7 @@ xbanish &
 dunst &
 autocutsel &
 fcitx5 -d
-xbindkeys -f "~/.config/xbindkeys/main"
+xbindkeys -f "$XDG_CONFIG_HOME/xbindkeys/main"
 {% if yadm.hostname == "thoncc" %}
 xdimmer -t 45 -p 3 &
 light-locker --no-late-locking &
@@ -20,9 +20,10 @@ nicotine &
 flashfocus &
 
 # bw unlock <password> --raw | keyctl padd user bw_session @u
-sh ~/.config/i3/unlock_bitwarden &
+# sh $HOME/.config/i3/unlock_bitwarden &
+[ -f "$XDG_CONFIG_HOME/i3/unlock_bitwarden" ] && "$XDG_CONFIG_HOME/i3/unlock_bitwarden" &
 
 # auto start lazy script after everything else
 sleep 2
-[ -f "~/do.sh" ] && . "~/do.sh"
+[ -f "$HOME/do.sh" ] && . "$HOME/do.sh"
 

@@ -1,8 +1,11 @@
 #!/bin/sh
 #
-# this file should only contain posix-compliant shell customizations.
-# shell-specific customizations should be done in the respective shell's
-# profile or init file (e.g. .zshrc, .bash_profile, etc.)
+# this file should only contain posix-compliant shell customizations and
+# environment variables. shell-specific customizations should be done in the
+# respective shell's profile or init file (e.g. .zshrc, .bash_profile, etc.)
+
+# AJATT (user account only because TTYs don't render non-ascii characters)
+export LANG="ja_JP.UTF-8"
 
 # aliases
 alias cls="clear"
