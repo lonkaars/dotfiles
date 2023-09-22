@@ -19,11 +19,12 @@ nicotine &
 {% endif %}
 flashfocus &
 
-# bw unlock <password> --raw | keyctl padd user bw_session @u
-# sh $HOME/.config/i3/unlock_bitwarden &
-[ -f "$XDG_CONFIG_HOME/i3/unlock_bitwarden" ] && "$XDG_CONFIG_HOME/i3/unlock_bitwarden" &
+# store bitwarden session token using keyctl
+{
+	keyctl purge user bw_session
+	bw unlock --passwordenv BITWARDEN_MASTER_PASSWORD --raw | keyctl padd user bw_session @u
+} &
 
 # auto start lazy script after everything else
-sleep 2
 [ -f "$HOME/do.sh" ] && . "$HOME/do.sh"
 

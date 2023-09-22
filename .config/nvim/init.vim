@@ -182,9 +182,6 @@ let g:which_key_map.y = 'x11-yank'
 map <leader>* y/<C-R>0<CR>
 let g:which_key_map['*'] = 'search-selected'
 
-map <leader>h :noh<cr>
-let g:which_key_map.h = 'no-highlighting'
-
 map <leader>f :FZF<cr>
 let g:which_key_map.f = 'fzf'
 

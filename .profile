@@ -13,6 +13,7 @@ alias vim="nvim"
 alias copy="xclip -selection c"
 alias dnd="dragon-drag-and-drop -a -x"
 alias mk="make"
+alias sl="sl -w"
 
 # one letters
 alias r="ranger"
