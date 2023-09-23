@@ -1,5 +1,4 @@
 let mapleader = " "
-" set number relativenumber
 set modeline
 set wrap
 set autoindent
@@ -18,10 +17,9 @@ set mouse=a
 set cino=N-s,E-s,l1,g-1
 set linebreak " set wrap but don't wrap inside words
 set viminfo+='1000,n~/.local/nvim/viminfo
-set guifont=JetBrainsMono\ Nerd\ Font:h9
+set guifont=JetBrainsMono\ Nerd\ Font:h9:#e-subpixelantialias:#h-slight
 let g:neovide_scroll_animation_length = 0.3
 let g:neovide_cursor_animation_length=0.13
-let g:neovide_cursor_vfx_mode="sonicboom"
 let g:neovide_cursor_vfx_opacity=50.0
 let g:neovide_cursor_trail_length=2.2
 let g:neovide_cursor_animation_length=0.04
@@ -29,7 +27,7 @@ let g:neovide_padding_top=16
 let g:neovide_padding_left=16
 let g:neovide_padding_right=16
 let g:neovide_padding_bottom=16
-set linespace=4
+set linespace=5
 let g:sneak#label = 1
 let g:which_key_map = {}
 let g:airline_powerline_fonts = 1
@@ -166,30 +164,18 @@ let g:which_key_map.v = {
 			\ 'q': 'stop',
 			\ 'r': 'restart',
 			\ 'p': 'pause',
-			\ 'b': 'toggle-breakpoint',
-			\ 'c': 'toggle-conditional-breakpoint',
-			\ 'f': 'add-function-breakpoint',
-			\ 'n': 'step-over',
-			\ 'i': 'step-into',
-			\ 'u': 'step-out'
+			\ 'b': 'toggle breakpoint',
+			\ 'c': 'toggle conditional breakpoint',
+			\ 'f': 'add function breakpoint',
+			\ 'n': 'step over',
+			\ 'i': 'step into',
+			\ 'u': 'step out'
 			\ }
 
 map <leader>p "+p
 map <leader>y "+y
-let g:which_key_map.p = 'x11-paste'
-let g:which_key_map.y = 'x11-yank'
-
-map <leader>* y/<C-R>0<CR>
-let g:which_key_map['*'] = 'search-selected'
-
-map <leader>f :FZF<cr>
-let g:which_key_map.f = 'fzf'
-
-map <leader>b :norm gg=G``<cr>
-let g:which_key_map.b = 'format-file'
-
-map <leader>s /\s\+$<CR>
-let g:which_key_map.s = 'trailing-whitespace'
+let g:which_key_map.p = 'x11 paste'
+let g:which_key_map.y = 'x11 yank'
 
 map <leader>w :w<CR>
 let g:which_key_map.w = 'write'
@@ -203,7 +189,7 @@ let g:which_key_map.d = {
 			\ 'v': 'view',
 			\ 'c': 'compile',
 			\ 'e': 'errors',
-			\ 't': 'table-of-contents'
+			\ 't': 'table of contents'
 			\ }
 
 map <leader>ts :sp term://zsh<cr>i
@@ -217,20 +203,11 @@ let g:which_key_map.t = {
 			\ }
 
 map <leader>.v :tabnew ~/.config/nvim/init.vim<cr>
-map <leader>.c :tabnew ~/.config/picom.conf<cr>
-map <leader>.z :tabnew ~/.zshrc<cr>
-map <leader>.i :tabnew ~/.config/i3/config<cr>
-map <leader>.p :tabnew ~/.config/polybar/config<cr>
-map <leader>.x :tabnew ~/.config/xb.rc<cr>
 let g:which_key_map['.'] = {
 			\ 'name': '+config',
 			\ 'v': 'vim',
-			\ 'z': 'zsh',
-			\ 'i': 'i3',
-			\ 'c': 'picom',
-			\ 'p': 'polybar',
-			\ 'x': 'xbindkeysrc'
 			\ }
+
 " cmd maps
 cnoreabbrev W w
 cnoreabbrev sudow w !sudo tee %
@@ -247,7 +224,6 @@ let g:Hexokinase_optInPatterns = [
 			\ ]
 
 " colorscheme thingers
-
 if filereadable(expand('~/.local/share/mode/light'))
 	colorscheme github-light
 else
@@ -335,7 +311,7 @@ let g:vimtex_compiler_latexmk = {
 autocmd FileType tex let b:surround_{char2nr("q")} = "`\r'"
 autocmd FileType tex let b:surround_{char2nr('Q')} = "``\r''"
 
-" coc.vim <tab> completion and <cr> stuffs
+" coc.vim <tab> completion and <cr> stuff
 function! CheckBackspace() abort
   let col = col('.') - 1
   return !col || getline('.')[col - 1]  =~# '\s'
@@ -368,7 +344,7 @@ map <leader>cn <Plug>(coc-rename)
 let g:which_key_map.c = {
 			\ 'name': '+coc',
 			\ 'd': 'definition',
-			\ 'y': 'type-definition',
+			\ 'y': 'type definition',
 			\ 'i': 'implementation',
 			\ 'r': 'references',
 			\ 'n': 'rename'

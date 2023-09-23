@@ -14,6 +14,7 @@ alias copy="xclip -selection c"
 alias dnd="dragon-drag-and-drop -a -x"
 alias mk="make"
 alias sl="sl -w"
+alias vv="neovide"
 
 # one letters
 alias r="ranger"
