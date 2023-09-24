@@ -18,15 +18,6 @@ set cino=N-s,E-s,l1,g-1
 set linebreak " set wrap but don't wrap inside words
 set viminfo+='1000,n~/.local/nvim/viminfo
 set guifont=JetBrainsMono\ Nerd\ Font:h9:#e-subpixelantialias:#h-slight
-let g:neovide_scroll_animation_length = 0.3
-let g:neovide_cursor_animation_length=0.13
-let g:neovide_cursor_vfx_opacity=50.0
-let g:neovide_cursor_trail_length=2.2
-let g:neovide_cursor_animation_length=0.04
-let g:neovide_padding_top=16
-let g:neovide_padding_left=16
-let g:neovide_padding_right=16
-let g:neovide_padding_bottom=16
 set linespace=5
 let g:sneak#label = 1
 let g:which_key_map = {}
@@ -35,7 +26,21 @@ let g:minimap_highlight='Visual'
 let g:python3_host_prog='/usr/bin/python3'
 let g:vimtex_quickfix_open_on_warning = 0
 hi! link CocFloating SneakScope
-autocmd BufNewFile,BufRead *.jdscn set syntax=json
+
+if exists("g:neovide")
+	nmap <silent> <C-=> :lua vim.g.neovide_scale_factor = vim.g.neovide_scale_factor + 0.1<CR>
+	nmap <silent> <C-ScrollWheelUp> :lua vim.g.neovide_scale_factor = vim.g.neovide_scale_factor + 0.1<CR>
+	nmap <silent> <C--> :lua vim.g.neovide_scale_factor = vim.g.neovide_scale_factor - 0.1<CR>
+	nmap <silent> <C-ScrollWheelDown> :lua vim.g.neovide_scale_factor = vim.g.neovide_scale_factor - 0.1<CR>
+	nmap <silent> <C-0> :lua vim.g.neovide_scale_factor = 1<CR>
+	let g:neovide_scroll_animation_length = 0.2
+	let g:neovide_cursor_animation_length = 0.06
+	let g:neovide_cursor_trail_size = 0.0
+	let g:neovide_padding_top=16
+	let g:neovide_padding_left=16
+	let g:neovide_padding_right=16
+	let g:neovide_padding_bottom=16
+endif
 
 if ! filereadable(expand('~/.config/nvim/autoload/plug.vim'))
 	echo "Downloading junegunn/vim-plug to manage plugins..."
@@ -84,6 +89,8 @@ Plug 'cespare/vim-toml'
 Plug 'tikhomirov/vim-glsl'
 " Plug 'gabrielelana/vim-markdown'
 Plug 'vim-scripts/syntaxm4.vim'
+Plug 'elkowar/yuck.vim'
+Plug 'bhurlow/vim-parinfer'
 
 " 'vim=ide'
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
@@ -177,13 +184,13 @@ map <leader>y "+y
 let g:which_key_map.p = 'x11 paste'
 let g:which_key_map.y = 'x11 yank'
 
-map <leader>w :w<CR>
+map <silent> <leader>w :w<cr>
 let g:which_key_map.w = 'write'
 
-map <leader>dv :VimtexView<cr>
-map <leader>dc :VimtexCompile<cr>
-map <leader>de :VimtexErrors<cr>
-map <leader>dt :VimtexTocToggle<cr>
+map <silent> <leader>dv :VimtexView<cr>
+map <silent> <leader>dc :VimtexCompile<cr>
+map <silent> <leader>de :VimtexErrors<cr>
+map <silent> <leader>dt :VimtexTocToggle<cr>
 let g:which_key_map.d = {
 			\ 'name': '+document',
 			\ 'v': 'view',
@@ -192,9 +199,9 @@ let g:which_key_map.d = {
 			\ 't': 'table of contents'
 			\ }
 
-map <leader>ts :sp term://zsh<cr>i
-map <leader>tv :vsp term://zsh<cr>i
-map <leader>tt :tabnew term://zsh<cr>i
+map <silent> <leader>ts :sp term://zsh<cr>i
+map <silent> <leader>tv :vsp term://zsh<cr>i
+map <silent> <leader>tt :tabnew term://zsh<cr>i
 let g:which_key_map.t = {
 			\ 'name': '+term',
 			\ 's': 'split',
@@ -202,7 +209,7 @@ let g:which_key_map.t = {
 			\ 't': 'tab'
 			\ }
 
-map <leader>.v :tabnew ~/.config/nvim/init.vim<cr>
+map <silent> <leader>.v :tabnew ~/.config/nvim/init.vim<cr>
 let g:which_key_map['.'] = {
 			\ 'name': '+config',
 			\ 'v': 'vim',
@@ -213,7 +220,6 @@ cnoreabbrev W w
 cnoreabbrev sudow w !sudo tee %
 
 " hexokinase
-
 let g:Hexokinase_optInPatterns = [
 			\ 'full_hex',
 			\ 'triple_hex',
