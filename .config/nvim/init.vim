@@ -91,6 +91,7 @@ Plug 'tikhomirov/vim-glsl'
 Plug 'vim-scripts/syntaxm4.vim'
 Plug 'elkowar/yuck.vim'
 Plug 'bhurlow/vim-parinfer'
+Plug 'sile-typesetter/vim-sile'
 
 " 'vim=ide'
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
