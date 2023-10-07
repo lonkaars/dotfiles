@@ -1,0 +1,2 @@
+#!/bin/sh
+pdfinfo -box "$1" | awk '/^Page size:/ { print $3 * 2.54 / 72.0 * 10 "mm" " x " $5 * 2.54 / 72.0 * 10 "mm" }'
