@@ -79,8 +79,9 @@ alias gpg2="gpg2 --homedir $XDG_DATA_HOME/gnupg"
 export DOTNET_CLI_TELEMETRY_OPTOUT=1
 
 # java
-export _JAVA_OPTIONS="-Djava.util.prefs.userRoot=$XDG_CONFIG_HOME/java -Dawt.useSystemAAFontSettings=on -Dswing.defaultlaf=com.sun.java.swing.plaf.gtk.GTKLookAndFeel"
+export _SILENT_JAVA_OPTIONS="-Djava.util.prefs.userRoot=$XDG_CONFIG_HOME/java -Dawt.useSystemAAFontSettings=on -Dswing.defaultlaf=com.sun.java.swing.plaf.gtk.GTKLookAndFeel"
 export _JAVA_AWT_WM_NONREPARENTING=1
+unset _JAVA_OPTIONS
 
 # secrets
 [ -f "$HOME/.env" ] && . "$HOME/.env"
