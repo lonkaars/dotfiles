@@ -1,4 +1,4 @@
 #!/bin/sh
 # this is a stupid fix because java has no option to silence the
 # "Picked up _JAVA_OPTIONS:" message
-exec /usr/bin/java $_SILENT_JAVA_OPTIONS $*
+exec /usr/bin/java $_SILENT_JAVA_OPTIONS "$@"
