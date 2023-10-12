@@ -23,6 +23,7 @@ alias m="neomutt"
 alias y="yay"
 alias n="ncmpcpp"
 alias c="khal"
+alias f="fork"
 
 # "functions"
 alias reload="sudo systemctl restart lightdm"
