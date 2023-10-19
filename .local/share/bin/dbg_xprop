@@ -1,0 +1,10 @@
+#!/bin/sh
+# debug xprop
+#
+# runs xprop for all newly created windows (when mouse capture is not
+# available)
+
+xev -root -1 |\
+	grep --line-buffered '^CreateNotify' |\
+	awk --non-decimal-data -F', ' '{ system("sleep 0.1"); printf("%d\n", substr($6, 8)); fflush(stdout) }' |\
+	xargs -I{} sh -c 'echo "------ window data for window {}"; xprop -id {}'
