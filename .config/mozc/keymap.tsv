@@ -37,7 +37,7 @@ Conversion	Space	ConvertNext
 Conversion	Tab	ConvertNext
 Conversion	Up	ConvertPrev
 Precomposition	Backspace	Revert
-Precomposition	Ctrl Backspace	Reconvert
+Precomposition	Shift Backspace	Reconvert
 Precomposition	Space	InsertSpace
 Composition	ASCII	InsertCharacter
 Composition	Kanji	IMEOff

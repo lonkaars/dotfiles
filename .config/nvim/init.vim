@@ -61,6 +61,7 @@ Plug 'AndrewRadev/tagalong.vim'
 Plug 'terrortylor/nvim-comment'
 Plug 'liuchengxu/vim-which-key'
 Plug 'justinmk/vim-sneak'
+Plug 'mbbill/undotree'
 
 " Plug 'jbgutierrez/vim-better-comments'
 Plug 'junegunn/goyo.vim'
@@ -90,7 +91,7 @@ Plug 'tikhomirov/vim-glsl'
 " Plug 'gabrielelana/vim-markdown'
 Plug 'vim-scripts/syntaxm4.vim'
 Plug 'elkowar/yuck.vim'
-Plug 'bhurlow/vim-parinfer'
+Plug 'eraserhd/parinfer-rust', {'do': 'cargo build --release'}
 Plug 'sile-typesetter/vim-sile'
 
 " 'vim=ide'
@@ -215,6 +216,9 @@ let g:which_key_map['.'] = {
 			\ 'name': '+config',
 			\ 'v': 'vim',
 			\ }
+
+map <silent> <leader>u :UndotreeToggle<cr>
+let g:which_key_map.u = 'toggle undo tree'
 
 " cmd maps
 cnoreabbrev W w

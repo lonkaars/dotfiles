@@ -2,17 +2,22 @@
 
 caffeine
 
+PCI_ADDRESS="0000:00:14.0"
+USB_BUS_NUM="2"
+VIDEO_DEVICE="/dev/v4l/by-path/pci-$PCI_ADDRESS-usb-0:$USB_BUS_NUM:1.0-video-index0"
+
 WIDTH="$1"
 HEIGHT="$2"
 FRAMERATE="$3"
 RESOLUTION="${WIDTH}x${HEIGHT}"
-DEVICE="/dev/$(readlink /dev/v4l/by-id/usb-MACROSILICON_USB_Video-* | head -n1 | cut -c7-)"
-
-CAPTURE_FL="$(pw-link -oI | grep 'usb-MACROSILICON_USB_Video-.*:capture_AUX0' | cut -f3 -d' ')"
-CAPTURE_FR="$(pw-link -oI | grep 'usb-MACROSILICON_USB_Video-.*:capture_AUX1' | cut -f3 -d' ')"
+DEVICE="$(readlink -f "$VIDEO_DEVICE")"
+DEVICE_INDEX="$(grep "usb-$PCI_ADDRESS-$USB_BUS_NUM" /proc/asound/card*/usbmixer | cut -d: -f1 | tr -cd '[:digit:]')"
 DEFAULT_SINK_ALIAS="$(pw-metadata 0 default.audio.sink | grep -Po "value:'(.*?)'" | head -c-2 | cut -c8- | jq --raw-output .name)"
-OUTPUT_FL="$(pw-link -iI | grep "$DEFAULT_SINK_ALIAS:playback_FL" | cut -f3 -d' ')"
-OUTPUT_FR="$(pw-link -iI | grep "$DEFAULT_SINK_ALIAS:playback_FR" | cut -f3 -d' ')"
+
+CAPTURE_FL="alsa:pcm:$DEVICE_INDEX:front:$DEVICE_INDEX:capture:capture_0"
+CAPTURE_FR="alsa:pcm:$DEVICE_INDEX:front:$DEVICE_INDEX:capture:capture_1"
+OUTPUT_FL="$DEFAULT_SINK_ALIAS:playback_0"
+OUTPUT_FR="$DEFAULT_SINK_ALIAS:playback_1"
 
 echo "link $CAPTURE_FR -> $OUTPUT_FR"
 echo "link $CAPTURE_FL -> $OUTPUT_FL"
