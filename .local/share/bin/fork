@@ -1,2 +1,2 @@
 #!/bin/sh
-"$@" &> /dev/null & disown
+(setsid "$@" > /dev/null 2> /dev/null &)
