@@ -297,10 +297,9 @@ reload_gtk() {
 	# reloading, and i don't like having it running constantly because it fucks
 	# up fcitx5 and xbindkeys
 	(
-		xfsettingsd &
-		PID=$!
+		fork xfsettingsd
 		sleep 1
-		kill $PID
+		killall xfsettingsd
 	)
 }
 
@@ -332,7 +331,6 @@ reload_apps() {
 
 	reload_polybar
 	reload_dunst
-	return
 	reload_terms
 	reload_fcitx5
 	reload_gtk
