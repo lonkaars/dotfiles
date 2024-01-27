@@ -1,6 +1,7 @@
 backend = "glx";
 shadow = true;
 {% if yadm.hostname == "thoncc" %}
+vsync = true;
 shadow-radius = 24;
 shadow-opacity = 0.15;
 shadow-offset-y = -24;
