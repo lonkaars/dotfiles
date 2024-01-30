@@ -45,7 +45,7 @@ font-2 = "Noto Sans JP:pixelsize=8:weight=medium:size=0;2"
 font-3 = "Noto Sans KR:pixelsize=8:weight=medium:size=0;2"
 
 {% if yadm.hostname == "thoncc" %}
-modules-left = time date rooster mpd
+modules-left = time date mpd
 modules-center = battery1 battery2 brightness
 modules-right = wireless keyboard volume whoami
 {% else %}
