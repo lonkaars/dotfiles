@@ -126,33 +126,6 @@ Color=$(get_color color7)
 EOF
 }
 
-switch_startpage() {
-	cat << EOF > "$XDG_CONFIG_HOME/startpage/colors.css"
-/* AUTOMATICALLY GENERATED, DO NOT EDIT */
-
-:root {
-	--background:  $(get_color background);
-	--foreground:  $(get_color foreground);
-	--color0:  $(get_color color0);
-	--color1:  $(get_color color1);
-	--color2:  $(get_color color2);
-	--color3:  $(get_color color3);
-	--color4:  $(get_color color4);
-	--color5:  $(get_color color5);
-	--color6:  $(get_color color6);
-	--color7:  $(get_color color7);
-	--color8:  $(get_color color8);
-	--color9:  $(get_color color9);
-	--color10:  $(get_color color10);
-	--color11:  $(get_color color11);
-	--color12:  $(get_color color12);
-	--color13:  $(get_color color13);
-	--color14:  $(get_color color14);
-	--color15:  $(get_color color15);
-}
-EOF
-}
-
 switch_chrome() {
 	cd ~/.cache/wal/chromium
 	rm -f 'Cached Theme.pak' 'bg.png' 'manifest.json'
@@ -315,7 +288,6 @@ switch_cfgs() {
 	switch_gtk $1
 	switch_fcitx5 $1
 	switch_chrome $1
-	switch_startpage $1
 	switch_polybar $1
 	switch_vim_lightline $1
 	switch_discord $1
