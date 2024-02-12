@@ -14,7 +14,7 @@ set smartcase
 set timeoutlen=500
 set updatetime=100
 set mouse=a
-set cino=N-s,E-s,l1,g-1
+set cino=N-s,E-s,l1,g-1,j1
 set linebreak " set wrap but don't wrap inside words
 set viminfo+='1000,n~/.local/nvim/viminfo
 set guifont=JetBrainsMono\ Nerd\ Font:h9:#e-subpixelantialias:#h-slight
@@ -25,6 +25,7 @@ let g:airline_powerline_fonts = 1
 let g:minimap_highlight='Visual'
 let g:python3_host_prog='/usr/bin/python3'
 let g:vimtex_quickfix_open_on_warning = 0
+let g:vimtex_imaps_enabled = 0
 hi! link CocFloating SneakScope
 
 if exists("g:neovide")
@@ -92,7 +93,8 @@ Plug 'tikhomirov/vim-glsl'
 Plug 'vim-scripts/syntaxm4.vim'
 Plug 'elkowar/yuck.vim'
 Plug 'eraserhd/parinfer-rust', {'do': 'cargo build --release'}
-Plug 'sile-typesetter/vim-sile'
+Plug 'kaarmu/typst.vim'
+Plug 'aklt/plantuml-syntax'
 
 " 'vim=ide'
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
@@ -241,6 +243,17 @@ else
 	colorscheme ghdark
 endif
 
+" change default vim-sneak colors to be more readable
+hi! SneakLabel gui=reverse
+hi! SneakLabelMask gui=reverse
+
+" fix terminal color
+hi! link TermCursor Cursor
+hi! link TermCursorNC Cursor
+
+" fix which key color
+hi! link WhichKeyFloating NormalFloat
+
 source $HOME/.config/nvim/lightline.vim
 let g:lightline = {
 			\ 'colorscheme': 'auto',
@@ -321,6 +334,10 @@ let g:vimtex_compiler_latexmk = {
 " TeX quotes
 autocmd FileType tex let b:surround_{char2nr("q")} = "`\r'"
 autocmd FileType tex let b:surround_{char2nr('Q')} = "``\r''"
+autocmd FileType tex let b:AutoPairs = AutoPairsDefine({'(':')', '[':']', '{':'}', "``":"''", "`":"'", '$':'$', '"':'"'})
+
+" AutoPairs for plantuml
+autocmd FileType plantuml let b:AutoPairs = {'(':')', '[':']', '{':'}', '`':'`'}
 
 " coc.vim <tab> completion and <cr> stuff
 function! CheckBackspace() abort

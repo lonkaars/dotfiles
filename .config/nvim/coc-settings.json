@@ -34,5 +34,6 @@
 			"command": "vhdl_ls",
 			"filetypes": ["vhdl"]
 		}
-	}
+  },
+  "java.import.gradle.java.home": "/usr/lib/jvm/java-17-openjdk"
 }

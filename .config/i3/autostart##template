@@ -4,7 +4,7 @@
 cat "$XDG_CONFIG_HOME/X11/$(cat "$XDG_DATA_HOME/mode/active")" | xrdb -override &
 polybar &
 rwall &
-picom -b
+compfy -b
 xbanish &
 dunst &
 autocutsel &
@@ -15,7 +15,8 @@ xdimmer -t 45 -p 3 &
 light-locker --no-late-locking &
 {% else %}
 redshift -l 52:6 &
-nicotine &
+nicotine --hidden &
+desktop2mqtt --config "$XDG_CONFIG_HOME/desktop2mqtt/config.yml" &
 {% endif %}
 flashfocus &
 
@@ -26,5 +27,5 @@ flashfocus &
 } &
 
 # auto start lazy script after everything else
-[ -f "$HOME/do.sh" ] && . "$HOME/do.sh"
+[ -x "$HOME/do.sh" ] && "$HOME/do.sh"
 

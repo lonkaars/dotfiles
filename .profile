@@ -50,13 +50,16 @@ export XDG_DATA_HOME="$HOME/.local/share"
 export PATH="$HOME/.local/share/bin:$PATH"
 export PATH="$HOME/.local/bin:$PATH"
 export PATH="$HOME/.local/go/bin:$PATH"
+export PATH="$HOME/.local/share/cargo/bin:$PATH"
 # export PATH="/opt/f4pga/xc7/conda/bin:$PATH"
+export PATH="$HOME/.lyp/bin:$PATH"
 
 # other stuff
 export EDITOR="nvim"
 export FZF_DEFAULT_COMMAND="find ."
 export FZF_DEFAULT_OPTS="--color=16"
 export GOPATH="$HOME/.local/go"
+. "$XDG_CONFIG_HOME/gtk-4.0/env"
 
 # use .config/ instead of home directory
 export ANDROID_SDK_HOME="$XDG_CONFIG_HOME/android"
@@ -80,9 +83,8 @@ alias gpg2="gpg2 --homedir $XDG_DATA_HOME/gnupg"
 export DOTNET_CLI_TELEMETRY_OPTOUT=1
 
 # java
-export _SILENT_JAVA_OPTIONS="-Djava.util.prefs.userRoot=$XDG_CONFIG_HOME/java -Dawt.useSystemAAFontSettings=on -Dswing.defaultlaf=com.sun.java.swing.plaf.gtk.GTKLookAndFeel"
+export _JAVA_OPTIONS="-Djava.util.prefs.userRoot=$XDG_CONFIG_HOME/java -Dawt.useSystemAAFontSettings=on -Dswing.defaultlaf=com.sun.java.swing.plaf.gtk.GTKLookAndFeel"
 export _JAVA_AWT_WM_NONREPARENTING=1
-unset _JAVA_OPTIONS
 
 # secrets
 [ -f "$HOME/.env" ] && . "$HOME/.env"
