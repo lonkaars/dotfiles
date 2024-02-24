@@ -26,6 +26,7 @@ mailboxes +Inbox +Drafts +Junk +Sent +Trash +Archive
 
 # keybinds
 macro index,pager A "<save-message>=Archive<enter>" "Archive Message"
+bind index,pager N search-opposite
 
 # contacts
 set alias_file = "~/.config/neomutt/aliases"
