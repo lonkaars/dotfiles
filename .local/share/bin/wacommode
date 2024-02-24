@@ -11,17 +11,21 @@ defaults () {
 	setwacom Rotate none
 }
 
+SCREEN_1_GEOMETRY="$(xrandr -q | awk '$2 == "connected" && $3 == "primary" { print $4 }')"
+SCREEN_2_GEOMETRY="$(xrandr -q | awk '$2 == "connected" && $3 != "primary" { print $3 }')"
+ALL_GEOMETRY="$(xrandr -q | awk '$1 == "Screen" { print ; exit }' | grep -o '\<current\>[^,]\+' | sed -e 's/^current//' -e 's/ //g' -e 's/$/+0+0/')"
+
 topleft() {
 	notify-send "screen 1 only (landscape)"
 
-	setwacom MapToOutput 1920x1080+0+410
+	setwacom MapToOutput "$SCREEN_1_GEOMETRY"
 }
 
 bottomleft() {
 	notify-send "screen 2 only (portrait)"
 
 	setwacom Rotate ccw
-	setwacom MapToOutput 1080x1920+1920+0
+	setwacom MapToOutput "$SCREEN_2_GEOMETRY"
 }
 
 topright() {
@@ -31,14 +35,14 @@ topright() {
 	setwacom RawSample 1
 
 	setwacom Area 0 1623 7600 5898
-	setwacom MapToOutput 1920x1080+0+410
+	setwacom MapToOutput "$SCREEN_1_GEOMETRY"
 }
 
 bottomright() {
 	notify-send "both screens (landscape)"
 
 	setwacom Area 0 0 11875 7600
-	setwacom MapToOutput 3000x1920+0+0
+	setwacom MapToOutput "$ALL_GEOMETRY"
 }
 
 defaults
