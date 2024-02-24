@@ -41,7 +41,7 @@ module-margin-right = 0
 
 font-0 = "JetBrains Mono Nerd Font:pixelsize=8:weight=regular:size=0;2"
 font-1 = "JetBrains Mono Nerd Font:pixelsize=8:weight=bold:size=0;2"
-font-2 = "Noto Sans JP:pixelsize=8:weight=medium:size=0;2"
+font-2 = "Hiragino Kaku Gothic ProN W6:pixelsize=8:weight=medium:size=0;1"
 font-3 = "Noto Sans KR:pixelsize=8:weight=medium:size=0;2"
 
 {% if yadm.hostname == "thoncc" %}
