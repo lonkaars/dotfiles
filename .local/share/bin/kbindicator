@@ -1,9 +1,19 @@
 #!/bin/sh
-CONTROLLER="`qdbus 'org.fcitx.Fcitx5' '/controller' 'org.fcitx.Fcitx.Controller1.CurrentInputMethod'`"
+query_kb_layout() {
+	CONTROLLER="$(qdbus 'org.fcitx.Fcitx5' '/controller' 'org.fcitx.Fcitx.Controller1.CurrentInputMethod')"
+	case $CONTROLLER in
+		"keyboard-us") echo "us" ;;
+		"keyboard-us-intl") echo "us-intl" ;;
+		"mozc") echo "jp" ;;
+		*) ;;
+	esac
+}
 
-case $CONTROLLER in
-	"keyboard-us") echo "us" ;;
-	"keyboard-us-intl") echo "us-intl" ;;
-	"mozc") echo "jp" ;;
-*) ;;
-esac
+query_kb_layout
+
+dbus-monitor --address "$(fcitx5-remote -a)" "member='SetCurrentIM',destination='org.fcitx.Fcitx5'" |\
+	grep --line-buffered 'SetCurrentIM' |\
+	while read -r line ; do
+		query_kb_layout
+	done
+
