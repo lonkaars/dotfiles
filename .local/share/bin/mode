@@ -144,7 +144,7 @@ switch_chrome() {
 			"theme": {
 				"images": { "theme_frame": "bg.png" },
 				"colors": {
-					"frame": $fg,
+					"frame": $bg,
 					"button_background": $fg,
 					"ntp_background": $bg,
 					"ntp_text": $bg,
@@ -309,6 +309,7 @@ reload_apps() {
 	reload_terms
 	reload_fcitx5
 	reload_gtk
+	rwall
 }
 
 reload_apps
