@@ -4,7 +4,7 @@ cat "$XDG_CONFIG_HOME/X11/$(cat "$XDG_DATA_HOME/mode/active")" | xrdb -override
 /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1 &
 polybar &
 rwall &
-compfy -b
+picom -b
 xbanish &
 dunst &
 autocutsel &
