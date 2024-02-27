@@ -8,4 +8,4 @@ export ROFIBGCOLOR="$(get_color background)"
 export ROFIFGCOLOR="$(get_color foreground)"
 export ROFIACCOLOR="$(get_color color5)"
 
-/bin/rofi -no-default-config $@
+/bin/rofi -no-default-config "$@"
