@@ -12,7 +12,7 @@
 	Mod4 + Mod1 + Return
 "panic"
 	Mod4 + Mod1 + p
-"bwmenu"
+"rofi-pass"
 	Mod4 + p
 "maim -usb 4 -c 0,0,0 | xclip -selection clipboard -t image/png"
 	Print
