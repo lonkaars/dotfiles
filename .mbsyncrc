@@ -2,7 +2,7 @@ IMAPAccount pipeframe
 Host mail.pipeframe.xyz
 Port 993
 User loek@mail.pipeframe.xyz
-PassCmd "keyctl request user bw_session | xargs keyctl pipe | xargs bw get password efc4ddc3-cd2d-4090-b570-abea0113217a --session"
+PassCmd "pass srv/fortnite/passwd/loek"
 SSLType IMAPS
 CertificateFile /etc/ssl/certs/ca-certificates.crt
 

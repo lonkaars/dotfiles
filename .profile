@@ -24,6 +24,7 @@ alias y="yay"
 alias n="ncmpcpp"
 alias c="khal"
 alias f="fork"
+alias p="pass"
 
 # "functions"
 alias reload="sudo systemctl restart lightdm"
