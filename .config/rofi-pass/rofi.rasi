@@ -11,4 +11,7 @@ listview {
 	lines: 12;
 }
 
+prompt {
+	enabled: false;
+}
 

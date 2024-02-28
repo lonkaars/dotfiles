@@ -4,7 +4,6 @@ _rofi() {
 	rofi \
 		-i \
 		-no-auto-select \
-		-p 'pass' \
 		-config "$XDG_CONFIG_HOME/rofi-pass/rofi.rasi" \
 		"$@"
 }
