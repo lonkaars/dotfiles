@@ -95,6 +95,7 @@ Plug 'elkowar/yuck.vim'
 Plug 'eraserhd/parinfer-rust', {'do': 'cargo build --release'}
 Plug 'kaarmu/typst.vim'
 Plug 'aklt/plantuml-syntax'
+Plug 'fymyte/rasi.vim'
 
 " 'vim=ide'
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
