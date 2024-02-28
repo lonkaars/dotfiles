@@ -1,0 +1,43 @@
+#!/bin/sh
+# Use xmlstarlet and ADB to pull WifiConfigStore.xml from a (rooted) Android
+# phone and import wifi network passwords into pass. Tested with a rooted pixel
+# 4a (sunfish) running LineageOS 21 (Android 14)
+
+TAB="$(printf '\t')"
+
+get_wifi_cfg() {
+	adb shell cat /data/misc/apexdata/com.android.wifi/WifiConfigStore.xml
+	if [ $? -ne 0 ] ; then
+		echo "note: try running \`adb root\` first"
+		exit 1
+	fi
+}
+
+parse_filter() {
+	xmlstarlet select --template \
+		--match '/WifiConfigStoreData/NetworkList/Network' \
+		--if './WifiConfiguration/string[@name="PreSharedKey"]' \
+		--value-of './WifiConfiguration/string[@name="SSID"]' \
+		--output "$TAB" \
+		--value-of './WifiConfiguration/string[@name="PreSharedKey"]' \
+		--nl
+}
+
+cut_quotes() {
+	cut -c2- | rev | cut -c2- | rev
+}
+
+import_pass() {
+	while read line; do
+		SSID="$(echo "$line" | cut -d"$TAB" -f1 | cut_quotes | tr '/' '-')"
+		PASSWD="$(echo "$line" | cut -d"$TAB" -f2 | cut_quotes)"
+		PASS_NAME="net/$SSID/passwd"
+
+		printf 'insert SSID "%s" as %s ...' "$SSID" "$PASS_NAME"
+		echo "$PASSWD" | pass insert --multiline "$PASS_NAME" 1>/dev/null 2>/dev/null
+		printf ' %s\n' "$([ $? -eq 0 ] && echo "OK" || echo "ERROR")"
+	done
+}
+
+get_wifi_cfg | parse_filter | import_pass
+
