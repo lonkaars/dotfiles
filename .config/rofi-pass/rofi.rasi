@@ -1,0 +1,14 @@
+// this import automatically resolves to ${XDG_CONFIG_HOME}/rofi/config.rasi
+// (see section on 'Multiple file handling' in man rofi-theme(5))
+@import "config.rasi"
+
+* {
+	width: 550;
+	--padding: 6px;
+}
+
+listview {
+	lines: 12;
+}
+
+

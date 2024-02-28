@@ -1,2 +1,10 @@
 #!/bin/sh
 USERNAME_field='path'
+_rofi() {
+	rofi \
+		-i \
+		-no-auto-select \
+		-p 'pass' \
+		-config "$XDG_CONFIG_HOME/rofi-pass/rofi.rasi" \
+		"$@"
+}
