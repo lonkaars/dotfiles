@@ -1,2 +1,2 @@
 #!/bin/sh
-default_autotype='path :tab pass'
+USERNAME_field='path'
