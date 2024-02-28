@@ -1,5 +1,10 @@
 #!/bin/sh
+# make sure the filename is used as the account name
 USERNAME_field='path'
+default_user=':filename'
+default_autotype="path :tab pass"
+
+# pass custom rofi flags
 _rofi() {
 	rofi \
 		-i \
@@ -7,3 +12,13 @@ _rofi() {
 		-config "$XDG_CONFIG_HOME/rofi-pass/rofi.rasi" \
 		"$@"
 }
+
+_do_type_xdotool() {
+	fcitx5-temp-off
+
+	# this is the default command
+	xdotool type --delay ${type_delay} --clearmodifiers --file -
+
+	fcitx5-temp-restore
+}
+
