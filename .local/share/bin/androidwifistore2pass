@@ -29,9 +29,9 @@ cut_quotes() {
 
 import_pass() {
 	while read line; do
-		SSID="$(echo "$line" | cut -d"$TAB" -f1 | cut_quotes | tr '/' '-')"
+		SSID="$(echo "$line" | cut -d"$TAB" -f1 | cut_quotes)"
 		PASSWD="$(echo "$line" | cut -d"$TAB" -f2 | cut_quotes)"
-		PASS_NAME="net/$SSID/passwd"
+		PASS_NAME="net/$(echo "$SSID" | tr '/' '-')/passwd"
 
 		printf 'insert SSID "%s" as %s ...' "$SSID" "$PASS_NAME"
 		echo "$PASSWD" | pass insert --multiline "$PASS_NAME" 1>/dev/null 2>/dev/null
