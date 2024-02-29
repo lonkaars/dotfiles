@@ -1,0 +1,7 @@
+# open html files in default browser using xdg-open (appends .html to %s)
+text/html; xdg-open %s; nametemplate=%s.html; copiousoutput;
+
+# wrap plain text before paging inside mutt (prevents line breaks to be
+# prefixed with '+', makes copying URLs easier)
+text/plain; fold -w $COLUMNS %s; copiousoutput;
+

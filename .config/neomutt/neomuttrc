@@ -1,21 +1,21 @@
 # name
-set realname = "Loek Le Blansch"
+set real_name = "Loek Le Blansch"
 set from = "loek@pipeframe.xyz"
 
 # e-mail server
-set folder = ~/docs/mail/pipeframe/
-set spoolfile = "+Inbox"
+set folder = "~/docs/mail/pipeframe/"
+set spool_file = "+Inbox"
 set record = "+Sent"
 set trash = "+Trash"
 set postponed = "+Drafts"
 
 # imap credentials
 set imap_user = "loek@mail.pipeframe.xyz"
-set imap_pass = "`pass srv/fortnite/passwd/loek`"
+set imap_pass = "$(pass srv/fortnite/passwd/loek)"
 
 # smtp credentials
-set smtp_pass = $imap_pass
-set smtp_url=smtp://$imap_user@mail.pipeframe.xyz:587
+set smtp_pass = "$imap_pass"
+set smtp_url = "smtp://$imap_user@mail.pipeframe.xyz:587"
 set ssl_force_tls = yes
 
 # mail check timeout
@@ -24,26 +24,41 @@ set mail_check = 60
 # mailboxes
 mailboxes +Inbox +Drafts +Junk +Sent +Trash +Archive
 
-# keybinds
-macro index,pager A "<save-message>=Archive<enter>" "Archive Message"
-bind index,pager N search-opposite
+# open files
+set mailcap_path = "$XDG_CONFIG_HOME/mailcap"
+
+# keybinds (more vim-like than default)
+macro index,pager a "<save-message>=Archive<enter>" "Archive Message" # archive
+bind index,pager n search-next # next search match
+bind index,pager N search-opposite # previous search match
+bind generic,index g noop # clear immediate action of `g` (required for `gg`)
+bind generic,index gg first-entry # goto top of index
+bind generic,index G last-entry # goto bottom of index
+bind index \Cu previous-page # page up
+bind index \Cd next-page # page down
+bind attach <return> view-mailcap # always use mailcap to view attachments
 
 # contacts
-set alias_file = "~/.config/neomutt/aliases"
+set alias_file = "$XDG_CONFIG_HOME/neomutt/aliases"
 set sort_alias = alias
 set reverse_alias = yes
-source $alias_file
+source "$alias_file"
 
 # miscellaneous options
 set fast_reply = yes
-set confirmappend = no
+set confirm_append = no
 set delete = yes
 set include = yes
 set sort = threads
-set header_cache = "~/.neomutt/hcache"
+set header_cache = "$XDG_CACHE_HOME/neomutt/hcache"
 set edit_headers
-set editor = "nvim"
+set auto_edit = yes
 set mime_type_query_command = "xdg-mime query filetype"
+unset prompt_after
+
+# external programs
+set editor = "$EDITOR"
+# set pager = "less"
 set sendmail = "/usr/bin/msmtp"
 set query_command = "/usr/bin/lbdbq"
 
@@ -62,7 +77,7 @@ color tree white black
 color markers red black
 color search white black
 color tilde brightmagenta black
-color index blue black ~F
+color index blue black "~F"
 color index red black "~N|~O"
 
 # switch folders
