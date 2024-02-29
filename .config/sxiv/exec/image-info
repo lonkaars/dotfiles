@@ -1,7 +1,6 @@
 #!/bin/sh
-printf "`basename $1`"
-printf "  "
-printf "`date -r "$1"`"
-printf "  "
-printf "$2x$3 (`du -Hh "$1" | cut -f 1`)"
+printf '%s %s %s' \
+	"$(basename "$1")" \
+	"$(date -r "$1")" \
+	"$2x$3 ($(du -Hh "$1" | cut -f 1))"
 
