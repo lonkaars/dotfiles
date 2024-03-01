@@ -60,7 +60,7 @@ export EDITOR="nvim"
 export FZF_DEFAULT_COMMAND="find ."
 export FZF_DEFAULT_OPTS="--color=16"
 export GOPATH="$HOME/.local/go"
-. "$XDG_CONFIG_HOME/gtk-4.0/env"
+[ -e "$XDG_CONFIG_HOME/gtk-4.0/env" ] && . "$XDG_CONFIG_HOME/gtk-4.0/env"
 
 # use .config/ instead of home directory
 export ANDROID_SDK_HOME="$XDG_CONFIG_HOME/android"

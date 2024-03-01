@@ -1,26 +1,74 @@
 #!/bin/sh
+TIMESTART="$(date +%s)"
 . "$HOME/.profile"
+unset LANG # do not display custom locale in TTY
+
+begintask() {
+	printf '%s ...' "$1"
+}
+endtask() {
+	EXIT_CODE=$?
+	[ $EXIT_CODE -eq 0 ] && echo ' OK' || echo ' ERROR'
+	return $EXIT_CODE
+}
+s() { # s for silent
+	"$@" 1> /dev/null 2> /dev/null
+}
 
 # ensure required packages are installed
-"$XDG_CONFIG_HOME/yadm/install-arch"
+begintask "installing packages"
+"$XDG_CONFIG_HOME/yadm/install-arch" > pkgs.log 2>&1
+endtask
+[ $? -eq 0 ] && rm -f pkgs.log || echo "  (saved output to pkgs.log)"
 
-# generate templated files
-yadm alt
+begintask "render templated files"
+s yadm alt
+endtask
 
-# create remaining dynamic theme files
-~/.local/share/bin/mode dark
+begintask "ensure dynamic theme files"
+s ~/.local/share/bin/mode dark
+endtask
 
-# remove unreachable blobs
-yadm reflog expire --expire-unreachable=now --all
-yadm gc --prune=now
+begintask "tidy up repository files"
+s yadm reflog expire --expire-unreachable=now --all &&\
+s yadm gc --prune=now
+endtask
 
-# download and build st (terminal) if not present
+[ -e "$HOME/readme.md" ] ||\
+[ $(yadm status -s "$HOME/readme.md" | wc -l) -gt 0 ] && (
+	begintask "removing readme.md from home"
+	cd
+	rm -f readme.md &&\
+	yadm update-index --skip-worktree readme.md
+	endtask
+)
+
 ! command -v st > /dev/null && [ ! -e ~/.local/st ] && (
+	begintask "building st (terminal) from source"
   mkdir -p ~/.local
   cd ~/.local
-  git clone https://git.pipeframe.xyz/lonkaars/st
+  s git clone --depth 1 https://git.pipeframe.xyz/lonkaars/st
   cd st
-  make -j
+  s make -j
+	endtask
+)
+
+[ "$(find ~/.ssh -name 'id*' | wc -l)" -eq 0 ] && (
+	begintask "generating ssh keys"
+	s ssh-keygen -q -N "" < /dev/zero
+	endtask
 )
 
 # TODO: create a second repository for system configuration in /etc
+
+TIMESTOP="$(date +%s)"
+cat << EOF
+
+bootstrap finished in $(( $TIMESTOP - $TIMESTART ))s!
+
+follow-up steps to finish setup:
+	- install GPG keys
+	- install fonts
+	- make the switch to microsoft edge
+
+EOF
