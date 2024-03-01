@@ -1,3 +1,26 @@
 #!/bin/sh
+. "$HOME/.profile"
+
+# ensure required packages are installed
+"$XDG_CONFIG_HOME/yadm/install-arch"
+
+# generate templated files
+yadm alt
+
+# create remaining dynamic theme files
 ~/.local/share/bin/mode dark
 
+# remove unreachable blobs
+yadm reflog expire --expire-unreachable=now --all
+yadm gc --prune=now
+
+# download and build st (terminal) if not present
+! command -v st > /dev/null && [ ! -e ~/.local/st ] && (
+  mkdir -p ~/.local
+  cd ~/.local
+  git clone https://git.pipeframe.xyz/lonkaars/st
+  cd st
+  make -j
+)
+
+# TODO: create a second repository for system configuration in /etc

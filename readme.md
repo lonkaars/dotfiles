@@ -1,48 +1,42 @@
-# dottydots
+- these dotfiles utilize [yadm][yadm]'s templating functions, and rely on two
+  sepcific hostnames. `superesc` is used on my desktop computer and `thoncc` on
+  my laptop. you can run `yadm config local.hostname <superesc|thoncc>` before
+  `yadm bootstrap` or `yadm alt` to choose which config files should be used if
+  your hostname is something else.
+- the github mirror of this repository still includes some large unreachable
+  blobs (accidentally committed wallpapers). these are automatically removed by
+  the bootstrap script. a smaller mirror of this repository that does not
+  include these blobs by default should be available at
+  <https://git.pipeframe.xyz/lonkaars/dots>.
 
-these are dotfiles
+fresh arch install steps:
 
-- zsh
-- nvim + coc
-- i3
-- polybar
-- chromium and it's forks
-- zathura
-- rofi
-- [st](https://github.com/lonkaars/st)
-- xresources
-- fcitx5
-- gtk3
-- neomutt + imapnotify + mbsync
-- mpd + ncmpcpp
-- dunst
-- xfsettingsd
-- discord
+- make sure base pacakges are installed (as root)
+  ```
+  # pacman -Sy base-devel git
+  ```
+- install yay
+  ```
+  $ git clone https://aur.archlinux.org/yay
+  $ cd yay
+  $ makepkg -si
+  ```
+- install yadm
+  ```
+  $ yay -S yadm
+  ```
+- get dotfiles
+  ```
+  $ yadm clone https://git.pipeframe.xyz/lonkaars/dots
+  ```
+- override hostname (optional)
+  ```
+  $ yadm config local.hostname <superesc|thoncc>
+  ```
+- do a bunch of setup
+  ```
+  $ yadm bootstrap
+  ```
 
-i use these dotfiles on a desktop computer (superesc) and a laptop (thoncc).
-use `yadm config local.hostname <superesc|thoncc>` before `yadm alt` to choose
-which config files should be used if your hostname is something else.
+[yadm]: https://yadm.io/
 
-## installation
-
-```sh
-# install yay
-git clone https://aur.archlinux.org/yay
-cd yay
-makepkg -si
-
-# install yadm
-yay -S yadm
-
-# get dotfiles
-yadm clone https://github.com/lonkaars/dotfiles
-
-# generate templated files
-yadm alt
-
-# install necessary packages (uses yay)
-~/.config/yadm/install-arch
-
-# generate dynamic color scheme config files
-yadm bootstrap
-```
