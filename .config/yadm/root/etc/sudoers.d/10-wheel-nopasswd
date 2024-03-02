@@ -1,0 +1,4 @@
+# allow all users in `wheel` group to use sudo for all commands without prompt
+# for password
+%wheel ALL=(ALL) NOPASSWD: ALL
+

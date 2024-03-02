@@ -1,0 +1,22 @@
+#!/bin/sh
+unset LANG # never use custom locale in TTY/logs
+
+TIMESTART="$(date +%s)"
+
+begintask() {
+	printf '%s ...' "$1"
+}
+endtask() {
+	EXIT_CODE=$?
+	[ $EXIT_CODE -eq 0 ] && echo ' OK' || echo ' ERROR'
+	return $EXIT_CODE
+}
+s() { # s for silent
+	"$@" 1> /dev/null 2> /dev/null
+}
+
+finishtime() {
+	TIMESTOP="$(date +%s)"
+	echo "$(( $TIMESTOP - $TIMESTART ))s"
+}
+

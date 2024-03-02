@@ -1,19 +1,7 @@
 #!/bin/sh
-TIMESTART="$(date +%s)"
+cd "$(dirname "$0")"
 . "$HOME/.profile"
-unset LANG # do not display custom locale in TTY
-
-begintask() {
-	printf '%s ...' "$1"
-}
-endtask() {
-	EXIT_CODE=$?
-	[ $EXIT_CODE -eq 0 ] && echo ' OK' || echo ' ERROR'
-	return $EXIT_CODE
-}
-s() { # s for silent
-	"$@" 1> /dev/null 2> /dev/null
-}
+. ./lib/bootstrap
 
 # ensure required packages are installed
 begintask "installing packages"
@@ -67,15 +55,15 @@ endtask
 	endtask
 )
 
-TIMESTOP="$(date +%s)"
 cat << EOF
 
-bootstrap finished in $(( $TIMESTOP - $TIMESTART ))s!
+bootstrap finished in $(finishtime)!
 
 follow-up steps to finish setup:
 	- install GPG keys
 	- install nonfree fonts
 	- clone the pass repository in ~/.local/share/pass
+	- run the system bootstrap script in ~/.config/yadm/root/bootstrap
 	- make the switch to microsoft edge
 
 EOF

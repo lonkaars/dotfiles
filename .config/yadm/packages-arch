@@ -61,6 +61,7 @@ brave-bin
 curl
 feh
 fzf
+gnupg
 helvum
 htop
 mpc
@@ -68,10 +69,12 @@ mpv
 ncmpcpp
 neovim
 nmap
+pam-gnupg
 pandoc
 pass
 pass-otp
 pavucontrol
+pinentry
 ranger
 restic
 rofi-pass-git

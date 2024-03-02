@@ -1,0 +1,42 @@
+#!/bin/sh
+cd "$(dirname "$0")"
+. ../lib/bootstrap
+
+wrong_call() {
+	cat << EOF
+run this script as root and with the username of your user account
+
+examples:
+	$ sudo $0 loek
+
+	$ sudo $0 "\$LOGNAME"
+
+	# $0 gert
+EOF
+	exit 1
+}
+
+# this script needs to run with root privileges
+[ $(id -u) -ne 0 ] && wrong_call
+# SETUP_USER must exist
+SETUP_USER="$1"
+getent passwd "$SETUP_USER" > /dev/null || wrong_call
+# SETUP_USER can not be root
+[ $(id -u "$SETUP_USER") -eq 0 ] && wrong_call
+
+begintask "copy system config files"
+s cp -r etc/. /etc
+endtask
+
+begintask "set pinentry program to pinentry-gnome3 (GTK 3)"
+s ln -sf pinentry-gnome3 "$(command -v pinentry)"
+endtask
+
+begintask "enabling services"
+s systemctl enable bluetooth ntpd cups
+endtask
+
+# TODO: pam-gnupg setup
+# TODO: enable pacman colors
+# TODO: add SETUP_USER to groups
+
