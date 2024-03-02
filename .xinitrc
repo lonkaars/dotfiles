@@ -1,1 +1,11 @@
-.xprofile
+#!/bin/sh
+. ~/.profile
+
+systemctl --user import-environment DISPLAY
+xrdb -override "$XDG_CONFIG_HOME/X11/base"
+
+# https://github.com/swaywm/sway/wiki#gtk-applications-take-20-seconds-to-start
+dbus-update-activation-environment --systemd DISPLAY
+
+i3
+

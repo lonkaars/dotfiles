@@ -3,7 +3,16 @@ i3-wm
 xdg-user-dirs
 xf86-input-wacom
 xinit-xsession
-xorg
+xorg-server
+xorg-xclipboard
+xorg-xev
+xorg-xhost
+xorg-xinit
+xorg-xprop
+xorg-xrandr
+xorg-xrdb
+xorg-xset
+xorg-xsetroot
 
 # directly used in scripts / startup
 autocutsel
@@ -73,16 +82,15 @@ slock
 sudo
 sxiv
 unzip
+vim-plug
 wget
 which
 zathura
 zathura-pdf-mupdf
 zip
 zsh
-vim-plug
 
 # audio
-alsa-utils
 alsa-lib
 alsa-plugins
 alsa-utils
