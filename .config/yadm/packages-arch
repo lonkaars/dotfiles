@@ -56,7 +56,7 @@ usb_modeswitch # required for android usb tethering
 dhcpcd # i am unsure if i need this
 
 # applications
-anki
+anki-bin
 brave-bin
 curl
 feh
