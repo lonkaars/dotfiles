@@ -1,0 +1,3 @@
+#!/bin/sh
+python3 -c 'import sys ; print(f"{int(sys.stdin.read().strip()):x}")'
+

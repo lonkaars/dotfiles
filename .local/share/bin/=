@@ -1,0 +1,2 @@
+#!/bin/sh
+python3 -c "from math import *; deg = pi / 180; print($*)"

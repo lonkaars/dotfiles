@@ -18,11 +18,6 @@ bindkey '^[[Z' reverse-menu-complete
 # zsh autocompletion
 compinit -D
 
-# evaluate math expression in python by running `= <expr>`
-function = () { python3 -c "from math import *; deg = pi / 180; print($*)" }
-aliases[=]="noglob ="
-alias 16="python3 -c 'import sys;print(f\"{int(sys.stdin.read().strip()):x}\")'"
-
 # cleanup
 fork rm -rf ~/.xsession-errors ~/.xsession-errors.old ~/.zshrc.zwc ~/.lesshst ~/.lyrics ~/.android ~/.zcalc_history .git-credentials .node_repl_history .python_history
 
