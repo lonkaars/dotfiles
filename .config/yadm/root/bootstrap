@@ -20,7 +20,7 @@ EOF
 [ $(id -u) -ne 0 ] && wrong_call
 # SETUP_USER must exist
 SETUP_USER="$1"
-getent passwd "$SETUP_USER" > /dev/null || wrong_call
+s getent passwd "$SETUP_USER" || wrong_call
 # SETUP_USER can not be root
 [ $(id -u "$SETUP_USER") -eq 0 ] && wrong_call
 
@@ -36,7 +36,36 @@ begintask "enabling services"
 s systemctl enable bluetooth ntpd cups
 endtask
 
-# TODO: pam-gnupg setup
-# TODO: enable pacman colors
-# TODO: add SETUP_USER to groups
+GROUPS_OK=1
+CURRENT_GROUPS="$(id -Gn "$SETUP_USER")"
+TARGET_GROUPS="users uucp optical lp audio wheel input"
+for group in $TARGET_GROUPS ; do
+	if ! echo "$CURRENT_GROUPS" | s grep "$group" ; then
+		GROUPS_OK=0
+		break
+	fi
+done
+[ "$GROUPS_OK" -ne 1 ] && (
+	begintask "adding $SETUP_USER to groups"
+	s usermod -aG "$(echo "$TARGET_GROUPS" | tr ' ' ',')" "$SETUP_USER"
+	endtask
+)
+
+PAM_GNUPG_FILE="/etc/pam.d/system-login"
+! s grep 'pam_gnupg' "$PAM_GNUPG_FILE" && (
+	begintask "adding pam-gnupg PAM module"
+	cat << EOF >> "$PAM_GNUPG_FILE"
+
+# https://github.com/cruegge/pam-gnupg
+auth        optional    pam_gnupg.so store-only
+session     optional    pam_gnupg.so
+EOF
+	endtask
+)
+
+s grep '^#\s*\<Color\>' /etc/pacman.conf && (
+	begintask "enabling color in /etc/pacman.conf"
+	s sed 's/^#\s*\(\<Color\>\)/\1/g' -i /etc/pacman.conf
+	endtask
+)
 
