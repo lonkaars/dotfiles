@@ -36,8 +36,10 @@ endtask
 
 # note: vim-plug is already installed system-wide (see ./packages-arch)
 begintask "installing vim plugins"
-s nvim --headless +'PlugInstall --sync' +qa &&\
-s nvim --headless +CocUpdateSync +qa
+COC_PLUGINS="$(jq --raw-output '.dependencies | keys | join(" ")' \
+	"$XDG_CONFIG_HOME/coc/extensions/package.json")"
+s nvim --headless +"PlugInstall --sync" +qa &&\
+s nvim --headless +"CocInstall -sync $COC_PLUGINS" +qa
 endtask
 
 [ -e "$HOME/readme.md" ] ||\
