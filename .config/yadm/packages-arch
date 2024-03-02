@@ -79,6 +79,7 @@ zathura
 zathura-pdf-mupdf
 zip
 zsh
+vim-plug
 
 # audio
 alsa-utils
@@ -96,4 +97,11 @@ pipewire-pulse
 # bluetooth
 bluez
 bluez-utils
+
+# fonts
+inter-font # Inter (default sans serif)
+texlive-fontsrecommended # TeX Gyre Schola + Math (default serif)
+ttf-jetbrains-mono # JetBrains Mono (monospace in documents)
+ttf-jetbrains-mono-nerd # JetBrains Mono Nerd Font (default monospace)
+ttf-times-new-roman # Times New Roman (instead of ugly liberation serif)
 
