@@ -12,7 +12,6 @@ xorg-xprop
 xorg-xrandr
 xorg-xrdb
 xorg-xset
-xorg-xsetroot
 
 # directly used in scripts / startup
 autocutsel
