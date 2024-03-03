@@ -46,6 +46,7 @@ export COLORTERM="truecolor"
 export XDG_CONFIG_HOME="$HOME/.config"
 export XDG_CACHE_HOME="$HOME/.cache"
 export XDG_DATA_HOME="$HOME/.local/share"
+export XDG_STATE_HOME="$HOME/.local/state"
 
 # script locations
 export PATH="$HOME/.local/share/bin:$PATH"
@@ -61,6 +62,8 @@ export FZF_DEFAULT_COMMAND="find ."
 export FZF_DEFAULT_OPTS="--color=16"
 export GOPATH="$HOME/.local/go"
 [ -e "$XDG_CONFIG_HOME/gtk-4.0/env" ] && . "$XDG_CONFIG_HOME/gtk-4.0/env"
+export PASSWORD_STORE_ENABLE_EXTENSIONS=true
+export PASSWORD_STORE_EXTENSIONS_DIR="$XDG_DATA_HOME/pass-extensions"
 
 # use .config/ instead of home directory
 export ANDROID_SDK_HOME="$XDG_CONFIG_HOME/android"

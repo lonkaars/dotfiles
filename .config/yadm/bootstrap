@@ -59,6 +59,10 @@ begintask "create XDG user directories"
 s xdg-user-dirs-update
 endtask
 
+# TODO: GTK themes
+# TODO: OpenZone_Black cursor theme
+# TODO: install from scratch and see what's missing
+
 cat << EOF
 
 bootstrap finished in $(finishtime)!
