@@ -55,6 +55,10 @@ endtask
 	endtask
 )
 
+begintask "create XDG user directories"
+s xdg-user-dirs-update
+endtask
+
 cat << EOF
 
 bootstrap finished in $(finishtime)!
