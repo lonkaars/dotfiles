@@ -1,7 +1,13 @@
+[init]
+	defaultBranch = master
 [user]
 	email = loek@pipeframe.xyz
 	name = lonkaars
-	signingkey = 1081FFE2B963ADB5BDCF4DA6D0E3BC76E355B6CC
+	signingkey = {{ env.GPG_ID_GIT }}
+[commit]
+	gpgsign = true
+[gpg]
+	program = {{ env.XDG_DATA_HOME }}/bin/gpg-git
 [credential]
 	helper = cache --timeout 7200
 	helper = store
@@ -23,7 +29,3 @@
 	pl = pull
 	l = log
 	d = diff
-[init]
-	defaultBranch = master
-[commit]
-	gpgsign = true
