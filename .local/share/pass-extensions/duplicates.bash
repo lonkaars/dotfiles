@@ -1,11 +1,8 @@
 #!/bin/bash
-cd "${PASSWORD_STORE_DIR-$HOME/.password-store}" || exit 1
-
 declare -A dupe_tally dupe_map
 
-pass_names="$(\
-	find . -type d -name '.git' -prune -o -name '*.gpg' -type f -print |\
-	cut -c3- | rev | cut -c5- | rev)"
+pass_names="$(pass names)"
+[ $? -ne 0 ] && exit 1
 
 pass_count="$(echo "$pass_names" | wc -l)"
 if [ "$pass_count" -gt 10 ] ; then
@@ -24,23 +21,28 @@ while read pass_name ; do
 	dupe_tally["$hash"]=$(( ${dupe_tally["$hash"]} + 1 ))
 done < <(echo "$pass_names")
 
-duplicates=0
+unique_duplicates=0
+total_shared=0
 
 for talley_key in "${!dupe_tally[@]}" ; do
 	[ "${dupe_tally["$talley_key"]}" -le 1 ] && continue;
-	duplicates=$(( $duplicates + 1 ))
+	unique_duplicates=$(( $unique_duplicates + 1 ))
 
 	echo "same password:"
 	for pass_name in "${!dupe_map[@]}" ; do
 		[ "${dupe_map["$pass_name"]}" != "$talley_key" ] && continue;
 		echo "- $pass_name"
+		total_shared=$(( $total_shared + 1 ))
 	done
 	echo
 done
 
 echo "summary:"
-if [ $duplicates -eq 0 ] ; then
+if [ $unique_duplicates -eq 0 ] ; then
 	echo "- no duplicates"
 else
-	echo "- found $duplicates password(s) that were used more than once"
+	cat << EOF
+- found $unique_duplicates password(s) that were used more than once
+- you should change all $total_shared passwords listed above
+EOF
 fi
