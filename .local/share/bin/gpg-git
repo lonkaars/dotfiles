@@ -1,5 +1,4 @@
 #!/bin/sh
 GPG_KEY_ID="$GPG_ID_GIT" # see ~/.profile
 GPG_KEY_PASSPHRASE="$(pass "gpg/$GPG_KEY_ID.asc" | head -n1)"
-echo "gpg $*" >> ~/gpg-git.txt
 gpg --batch --no-tty --pinentry-mode loopback --passphrase "$GPG_KEY_PASSPHRASE" "$@"
