@@ -33,11 +33,11 @@ switch_xrdb() {
 
 switch_dunst() {
 	cat "$XDG_CONFIG_HOME/dunst/base" - << EOF > "$XDG_CONFIG_HOME/dunst/dunstrc"
-frame_color = "$(get_color color1)"
+frame_color = "$(get_color color0)"
 
 [urgency_low]
 background = "$(get_color background)"
-foreground = "$(get_color color1)"
+foreground = "$(get_color foreground)"
 timeout = 10
 
 [urgency_normal]
@@ -97,7 +97,7 @@ switch_gtk() {
 }
 
 switch_fcitx5() {
-	accent="$(get_color color9)"
+	accent="$(get_color color0)"
 	cat "$XDG_DATA_HOME/fcitx5/themes/loek/base.conf" - << EOF > "$XDG_DATA_HOME/fcitx5/themes/loek/theme.conf"
 [InputPanel]
 NormalColor=$(get_color foreground)
@@ -193,6 +193,27 @@ let s:test = [ '#ff00ff', 'NONE' ]
 EOF
 }
 
+switch_vim_terminal() {
+	cat << EOF > "$XDG_CONFIG_HOME/nvim/termcolors.vim"
+let g:terminal_color_0 = '$(get_color color0)'
+let g:terminal_color_1 = '$(get_color color1)'
+let g:terminal_color_2 = '$(get_color color2)'
+let g:terminal_color_3 = '$(get_color color3)'
+let g:terminal_color_4 = '$(get_color color4)'
+let g:terminal_color_5 = '$(get_color color5)'
+let g:terminal_color_6 = '$(get_color color6)'
+let g:terminal_color_7 = '$(get_color color7)'
+let g:terminal_color_8 = '$(get_color color8)'
+let g:terminal_color_9 = '$(get_color color9)'
+let g:terminal_color_10 = '$(get_color color10)'
+let g:terminal_color_11 = '$(get_color color11)'
+let g:terminal_color_12 = '$(get_color color12)'
+let g:terminal_color_13 = '$(get_color color13)'
+let g:terminal_color_14 = '$(get_color color14)'
+let g:terminal_color_15 = '$(get_color color15)'
+EOF
+}
+
 switch_discord() {
 	cat << EOF > "$XDG_CONFIG_HOME/BetterDiscord/themes/mode.theme.css"
 /**
@@ -279,23 +300,35 @@ reload_gtk() {
 	)
 }
 
+reload_nvim() {
+	nvr --serverlist | while read -r nvim_socket ; do
+		fork nvr --nostart --servername "$nvim_socket" -c 'source $XDG_CONFIG_HOME/nvim/mode.vim'
+	done
+}
+
 switch_cfgs() {
 	echo "switching to $1 mode..."
 	
+	# xrdb needs to complete first, as the rest of the color schemes are derived
+	# from querying xrdb for colors
 	switch_xrdb $1
-	switch_dunst $1
-	switch_zathura $1
-	switch_gtk $1
-	switch_fcitx5 $1
-	switch_chrome $1
-	switch_polybar $1
-	switch_vim_lightline $1
-	switch_discord $1
+
+	switch_dunst $1 &
+	switch_zathura $1 &
+	switch_gtk $1 &
+	switch_fcitx5 $1 &
+	switch_chrome $1 &
+	switch_polybar $1 &
+	switch_vim_lightline $1 &
+	switch_discord $1 &
+	switch_vim_terminal $1 &
 
 	mkdir -p "$XDG_DATA_HOME/mode"
 	echo $1 > "$XDG_DATA_HOME/mode/active"
 	rm -f "$XDG_DATA_HOME/mode/dark" "$XDG_DATA_HOME/mode/light"
 	touch "$XDG_DATA_HOME/mode/$1"
+
+	wait $(jobs -rp)
 }
 
 [ $MODE = "restore" ] && MODE="$(cat "$XDG_DATA_HOME/mode/active")"
@@ -304,12 +337,15 @@ switch_cfgs() {
 reload_apps() {
 	echo "reloading programs..."
 
-	reload_polybar
-	reload_dunst
-	reload_terms
-	reload_fcitx5
-	reload_gtk
-	rwall
+	reload_polybar &
+	reload_dunst &
+	reload_terms &
+	reload_fcitx5 &
+	reload_gtk &
+	reload_nvim &
+	rwall &
+
+	wait $(jobs -rp)
 }
 
 reload_apps

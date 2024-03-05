@@ -1,12 +1,19 @@
-USER=""
-if [[ "$USER" != "$DEFAULT_USER" || -n "$SSH_CLIENT" ]]; then
-	USER=" %m"
-fi
+INFO_COLOR=$'%{\e[90m%}' # bright gray
+SEPARATOR_COLOR=$'%{\e[30m%}' # normal gray
+RESET_COLOR=$'%{\e[0m%}'
 
-PROMPT='%{$fg[yellow]%}λ$USER %{$fg[green]%}%c %{$fg[yellow]%}-> $(git_prompt_info)$(hg_prompt_info)%{$reset_color%}'
+SEPARATOR="$SEPARATOR_COLOR -> "
 
-ZSH_THEME_GIT_PROMPT_PREFIX="λ %{$fg[blue]%}git %{$fg[red]%}"
-ZSH_THEME_GIT_PROMPT_SUFFIX="%{$fg[yellow]%} -> %{$reset_color%}"
-ZSH_THEME_HG_PROMPT_PREFIX="λ %{$fg[blue]%}hg %{$fg[red]%}"
-ZSH_THEME_HG_PROMPT_SUFFIX="%{$fg[yellow]%} -> %{$reset_color%}"
+PROMPT=""
+# only display hostname in prompt if connected over SSH
+[ -n "$SSH_CLIENT" ] && PROMPT+="$INFO_COLOR%m$SEPARATOR"
+PROMPT+="$INFO_COLOR%c$SEPARATOR" # working directory
+PROMPT+="$INFO_COLOR\$(git_prompt_info)\$(hg_prompt_info)" # git info (if in repo)
+PROMPT+="$RESET_COLOR"
 
+ZSH_THEME_GIT_PROMPT_PREFIX="${INFO_COLOR}git "
+ZSH_THEME_HG_PROMPT_PREFIX="${INFO_COLOR}hg "
+ZSH_THEME_GIT_PROMPT_SUFFIX="$SEPARATOR"
+ZSH_THEME_HG_PROMPT_SUFFIX="$SEPARATOR"
+
+# vim:ft=zsh

@@ -24,6 +24,7 @@ jq
 libpulse # for pactl
 maim
 mpd
+neovim-remote
 nicotine+
 picom
 pipewire

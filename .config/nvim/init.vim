@@ -26,7 +26,6 @@ let g:minimap_highlight='Visual'
 let g:python3_host_prog='/usr/bin/python3'
 let g:vimtex_quickfix_open_on_warning = 0
 let g:vimtex_imaps_enabled = 0
-hi! link CocFloating SneakScope
 
 if exists("g:neovide")
 	nmap <silent> <C-=> :lua vim.g.neovide_scale_factor = vim.g.neovide_scale_factor + 0.1<CR>
@@ -230,25 +229,6 @@ let g:Hexokinase_optInPatterns = [
 			\ 'hsla'
 			\ ]
 
-" colorscheme thingers
-if filereadable(expand('~/.local/share/mode/light'))
-	colorscheme github-light
-else
-	colorscheme ghdark
-endif
-
-" change default vim-sneak colors to be more readable
-hi! SneakLabel gui=reverse
-hi! SneakLabelMask gui=reverse
-
-" fix terminal color
-hi! link TermCursor Cursor
-hi! link TermCursorNC Cursor
-
-" fix which key color
-hi! link WhichKeyFloating NormalFloat
-
-source $HOME/.config/nvim/lightline.vim
 let g:lightline = {
 			\ 'colorscheme': 'auto',
 			\ 'mode_map': {
@@ -283,28 +263,7 @@ let g:lightline = {
 let g:lightline.tabline = {
 		    \ 'left': [ [ 'tabs' ] ],
 		    \ 'right': [ ] }
-hi! SignColumn guibg=NONE ctermbg=NONE
-hi GitGutterAdd guibg=NONE
-hi GitGutterChange guibg=NONE
-hi GitGutterDelete guibg=NONE
-hi GitGutterAddIntraLine guibg=NONE
-hi GitGutterAddInvisible guibg=NONE
-hi GitGutterChangeDelete guibg=NONE
-hi GitGutterChangeInvisible guibg=NONE
-hi GitGutterDeleteIntraLine guibg=NONE
-hi GitGutterDeleteInvisible guibg=NONE
-hi CocErrorSign guibg=NONE
-hi CocGitAddedSign guibg=NONE
-hi CocGitChangeRemovedSign guibg=NONE
-hi CocGitChangedSign guibg=NONE
-hi CocGitRemovedSign guibg=NONE
-hi CocGitTopRemovedSign guibg=NONE
-hi CocHintSign guibg=NONE
-hi CocInfoSign guibg=NONE
-hi CocWarningSign guibg=NONE
-
-" fix disappearing CocFadeOut
-hi! link Conceal Comment
+call lightline#init()
 
 " vimtex config
 let g:tex_flavor = 'latex'
@@ -425,4 +384,7 @@ let g:sneak#use_ic_scs = 0
 " fcitx5
 autocmd InsertEnter * call system("fcitx5-temp-restore &")
 autocmd InsertLeave * call system("fcitx5-temp-off &")
+
+" colorscheme
+source $XDG_CONFIG_HOME/nvim/mode.vim
 

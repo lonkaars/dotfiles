@@ -28,9 +28,12 @@ begintask "copy system config files"
 s cp -r etc/. /etc
 endtask
 
-begintask "set pinentry program to pinentry-gnome3 (GTK 3)"
-s ln -sf pinentry-gnome3 "$(command -v pinentry)"
-endtask
+PINENTRY="pinentry-gnome3"
+[ "$(command -v pinentry | xargs realpath | xargs basename)" != "$PINENTRY" ] && (
+	begintask "set pinentry program to $PINENTRY"
+	s ln -sf "$PINENTRY" "$(command -v pinentry)"
+	endtask
+)
 
 begintask "enabling services"
 s systemctl enable bluetooth ntpd cups
@@ -69,3 +72,14 @@ s grep '^#\s*\<Color\>' /etc/pacman.conf && (
 	endtask
 )
 
+[ "$(getent passwd "$SETUP_USER" | cut -d: -f7 | xargs basename)" != "zsh" ] && (
+	begintask "set user shell to zsh"
+	s chsh -s "$(command -v zsh)" "$SETUP_USER"
+	endtask
+)
+
+cat << EOF
+
+root bootstrap finished in $(finishtime)!
+
+EOF
