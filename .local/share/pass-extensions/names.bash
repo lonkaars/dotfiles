@@ -7,7 +7,7 @@ cd "$pass_dir"
 
 # List all files in password store (ignoring .git and .extensions folders) and
 # trim './' prefix and '.gpg' suffix
-find . \
+find -L . \
 	-type d -name '.git' -prune \
 	-o -type d -name '.extensions' -prune \
 	-o -name '*.gpg' \
