@@ -1,0 +1,60 @@
+#!/bin/sh
+
+EXEC_NAME="$(basename "$0")"
+EXTENSION="$1"
+
+usage() {
+	cat << EOF
+usage: $EXEC_NAME [EXT]
+
+examples:
+	cd Decsync/calendars/$(uuidgen)/v2/DeviceName-DecSyncCC-$RANDOM ; $EXEC_NAME ics
+
+	cd Decsync/contacts/$(uuidgen)/v2/DeviceName-DecSyncCC-$RANDOM ; $EXEC_NAME vcf
+
+$EXEC_NAME will attempt to guess the appropriate file extension based on the parent folder names. the first parent folder that matches exactly one of the following determines the file extension:
+	calendars  ->  .ics
+	contacts   ->  .vcf
+	tasks      ->  .ics
+
+if no file extension is found and none is explicitly provided, $EXEC_NAME will exit.
+EOF
+}
+
+if [ "$1" == "-h" ] || [ "$1" == "--help" ] ; then
+	usage
+	exit 0
+fi
+
+if [ ! -e sequences ] ; then
+	echo "error: could not find decsync sequences file"
+	exit 1
+fi
+
+# auto detect extension if not explicitly provided
+if [ -z "$EXTENSION" ] ; then
+	EXTENSION="$(realpath "$PWD" | tr '/' '\n' | sort -r | while read -r folder ; do
+		case "$folder" in
+			calendars|tasks) echo ics ; break ;;
+			contacts) echo vcf ; break ;;
+		esac
+	done)"
+fi
+
+if [ -z "$EXTENSION" ] ; then
+	echo "error: could not detect EXT"
+	exit 1
+fi
+
+COLLECTION_PREFIX="$(jq --raw-output 'if .[2] == "name" then "\(.[3])/" else empty end' info)"
+mkdir -p "$COLLECTION_PREFIX"
+
+jq --raw-output '. | keys | join("\n")' sequences |\
+	sed '/^info$/d' |\
+	tr '\n' '\0' |\
+	xargs -0 -n1 cat |\
+while read -r line ; do
+	filename="$COLLECTION_PREFIX$(echo "$line" | jq --raw-output '.[0][1]').$EXTENSION"
+	echo "$filename"
+	echo "$line" | jq --raw-output '.[3]' > "$filename"
+done

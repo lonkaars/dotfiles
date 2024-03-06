@@ -1,0 +1,12 @@
+#!/bin/sh
+cat << "EOF"
+BEGIN:VCALENDAR
+VERSION:2.0
+EOF
+
+cat "$@" | sed -n -e '/^BEGIN:VEVENT$/,/^END:VEVENT$/p'
+
+cat << "EOF"
+END:VCALENDAR
+EOF
+
