@@ -1,6 +1,3 @@
-" vim sneak labels
-hi! link CocFloating SneakScope
-
 " change default vim-sneak colors to be more readable
 hi! SneakLabel gui=reverse
 hi! SneakLabelMask gui=reverse
