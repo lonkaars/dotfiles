@@ -14,10 +14,12 @@ _rofi() {
 }
 
 _do_type_xdotool() {
-	fcitx5-temp-off
+	fcitx5-temp-off # see ~/.local/share/bin
 
-	# this is the default command
-	xdotool type --delay ${type_delay} --clearmodifiers --file -
+	# tr -d required because the "path" variable ends in a newline character
+	tr -d '\n' |\
+		xdotool type --delay ${type_delay} --clearmodifiers --file -
+	# xdotool command is otherwise not modified
 
 	fcitx5-temp-restore
 }
