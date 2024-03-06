@@ -1,0 +1,2 @@
+#!/bin/sh
+[ -n "$GPG_ID_PASSWORD_STORE" ] && pass git pull
