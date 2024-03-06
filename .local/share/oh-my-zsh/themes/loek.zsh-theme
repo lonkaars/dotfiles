@@ -8,7 +8,7 @@ PROMPT=""
 # only display hostname in prompt if connected over SSH
 [ -n "$SSH_CLIENT" ] && PROMPT+="$INFO_COLOR%m$SEPARATOR"
 PROMPT+="$INFO_COLOR%c$SEPARATOR" # working directory
-PROMPT+="$INFO_COLOR\$(git_prompt_info)\$(hg_prompt_info)" # git info (if in repo)
+PROMPT+="$INFO_COLOR\$(git_prompt_info)" # git info (if in repo)
 PROMPT+="$RESET_COLOR"
 
 ZSH_THEME_GIT_PROMPT_PREFIX="${INFO_COLOR}git "
