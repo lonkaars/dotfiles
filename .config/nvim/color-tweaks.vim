@@ -5,6 +5,10 @@ hi! link CocFloating SneakScope
 hi! SneakLabel gui=reverse
 hi! SneakLabelMask gui=reverse
 
+" consistent cursor colors
+hi! Cursor gui=NONE guifg=bg guibg=fg
+hi! link iCursor Cursor
+
 " fix terminal color
 hi! link TermCursor Cursor
 hi! link TermCursorNC Cursor

@@ -17,5 +17,3 @@
 
 *.foreground: #24292e
 *.background: #ffffff
-*.cursor_background: #959da5
-*.cursor_foreground: #24292e

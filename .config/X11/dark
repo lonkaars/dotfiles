@@ -17,5 +17,3 @@
 
 *.foreground: #e6edf3
 *.background: #0d1117
-*.cursor_background: #e6edf3
-*.cursor_foreground: #0d1117
