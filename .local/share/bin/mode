@@ -1,5 +1,35 @@
 #!/bin/sh
-MODE="$1"
+progname="$(basename "$0")"
+stupid() {
+	echo "run \`$progname --help\` for options" >&2
+}
+usage() {
+	cat << EOF
+$progname -- switch between dark / light theme
+
+usage:
+	$progname [-chr] action
+
+options:
+	-c, --no-cfggen    disable updating of configuration files       
+	-h, --help         display this help text
+	-r, --no-reload    disable reloading of applications after applying theme
+
+actions:
+	dark       switch to dark mode
+	light      switch to light mode
+	restore    switch to last set mode ($XDG_DATA_HOME/mode/active)
+	reload     only reload applications, do not update configuration files
+	help       same as --help option
+
+examples:
+	mode dark                   switch to dark mode and reload applications
+	mode restore --no-reload    make sure all configuration files are up-to-date
+	mode reload                 only reload applications
+
+EOF
+}
+
 
 get_color() { xrdb -get "$1" | tr -d '\n'; }
 hex_to_rgb_array() { pastel format rgb "$1" | cut -c4- | tr '()' '[]' ; }
@@ -319,8 +349,8 @@ reload_nvim() {
 	done
 }
 
-switch_cfgs() {
-	echo "switching to $1 mode..."
+generate_cfgs() {
+	echo "updating configuration files to $1 mode..."
 	
 	# xrdb needs to complete first, as the rest of the color schemes are derived
 	# from querying xrdb for colors
@@ -345,9 +375,6 @@ switch_cfgs() {
 	wait $(jobs -rp)
 }
 
-[ $MODE = "restore" ] && MODE="$(cat "$XDG_DATA_HOME/mode/active")"
-[ $MODE = "dark" -o $MODE = "light" ] && switch_cfgs $MODE
-
 reload_apps() {
 	echo "reloading programs..."
 
@@ -362,5 +389,31 @@ reload_apps() {
 	wait $(jobs -rp)
 }
 
-reload_apps
+run_cfggen=1
+run_reload=1
+mode=""
+
+for arg in "$@" ; do
+	case "$arg" in
+		--) break ;;
+		-h|--help|help) usage ; exit 0 ;;
+		dark|light) mode="$arg" ;;
+		restore) mode="$(cat "$XDG_DATA_HOME/mode/active")" ;;
+		reload) run_reload=1 run_cfggen=0 ;;
+		-r|--no-reload) run_reload=0 ;;
+		-c|--no-cfggen) run_cfggen=0 ;;
+		*)
+			echo "error: unknown argument: $arg" >&2
+			stupid && exit 1
+			;;
+	esac
+done
+
+if [ $run_cfggen -eq 1 ] && [ -z "$mode" ] ; then
+	echo "error: no action provided" >&2
+	stupid && exit 1
+fi
+
+[ $run_cfggen -eq 1 ] && generate_cfgs $mode
+[ $run_reload -eq 1 ] && reload_apps
 

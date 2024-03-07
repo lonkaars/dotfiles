@@ -1,5 +1,5 @@
 #!/bin/sh
-. ~/.profile
+. "$HOME/.profile"
 
 # make current environment available to systemd user units
 systemctl --user import-environment $(export | cut -d= -f1)
