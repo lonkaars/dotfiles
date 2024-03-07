@@ -12,7 +12,7 @@ configuration {
 
 * {
 	background-color: ${background};
-	text-color: ${foregound};
+	text-color: ${foreground};
 	spacing: 0;
 {% if yadm.hostname == "thoncc" %}
 	width: 400;
@@ -57,7 +57,7 @@ element {
 
 element selected {
 	background-color: ${accent};
-	text-color: @background-color;
+	text-color: ${accent_text};
 }
 
 element-text {
