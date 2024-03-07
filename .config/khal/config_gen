@@ -12,10 +12,50 @@ _sync() {
 	vdirsyncer metasync 1> /dev/null 2> /dev/null
 }
 
+_hexfmt() { sed 's/#\?\(..\)\(..\)\(..\)/0x\1 0x\2 0x\3/g' ; }
+TERMINAL_COLORS="$(for n in $(seq 0 15) ; do xrdb -get "color$n" ; done | _hexfmt)"
 _color_quantize() {
-	INPUT_HEX="$(echo $1 | grep -o '#[0-9a-fA-F]\{6\}')"
-
-	echo "$INPUT_HEX"
+	INPUT="$(echo $1 | grep -o '#[0-9a-fA-F]\{6\}' | _hexfmt)"
+	COLOR="$(printf '%s\n%s' "$INPUT" "$TERMINAL_COLORS" | awk --non-decimal-data '
+		function abs(v) { return v < 0 ? -v : v }
+		BEGIN {
+			closest = 0;
+			max_diff = 0xff * 3;
+			NR -= 2;
+		}
+		{
+			if (NR == -1) {
+				input_r = $1;
+				input_g = $2;
+				input_b = $3;
+				next;
+			}
+			diff = abs(input_r - $1) + abs(input_g - $2) + abs(input_b - $3);
+			if (diff < max_diff) {
+				max_diff = diff;
+				closest = NR;
+			}
+		}
+		END { print closest; }
+	')"
+	case "$COLOR" in
+		0) echo "black" ; break ;;
+		1) echo "dark red" ; break ;;
+		2) echo "dark green" ; break ;;
+		3) echo "brown" ; break ;;
+		4) echo "dark blue" ; break ;;
+		5) echo "dark magenta" ; break ;;
+		6) echo "dark cyan" ; break ;;
+		7) echo "dark gray" ; break ;;
+		8) echo "light gray" ; break ;;
+		9) echo "light red" ; break ;;
+		10) echo "light green" ; break ;;
+		11) echo "yellow" ; break ;;
+		12) echo "light blue" ; break ;;
+		13) echo "light magenta" ; break ;;
+		14) echo "light cyan" ; break ;;
+		15) echo "white" ; break ;;
+	esac
 }
 
 _cfg_caldav() {

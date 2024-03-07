@@ -6,7 +6,7 @@
 # `vdirsyncer sync`)
 
 # uncomment to convert true color calendar color (#RRGGBB) into 16-color (ANSI)
-# codes (TODO: this is not implemented yet)
+# codes
 # export QUANTIZE_COLOR=y
 
 ### CalDAV example
