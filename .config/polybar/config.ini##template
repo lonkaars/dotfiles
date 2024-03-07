@@ -1,6 +1,5 @@
 [barsettings]
 padding = 1.9
-
 include-file = ./colors.ini
 
 [global/wm]
@@ -8,7 +7,6 @@ margin-bottom = 50
 margin-top = 0
 
 [bar/main]
-
 tray-position = right
 tray-padding = ${barsettings.padding}
 tray-background = ${color.bg}
@@ -45,11 +43,11 @@ font-2 = "Hiragino Kaku Gothic ProN W6:pixelsize=8:weight=medium:size=0;1"
 font-3 = "Noto Sans KR:pixelsize=8:weight=medium:size=0;2"
 
 {% if yadm.hostname == "thoncc" %}
-modules-left = time date mpd
+modules-left = time date cal mpd
 modules-center = battery1 battery2 brightness
 modules-right = wireless keyboard volume whoami
 {% else %}
-modules-left = time date
+modules-left = time date cal
 modules-center = mpd
 modules-right = wacomtouch keyboard volume whoami
 {% endif %}
@@ -126,6 +124,12 @@ type = custom/script
 exec = ~/.local/share/bin/kbindicator
 tail = true
 label-font = 1
+
+[module/cal]
+type = custom/script
+exec = khal list now tomorrow --notstarted --day-format '' --format '({start-time}) {calendar-color}{title}{reset}'
+interval = 60
+# TODO: create script for converting ASCII escape codes to polybar/lemonbar formatting tags
 
 {% include "config.{{ yadm.hostname }}.ini" %}
 
