@@ -17,19 +17,26 @@ TERMINAL_COLORS="$(for n in $(seq 0 15) ; do xrdb -get "color$n" ; done | _hexfm
 _color_quantize() {
 	INPUT="$(echo $1 | grep -o '#[0-9a-fA-F]\{6\}' | _hexfmt)"
 	COLOR="$(printf '%s\n%s' "$INPUT" "$TERMINAL_COLORS" | awk --non-decimal-data '
+		# abs() is not built-in???
 		function abs(v) { return v < 0 ? -v : v }
 		BEGIN {
-			closest = 0;
+			closest = 0; # closest ANSI color index
+			# max diff can at most be 3 * 255 (see diff calculation)
 			max_diff = 0xff * 3;
+			# offset line number once for input color, and another time to make color
+			# numbers start from 0 (line numbers start from 1 by default)
 			NR -= 2;
 		}
 		{
+			# first line of input contains input colors
 			if (NR == -1) {
 				input_r = $1;
 				input_g = $2;
 				input_b = $3;
 				next;
 			}
+			if (NR == 0) next; # do not pick background color
+			# sloppy check to nearest RGB color
 			diff = abs(input_r - $1) + abs(input_g - $2) + abs(input_b - $3);
 			if (diff < max_diff) {
 				max_diff = diff;
