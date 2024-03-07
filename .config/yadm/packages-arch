@@ -65,6 +65,7 @@ fzf
 gnupg
 helvum
 htop
+khal
 mpc
 mpv
 ncmpcpp
@@ -85,6 +86,7 @@ slock
 sudo
 sxiv
 unzip
+vdirsyncer
 vim-plug
 wget
 which
