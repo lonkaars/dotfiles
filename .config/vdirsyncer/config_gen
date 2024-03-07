@@ -1,0 +1,99 @@
+#!/bin/sh
+CONFIG_FILE="$(dirname "$0")/config.sh"
+[ ! -e "$CONFIG_FILE" ] && {
+	echo "please create $CONFIG_FILE"
+	exit 1
+}
+
+CFG_MODE="$1"
+
+VDIRSYNCER_PREFIX="$XDG_DATA_HOME/vdirsyncer"
+VDIRSYNCER_STATUS_PATH="$VDIRSYNCER_PREFIX/status"
+
+# generate a valid storage/pair name from an invalid one
+safeify() { echo "$1" | sha1sum | cut -c1-40 ; }
+# safeify() { echo "$1" | tr -c '0-9A-Za-z' '_' | sed 's/_\+/_/g' ; }
+
+[ "$CFG_MODE" != "lib" ] && cat << EOF
+# THIS FILE IS AUTO-GENERATED AND SHOULD NOT BE SAVED TO DISK!!! Use with
+# vdirsyncer by piping the output of this script to a named pipe.
+
+[general]
+status_path = "$VDIRSYNCER_STATUS_PATH"
+
+EOF
+
+_cfg_caldav() {
+	cat << EOF
+[pair $ID]
+a = "${ID}_local"
+b = "${ID}_remote"
+collections = ["from a", "from b"]
+metadata = ["displayname", "color"]
+
+[storage ${ID}_local]
+type = "filesystem"
+path = "$VDIRSYNCER_PREFIX/$ID/"
+fileext = ".ics"
+
+[storage ${ID}_remote]
+type = "caldav"
+url = "${BASE_URL}"
+EOF
+	[ -n "$USERNAME" ] && echo "username = \"$USERNAME\""
+	[ -n "$PASSWORD" ] && echo "password = \"$PASSWORD\""
+
+	echo # trailing blank line
+}
+
+caldav() {
+	BASE_URL="$1"
+	USERNAME="$2" # optional
+	PASSWORD="$3" # optional
+
+	NAME="$(echo "$BASE_URL" | sed -e 's#^https\?://##' -e 's#/.*##')"
+	ID="$(safeify "$NAME")"
+
+	_cfg_caldav
+}
+
+_cfg_ical() {
+	cat << EOF
+[pair $ID]
+a = "${ID}_remote"
+b = "${ID}_local"
+collections = null
+
+[storage ${ID}_local]
+type = "filesystem"
+path = "$VDIRSYNCER_PREFIX/$ID/"
+fileext = ".ics"
+
+[storage ${ID}_remote]
+type = "http"
+url = "${URL}"
+EOF
+
+	[ -n "$USERNAME" ] && echo "username = \"$USERNAME\""
+	[ -n "$PASSWORD" ] && echo "password = \"$PASSWORD\""
+
+	echo # trailing blank line
+}
+
+ical() {
+	URL="$1"
+	USERNAME="$2" # optional
+	PASSWORD="$3" # optional
+
+	NAME="${NAME-"$(basename "$URL")"}"
+	ID="$(safeify "$NAME")"
+
+	_cfg_ical
+}
+
+# load "actual" config file
+[ "$CFG_MODE" != "lib" ] && . "$CONFIG_FILE"
+
+# make inspecting output easier
+[ "$CFG_MODE" != "lib" ] && printf '# %s:%s=%s\n' vim ft dosini
+

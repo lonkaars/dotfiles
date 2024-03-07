@@ -1,0 +1,56 @@
+#!/bin/sh
+. "$XDG_CONFIG_HOME/vdirsyncer/config_gen" lib
+
+cat << EOF
+[calendars]
+
+EOF
+
+_sync() {
+	yes | vdirsyncer discover 1> /dev/null 2> /dev/null
+	vdirsyncer sync 1> /dev/null 2> /dev/null
+	vdirsyncer metasync 1> /dev/null 2> /dev/null
+}
+
+_color_quantize() {
+	INPUT_HEX="$(echo $1 | grep -o '#[0-9a-fA-F]\{6\}')"
+
+	echo "$INPUT_HEX"
+}
+
+_cfg_caldav() {
+	jq --raw-output '.collections[][0]' "$VDIRSYNCER_STATUS_PATH/$ID.collections" | while read -r collection ; do
+		collection_path="$XDG_DATA_HOME/vdirsyncer/$ID/$collection"
+		color_path="$collection_path/color"
+		displayname_path="$collection_path/displayname"
+		[ ! -d "$collection_path" ] && _sync
+		[ ! -f "$color_path" ] && _sync
+		[ ! -f "$displayname_path" ] && _sync
+		COLOR="$(cat "$color_path")"
+		NAME="$(cat "$displayname_path")"
+		[ -n "$COLOR" ] && [ -n "$QUANTIZE_COLOR" ] && COLOR="$(_color_quantize "$COLOR")"
+		cat << EOF
+[[$NAME]]
+path = "$collection_path"
+EOF
+		[ -n "$COLOR" ] && echo "color = \"$COLOR\""
+		echo
+	done
+}
+
+_cfg_ical() {
+	collection_path="$XDG_DATA_HOME/vdirsyncer/$ID"
+	[ ! -d "$collection_path" ] && _sync
+	cat << EOF
+[[$NAME]]
+path = "$collection_path"
+readonly = True
+EOF
+	[ -n "$COLOR" ] && echo "color = \"$COLOR\""
+
+	echo
+}
+
+. "$CONFIG_FILE"
+
+printf '# %s:%s=%s\n' vim ft dosini

@@ -1,0 +1,29 @@
+#!/bin/sh
+# this file is included from .config/vdirsyncer/config_gen and
+# .config/khal/config_gen. The shims for `khal` and `vdirsyncer` automatically
+# run these scripts to update the configuration files. Note that you do still
+# need to set up a synchronization mechanism (e.g. systemd timer for running
+# `vdirsyncer sync`)
+
+# uncomment to convert true color calendar color (#RRGGBB) into 16-color (ANSI)
+# codes (TODO: this is not implemented yet)
+# export QUANTIZE_COLOR=y
+
+### CalDAV example
+# NOTE: color and display name are automatically downloaded from the server,
+# and can not be set manually
+caldav 'https://dav.example.com' 'username' "$(pass www/dav.example.com/username)"
+
+### Web calendar example
+# NOTE: url should start with http(s)://, not webcal://
+ical 'https://example.com/calendar-1.ics'
+# COLOR and NAME can be overridden for ical URLs:
+COLOR='light magenta' NAME='Calendar 2' ical 'https://example.com/calendar-2.ics'
+# Comment a line to disable the calendar (temporarily)
+#ical 'https://example.com/calendar-3.ics'
+# iCal URL that requires HTTP authentication:
+ical 'https://example.com/calendar-1.ics' 'username' 'password'
+
+# Keep in mind that this file is just a POSIX sh script, and you can use
+# environment variables, control flow, etc.
+

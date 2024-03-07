@@ -1,0 +1,14 @@
+#!/bin/sh
+CFG="$XDG_CONFIG_HOME/khal/config"
+cat - "$XDG_CONFIG_HOME/khal/base" << "EOF" > "$CFG"
+# THIS FILE IS AUTO-GENERATED, EDIT config_gen OR base INSTEAD!!!
+
+EOF
+"$XDG_CONFIG_HOME/khal/config_gen" >> "$CFG"
+
+# aliases
+[ "$1" == "i" ] && { shift ; set -- interactive "$@" ; }
+[ "$1" == "l" ] && { shift ; set -- list "$@" ; }
+
+exec /usr/bin/khal "$@"
+

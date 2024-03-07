@@ -1,0 +1,14 @@
+# vim:ft=dosini
+
+[locale]
+timeformat = %H:%M
+dateformat = %m月%d日 (%a)
+longdateformat = %A %Y年%m月%d日
+datetimeformat = %c
+longdatetimeformat = %c
+
+[view]
+agenda_day_format = "{bold}{date-long}{reset}"
+agenda_event_format = "  {cancelled}{repeat-symbol}{alarm-symbol}{start-end-time-style} -- {calendar-color}{title}{reset}"
+blank_line_before_day = True
+
