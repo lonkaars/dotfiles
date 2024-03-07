@@ -1,83 +1,87 @@
 #!/bin/sh
 MODE="$1"
 
-get_color() {
-	xrdb -get "$1"
-}
-
-hex_to_rgb_array() {
-	printf "%d\n%d\n%d\n" "0x$(echo "$1" | cut -c2-3)" "0x$(echo "$1" | cut -c4-5)" "0x$(echo "$1" | cut -c6-7)" | jq -jc --slurp '.'
-}
-
-get_color_rgb_array() {
-	hex_to_rgb_array "$(get_color "$1")"
-}
-
-mix_rgb() {
-	R1="$(printf "%d" "0x$(echo "$1" | cut -c2-3)")"
-	G1="$(printf "%d" "0x$(echo "$1" | cut -c4-5)")"
-	B1="$(printf "%d" "0x$(echo "$1" | cut -c6-7)")"
-	R2="$(printf "%d" "0x$(echo "$2" | cut -c2-3)")"
-	G2="$(printf "%d" "0x$(echo "$2" | cut -c4-5)")"
-	B2="$(printf "%d" "0x$(echo "$2" | cut -c6-7)")"
-	
-	printf "#"
-	dc -e"$R1 $3 * $R2 1 $3 - * + 1 / p" | xargs printf "%02x"
-	dc -e"$G1 $3 * $G2 1 $3 - * + 1 / p" | xargs printf "%02x"
-	dc -e"$B1 $3 * $B2 1 $3 - * + 1 / p" | xargs printf "%02x"
-}
+get_color() { xrdb -get "$1" | tr -d '\n'; }
+hex_to_rgb_array() { pastel format rgb "$1" | cut -c4- | tr '()' '[]' ; }
+mix_rgb() { pastel mix --colorspace=RGB --fraction="$3" "$1" "$2" | pastel format hex ; }
 
 switch_xrdb() {
 	xrdb -override "$XDG_CONFIG_HOME/X11/$1"
+	bg="$(get_color background)"
+	fg="$(get_color foreground)"
+	color0="$(get_color color0)"
+	color1="$(get_color color1)"
+	color2="$(get_color color2)"
+	color3="$(get_color color3)"
+	color4="$(get_color color4)"
+	color5="$(get_color color5)"
+	color6="$(get_color color6)"
+	color7="$(get_color color7)"
+	color8="$(get_color color8)"
+	color9="$(get_color color9)"
+	color10="$(get_color color10)"
+	color11="$(get_color color11)"
+	color12="$(get_color color12)"
+	color13="$(get_color color13)"
+	color14="$(get_color color14)"
+	color15="$(get_color color15)"
+	[ "$1" == "light" ] && {
+		accent="$color15"
+		accent_text="$color0"
+	}
+	[ "$1" == "dark" ] && {
+		accent="$(mix_rgb $bg $color0 0.5)"
+		accent_text="$fg"
+	}
 }
 
 switch_dunst() {
 	cat "$XDG_CONFIG_HOME/dunst/base" - << EOF > "$XDG_CONFIG_HOME/dunst/dunstrc"
-frame_color = "$(get_color color0)"
+frame_color = "$color0"
 
 [urgency_low]
-background = "$(get_color background)"
-foreground = "$(get_color foreground)"
+background = "$bg"
+foreground = "$fg"
 timeout = 10
 
 [urgency_normal]
-background = "$(get_color background)"
-foreground = "$(get_color foreground)"
+background = "$bg"
+foreground = "$fg"
 timeout = 10
 
 [urgency_critical]
-background = "$(get_color color1)"
-foreground = "$(get_color background)"
-frame_color = "$(get_color color1)"
+background = "$color1"
+foreground = "$bg"
+frame_color = "$color1"
 timeout = 0
 EOF
 }
 
 switch_zathura() {
 	cat << EOF > "$XDG_CONFIG_HOME/zathura/colors"
-set default-bg				"$(get_color background)"
-set statusbar-bg			"$(get_color background)"
-set inputbar-bg				"$(get_color background)"
-set completion-highlight-fg	"$(get_color background)"
-set completion-bg			"$(get_color background)"
-set notification-error-fg	"$(get_color background)"
-set notification-warning-fg	"$(get_color background)"
-set notification-fg			"$(get_color background)"
-set recolor-lightcolor		"$(get_color background)"
+set default-bg				"$bg"
+set statusbar-bg			"$bg"
+set inputbar-bg				"$bg"
+set completion-highlight-fg	"$bg"
+set completion-bg			"$bg"
+set notification-error-fg	"$bg"
+set notification-warning-fg	"$bg"
+set notification-fg			"$bg"
+set recolor-lightcolor		"$bg"
 
-set default-fg			"$(get_color foreground)"
-set inputbar-fg			"$(get_color foreground)"
-set completion-fg		"$(get_color foreground)"
-set statusbar-fg		"$(get_color foreground)"
-set recolor-darkcolor	"$(get_color foreground)"
+set default-fg			"$fg"
+set inputbar-fg			"$fg"
+set completion-fg		"$fg"
+set statusbar-fg		"$fg"
+set recolor-darkcolor	"$fg"
 
-set notification-error-bg   "$(get_color color9)"
-set notification-warning-bg "$(get_color color9)"
-set completion-highlight-bg "$(get_color color9)"
-set highlight-color         "$(get_color color9)"
+set notification-error-bg   "$color9"
+set notification-warning-bg "$color9"
+set completion-highlight-bg "$color9"
+set highlight-color         "$color9"
 
-set highlight-active-color "$(get_color color13)"
-set notification-bg        "$(get_color color13)"
+set highlight-active-color "$color13"
+set notification-bg        "$color13"
 EOF
 }
 
@@ -97,84 +101,84 @@ switch_gtk() {
 }
 
 switch_fcitx5() {
-	accent="$(get_color color0)"
 	cat "$XDG_DATA_HOME/fcitx5/themes/loek/base.conf" - << EOF > "$XDG_DATA_HOME/fcitx5/themes/loek/theme.conf"
 [InputPanel]
-NormalColor=$(get_color foreground)
-HighlightCandidateColor=$(get_color background)
-HighlightColor=$(get_color color13)
-HighlightBackgroundColor=$(get_color background)
+NormalColor=$fg
+HighlightCandidateColor=$accent_text
+HighlightColor=$color13
+HighlightBackgroundColor=$bg
 
 [InputPanel/Background]
-Color=$(get_color background)
-BorderColor=${accent}
+Color=$bg
+BorderColor=$accent
 
 [InputPanel/Highlight]
-Color=${accent}
+Color=$accent
 
 [Menu/Background]
-Color=$(get_color background)
+Color=$bg
 
 [Menu]
-NormalColor=$(get_color foreground)
+NormalColor=$fg
 
 [Menu/Highlight]
-Color=${accent}
+Color=$accent
 
 [Menu/Separator]
-Color=$(get_color color7)
+Color=$color7
 EOF
 }
 
-switch_chrome() {
+switch_chrome() (
 	cd ~/.cache/wal/chromium
 	rm -f 'Cached Theme.pak' 'bg.png' 'manifest.json'
-	convert -size 100x100 "xc:$(get_color background)" bg.png
-  BG_ALT=$(mix_rgb $(get_color color7) $(get_color background) '0.20')
-  FG_ALT=$(mix_rgb $(get_color color15) $(get_color foreground) '0.60')
-	jq -nc \
-		--argjson bg     "$(get_color_rgb_array background)" \
-		--argjson bg_alt "$(hex_to_rgb_array $BG_ALT)" \
-		--argjson fg     "$(get_color_rgb_array foreground)" \
-		--argjson fg_alt "$(hex_to_rgb_array $FG_ALT)" \
-		'{
-			"description": "colorscheme generated by mode",
-			"manifest_version": 2,
-			"name": "mode theme",
-			"theme": {
-				"images": { "theme_frame": "bg.png" },
-				"colors": {
-					"frame": $bg,
-					"button_background": $fg,
-					"ntp_background": $bg,
-					"ntp_text": $bg,
-					"toolbar": $bg_alt,
-					"toolbar_button_icon": $fg,
-					"tab_background_text": $fg_alt,
-					"tab_background_text_inactive": $fg_alt,
-					"tab_background_text_incognito": $fg_alt,
-					"tab_background_text_incognito_inactive": $fg_alt,
-					"bookmark_text": $fg,
-					"tab_text": $fg
-				},
-				"tints": {
-					"buttons": [ -1, -1, -1 ],
-					"frame_inactive": [ -1, -1, -1 ],
-					"frame_incognito": [ -1, -1, -1 ],
-					"frame_incognito_inactive": [ -1, -1, -1 ]
-				}
-			},
-			"version": "2"
-		}' > manifest.json
+	convert -size 100x100 "xc:$bg" bg.png
+  bg_alt=$(mix_rgb $color7 $bg 0.20)
+  fg_alt=$(mix_rgb $color15 $fg 0.60)
+	bg="$(hex_to_rgb_array "$bg")"
+	fg="$(hex_to_rgb_array "$fg")"
+	bg_alt="$(hex_to_rgb_array "$bg_alt")"
+	fg_alt="$(hex_to_rgb_array "$fg_alt")"
+	cat << EOF > manifest.json
+{
+	"description": "colorscheme generated by mode",
+	"manifest_version": 2,
+	"name": "mode theme",
+	"theme": {
+		"images": { "theme_frame": "bg.png" },
+		"colors": {
+			"frame": $bg,
+			"button_background": $fg,
+			"ntp_background": $bg,
+			"ntp_text": $bg,
+			"toolbar": $bg_alt,
+			"toolbar_button_icon": $fg,
+			"tab_background_text": $fg_alt,
+			"tab_background_text_inactive": $fg_alt,
+			"tab_background_text_incognito": $fg_alt,
+			"tab_background_text_incognito_inactive": $fg_alt,
+			"bookmark_text": $fg,
+			"tab_text": $fg
+		},
+		"tints": {
+			"buttons": [ -1, -1, -1 ],
+			"frame_inactive": [ -1, -1, -1 ],
+			"frame_incognito": [ -1, -1, -1 ],
+			"frame_incognito_inactive": [ -1, -1, -1 ]
+		}
+	},
+	"version": "2"
 }
+EOF
+)
 
 switch_polybar() {
 	cat << EOF > "$XDG_CONFIG_HOME/polybar/colors.ini"
 [color]
-bg = \${xrdb:background:$(get_color background)}
-fg = \${xrdb:foreground:$(get_color foreground)}
-fg-alt = \${xrdb:background:$(get_color background)}
-fg-half = \${xrdb:color8:$(get_color color8)}
+bg = \${xrdb:background:$bg}
+fg = \${xrdb:foreground:$fg}
+fg-alt = \${xrdb:background:$bg}
+fg-half = \${xrdb:color8:$color8}
 
 alpha = #00000000
 
@@ -184,10 +188,10 @@ EOF
 
 switch_vim_lightline() {
 	cat - "$XDG_CONFIG_HOME/nvim/lightline-base.vim" << EOF > "$XDG_CONFIG_HOME/nvim/lightline.vim"
-let s:bg = [ '$(get_color background)', 'NONE' ]
-let s:fg = [ '$(get_color foreground)', 'NONE' ]
-let s:mode = [ '$(get_color color0)', 'NONE' ]
-let s:faint = [ '$(get_color color8)', 'NONE' ]
+let s:bg = [ '$bg', 'NONE' ]
+let s:fg = [ '$fg', 'NONE' ]
+let s:mode = [ '$color0', 'NONE' ]
+let s:faint = [ '$color8', 'NONE' ]
 let s:none = [ 'NONE', 'NONE' ]
 let s:test = [ '#ff00ff', 'NONE' ]
 EOF
@@ -195,22 +199,22 @@ EOF
 
 switch_vim_terminal() {
 	cat << EOF > "$XDG_CONFIG_HOME/nvim/termcolors.vim"
-let g:terminal_color_0 = '$(get_color color0)'
-let g:terminal_color_1 = '$(get_color color1)'
-let g:terminal_color_2 = '$(get_color color2)'
-let g:terminal_color_3 = '$(get_color color3)'
-let g:terminal_color_4 = '$(get_color color4)'
-let g:terminal_color_5 = '$(get_color color5)'
-let g:terminal_color_6 = '$(get_color color6)'
-let g:terminal_color_7 = '$(get_color color7)'
-let g:terminal_color_8 = '$(get_color color8)'
-let g:terminal_color_9 = '$(get_color color9)'
-let g:terminal_color_10 = '$(get_color color10)'
-let g:terminal_color_11 = '$(get_color color11)'
-let g:terminal_color_12 = '$(get_color color12)'
-let g:terminal_color_13 = '$(get_color color13)'
-let g:terminal_color_14 = '$(get_color color14)'
-let g:terminal_color_15 = '$(get_color color15)'
+let g:terminal_color_0 = '$color0'
+let g:terminal_color_1 = '$color1'
+let g:terminal_color_2 = '$color2'
+let g:terminal_color_3 = '$color3'
+let g:terminal_color_4 = '$color4'
+let g:terminal_color_5 = '$color5'
+let g:terminal_color_6 = '$color6'
+let g:terminal_color_7 = '$color7'
+let g:terminal_color_8 = '$color8'
+let g:terminal_color_9 = '$color9'
+let g:terminal_color_10 = '$color10'
+let g:terminal_color_11 = '$color11'
+let g:terminal_color_12 = '$color12'
+let g:terminal_color_13 = '$color13'
+let g:terminal_color_14 = '$color14'
+let g:terminal_color_15 = '$color15'
 EOF
 }
 
@@ -225,55 +229,64 @@ switch_discord() {
 /* AUTOMATICALLY GENERATED, DO NOT EDIT */
 
 .theme-dark, .theme-light {
-	--background-primary: $(get_color background);
-	--background-secondary: $(get_color background);
-	--background-secondary-alt: $(get_color background);
-	--text-primary: $(get_color foreground);
-	--text-secondary: $(get_color color15);
-	--accent: $(get_color color4);
-	--accent-alt: $(get_color color12);
-	--error: $(get_color color1);
-	--error-alt: $(get_color color9);
+	--background-primary: $bg;
+	--background-secondary: $bg;
+	--background-secondary-alt: $bg;
+	--text-primary: $fg;
+	--text-secondary: $color15;
+	--accent: $color4;
+	--accent-alt: $color12;
+	--error: $color1;
+	--error-alt: $color9;
 }
 
 .theme-dark {
-	--background-tertiary: $(mix_rgb $(get_color background) '#000000' '0.7');
+	--background-tertiary: $(mix_rgb $bg '#000000' 0.7);
 }
 
 .theme-light {
-	--background-tertiary: $(get_color background);
+	--background-tertiary: $bg;
 }
 EOF
 }
 
 reload_terms() {
 	escape_msgs="$(cat << EOF | tr -d '\n'
-\033]11;$(get_color background)\007
-\033]10;$(get_color foreground)\007
-\033]12;$(get_color foreground)\007
-\033]14;$(get_color background)\007
-\033]13;$(get_color foreground)\007
-\033]17;$(get_color color8)\007
-\033]708;$(get_color background)\007
-\033]4;0;$(get_color color0)\007
-\033]4;1;$(get_color color1)\007
-\033]4;2;$(get_color color2)\007
-\033]4;3;$(get_color color3)\007
-\033]4;4;$(get_color color4)\007
-\033]4;5;$(get_color color5)\007
-\033]4;6;$(get_color color6)\007
-\033]4;7;$(get_color color7)\007
-\033]4;8;$(get_color color8)\007
-\033]4;9;$(get_color color9)\007
-\033]4;10;$(get_color color10)\007
-\033]4;11;$(get_color color11)\007
-\033]4;12;$(get_color color12)\007
-\033]4;13;$(get_color color13)\007
-\033]4;14;$(get_color color14)\007
-\033]4;15;$(get_color color15)\007
+\033]11;$bg\007
+\033]10;$fg\007
+\033]12;$fg\007
+\033]14;$bg\007
+\033]13;$fg\007
+\033]17;$color8\007
+\033]708;$bg\007
+\033]4;0;$color0\007
+\033]4;1;$color1\007
+\033]4;2;$color2\007
+\033]4;3;$color3\007
+\033]4;4;$color4\007
+\033]4;5;$color5\007
+\033]4;6;$color6\007
+\033]4;7;$color7\007
+\033]4;8;$color8\007
+\033]4;9;$color9\007
+\033]4;10;$color10\007
+\033]4;11;$color11\007
+\033]4;12;$color12\007
+\033]4;13;$color13\007
+\033]4;14;$color14\007
+\033]4;15;$color15\007
 EOF
 )"
 	find /dev/pts -exec sh -c "printf \"$escape_msgs\" > {}" \; 2> /dev/null
+}
+
+switch_rofi() {
+	cat << EOF > "$XDG_CONFIG_HOME/rofi/colors"
+export background="$bg"
+export foreground="$fg"
+export accent="$accent"
+export accent_text="$accent_text"
+EOF
 }
 
 reload_dunst() {
@@ -322,6 +335,7 @@ switch_cfgs() {
 	switch_vim_lightline $1 &
 	switch_discord $1 &
 	switch_vim_terminal $1 &
+	switch_rofi $1 &
 
 	mkdir -p "$XDG_DATA_HOME/mode"
 	echo $1 > "$XDG_DATA_HOME/mode/active"

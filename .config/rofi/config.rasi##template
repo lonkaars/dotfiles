@@ -11,8 +11,8 @@ configuration {
 }
 
 * {
-	background-color: ${ROFIBGCOLOR};
-	text-color: ${ROFIFGCOLOR};
+	background-color: ${background};
+	text-color: ${foregound};
 	spacing: 0;
 {% if yadm.hostname == "thoncc" %}
 	width: 400;
@@ -56,7 +56,7 @@ element {
 }
 
 element selected {
-	background-color: ${ROFIACCOLOR};
+	background-color: ${accent};
 	text-color: @background-color;
 }
 

@@ -1,5 +1,3 @@
 #!/bin/sh
-export ROFIBGCOLOR="$(xrdb -get background)"
-export ROFIFGCOLOR="$(xrdb -get foreground)"
-export ROFIACCOLOR="$(xrdb -get color5)"
-/bin/rofi -no-default-config "$@"
+. "$XDG_CONFIG_HOME/rofi/colors"
+exec /bin/rofi -no-default-config "$@"
