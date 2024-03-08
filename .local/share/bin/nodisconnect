@@ -1,6 +1,9 @@
 #!/bin/sh
 # use sox to play very quiet noise for keeping bluetooth headphones connected
 
+# kill any previously running processes
+killall -u "$LOGNAME" play
+
 # arguments used:
 # -q                quiet mode (don't output progress bar)
 # -n                null input filename (because synth is used as input)

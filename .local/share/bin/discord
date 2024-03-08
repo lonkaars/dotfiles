@@ -1,0 +1,3 @@
+#!/bin/sh
+installbd
+exec /usr/bin/discord "$@"

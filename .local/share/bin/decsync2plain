@@ -33,7 +33,7 @@ fi
 
 # auto detect extension if not explicitly provided
 if [ -z "$EXTENSION" ] ; then
-	EXTENSION="$(realpath "$PWD" | tr '/' '\n' | sort -r | while read -r folder ; do
+	EXTENSION="$(realpath "$PWD" | tr '/' '\n' | tac | while read -r folder ; do
 		case "$folder" in
 			calendars|tasks) echo ics ; break ;;
 			contacts) echo vcf ; break ;;

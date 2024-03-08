@@ -1,0 +1,28 @@
+#!/bin/sh
+discord_path="$(dirname "$(find "$XDG_CONFIG_HOME/discord" -name core.asar)")"
+discord_version="$(echo "$discord_path" | tr '/' '\n' | tac | sed -n '/^[0-9.]\+$/p' | head -n1)"
+betterdiscord_path="$XDG_CONFIG_HOME/BetterDiscord/data/betterdiscord.asar"
+cache_file="$XDG_CACHE_HOME/bdversion"
+
+# download betterdiscord.asar by default
+download=1
+# do not do download if discord hasn't been updated since the last time this
+# script was run
+[ -e "$cache_file" ] && [ "$discord_version" = "$(cat "$cache_file")" ] && download=0
+# always download if betterdiscord.asar does not exist
+[ ! -e "$betterdiscord_path" ] && download=1
+
+if [ $download -eq 1 ] ; then
+	echo "download betterdiscord.asar"
+	curl -sLo - 'https://betterdiscord.app/Download/betterdiscord.asar' > "$betterdiscord_path"
+fi
+if ! grep "$(basename "$betterdiscord_path")" "$discord_path/index.js" > /dev/null ; then
+	echo "patch discord desktop core index.js"
+	printf 'require("%s");\n%s' "$betterdiscord_path" "$(cat "$discord_path/index.js")" > "$discord_path/index.js"
+fi
+
+# store discord version used for this install
+mkdir -p "$(dirname "$cache_file")"
+echo "$discord_version" > "$cache_file"
+
+echo "done!"

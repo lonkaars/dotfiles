@@ -16,6 +16,8 @@ alias mk="make"
 alias sl="sl -w"
 alias vv="neovide"
 alias today="khal list today today"
+alias bctl="bluetoothctl"
+alias sctl="systemctl --user"
 
 # one letters
 alias r="ranger"
@@ -26,6 +28,8 @@ alias n="ncmpcpp"
 alias c="khal"
 alias f="fork"
 alias p="pass"
+alias b="bluetoothctl"
+alias s="systemctl --user"
 
 # "functions"
 alias reload="sudo systemctl restart lightdm"
