@@ -1,0 +1,13 @@
+#!/bin/sh
+cat << EOF > "$XDG_CONFIG_HOME/polybar/colors.ini"
+[color]
+bg = \${xrdb:background:$bg}
+fg = \${xrdb:foreground:$fg}
+fg-alt = \${xrdb:background:$bg}
+fg-half = \${xrdb:color8:$color8}
+
+alpha = #00000000
+
+; vim:ft=dosini
+EOF
+

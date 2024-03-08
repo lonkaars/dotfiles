@@ -1,0 +1,27 @@
+#!/bin/sh
+cat << EOF > "$XDG_CONFIG_HOME/zathura/colors"
+set default-bg				"$bg"
+set statusbar-bg			"$bg"
+set inputbar-bg				"$bg"
+set completion-highlight-fg	"$bg"
+set completion-bg			"$bg"
+set notification-error-fg	"$bg"
+set notification-warning-fg	"$bg"
+set notification-fg			"$bg"
+set recolor-lightcolor		"$bg"
+
+set default-fg			"$fg"
+set inputbar-fg			"$fg"
+set completion-fg		"$fg"
+set statusbar-fg		"$fg"
+set recolor-darkcolor	"$fg"
+
+set notification-error-bg   "$color9"
+set notification-warning-bg "$color9"
+set completion-highlight-bg "$color9"
+set highlight-color         "$color9"
+
+set highlight-active-color "$color13"
+set notification-bg        "$color13"
+EOF
+

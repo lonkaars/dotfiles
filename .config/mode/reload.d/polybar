@@ -1,0 +1,3 @@
+#!/bin/sh
+polybar-msg cmd restart > /dev/null
+

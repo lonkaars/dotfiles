@@ -1,0 +1,21 @@
+#!/bin/sh
+cat "$XDG_CONFIG_HOME/dunst/base" - << EOF > "$XDG_CONFIG_HOME/dunst/dunstrc"
+frame_color = "$color0"
+
+[urgency_low]
+background = "$bg"
+foreground = "$fg"
+timeout = 10
+
+[urgency_normal]
+background = "$bg"
+foreground = "$fg"
+timeout = 10
+
+[urgency_critical]
+background = "$color1"
+foreground = "$bg"
+frame_color = "$color1"
+timeout = 0
+EOF
+

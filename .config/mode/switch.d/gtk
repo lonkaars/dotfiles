@@ -1,0 +1,14 @@
+#!/bin/sh
+GTK_3_SETTINGS_INI="$XDG_CONFIG_HOME/gtk-3.0/settings.ini"
+GTK_4_SETTINGS_ENV="$XDG_CONFIG_HOME/gtk-4.0/env"
+if [ $mode = "light" ]; then
+	sed 's/^\(export\s\+GTK_THEME=.\+\)-Dark\(.*\)$/\1-Light\2/g' -i "$GTK_4_SETTINGS_ENV"
+	sed "s/-Dark/-Light/" -i "$GTK_3_SETTINGS_INI"
+	sed "s/gtk-application-prefer-dark-theme.*/gtk-application-prefer-dark-theme=false/" -i "$GTK_3_SETTINGS_INI"
+else
+	sed 's/^\(export\s\+GTK_THEME=.\+\)-Light\(.*\)$/\1-Dark\2/g' -i "$GTK_4_SETTINGS_ENV"
+	sed "s/-Light/-Dark/" -i "$GTK_3_SETTINGS_INI"
+	sed "s/gtk-application-prefer-dark-theme.*/gtk-application-prefer-dark-theme=true/" -i "$GTK_3_SETTINGS_INI"
+fi
+grep gtk-theme-name "$GTK_3_SETTINGS_INI" | cut -f2 -d= | xargs xfconf-query -c xsettings -p /Net/ThemeName -s
+

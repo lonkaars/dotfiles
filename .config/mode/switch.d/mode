@@ -1,0 +1,7 @@
+#!/bin/sh
+mkdir -p "$XDG_DATA_HOME/mode"
+rm -f "$XDG_DATA_HOME/mode/dark" "$XDG_DATA_HOME/mode/light"
+
+echo "$mode" > "$XDG_DATA_HOME/mode/active"
+touch "$XDG_DATA_HOME/mode/$mode"
+

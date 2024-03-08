@@ -1,0 +1,31 @@
+#!/bin/sh
+cat << EOF > "$XDG_CONFIG_HOME/BetterDiscord/themes/mode.theme.css"
+/**
+ * @name mode
+ * @author mode
+ * @version 0
+*/
+
+/* AUTOMATICALLY GENERATED, DO NOT EDIT */
+
+.theme-dark, .theme-light {
+	--background-primary: $bg;
+	--background-secondary: $bg;
+	--background-secondary-alt: $bg;
+	--text-primary: $fg;
+	--text-secondary: $color15;
+	--accent: $color4;
+	--accent-alt: $color12;
+	--error: $color1;
+	--error-alt: $color9;
+}
+
+.theme-dark {
+	--background-tertiary: $(mix_rgb $bg '#000000' 0.7);
+}
+
+.theme-light {
+	--background-tertiary: $bg;
+}
+EOF
+

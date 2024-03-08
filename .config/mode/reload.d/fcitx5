@@ -1,0 +1,3 @@
+#!/bin/sh
+fork fcitx5 -rd
+
