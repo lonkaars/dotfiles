@@ -1,0 +1,24 @@
+#!/bin/sh
+export mode='dark'
+
+export color0='#484f58'
+export color1='#ffa198'
+export color2='#56d364'
+export color3='#e3b341'
+export color4='#79c0ff'
+export color5='#d2a8ff'
+export color6='#56d4dd'
+export color7='#b1bac4'
+export color8='#6e7681'
+export color9='#ff7b72'
+export color10='#3fb950'
+export color11='#d29922'
+export color12='#58a6ff'
+export color13='#bc8cff'
+export color14='#39c5cf'
+export color15='#ffffff'
+
+export bg='#0d1117'
+export fg='#e6edf3'
+
+export vim_theme_name='ghdark'

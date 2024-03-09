@@ -1,0 +1,11 @@
+#!/bin/sh
+
+
+# - navigate to brave://settings
+# - run `chrome.send("setBraveThemeType", [THEME_ENUM])` in js console
+#   values  1: dark
+#           2: light
+# - navigate to brave://extensions
+# - run `chrome.send("setBraveThemeType", [THEME_ENUM])` in js console
+# - run `chrome.developerPrivate.loadUnpacked()` (TODO: how to handle inputting file path non-interactively)
+# TODO: how to use chromedriver from script (preferably without nodejs+npm or python3+pip dependencies?)

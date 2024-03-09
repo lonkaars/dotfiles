@@ -1,0 +1,107 @@
+#!/bin/sh
+progname="$(basename "$0")"
+data="$(readlink -f "$(dirname "$(readlink -f "$0")")/..")"
+export data
+
+stupid() {
+	echo "run \`$progname --help\` for options" >&2
+}
+usage() {
+	cat << EOF
+$progname -- switch system themes
+
+usage:
+	$progname [-chr] action|theme
+
+options:
+	-c, --no-cfggen    disable updating of configuration files       
+	-h, --help         display this help text
+	-r, --no-reload    disable reloading of applications after applying theme
+
+actions:
+	restore    switch to last set theme ($XDG_CACHE_HOME/mode/state/theme)
+	reload     do not update configuration files, only reload applications
+	help       same as --help option
+
+themes:
+	$(ls "$data/themes" | tr '\n' ' ' | fold -sw 60)
+
+examples:
+	mode dark                   switch to dark mode and reload applications
+	mode restore --no-reload    make sure all configuration files are up-to-date
+	mode reload                 only reload applications
+
+EOF
+}
+
+. "$data/lib/functions.sh"
+
+switch() {
+	theme_path="$(readlink -f "$data/themes/$theme")"
+	theme="$(basename "$theme_path")"
+	echo "setting theme to $theme..."
+
+	. "$theme_path"
+
+	case "$mode" in
+		dark|light) break ;;
+		*)
+			echo "error: theme $theme does not define a valid \$mode" >&2
+			stupid && exit 1
+			;;
+	esac
+	export mode
+
+	# create accent color differently for dark/light mode
+	. "$data/lib/accent.sh"
+	
+	for switch_function in "$data"/switch.d/* ; do
+		! [ -x "$switch_function" ] && continue
+		"$switch_function" &
+	done
+
+	wait $(jobs -rp)
+}
+
+reload() {
+	echo "reloading programs..."
+
+	for reload_function in "$data"/reload.d/* ; do
+		! [ -x "$reload_function" ] && continue
+		"$reload_function" &
+	done
+
+	wait $(jobs -rp)
+}
+
+run_cfggen=1
+run_reload=1
+theme=""
+
+for arg in "$@" ; do
+	case "$arg" in
+		--) break ;;
+		-h|--help|help) usage ; exit 0 ;;
+		restore) theme="$(cat "$XDG_CACHE_HOME/mode/state/theme")" ;;
+		reload) run_reload=1 run_cfggen=0 ;;
+		-r|--no-reload) run_reload=0 ;;
+		-c|--no-cfggen) run_cfggen=0 ;;
+		*)
+			if [ -e "$data/themes/$arg" ] ; then
+				theme="$arg"
+				continue
+			fi
+			echo "error: unknown argument or theme: $arg" >&2
+			stupid && exit 1
+			;;
+	esac
+done
+if [ $run_cfggen -eq 1 ] && [ -z "$theme" ] ; then
+	echo "error: no theme selected" >&2
+	stupid && exit 1
+fi
+export theme
+
+[ $run_cfggen -eq 1 ] && switch
+[ $run_reload -eq 1 ] && reload
+

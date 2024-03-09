@@ -1,0 +1,58 @@
+#!/bin/sh
+PREFIX="$XDG_CONFIG_HOME/nvim/mode"
+mkdir -p "$PREFIX"
+
+# lightline
+cat << EOF > "$PREFIX/lightline.vim"
+let s:bg = [ '$bg', 'NONE' ]
+let s:fg = [ '$fg', 'NONE' ]
+let s:mode = [ '$color0', 'NONE' ]
+let s:faint = [ '$color8', 'NONE' ]
+let s:none = [ 'NONE', 'NONE' ]
+let s:test = [ '#ff00ff', 'NONE' ]
+
+let s:p = {'normal': {}, 'inactive': {}, 'insert': {}, 'replace': {}, 'visual': {}, 'tabline': {}}
+let s:p.normal.left = [ [ s:fg, s:mode ], [ s:faint, s:bg ] ]
+let s:p.normal.right = [ [ s:faint, s:bg ] ]
+let s:p.normal.middle = [ [ s:none, s:none ] ]
+let s:p.normal.error = [ [ s:test, s:test ] ]
+let s:p.normal.warning = [ [ s:test, s:test ] ]
+let s:p.inactive.left = copy(s:p.normal.left)
+let s:p.inactive.right = copy(s:p.normal.right)
+let s:p.inactive.middle = copy(s:p.normal.middle)
+let s:p.insert.left = copy(s:p.normal.left)
+let s:p.replace.left = copy(s:p.insert.left)
+let s:p.visual.left = copy(s:p.insert.left)
+let s:p.tabline.left = copy(s:p.normal.right)
+let s:p.tabline.tabsel = [ [ s:fg, s:mode ] ]
+let s:p.tabline.middle = copy(s:p.normal.right)
+let s:p.tabline.right = copy(s:p.normal.right)
+
+let g:lightline#colorscheme#auto#palette = lightline#colorscheme#flatten(s:p)
+EOF
+
+# terminal colors
+cat << EOF > "$PREFIX/termcolors.vim"
+let g:terminal_color_0 = '$color0'
+let g:terminal_color_1 = '$color1'
+let g:terminal_color_2 = '$color2'
+let g:terminal_color_3 = '$color3'
+let g:terminal_color_4 = '$color4'
+let g:terminal_color_5 = '$color5'
+let g:terminal_color_6 = '$color6'
+let g:terminal_color_7 = '$color7'
+let g:terminal_color_8 = '$color8'
+let g:terminal_color_9 = '$color9'
+let g:terminal_color_10 = '$color10'
+let g:terminal_color_11 = '$color11'
+let g:terminal_color_12 = '$color12'
+let g:terminal_color_13 = '$color13'
+let g:terminal_color_14 = '$color14'
+let g:terminal_color_15 = '$color15'
+EOF
+
+# color scheme
+cat << EOF > "$PREFIX/colorscheme.vim"
+colorscheme $vim_theme_name
+EOF
+

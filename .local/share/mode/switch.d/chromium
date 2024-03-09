@@ -1,5 +1,7 @@
 #!/bin/sh
-PREFIX="$XDG_DATA_HOME/mode/chromium"
+. "$XDG_DATA_HOME/mode/lib/functions.sh"
+
+PREFIX="$XDG_CACHE_HOME/mode/chromium"
 
 mkdir -p "$PREFIX"
 rm -f "$PREFIX/Cached Theme.pak"

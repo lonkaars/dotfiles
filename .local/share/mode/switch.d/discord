@@ -1,4 +1,6 @@
 #!/bin/sh
+. "$data/lib/functions.sh"
+
 cat << EOF > "$XDG_CONFIG_HOME/BetterDiscord/themes/mode.theme.css"
 /**
  * @name mode
