@@ -9,7 +9,6 @@ picom &
 xbanish &
 dunst &
 autocutsel -selection CLIPBOARD &
-autocutsel -selection PRIMARY &
 fcitx5 &
 xbindkeys --file "$XDG_CONFIG_HOME/xbindkeys/main" --nodaemon &
 {% if yadm.hostname == "thoncc" %}
