@@ -1,6 +1,6 @@
 #!/bin/sh
 cat "$XDG_CONFIG_HOME/dunst/base" - << EOF > "$XDG_CONFIG_HOME/dunst/dunstrc"
-frame_color = "$color0"
+frame_color = "$accent"
 
 [urgency_low]
 background = "$bg"
