@@ -66,13 +66,13 @@
 
 
 
-"~/.local/share/bin/wacommode topleft"
+"wacommode topleft"
 	Mod1 + Control + Mod4 + 1
-"~/.local/share/bin/wacommode bottomleft"
+"wacommode bottomleft"
 	Mod1 + Control + Mod4 + 2
-"~/.local/share/bin/wacommode topright"
+"wacommode topright"
 	Mod1 + Control + Mod4 + 3
-"~/.local/share/bin/wacommode bottomright"
+"wacommode bottomright"
 	Mod1 + Control + Mod4 + 4
 
 
@@ -118,3 +118,4 @@
 	XF86Launch6 + Release
 "fcitx5-remote -s mozc"
 	XF86Launch7 + Release
+

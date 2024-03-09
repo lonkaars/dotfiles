@@ -5,44 +5,38 @@
 # respective shell's profile or init file (e.g. .zshrc, .bash_profile, etc.)
 
 # AJATT (user account only because TTYs don't render non-ascii characters)
-export LANG="ja_JP.UTF-8"
+export LANG='ja_JP.UTF-8'
 
 # aliases
-alias cls="clear"
-alias vim="nvim"
-alias copy="xclip -selection c"
-alias dnd="dragon-drag-and-drop -a -x"
-alias mk="make"
-alias sl="sl -w"
-alias vv="neovide"
-alias today="khal list today today"
-alias bctl="bluetoothctl"
-alias sctl="systemctl --user"
+alias cls='clear'
+alias vim='nvim'
+alias copy='xclip -selection c'
+alias dnd='dragon-drag-and-drop -a -x'
+alias mk='make'
+alias sl='sl -w'
+alias vv='neovide'
+alias today='khal list today today'
+alias bctl='bluetoothctl'
+alias sctl='systemctl --user'
+alias fv='nvim "$(fzf)"'
 
 # one letters
-alias r="ranger"
-alias v="nvim"
-alias m="neomutt"
-alias y="yay"
-alias n="ncmpcpp"
-alias c="khal"
-alias f="fork"
-alias p="pass"
-alias b="bluetoothctl"
-alias s="systemctl --user"
-
-# "functions"
-alias reload="sudo systemctl restart lightdm"
-alias screenrecord='giph -f 60 -s -b 4 -c 255,255,255 $(date +"$HOME/%Y-%m-%d_%H-%M-%S.mp4")'
+alias r='ranger'
+alias v='nvim'
+alias m='neomutt'
+alias y='yay'
+alias n='ncmpcpp'
+alias c='khal'
+alias f='fork'
+alias p='pass'
+alias b='bluetoothctl'
+alias s='systemctl --user'
 
 # fontpreview
 if [ -n "$DISPLAY" ]; then
 	export FONTPREVIEW_BG_COLOR="$(xrdb -query | grep background | cut -f2)"
 	export FONTPREVIEW_FG_COLOR="$(xrdb -query | grep foreground | cut -f2)"
 fi
-
-# bat
-alias bat="bat -pp --theme=base16"
 
 # force colorterm
 export COLORTERM="truecolor"
@@ -63,7 +57,8 @@ export PATH="$HOME/.lyp/bin:$PATH"
 
 # other stuff
 export EDITOR="nvim"
-export FZF_DEFAULT_COMMAND="find ."
+export PAGER="less"
+export FZF_DEFAULT_COMMAND="find . -name '.?*' -prune -o -print"
 export FZF_DEFAULT_OPTS="--color=16"
 export GOPATH="$HOME/.local/go"
 [ -e "$XDG_CONFIG_HOME/gtk-4.0/env" ] && . "$XDG_CONFIG_HOME/gtk-4.0/env"

@@ -1,15 +1,17 @@
 #!/bin/sh
 . "$HOME/.profile"
 mode --no-reload restore
+
 /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1 &
 polybar &
 rwall &
-picom -b
+picom &
 xbanish &
 dunst &
-autocutsel &
-fcitx5 -d
-xbindkeys -f "$XDG_CONFIG_HOME/xbindkeys/main"
+autocutsel -selection CLIPBOARD &
+autocutsel -selection PRIMARY &
+fcitx5 &
+xbindkeys --file "$XDG_CONFIG_HOME/xbindkeys/main" --nodaemon &
 {% if yadm.hostname == "thoncc" %}
 xdimmer -t 45 -p 3 &
 light-locker --no-late-locking &
@@ -21,5 +23,14 @@ desktop2mqtt --config "$XDG_CONFIG_HOME/desktop2mqtt/config.yml" &
 flashfocus &
 
 # auto start lazy script after everything else
-[ -x "$HOME/do.sh" ] && "$HOME/do.sh"
+[ -x "$HOME/do.sh" ] && "$HOME/do.sh" &
 
+exit_trap() {
+	trap - SIGTERM
+	kill -- -$$
+}
+trap exit_trap SIGINT SIGTERM EXIT
+
+# I want to keep this script running so I can easily kill all daemons when i3
+# exits
+wait $(jobs -rp)

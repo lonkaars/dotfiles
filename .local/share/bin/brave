@@ -3,5 +3,5 @@
 # ~/.local/share/mode/reload.d/brave. this is probaby bad for security if
 # you're not the only user on the system
 /usr/bin/brave \
-	--remote-debugging-port=9222
+	--remote-debugging-port=9222 \
 	"$@"

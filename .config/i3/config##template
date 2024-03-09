@@ -25,11 +25,6 @@ for_window [class=".*"] border pixel 0
 # font
 font pango:Inter 9
 
-# no idea what these do but they were in here by default
-exec --no-startup-id xss-lock --transfer-sleep-lock -- i3lock --nofork
-exec --no-startup-id nm-applet
-set $refresh_i3status killall -SIGUSR1 i3status
-
 floating_modifier $mod
 
 # Gaps
@@ -41,7 +36,7 @@ bindsym $mod+n gaps inner current set -1; gaps outer current set 0
 bindsym $mod+d gaps inner current set $inner_gaps; gaps outer current set $outer_gaps;
 
 # Autostart
-exec "~/.config/i3/autostart"
+exec --no-startup-id "{{ env.XDG_CONFIG_HOME }}/i3/autostart"
 
 # split in horizontal orientation
 bindsym $mod+bar split h
