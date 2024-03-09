@@ -19,7 +19,7 @@ update_cache() {
 [ ! -e "$CACHE_FILE" ] && update_cache
 
 # update the cache if requested explicitly
-[ "$1" = "update" ] && {
+[ "$1" = "--update" ] && {
 	update_cache
 	exit
 }
@@ -28,16 +28,24 @@ update_cache() {
 MAX_CACHE_AGE=$(( 60 * 60 * 24 )) # one day
 [ $(( $(date +%s) - $MAX_CACHE_AGE )) -gt $(date -r "$CACHE_FILE" +%s) ] && update_cache
 
-# pick a scene using rofi in dmenu mode
-scene="$(cat "$CACHE_FILE" |\
-	rofi \
-		-dmenu \
-		-display-columns 1 \
-		-display-column-separator "$TAB" |\
-	cut -d"$TAB" -f2 |\
-	jq --raw-input)"
+if [ $# -eq 0 ] ; then
+	# pick a scene using rofi in dmenu mode
+	scene="$(cat "$CACHE_FILE" |\
+		rofi \
+			-dmenu \
+			-display-columns 1 \
+			-display-column-separator "$TAB" |\
+		cut -d"$TAB" -f2 |\
+		jq --raw-input)"
+else
+	# non interactive scene pick
+	scene="$(cat "$CACHE_FILE" |\
+		grep -w "$*" | head -n1 |\
+		cut -d"$TAB" -f2 |\
+		jq --raw-input)"
+fi
 
-# exit if no scene was selected
+# exit if no scene was selected / found
 [ -z "$scene" ] && exit 0
 
 jq -n --argjson scene "$scene" '{"entity_id": $scene}' |\
