@@ -19,3 +19,5 @@ bindkey '^[[Z' reverse-menu-complete
 # zsh autocompletion
 compinit -D
 
+# do not glob for calculator command
+aliases[=]="noglob ="
