@@ -1,11 +1,80 @@
 #!/bin/sh
+# WIP
+browser='brave'
+driver='chromedriver'
+devtools_addr='localhost:9222'
+url_base='http://localhost:9515'
 
+command -v "$browser" > /dev/null && command -v "$driver" > /dev/null
+[ $? -ne 0 ] && exit 0
 
-# - navigate to brave://settings
-# - run `chrome.send("setBraveThemeType", [THEME_ENUM])` in js console
-#   values  1: dark
-#           2: light
-# - navigate to brave://extensions
-# - run `chrome.send("setBraveThemeType", [THEME_ENUM])` in js console
+get() { curl -s -o - -X GET "$@" ; }
+post() { curl -s -o - -X POST -H 'Content-Type: application/json' -d @- "$@" ; }
+delete() { curl -s -X DELETE "$@" > /dev/null ; }
+
+$driver --silent > /dev/null &
+sleep 0.1 # (wait for chromedriver to start server)
+
+create_session() {
+	args="$(jq --raw-input --slurp 'split("\n") | map(select(. != ""))' << EOF
+new-window
+headless=new
+EOF
+	)"
+	jq -nc \
+		--arg name "$browser" \
+		--arg debugger "$devtools_addr" \
+		--argjson args "$args" \
+	'{
+		desiredCapabilities: {
+			"browserName": $name,
+			"goog:chromeOptions": {
+				binary: $name,
+				args: $args,
+				debuggerAddress: $debugger
+			},
+		}
+	}' |\
+	post "$url_base/session" |\
+	jq --raw-output '.sessionId'
+}
+
+navigate() {
+	jq -nc --arg url "$1" '{"url": $url}' |\
+	post "$url_base/url" > /dev/null
+}
+
+script() {
+	jq -nc --arg script "$1" '{"script": $script, args: []}' |\
+	post "$url_base/execute/sync" > /dev/null
+}
+
+create_tab() {
+	handle="$(jq -nc '{"type": "tab"}' |\
+	post "$url_base/window/new" |\
+	jq --raw-output '.value.handle')"
+	jq -nc --arg handle "$handle" '{"name": $handle}' |\
+	post "$url_base/window" > /dev/null
+}
+
+# create session
+session_id="$(create_session)"
+url_base="$url_base/session/$session_id"
+create_tab
+
+# set chrome theme
+navigate 'brave://settings'
+script "chrome.send(\"setBraveThemeType\", [$([ "$mode" = "light" ] && echo "2" || echo "1")])"
+
+# todo: reload theme extension
+# navigate 'brave://extensions'
 # - run `chrome.developerPrivate.loadUnpacked()` (TODO: how to handle inputting file path non-interactively)
 # TODO: how to use chromedriver from script (preferably without nodejs+npm or python3+pip dependencies?)
+
+# cleanup
+delete "$url_base/window"
+delete "$url_base"
+kill $(jobs -rp)
+wait $(jobs -rp)
+
+# reference: https://w3c.github.io/webdriver/

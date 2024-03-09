@@ -3,7 +3,7 @@
 # reloading, and i don't like having it running constantly because it fucks
 # up fcitx5 and xbindkeys
 (
-	fork xfsettingsd
+	fork xfsettingsd --replace
 	sleep 1
 	killall xfsettingsd
 )

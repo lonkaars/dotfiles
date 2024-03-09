@@ -1,9 +1,7 @@
 #!/bin/sh
-
-XDG_CONFIG_HOME="${XDG_CONFIG_HOME:-$HOME/.config}"
-BRAVE_USER_FLAGS_FILE="$XDG_CONFIG_HOME/brave-flags.conf"
-if [[ -f $BRAVE_USER_FLAGS_FILE ]]; then
-    USER_FLAGS="$(cat $BRAVE_USER_FLAGS_FILE | sed 's/#.*//')"
-fi
-
-/usr/bin/brave $@ $USER_FLAGS
+# the remote debugging is so brave can be hooked into by
+# ~/.local/share/mode/reload.d/brave. this is probaby bad for security if
+# you're not the only user on the system
+/usr/bin/brave \
+	--remote-debugging-port=9222
+	"$@"
