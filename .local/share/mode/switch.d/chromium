@@ -1,6 +1,4 @@
 #!/bin/sh
-. "$XDG_DATA_HOME/mode/lib/functions.sh"
-
 PREFIX="$XDG_CACHE_HOME/mode/chromium"
 
 mkdir -p "$PREFIX"

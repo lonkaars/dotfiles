@@ -1,6 +1,6 @@
 #!/bin/sh
 progname="$(basename "$0")"
-data="$(readlink -f "$(dirname "$(readlink -f "$0")")/..")"
+data="$(dirname "$(readlink -f "$0")")"
 export data
 
 stupid() {
@@ -22,9 +22,7 @@ actions:
 	restore    switch to last set theme ($XDG_CACHE_HOME/mode/state/theme)
 	reload     do not update configuration files, only reload applications
 	help       same as --help option
-
-themes:
-	$(ls "$data/themes" | tr '\n' ' ' | fold -sw 60)
+	list       list all themes
 
 examples:
 	mode dark                   switch to dark mode and reload applications
@@ -34,32 +32,31 @@ examples:
 EOF
 }
 
-. "$data/lib/functions.sh"
-
 switch() {
 	theme_path="$(readlink -f "$data/themes/$theme")"
 	theme="$(basename "$theme_path")"
 	echo "setting theme to $theme..."
 
+	# load theme colors + aux variables
 	. "$theme_path"
 
-	case "$mode" in
-		dark|light) break ;;
-		*)
-			echo "error: theme $theme does not define a valid \$mode" >&2
-			stupid && exit 1
-			;;
-	esac
-	export mode
+	# load plugins (available to switch.d scripts only)
+	for plugin in "$data"/plug.d/* ; do . "$plugin" ; done
 
-	# create accent color differently for dark/light mode
-	. "$data/lib/accent.sh"
-	
+	# generate new config files / snippets (in parallel)
 	for switch_function in "$data"/switch.d/* ; do
 		! [ -x "$switch_function" ] && continue
-		"$switch_function" &
+		interpreter="$(basename "$(command -v $(head -n1 "$switch_function" | sed -n 's/^#!\(.*\)/\1/p'))")"
+		if [ "$interpreter" = "sh" ] ; then
+			# source scripts if they are POSIX sh (makes plugin functions available)
+			. "$switch_function" &
+		else
+			# else, just run them
+			"$switch_function" &
+		fi
 	done
 
+	# join all processes started above
 	wait $(jobs -rp)
 }
 
@@ -84,6 +81,14 @@ for arg in "$@" ; do
 		-h|--help|help) usage ; exit 0 ;;
 		restore) theme="$(cat "$XDG_CACHE_HOME/mode/state/theme")" ;;
 		reload) run_reload=1 run_cfggen=0 ;;
+		list)
+			find "$data/themes" -type f,l | while read -r theme ; do
+				printf '%s' "$(basename "$theme")"
+				link="$(readlink "$theme")" && printf ' (%s)' "$link"
+				printf '\n'
+			done
+			exit 0
+			;;
 		-r|--no-reload) run_reload=0 ;;
 		-c|--no-cfggen) run_cfggen=0 ;;
 		*)

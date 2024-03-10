@@ -1,0 +1,17 @@
+#!/bin/sh
+# colors must be #RRGGBB
+check_color() {
+	(
+		eval "color=\"\${$1}\""
+		exit "$(echo "$color" | sed -n '/^#[0-9a-fA-F]\{6\}$/p' | wc -l)"
+	)
+	if [ $? -ne 1 ] ; then
+		echo "error: color $1 is not properly formatted (#RRGGBB)"
+		stupid && exit 1
+	fi
+	eval "export $1"
+}
+for color in $(seq 0 15 | sed 's/^/color/') bg fg ; do
+	check_color $color
+done
+

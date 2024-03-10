@@ -1,0 +1,9 @@
+#!/bin/sh
+# $mode = "light" | "dark"
+if [ "$mode" != 'dark' ] && [ "$mode" != 'light' ] ; then
+	pastel format hsl-lightness "$bg" | awk '{ exit($1 > 0.5) }'
+	[ $? -eq 0 ] && mode=dark || mode=light
+	echo "warn: theme $theme did not define \$mode as \"light\" or \"dark\", guessed $mode" >&2
+fi
+export mode
+

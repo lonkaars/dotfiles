@@ -1,0 +1,16 @@
+#!/bin/sh
+# create accent color differently for dark/light mode
+
+# do not generate accent color if already explicitly defined by theme
+[ -n "$accent" ] && return
+
+[ "$mode" == "light" ] && {
+	accent="$color15"
+	accent_text="$color0"
+}
+[ "$mode" == "dark" ] && {
+	accent="$(mix_rgb $bg $color0 0.5)"
+	accent_text="$fg"
+}
+
+export accent accent_text
