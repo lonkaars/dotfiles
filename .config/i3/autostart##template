@@ -32,4 +32,4 @@ trap exit_trap SIGINT SIGTERM EXIT
 
 # I want to keep this script running so I can easily kill all daemons when i3
 # exits
-wait $(jobs -rp)
+wait $(jobs -p)

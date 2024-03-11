@@ -74,7 +74,7 @@ script "chrome.send(\"setBraveThemeType\", [$([ "$mode" = "light" ] && echo "2" 
 # cleanup
 delete "$url_base/window"
 delete "$url_base"
-kill $(jobs -rp)
-wait $(jobs -rp)
+kill $(jobs -p)
+wait $(jobs -p)
 
 # reference: https://w3c.github.io/webdriver/

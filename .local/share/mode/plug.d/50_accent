@@ -4,11 +4,11 @@
 # do not generate accent color if already explicitly defined by theme
 [ -n "$accent" ] && return
 
-[ "$mode" == "light" ] && {
+[ "$mode" = "light" ] && {
 	accent="$color15"
 	accent_text="$color0"
 }
-[ "$mode" == "dark" ] && {
+[ "$mode" = "dark" ] && {
 	accent="$(mix_rgb $bg $color0 0.5)"
 	accent_text="$fg"
 }

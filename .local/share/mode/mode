@@ -69,7 +69,7 @@ switch() {
 	done
 
 	# join all processes started above
-	wait $(jobs -rp)
+	wait $(jobs -p)
 }
 
 # reload programs using scripts in reload.d
@@ -81,7 +81,7 @@ reload() {
 		"$reload_function" &
 	done
 
-	wait $(jobs -rp)
+	wait $(jobs -p)
 }
 
 # main program argument parser (later argument always take priority)
