@@ -4,5 +4,5 @@ rm -rf "$PREFIX"/*
 mkdir -p "$PREFIX"
 
 echo "$mode" > "$PREFIX/mode"
-echo "$theme" > "$PREFIX/theme"
+ln -sf "$theme" "$PREFIX/theme"
 
