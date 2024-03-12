@@ -21,7 +21,7 @@ if no file extension is found and none is explicitly provided, $EXEC_NAME will e
 EOF
 }
 
-if [ "$1" == "-h" ] || [ "$1" == "--help" ] ; then
+if [ "$1" = "-h" ] || [ "$1" = "--help" ] ; then
 	usage
 	exit 0
 fi

@@ -4,15 +4,7 @@ discord_version="$(echo "$discord_path" | tr '/' '\n' | tac | sed -n '/^[0-9.]\+
 betterdiscord_path="$XDG_CONFIG_HOME/BetterDiscord/data/betterdiscord.asar"
 cache_file="$XDG_CACHE_HOME/bdversion"
 
-# download betterdiscord.asar by default
-download=1
-# do not do download if discord hasn't been updated since the last time this
-# script was run
-[ -e "$cache_file" ] && [ "$discord_version" = "$(cat "$cache_file")" ] && download=0
-# always download if betterdiscord.asar does not exist
-[ ! -e "$betterdiscord_path" ] && download=1
-
-if [ $download -eq 1 ] ; then
+if [ "$discord_path" -nt "$betterdiscord_path" ] ; then
 	echo "download betterdiscord.asar"
 	curl -sLo - 'https://betterdiscord.app/Download/betterdiscord.asar' > "$betterdiscord_path"
 fi

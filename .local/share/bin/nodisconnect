@@ -2,7 +2,7 @@
 # use sox to play very quiet noise for keeping bluetooth headphones connected
 
 # kill any previously running processes
-killall -u "$LOGNAME" play
+killall -qu "$LOGNAME" play
 
 # arguments used:
 # -q                quiet mode (don't output progress bar)
@@ -13,4 +13,5 @@ killall -u "$LOGNAME" play
 # synth whitenoise  start with white noise
 # band -n 650 1300  bandpass filter between 650-1300 Hz
 # vol 0.01          very quiet
-play -q -n -r 44100 -b 32 -e signed -c 2 synth whitenoise band -n 650 1300 vol 0.01 & disown
+fork play -q -n -r 44100 -b 32 -e signed -c 2 synth whitenoise band -n 650 1300 vol 0.01
+

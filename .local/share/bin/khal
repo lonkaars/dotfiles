@@ -9,8 +9,8 @@ EOF
 fi
 
 # aliases
-[ "$1" == "i" ] && { shift ; set -- interactive "$@" ; }
-[ "$1" == "l" ] && { shift ; set -- list "$@" ; }
+[ "$1" = "i" ] && { shift ; set -- interactive "$@" ; }
+[ "$1" = "l" ] && { shift ; set -- list "$@" ; }
 
 exec /usr/bin/khal "$@"
 
