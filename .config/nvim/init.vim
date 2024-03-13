@@ -88,6 +88,7 @@ Plug 'eraserhd/parinfer-rust', {'do': 'cargo build --release'}
 Plug 'kaarmu/typst.vim'
 Plug 'aklt/plantuml-syntax'
 Plug 'fymyte/rasi.vim'
+Plug 'habamax/vim-asciidoctor'
 
 " 'vim=ide'
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
