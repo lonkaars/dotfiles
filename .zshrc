@@ -1,5 +1,7 @@
 ZSH_THEME="loek"
-zstyle ':omz:update' mode reminder
+
+# no
+zstyle ':omz:update' mode disabled
 DISABLE_AUTO_UPDATE=true
 DISABLE_UPDATE_PROMPT=true
 
@@ -21,3 +23,4 @@ compinit -D
 
 # do not glob for calculator command
 aliases[=]="noglob ="
+
