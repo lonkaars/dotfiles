@@ -1,0 +1,12 @@
+#!/bin/sh
+CFG="$XDG_CONFIG_HOME/khard/khard.conf"
+if [ "$CFG" -ot "$XDG_CONFIG_HOME/khard/config.sh" ] ; then
+	cat - "$XDG_CONFIG_HOME/khard/base" << "EOF" > "$CFG"
+# THIS FILE IS AUTO-GENERATED, EDIT config_gen OR base INSTEAD!!!
+
+EOF
+	"$XDG_CONFIG_HOME/khard/config_gen" >> "$CFG"
+fi
+
+exec /usr/bin/khard "$@"
+

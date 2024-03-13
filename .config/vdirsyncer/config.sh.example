@@ -13,6 +13,8 @@
 # NOTE: color and display name are automatically downloaded from the server,
 # and can not be set manually
 caldav 'https://dav.example.com' 'username' "$(pass www/dav.example.com/username)"
+# `caldav` only syncs calendar items. you can replace `caldav` with `carddav`
+# to only sync address books, or replace it with `dav` to sync both
 
 ### Web calendar example
 # NOTE: url should start with http(s)://, not webcal://

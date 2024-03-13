@@ -1,5 +1,5 @@
 #!/bin/sh
-. "$XDG_CONFIG_HOME/vdirsyncer/config_gen" lib
+EXPORT_LIB=y . "$XDG_CONFIG_HOME/vdirsyncer/config_gen"
 
 cat << EOF
 [calendars]
@@ -12,20 +12,20 @@ _sync() {
 	vdirsyncer metasync 1> /dev/null 2> /dev/null
 }
 
-_hexfmt() { sed 's/#\?\(..\)\(..\)\(..\)/0x\1 0x\2 0x\3/g' ; }
-TERMINAL_COLORS="$(for n in $(seq 0 15) ; do xrdb -get "color$n" ; done | _hexfmt)"
+color_fmt() { pastel format hsl | tr -d 'hsl(,%)' | sed 's/\.[^ ]\+//g' ; }
+TERMINAL_COLORS="$(for n in $(seq 0 15) ; do xrdb -get "color$n" ; done | color_fmt)"
 _color_quantize() {
-	INPUT="$(echo $1 | grep -o '#[0-9a-fA-F]\{6\}' | _hexfmt)"
+	INPUT="$(echo $1 | grep -o '#[0-9a-fA-F]\{6\}' | color_fmt)"
 	COLOR="$(printf '%s\n%s' "$INPUT" "$TERMINAL_COLORS" | awk --non-decimal-data '
 		# abs() is not built-in???
 		function abs(v) { return v < 0 ? -v : v }
 		BEGIN {
 			closest = 0; # closest ANSI color index
-			# max diff can at most be 3 * 255 (see diff calculation)
-			max_diff = 0xff * 3;
 			# offset line number once for input color, and another time to make color
 			# numbers start from 0 (line numbers start from 1 by default)
 			NR -= 2;
+			# keep track of the first color
+			first = 1;
 		}
 		{
 			# first line of input contains input colors
@@ -38,7 +38,8 @@ _color_quantize() {
 			if (NR == 0) next; # do not pick background color
 			# sloppy check to nearest RGB color
 			diff = abs(input_r - $1) + abs(input_g - $2) + abs(input_b - $3);
-			if (diff < max_diff) {
+			if (diff < max_diff || first) {
+				first = 0;
 				max_diff = diff;
 				closest = NR;
 			}
@@ -65,7 +66,8 @@ _color_quantize() {
 	esac
 }
 
-_cfg_caldav() {
+_cfg_dav() {
+	[ "$DAV_TYPE" != "caldav" ] && return
 	jq --raw-output '.collections[][0]' "$VDIRSYNCER_STATUS_PATH/$ID.collections" | while read -r collection ; do
 		collection_path="$XDG_DATA_HOME/vdirsyncer/$ID/$collection"
 		color_path="$collection_path/color"

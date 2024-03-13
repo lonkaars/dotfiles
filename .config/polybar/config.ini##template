@@ -49,7 +49,7 @@ modules-right = wireless keyboard volume whoami
 {% else %}
 modules-left = time date cal
 modules-center = mpd
-modules-right = wacomtouch keyboard volume whoami
+modules-right = dppt wacomtouch keyboard volume whoami
 {% endif %}
 
 separator =
@@ -119,15 +119,21 @@ exec = echo "%{T2}$(id -u -n)%{T-}@%{T2}$(uname -n)%{T-}"
 interval = 9999999
 label-font = 2
 
+[module/dppt]
+type = custom/script
+exec = dppt polybar
+tail = true
+click-left = dppt toggle
+click-middle = dppt reset
+
 [module/keyboard]
 type = custom/script
 exec = ~/.local/share/bin/kbindicator
 tail = true
-label-font = 1
 
 [module/cal]
 type = custom/script
-exec = khal list now tomorrow --notstarted --day-format '' --format '({start-time}) {calendar-color}{title}{reset}'
+exec = khal --color list now tomorrow --notstarted --day-format '' --format '({start-time}) {calendar-color}{title}{reset}' | ansi2polybar
 interval = 60
 # TODO: create script for converting ASCII escape codes to polybar/lemonbar formatting tags
 

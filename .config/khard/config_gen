@@ -1,0 +1,25 @@
+#!/bin/sh
+EXPORT_LIB=y . "$XDG_CONFIG_HOME/vdirsyncer/config_gen"
+
+cat << EOF
+[addressbooks]
+
+EOF
+
+_cfg_dav() {
+	[ "$DAV_TYPE" != "carddav" ] && return
+	jq --raw-output '.collections[][0]' "$VDIRSYNCER_STATUS_PATH/$ID.collections" | while read -r collection ; do
+		collection_path="$XDG_DATA_HOME/vdirsyncer/$ID/$collection"
+		displayname_path="$collection_path/displayname"
+		NAME="$(cat "$displayname_path")"
+		cat << EOF
+[[$NAME]]
+path = "$collection_path"
+EOF
+		echo
+	done
+}
+
+. "$CONFIG_FILE"
+
+printf '# %s:%s=%s\n' vim ft dosini
