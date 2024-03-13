@@ -2,9 +2,9 @@
 	Mod4 + Escape
 "polybar-msg cmd toggle" 
 	Mod4 + b
-"rofi -show drun -no-default-config"
+"rofi -show drun"
 	Mod4 + space
-"rofi -show window -no-default-config"
+"rofi -modes window -show window"
 	Alt + Tab
 "st"
 	Mod4 + Return
