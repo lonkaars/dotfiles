@@ -38,12 +38,6 @@ bind index \Cu previous-page # page up
 bind index \Cd next-page # page down
 bind attach <return> view-mailcap # always use mailcap to view attachments
 
-# contacts
-set alias_file = "$XDG_CONFIG_HOME/neomutt/aliases"
-set sort_alias = alias
-set reverse_alias = yes
-source "$alias_file"
-
 # miscellaneous options
 set fast_reply = yes
 set confirm_append = no
@@ -60,7 +54,6 @@ unset prompt_after
 set editor = "$EDITOR"
 # set pager = "less"
 set sendmail = "/usr/bin/msmtp"
-set query_command = "/usr/bin/lbdbq"
 
 # colors
 color hdrdefault blue default
