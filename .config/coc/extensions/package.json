@@ -6,7 +6,6 @@
     "coc-html": ">=1.8.0",
     "coc-java": ">=1.15.2",
     "coc-json": ">=1.9.2",
-    "coc-neosnippet": ">=1.2.2",
     "coc-python": ">=1.2.13",
     "coc-rust-analyzer": ">=0.75.2",
     "coc-tsserver": ">=2.1.4",
