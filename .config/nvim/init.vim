@@ -48,23 +48,19 @@ call plug#begin('~/.config/nvim/plugged')
 Plug 'jiangmiao/auto-pairs'
 Plug 'tpope/vim-surround'
 Plug 'itchyny/lightline.vim'
-Plug 'itchyny/vim-gitbranch'
 Plug 'terryma/vim-multiple-cursors'
 Plug 'AndrewRadev/tagalong.vim'
-Plug 'terrortylor/nvim-comment'
 Plug 'liuchengxu/vim-which-key'
 Plug 'justinmk/vim-sneak'
 Plug 'mbbill/undotree'
-
-" Plug 'jbgutierrez/vim-better-comments'
+Plug 'neoclide/coc.nvim', {'branch': 'release'}
+Plug 'puremourning/vimspector'
 Plug 'junegunn/goyo.vim'
-Plug 'othree/eregex.vim'
 Plug 'psliwka/vim-smoothie'
-Plug 'tpope/vim-fugitive'
+" Plug 'tpope/vim-fugitive'
 Plug 'airblade/vim-gitgutter'
 Plug 'wellle/targets.vim'
-Plug 'dstein64/vim-startuptime'
-Plug 'vim-scripts/DoxygenToolkit.vim'
+" Plug 'dstein64/vim-startuptime'
 Plug 'rrethy/vim-hexokinase', { 'do': 'make hexokinase' }
 Plug 'dkarter/bullets.vim'
 Plug 'editorconfig/editorconfig-vim'
@@ -88,38 +84,16 @@ Plug 'kaarmu/typst.vim'
 Plug 'aklt/plantuml-syntax'
 Plug 'fymyte/rasi.vim'
 Plug 'habamax/vim-asciidoctor'
-
-" 'vim=ide'
-Plug 'neoclide/coc.nvim', {'branch': 'release'}
-Plug 'ryanoasis/vim-devicons' "Icons for filetypes
-Plug 'puremourning/vimspector'
-Plug 'samoshkin/vim-mergetool'
+Plug 'lonkaars/coc-khard'
 
 " themes
 Plug 'arzg/vim-colors-xcode'
-Plug 'sainnhe/sonokai'
-Plug 'bluz71/vim-nightfly-guicolors'
-Plug 'Mcmartelle/vim-monokai-bold'
-Plug 'ntk148v/vim-horizon'
-Plug 'NLKNguyen/papercolor-theme'
-Plug 'scheakur/vim-scheakur'
-Plug 'mkarmona/materialbox'
-Plug 'morhetz/gruvbox'
 Plug '~/.config/nvim/local/bliss'
 Plug '~/.config/nvim/local/polarlight.vim'
 Plug '~/.config/nvim/local/autonyaa.vim'
 Plug 'lonkaars/blubber'
 Plug 'romgrk/github-light.vim'
 Plug 'vv9k/vim-github-dark'
-
-" tryout themes
-Plug 'https://github.com/mcchrish/zenbones.nvim'
-Plug 'https://github.com/Mangeshrex/uwu.vim'
-Plug 'https://github.com/metalelf0/jellybeans-nvim'
-Plug 'https://github.com/lifepillar/vim-wwdc17-theme'
-Plug 'https://github.com/jdsimcoe/abstract.vim'
-Plug 'https://github.com/ts-26a/vim-darkspace'
-Plug 'https://github.com/iandwelker/rose-pine-vim'
 call plug#end()
 
 " keybinds
