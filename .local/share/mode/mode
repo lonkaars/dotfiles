@@ -49,6 +49,10 @@ switch() {
 	theme_name="$(basename "$theme")"
 	echo "setting theme to $theme_name..."
 
+	# clean up environment
+	unset accent accent_text
+	unset mode
+
 	# load theme colors + aux variables
 	. "$theme"
 

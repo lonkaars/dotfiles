@@ -32,12 +32,6 @@ alias p='pass'
 alias b='bluetoothctl'
 alias s='systemctl --user'
 
-# fontpreview
-if [ -n "$DISPLAY" ]; then
-	export FONTPREVIEW_BG_COLOR="$(xrdb -query | grep background | cut -f2)"
-	export FONTPREVIEW_FG_COLOR="$(xrdb -query | grep foreground | cut -f2)"
-fi
-
 # force colorterm
 export COLORTERM="truecolor"
 

@@ -94,6 +94,7 @@ Plug '~/.config/nvim/local/autonyaa.vim'
 Plug 'lonkaars/blubber'
 Plug 'romgrk/github-light.vim'
 Plug 'vv9k/vim-github-dark'
+Plug 'rose-pine/neovim'
 call plug#end()
 
 " keybinds
