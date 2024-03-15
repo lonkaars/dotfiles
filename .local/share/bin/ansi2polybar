@@ -1,0 +1,67 @@
+#!/bin/sh
+# convert ansi escape codes into polybar/lemonbar color tags. this script makes
+# some very dumb assumptions about which escape codes will be in the input
+# stream, and is by no means complete, just good enough
+
+. "$XDG_CACHE_HOME/mode/state/theme"
+export bg fg $(seq 0 15 | sed 's/^/color/')
+
+exec gawk '
+function flush_buffer() {
+	switch (buf) {
+		case 0: printf "%{T-}%{F-}%{B-}%{u-}%{o-}" ; break
+		case 1: printf "%{T2}" ; break
+		case 30: printf "%{F" ENVIRON["color0"] "}" ; break
+		case 31: printf "%{F" ENVIRON["color1"] "}" ; break
+		case 32: printf "%{F" ENVIRON["color2"] "}" ; break
+		case 33: printf "%{F" ENVIRON["color3"] "}" ; break
+		case 34: printf "%{F" ENVIRON["color4"] "}" ; break
+		case 35: printf "%{F" ENVIRON["color5"] "}" ; break
+		case 36: printf "%{F" ENVIRON["color6"] "}" ; break
+		case 37: printf "%{F" ENVIRON["color7"] "}" ; break
+		case 90: printf "%{F" ENVIRON["color8"] "}" ; break
+		case 91: printf "%{F" ENVIRON["color9"] "}" ; break
+		case 92: printf "%{F" ENVIRON["color10"] "}" ; break
+		case 93: printf "%{F" ENVIRON["color11"] "}" ; break
+		case 94: printf "%{F" ENVIRON["color12"] "}" ; break
+		case 95: printf "%{F" ENVIRON["color13"] "}" ; break
+		case 96: printf "%{F" ENVIRON["color14"] "}" ; break
+		case 97: printf "%{F" ENVIRON["color15"] "}" ; break
+		default: break
+	}
+	buf = ""
+}
+function reset() {
+	bold = 0
+	buf = ""
+	esc = 0
+}
+BEGIN {
+	RS = "(.)" # make awk read character by character
+	reset()
+}
+# start of escape code
+esc == 0 && RT == "\x1b" { esc += 1 }
+
+# ignore some characters for buffering
+esc > 0 && RT == "\x1b" { next }
+esc > 0 && RT == "[" { next }
+
+esc > 0 && RT == ";" {
+	flush_buffer()
+	next
+}
+
+# end of escape code
+esc > 0 && RT == "m" {
+	flush_buffer()
+	reset()
+	next
+}
+
+esc > 0 { buf = buf RT }
+
+# print while not reading escape code
+esc == 0 { printf RT }
+'
+
