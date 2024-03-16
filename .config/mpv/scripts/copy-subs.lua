@@ -3,7 +3,13 @@ _G.auto = false
 function copy()
 	local sub = mp.get_property("sub-text")
 	if sub then
-		os.execute("echo '" .. sub:gsub('\'', '\'\\\'\'') .. "' | xclip -selection clipboard -i")
+		-- remove some specific unicode characters
+		sub = sub:gsub('\u{27a1}', '')
+		sub = sub:gsub('\u{fffd}', '')
+
+		sub = sub:gsub('\n', ' ') -- replace newlines with space
+		sub = sub:gsub('\'', '\'\\\'\'') -- escape single quotes
+		os.execute("echo '" .. sub .. "' | xclip -selection clipboard -i")
 	end
 end
 
