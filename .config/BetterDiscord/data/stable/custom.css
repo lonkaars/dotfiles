@@ -1,1 +1,2 @@
 li:has(a[href="/shop"]) { display: none; }
+li:has(a[href="/store"]) { display: none; }
