@@ -1,6 +1,3 @@
-" use terminal background color
-hi Normal guibg=NONE
-
 " change default vim-sneak colors to be more readable
 hi! SneakLabel gui=reverse
 hi! SneakLabelMask gui=reverse
