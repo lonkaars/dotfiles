@@ -14,6 +14,10 @@ shadow-offset-x = -48;
 {% endif %}
 corner-radius = 8;
 
+fade-in-step = 0.3;
+fade-out-step = 0.18;
+fade-delta = 16;
+
 shadow-exclude = [
 	"!I3_FLOATING_WINDOW@:c && class_g != 'st' && _NET_WM_WINDOW_TYPE@:32a *= '_NET_WM_WINDOW_TYPE_NORMAL'",
 	"!I3_FLOATING_WINDOW@:c && WM_CLASS@:s = 'st'",
@@ -46,6 +50,10 @@ wintypes: {
 
 	utility = {
 		shadow = false;
+	};
+
+	notification = {
+		fade = true;
 	};
 };
 
