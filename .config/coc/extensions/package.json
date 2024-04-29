@@ -12,9 +12,10 @@
     "coc-vimtex": ">=1.1.5",
     "coc-lua": ">=2.0.6",
     "coc-deno": ">=3.13.0",
-    "coc-sh": ">=1.2.2"
+    "coc-sh": ">=1.2.2",
+    "coc-solargraph": ">=1.2.4"
   },
   "disabled": [],
   "locked": [],
-  "lastUpdate": 1709404256776
+  "lastUpdate": 1711896062742
 }

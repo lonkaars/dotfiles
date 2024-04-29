@@ -17,6 +17,8 @@ source "$ZSH/oh-my-zsh.sh"
 
 # shift-tab fix
 bindkey '^[[Z' reverse-menu-complete
+# <esc> e to open vim
+bindkey '^[e' edit-command-line
 
 # zsh autocompletion
 compinit -D

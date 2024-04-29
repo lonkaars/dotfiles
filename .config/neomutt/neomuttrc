@@ -18,8 +18,10 @@ set smtp_pass = "$imap_pass"
 set smtp_url = "smtp://$imap_user@mail.pipeframe.xyz:587"
 set ssl_force_tls = yes
 
-# mail check timeout
+# automatically refresh incoming mail
 set mail_check = 60
+unset wait_key
+push "<shell-escape> systemctl --user start mbsync & <enter>"
 
 # mailboxes
 mailboxes +Inbox +Drafts +Junk +Sent +Trash +Archive
@@ -28,7 +30,7 @@ mailboxes +Inbox +Drafts +Junk +Sent +Trash +Archive
 set mailcap_path = "$XDG_CONFIG_HOME/mailcap"
 
 # keybinds (more vim-like than default)
-macro index,pager a "<save-message>=Archive<enter>" "Archive Message" # archive
+macro index,pager a "<save-message>+Archive<enter>" "Archive Message" # archive
 bind index,pager n search-next # next search match
 bind index,pager N search-opposite # previous search match
 bind generic,index g noop # clear immediate action of `g` (required for `gg`)
@@ -50,30 +52,30 @@ set auto_edit = yes
 set mime_type_query_command = "xdg-mime query filetype"
 unset prompt_after
 
+# format strings
+set status_format = "%D %> %P "
+set folder_format = "%i"
+set browser_abbreviate_mailboxes = yes
+
 # external programs
 set editor = "$EDITOR"
 # set pager = "less"
 set sendmail = "/usr/bin/msmtp"
 
 # colors
+color indicator reverse default default # selection
+color index none white default # all other mail
+color index bold default default "~N|~O" # new/unopened mail
+uncolor status
+uncolor tree
+uncolor search
 color hdrdefault blue default
 color quoted blue black
 color signature blue black
-color attachment red black
+color attachment brightblack default
 color prompt brightmagenta black
 color message brightred default
 color error brightred black
-color indicator black red
-color status white default
-color tree white black
-# color normal white black
 color markers red black
-color search white black
 color tilde brightmagenta black
-color index blue black "~F"
-color index red black "~N|~O"
-
-# switch folders
-macro index i "<change-folder> =Inbox"<enter>
-macro index h "<change-folder> =Archive"<enter>
 

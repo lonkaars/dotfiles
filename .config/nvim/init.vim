@@ -49,7 +49,6 @@ Plug 'jiangmiao/auto-pairs'
 Plug 'tpope/vim-surround'
 Plug 'itchyny/lightline.vim'
 Plug 'terryma/vim-multiple-cursors'
-Plug 'AndrewRadev/tagalong.vim'
 Plug 'liuchengxu/vim-which-key'
 Plug 'justinmk/vim-sneak'
 Plug 'mbbill/undotree'
@@ -339,6 +338,9 @@ endfunc
 " markdown
 let g:markdown_enable_spell_checking = 0
 au FileType markdown set expandtab
+
+" asciidoc
+au FileType asciidoctor set expandtab
 
 " binary files
 augroup Binary

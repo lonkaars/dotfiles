@@ -17,7 +17,6 @@ Inbox ~/docs/mail/pipeframe/Inbox
 Channel pipeframe
 Far :pipeframe-remote:
 Near :pipeframe-local:
-# Patterns "/Inbox" "/Drafts" "/Junk" "/Sent" "/Trash" "/Archive"
 Patterns *
 Create Both
 SyncState *

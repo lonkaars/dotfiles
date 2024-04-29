@@ -2,6 +2,6 @@
 # the remote debugging is so brave can be hooked into by
 # ~/.local/share/mode/reload.d/brave. this is probaby bad for security if
 # you're not the only user on the system
+# --remote-debugging-port=9222 \
 /usr/bin/brave \
-	--remote-debugging-port=9222 \
 	"$@"

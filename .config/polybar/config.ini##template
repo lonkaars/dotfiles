@@ -133,7 +133,7 @@ tail = true
 
 [module/cal]
 type = custom/script
-exec = khal --color list now 1h --notstarted --day-format '' --format '({start-time}) {calendar-color}{title}{reset}' | ansi2polybar
+exec = now | ansi2polybar
 interval = 60
 
 {% include "config.{{ yadm.hostname }}.ini" %}

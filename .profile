@@ -41,13 +41,21 @@ export XDG_CACHE_HOME="$HOME/.cache"
 export XDG_DATA_HOME="$HOME/.local/share"
 export XDG_STATE_HOME="$HOME/.local/state"
 
+# ruby
+export GEM_HOME="$XDG_DATA_HOME/gem/ruby/3.0.0"
+
 # script locations
-export PATH="$HOME/.local/share/bin:$PATH"
-export PATH="$HOME/.local/bin:$PATH"
-export PATH="$HOME/.local/go/bin:$PATH"
-export PATH="$HOME/.local/share/cargo/bin:$PATH"
-# export PATH="/opt/f4pga/xc7/conda/bin:$PATH"
-export PATH="$HOME/.lyp/bin:$PATH"
+if [ -z "$PATH_EXTENDED" ] ; then
+	PATH="$GEM_HOME/bin:$PATH"
+	# PATH="$HOME/.lyp/bin:$PATH"
+	# PATH="/opt/f4pga/xc7/conda/bin:$PATH"
+	PATH="$HOME/.local/share/cargo/bin:$PATH"
+	PATH="$HOME/.local/go/bin:$PATH"
+	PATH="$HOME/.local/bin:$PATH"
+	PATH="$HOME/.local/share/bin:$PATH"
+	export PATH
+	export PATH_EXTENDED=y
+fi
 
 # other stuff
 export EDITOR="nvim"
