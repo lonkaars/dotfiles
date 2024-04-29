@@ -1,7 +1,4 @@
-backend = "glx";
-shadow = true;
 {% if yadm.hostname == "thoncc" %}
-vsync = true;
 shadow-radius = 24;
 shadow-opacity = 0.15;
 shadow-offset-y = -24;
@@ -11,8 +8,14 @@ shadow-radius = 48;
 shadow-opacity = 0.3;
 shadow-offset-y = -48;
 shadow-offset-x = -48;
+
+# do not touch, shit finally works w/ gpu
+backend = "xrender";
+vsync = true;
 {% endif %}
+
 corner-radius = 8;
+shadow = true;
 
 fade-in-step = 0.3;
 fade-out-step = 0.18;
