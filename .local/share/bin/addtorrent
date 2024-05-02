@@ -1,0 +1,41 @@
+#!/bin/sh
+progname="$(basename "$0")"
+
+title="Torrent"
+msg_ok="Torrent successfully added"
+msg_err="Could not add torrent"
+usage="usage: $progname URL"
+err_no_seedbox="error: \$SEEDBOX_LOGIN is not set"
+
+case "$LANG" in
+	ja_JP*)
+		title="トレント"
+		msg_ok="一つのトレントを追加しました"
+		msg_err="トレントを追加できませんでした"
+		usage="用法: $progname URL"
+		err_no_seedbox="エラー: \$SEEDBOX_LOGINに値がありません"
+		;;
+esac
+
+die() {
+	echo "$1"
+	exit 1
+}
+
+[ $# -eq 0 ] && die "$usage"
+[ -z "$SEEDBOX_LOGIN" ] && die "$err_no_seedbox"
+
+ssh "$SEEDBOX_LOGIN" transmission-remote -a "'$(echo "$1" | sed "s/'/'\\''/g")'"
+if [ $? -eq 0 ]; then
+	msg="$msg_ok"
+	urgency="normal"
+else
+	msg="$msg_err"
+	urgency="critical"
+fi
+
+notify-send \
+	--app-name "$title" \
+	--urgency "$urgency" \
+	"$title" "$msg"
+

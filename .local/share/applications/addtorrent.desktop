@@ -1,0 +1,8 @@
+[Desktop Entry]
+Name=addtorrent
+Name[ja]=トレントを追加
+Exec=addtorrent %U
+Type=Application
+Hidden=true
+MimeType=application/x-bittorrent;x-scheme-handler/magnet;
+
