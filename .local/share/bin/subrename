@@ -1,0 +1,54 @@
+#!/bin/sh
+file_extension=".srt"
+season=1
+episode=1
+
+PROGNAME="$(basename "$0")"
+USAGE="$( cat << EOF
+usage: $PROGNAME [-h] [-s season] [-e episode] [-x extension] file1 [file2 ...]
+
+rename files to s01e01.srt, s01e02.srt, etc.
+
+options:
+	-s    set season number (default: $season)
+	-e    set episode number of first file (default: $episode)
+	-x    set file extension for output files (default: $file_extension)
+	-h    show help
+
+example:
+	subrename -x .ja.srt *.srt
+EOF
+)"
+usage() {
+	echo "$USAGE"
+	exit 0
+}
+stupid() {
+	echo "use $PROGNAME -h for help"
+	exit 1
+}
+
+ARGC=0
+while getopts e:s:x:h OPT; do
+	[ $OPTIND -gt $ARGC ] && ARGC=$OPTIND
+	case "$OPT" in
+		e) episode="$OPTARG" ;;
+		h) usage ;;
+		s) season="$OPTARG" ;;
+		x) file_extension="$OPTARG" ;;
+		\?|*) stupid ;;
+	esac
+done
+shift "$(( $OPTIND - 1 ))"
+
+if [ $# -eq 0 ] ; then
+	echo "error: no files provided"
+	stupid
+fi
+
+for file in "$@" ; do
+	new_filename="$(printf 's%02de%02d%s\n' "$season" "$episode" "$file_extension")"
+	mv --verbose "$file" "$new_filename"
+	episode=$(( $episode + 1 ))
+done
+

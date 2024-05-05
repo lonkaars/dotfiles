@@ -7,7 +7,7 @@ bye () {
 
 [ $(id -g) -ne 0 ] && bye
 
-mount /boot
-pacman --noconfirm -S linux
-grub-install --target=x86_64-efi --efi-directory=/boot --bootloader-id=GRUB
+# mount /boot
+# pacman --noconfirm -S linux
+grub-install --target=x86_64-efi --efi-directory=/boot --bootloader-id=GRUB # --removable
 grub-mkconfig -o /boot/grub/grub.cfg
