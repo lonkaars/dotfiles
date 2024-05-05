@@ -8,11 +8,11 @@ shadow-radius = 48;
 shadow-opacity = 0.3;
 shadow-offset-y = -48;
 shadow-offset-x = -48;
+{% endif %}
 
 # do not touch, shit finally works w/ gpu
 backend = "xrender";
 vsync = true;
-{% endif %}
 
 corner-radius = 8;
 shadow = true;
