@@ -11,7 +11,7 @@ set postponed = "+Drafts"
 
 # imap credentials
 set imap_user = "loek@mail.pipeframe.xyz"
-set imap_pass = "$(pass srv/fortnite/passwd/loek)"
+set imap_pass = "$(pass srv/wipper/passwd/loek)"
 
 # smtp credentials
 set smtp_pass = "$imap_pass"
