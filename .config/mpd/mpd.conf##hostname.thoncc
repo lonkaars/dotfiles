@@ -1,4 +1,4 @@
-music_directory "/mnt/mpd/music"
+music_directory "https://media.pipeframe.xyz/music"
 playlist_directory "/mnt/mpd/playlists"
 
 pid_file "/mnt/mpd/mpd.pid"
