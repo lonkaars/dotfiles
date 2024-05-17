@@ -1,6 +1,9 @@
 #!/bin/sh
 COLOR="$1"
-[ -z "$COLOR" ] && COLOR="$(xrdb -get background)"
+if [ -z "$COLOR" ] ; then
+	. "$XDG_CACHE_HOME/mode/state/theme"
+	COLOR="$bg"
+fi
 convert -size 1x1 "xc:$COLOR" /tmp/bgcol.png
 feh --no-fehbg --bg-tile /tmp/bgcol.png
 rm /tmp/bgcol.png
