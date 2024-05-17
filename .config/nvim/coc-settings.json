@@ -33,6 +33,10 @@
 		"vhdl": {
 			"command": "vhdl_ls",
 			"filetypes": ["vhdl"]
+		},
+		"glsl": {
+			"command": "glsl_analyzer",
+			"filetypes": ["glsl", "vert", "tesc", "tese", "frag", "geom", "comp"]
 		}
   },
   "java.import.gradle.java.home": "/usr/lib/jvm/java-17-openjdk"
