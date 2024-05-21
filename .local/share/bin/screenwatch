@@ -1,0 +1,11 @@
+#!/bin/sh
+# repeatedly open terminal at $dev, even when $dev temporarily dissapears
+dev="$1"
+while inotifywait -qq -e create --include "$dev" "$(dirname "$dev")"; do
+	sleep 0.1 # wait until device is initialized
+	screen "$@"
+
+	# break out of loop if device still exists when screen exits (manual screen exit)
+	[ -e "$dev" ] && break
+done
+
