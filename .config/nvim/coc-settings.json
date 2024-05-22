@@ -1,6 +1,7 @@
 {
 	"suggest.noselect": true,
-  "python.jediEnabled": false,
+	"python.jediEnabled": false,
+	"inlayHint.enable": false,
 	"languageserver": {
 		"clangd": {
 			"command": "clangd",
@@ -38,6 +39,6 @@
 			"command": "glsl_analyzer",
 			"filetypes": ["glsl", "vert", "tesc", "tese", "frag", "geom", "comp"]
 		}
-  },
-  "java.import.gradle.java.home": "/usr/lib/jvm/java-17-openjdk"
+	},
+	"java.import.gradle.java.home": "/usr/lib/jvm/java-17-openjdk"
 }
