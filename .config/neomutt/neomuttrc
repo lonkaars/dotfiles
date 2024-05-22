@@ -55,6 +55,7 @@ unset prompt_after
 # format strings
 set status_format = "%D %> %P "
 set folder_format = "%i"
+set index_format = " %Z  %[%m月%d日]  %-15.15L  %s "
 set browser_abbreviate_mailboxes = yes
 
 # external programs
