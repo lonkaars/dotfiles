@@ -2,7 +2,7 @@
 	defaultBranch = master
 [user]
 	email = loek@pipeframe.xyz
-	name = lonkaars
+	name = Loek Le Blansch
 	signingkey = {{ env.GPG_ID_GIT }}
 [commit]
 	gpgsign = true
