@@ -1,12 +1,11 @@
 {% if yadm.hostname == "thoncc" %}
 *.font: JetBrainsMono Nerd Font:size=7.5:antialias=true:autohint=true
 *.borderpx: 8
-Xcursor.theme: OpenZone_Black_Slim
 {% else %}
 *.font: JetBrainsMono Nerd Font:size=9:antialias=true:autohint=true
 *.borderpx: 16
-Xcursor.theme: OpenZone_Black
 {% endif %}
+Xcursor.theme: OpenZone_Black_Slim
 
 *.termname: st-256color
 *.shell: /bin/sh
