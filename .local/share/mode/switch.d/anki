@@ -1,0 +1,124 @@
+#!/bin/sh
+
+# this generates theme files compatible with Anki-redesign:
+# <https://ankiweb.net/shared/info/308574457>
+# <https://github.com/shirajuki/anki-redesign>
+ANKI_REDESIGN="$XDG_DATA_HOME/Anki2/addons21/308574457"
+
+# ensure folders exist
+mkdir -p "$ANKI_REDESIGN/user_files/themes"
+
+# disable layout themeing
+( cd "$ANKI_REDESIGN/user_files"
+	touch BottomBar.css CardLayout.css DeckBrowser.css Editor.css Overview.css \
+		Reviewer.css ReviewerBottomBar.css TopToolbar.css global.css legacy.css )
+
+# ensure theme is set to mode
+CONFIG="$ANKI_REDESIGN/config.json"
+[ -e "$CONFIG" ] && jq '.theme = "mode"' "$CONFIG" | sponge "$CONFIG"
+
+name() {
+	key="$1"
+	value="$2"
+	key_json="$(printf '%s' "$key" | tr '[:lower:]' '[:upper:]' | tr -c '[:alnum:]' '_')"
+	key_css="--$(printf '%s' "$key" | tr '[:upper:]' '[:lower:]' | tr -c '[:alnum:]' '-')"
+	echo "\"$key_json\": [ \"\", \"\", \"$value\", \"$value\", \"$key_css\" ]"
+}
+
+unused="#ff00ff"
+surface_0=$(mix_rgb $bg '#000000' 0.7)
+surface_1=$(mix_rgb $color0 $bg 0.40)
+surface_2=$(mix_rgb $color0 $bg 0.60)
+
+cat << EOF > "$ANKI_REDESIGN/user_files/themes/mode.json"
+{
+	"colors": {
+		$(name accent-card                   "#93c5fd"),
+		$(name accent-danger                 "#f87171"),
+		$(name accent-note                   "#4ade80"),
+		$(name border                        "#202020"),
+		$(name border-focus                  "#3b82f6"),
+		$(name border-strong                 "#020202"),
+		$(name border-subtle                 "$bg"),
+		$(name buried-fg                     "#777733"),
+		$(name button-bg                     "$surface_1"),
+		$(name button-disabled               "$bg"),
+		$(name button-focus-bg               "#0093d0"),
+		$(name button-gradient-end           "$surface_2"),
+		$(name button-gradient-start         "$surface_2"),
+		$(name button-hover-border           "#141414"),
+		$(name button-primary-bg             "#2652cf"),
+		$(name button-primary-disabled       "#4484ed"),
+		$(name button-primary-gradient-end   "#2652cf"),
+		$(name button-primary-gradient-start "#2f67e1"),
+		$(name canvas                        "$bg"),
+		$(name canvas-code                   "$surface_0"),
+		$(name canvas-elevated               "$bg"),
+		$(name canvas-inset                  "$surface_1"),
+		$(name canvas-overlay                "$bg"),
+		$(name current-deck                  "$unused"),
+		$(name disabled                      "#777"),
+		$(name faint-border                  "#29292b"),
+		$(name fg                            "$fg"),
+		$(name fg-disabled                   "#737373"),
+		$(name fg-faint                      "#545454"),
+		$(name fg-link                       "#bfdbfe"),
+		$(name fg-subtle                     "#858585"),
+		$(name flag1-bg                      "#aa5555"),
+		$(name flag1-fg                      "#ff7b7b"),
+		$(name flag2-bg                      "#ac653a"),
+		$(name flag2-fg                      "#f5aa41"),
+		$(name flag3-bg                      "#559238"),
+		$(name flag3-fg                      "#86ce5d"),
+		$(name flag4-bg                      "#506aa3"),
+		$(name flag4-fg                      "#6f9dff"),
+		$(name flag5-bg                      "#975d8f"),
+		$(name flag5-fg                      "#f097e4"),
+		$(name flag6-bg                      "#399185"),
+		$(name flag6-fg                      "#5ccfca"),
+		$(name flag7-bg                      "#624b77"),
+		$(name flag7-fg                      "#9f63d3"),
+		$(name flag-1                        "$color9"),
+		$(name flag-2                        "$color11"),
+		$(name flag-3                        "$color10"),
+		$(name flag-4                        "$color12"),
+		$(name flag-5                        "$color13"),
+		$(name flag-6                        "$color14"),
+		$(name flag-7                        "$color5"),
+		$(name focus-shadow                  "#0093d0"),
+		$(name frame-bg                      "$surface_1"),
+		$(name highlight-bg                  "$accent"),
+		$(name highlight-fg                  "$accent_text"),
+		$(name learn-count                   "#ff935b"),
+		$(name link                          "#77ccff"),
+		$(name marked-bg                     "#77c"),
+		$(name medium-border                 "#444"),
+		$(name new-count                     "#77ccff"),
+		$(name review-count                  "#5ccc00"),
+		$(name scrollbar-bg                  "$surface_1"),
+		$(name scrollbar-bg-active           "$surface_2"),
+		$(name scrollbar-bg-hover            "$surface_2"),
+		$(name selected-bg                   "rgba(147, 197, 253, 0.5)"),
+		$(name selected-fg                   "$fg"),
+		$(name shadow                        "#141414"),
+		$(name shadow-focus                  "#6366f1"),
+		$(name shadow-inset                  "#202020"),
+		$(name shadow-subtle                 "#363636"),
+		$(name slightly-grey-text            "#ccc"),
+		$(name state-buried                  "#92400e"),
+		$(name state-learn                   "#f87171"),
+		$(name state-marked                  "#a855f7"),
+		$(name state-new                     "#93c5fd"),
+		$(name state-review                  "#22c55e"),
+		$(name state-suspended               "#fef9c3"),
+		$(name suspended-bg                  "#aaaa33"),
+		$(name suspended-fg                  "#ffffb2"),
+		$(name text-fg                       "$fg"),
+		$(name tooltip-bg                    "$surface_1"),
+		$(name window-bg                     "$bg"),
+		$(name zero-count                    "#444")
+	},
+	"version": { "major": -1, "minor": -1 }
+}
+EOF
+

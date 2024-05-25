@@ -1,0 +1,5 @@
+tr.deck td {
+	--border-subtle: var(--canvas-inset);
+	border-bottom: none;
+}
+
