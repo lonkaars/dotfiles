@@ -1,2 +1,20 @@
-body { background-color: var(--canvas); }
+body
+{ background-color: var(--canvas); }
+
+.rich-text-input,
+.tag-editor
+{ padding: 0.5ex !important; }
+
+body
+{ font-size: 10pt !important; }
+
+anki-editable { background-color: #ff00ff; }
+
+.editor-field
+{ border-color: var(--canvas-inset) !important; }
+
+.tag-editor {
+	border: none !important;
+	margin: 0 !important;
+}
 

@@ -8,11 +8,6 @@ ANKI_REDESIGN="$XDG_DATA_HOME/Anki2/addons21/308574457"
 # ensure folders exist
 mkdir -p "$ANKI_REDESIGN/user_files/themes"
 
-# disable layout themeing
-( cd "$ANKI_REDESIGN/user_files"
-	touch BottomBar.css CardLayout.css DeckBrowser.css Editor.css Overview.css \
-		Reviewer.css ReviewerBottomBar.css TopToolbar.css global.css legacy.css )
-
 # ensure theme is set to mode
 CONFIG="$ANKI_REDESIGN/config.json"
 [ -e "$CONFIG" ] && jq '.theme = "mode"' "$CONFIG" | sponge "$CONFIG"
