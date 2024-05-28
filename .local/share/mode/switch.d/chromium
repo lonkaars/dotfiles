@@ -4,7 +4,7 @@ PREFIX="$XDG_CACHE_HOME/mode/chromium"
 mkdir -p "$PREFIX"
 rm -f "$PREFIX/Cached Theme.pak"
 
-convert -size 100x100 "xc:$bg" "$PREFIX/bg.png"
+magick -size 100x100 "xc:$bg" "$PREFIX/bg.png"
 bg_alt=$(mix_rgb $color7 $bg 0.20)
 fg_alt=$(mix_rgb $color15 $fg 0.60)
 bg="$(hex_to_rgb_array "$bg")"
