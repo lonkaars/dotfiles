@@ -1,0 +1,7 @@
+#outer {
+	padding-top: 2px;
+	border: none;
+}
+
+center#outer ~ div { display: none; }
+
