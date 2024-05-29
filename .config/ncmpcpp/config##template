@@ -10,23 +10,26 @@ ncmpcpp_directory = "{{ env.XDG_CONFIG_HOME }}/ncmpcpp"
 lyrics_directory = "{{ env.XDG_CACHE_HOME }}/lyrics"
 
 progressbar_look = "-> "
-progressbar_elapsed_color = "cyan"
-progressbar_color = "black"
-playlist_display_mode = "classic"
-autocenter_mode = "yes"
-centered_cursor = "yes"
-user_interface = "alternative"
+progressbar_elapsed_color = black:b
+progressbar_color = black
+playlist_display_mode = classic
+autocenter_mode = yes
+centered_cursor = yes
+user_interface = alternative
 
-header_visibility = "no"
-statusbar_visibility = "no"
-titles_visibility = "no"
+header_visibility = no
+statusbar_visibility = no
+titles_visibility = no
 
-state_flags_color = blue
+state_flags_color = black:b
 main_window_color = white
-current_item_prefix = $(magenta)$r
-song_columns_list_format = (20)[]{a} (6f)[blue]{NE} (50)[white]{t|f:Title} (20)[blue]{} (7f)[magenta]{l}
+current_item_prefix = "$r"
+song_columns_list_format = "(20)[]{a} (6f)[blue]{NE} (50)[default]{t|f:Title} (20)[blue]{} (7f)[magenta]{l}"
 song_list_format = " {{%a - %t}|{%f}}{$R%l} "
-window_border_color = blue
+window_border_color = default
 
-now_playing_prefix = "$b$6"
-now_playing_suffix = "$/b$9"
+alternative_header_first_line_format = "{{%a $8-$0 $b%t$/b}|{%f}}"
+alternative_header_second_line_format = "$8{{%b}{ (%y)}}|{%D}"
+
+now_playing_prefix = "$b$0"
+now_playing_suffix = "$/b"

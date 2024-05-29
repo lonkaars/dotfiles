@@ -39,8 +39,9 @@ module-margin-right = 0
 
 font-0 = "JetBrains Mono Nerd Font:pixelsize=8:weight=regular:size=0;2"
 font-1 = "JetBrains Mono Nerd Font:pixelsize=8:weight=bold:size=0;2"
-font-2 = "Hiragino Kaku Gothic ProN W6:pixelsize=8:weight=medium:size=0;1"
-font-3 = "Noto Sans KR:pixelsize=8:weight=medium:size=0;2"
+font-2 = "Hiragino Kaku Gothic ProN W3:pixelsize=8:weight=medium:size=0;1"
+font-3 = "Hiragino Kaku Gothic ProN W6:pixelsize=8:weight=medium:size=0;1"
+font-4 = "Noto Sans KR:pixelsize=8:weight=medium:size=0;2"
 
 {% if yadm.hostname == "thoncc" %}
 modules-left = time date cal mpd
@@ -109,7 +110,7 @@ label = %time%
 [module/time]
 type = internal/date
 interval = 1.0
-time = %{T2}%H時%M分%{T-}
+time = %{T2}%H%{T-}%{T4}時%{T-}%{T2}%M%{T-}%{T4}分%{T-}
 format = <label>
 label = %time%
 
