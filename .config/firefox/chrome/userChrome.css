@@ -1,1 +1,29 @@
-/* this works */
+/* hide shit */
+#alltabs-button,
+#appMenu-fxa-status2,
+#appMenu-fxa-separator
+{ display: none !important; }
+
+/* undo shit */
+#urlbar,
+#searchbar
+{ font-size: unset !important; }
+
+/* make shit compact */
+body { font-size: 10pt; }
+.tab-background {
+	min-height: unset !important;
+	margin-block: 0 !important;
+}
+
+.tabbrowser-tab
+{ padding: 0 !important; }
+
+.tab-background,
+#TabsToolbar .toolbarbutton-1 > .toolbarbutton-icon
+{ border-radius: 0 !important; }
+
+#nav-bar,
+#navigator-toolbox
+{ border: none !important; }
+
