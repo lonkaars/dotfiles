@@ -1,6 +1,10 @@
 configuration {
 	modi: "drun,run";
+{% if yadm.hostname == "thoncc" %}
+	font: "JetBrainsMono Nerd Font 7.5";
+{% else %}
 	font: "JetBrainsMono Nerd Font 9";
+{% endif %}
 	matching: "fuzzy";
 	separator-style: "none";
 	hide-scrollbar: true;
@@ -14,14 +18,15 @@ configuration {
 	background-color: ${background};
 	text-color: ${foreground};
 	spacing: 0;
-{% if yadm.hostname == "thoncc" %}
-	width: 400;
-{% else %}
-	width: 450;
-{% endif %}
 	line-padding: 0;
 	line-margin: 0;
+{% if yadm.hostname == "thoncc" %}
+	width: 340;
+	--padding: 6px;
+{% else %}
+	width: 450;
 	--padding: 8px;
+{% endif %}
 }
 
 inputbar {
