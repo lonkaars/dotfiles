@@ -49,11 +49,7 @@ listview {
 	cycle: false;
 	margin: 0 0 -1px 0;
 	scrollbar: false;
-{% if yadm.hostname == "thoncc" %}
-	lines: 5;
-{% else %}
 	lines: 6;
-{% endif %}
 }
 
 element {
