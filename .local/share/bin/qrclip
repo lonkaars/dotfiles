@@ -1,2 +1,2 @@
 #!/bin/sh
-maim -usb 4 -c 0,0,0 | zbarimg -q -
+maim -usb 4 -c 0,0,0 | zbarimg --raw --quiet -
