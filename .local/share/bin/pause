@@ -1,0 +1,10 @@
+#!/bin/sh
+ec=0
+if [ $# -ge 1 ] ; then
+	"$@"
+	ec=$?
+fi
+printf "Press enter to exit..."
+read
+exit $ec
+

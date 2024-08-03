@@ -8,10 +8,10 @@ fi
 url="https://youtube.com/watch?v=$vid"
 
 # download chat
-screen -d -m -S "yt-$vid-chat" -- yt-dlp --live-from-start --write-sub --no-download "$url"
+screen -d -m -S "yt-$vid-chat" -- pause yt-dlp --live-from-start --write-sub --no-download "$url"
 
 # download stream
-screen -d -m -S "yt-$vid-vod" -- yt-dlp --live-from-start -S ext "$url"
+screen -d -m -S "yt-$vid-vod" -- pause yt-dlp --live-from-start -S ext "$url"
 
 echo "started recording! (use screen -r yt-$vid-<tab> to stop)"
 
