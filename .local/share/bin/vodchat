@@ -1,0 +1,3 @@
+#!/bin/sh
+input_file="$1"
+jq --raw-output '.replayChatItemAction.actions[].addChatItemAction.item.liveChatTextMessageRenderer | "[" + (.timestampUsec | tonumber / 1e6 | todateiso8601) + "] " + .authorName.simpleText + ": " + .message.runs[].text' "$input_file" 2>/dev/null
