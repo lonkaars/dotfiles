@@ -110,9 +110,10 @@ label = %time%
 [module/time]
 type = internal/date
 interval = 1.0
-time = %{T2}%H%{T-}%{T4}時%{T-}%{T2}%M%{T-}%{T4}分%{T-}
+time = %H:%M
 format = <label>
 label = %time%
+label-font = 2
 
 [module/whoami]
 type = custom/script
