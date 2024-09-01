@@ -3,7 +3,7 @@ Host mail.pipeframe.xyz
 Port 993
 User loek@mail.pipeframe.xyz
 PassCmd "pass srv/wipper/passwd/loek"
-SSLType IMAPS
+TLSType IMAPS
 CertificateFile /etc/ssl/certs/ca-certificates.crt
 
 IMAPStore pipeframe-remote

@@ -24,7 +24,8 @@ fade-delta = 16;
 shadow-exclude = [
 	"!I3_FLOATING_WINDOW@:c && class_g != 'st' && _NET_WM_WINDOW_TYPE@:32a *= '_NET_WM_WINDOW_TYPE_NORMAL'",
 	"!I3_FLOATING_WINDOW@:c && WM_CLASS@:s = 'st'",
-	"_NET_WM_WINDOW_TYPE@:32a *= '_NET_WM_WINDOW_TYPE_MENU' && override_redirect = true"
+	"_NET_WM_WINDOW_TYPE@:32a *= '_NET_WM_WINDOW_TYPE_MENU' && override_redirect = true",
+	"WM_CLASS@:s = 'Firefox' && WM_WINDOW_ROLE@:s = 'Popup'"
 ]
 
 rounded-corners-exclude = [

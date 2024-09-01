@@ -3,40 +3,46 @@
 caffeine
 
 PCI_ADDRESS="0000:00:14.0"
-USB_BUS_NUM="2"
+# USB_BUS_NUM="11"
+USB_BUS_NUM="12"
 VIDEO_DEVICE="/dev/v4l/by-path/pci-$PCI_ADDRESS-usb-0:$USB_BUS_NUM:1.0-video-index0"
+AUDIO_DEVICE="alsa:usbstream=CARD=MS2109"
 
 WIDTH="$1"
 HEIGHT="$2"
 FRAMERATE="$3"
 RESOLUTION="${WIDTH}x${HEIGHT}"
 DEVICE="$(readlink -f "$VIDEO_DEVICE")"
-DEVICE_INDEX="$(grep "usb-$PCI_ADDRESS-$USB_BUS_NUM" /proc/asound/card*/usbmixer | cut -d: -f1 | tr -cd '[:digit:]')"
-DEFAULT_SINK_ALIAS="$(pw-metadata 0 default.audio.sink | grep -Po "value:'(.*?)'" | head -c-2 | cut -c8- | jq --raw-output .name)"
 
-CAPTURE_FL="alsa:pcm:$DEVICE_INDEX:front:$DEVICE_INDEX:capture:capture_0"
-CAPTURE_FR="alsa:pcm:$DEVICE_INDEX:front:$DEVICE_INDEX:capture:capture_1"
-OUTPUT_FL="$DEFAULT_SINK_ALIAS:playback_0"
-OUTPUT_FR="$DEFAULT_SINK_ALIAS:playback_1"
+# DEVICE_INDEX="$(grep "usb-$PCI_ADDRESS-$USB_BUS_NUM" /proc/asound/card*/usbmixer | cut -d: -f1 | tr -cd '[:digit:]')"
+# DEFAULT_SINK_ALIAS="$(pw-metadata 0 default.audio.sink | grep -Po "value:'(.*?)'" | head -c-2 | cut -c8- | jq --raw-output .name)"
 
-echo "link $CAPTURE_FR -> $OUTPUT_FR"
-echo "link $CAPTURE_FL -> $OUTPUT_FL"
+# CAPTURE_FL="alsa:pcm:$DEVICE_INDEX:front:$DEVICE_INDEX:capture:capture_0"
+# CAPTURE_FR="alsa:pcm:$DEVICE_INDEX:front:$DEVICE_INDEX:capture:capture_1"
+# OUTPUT_FL="$DEFAULT_SINK_ALIAS:playback_0"
+# OUTPUT_FR="$DEFAULT_SINK_ALIAS:playback_1"
 
-pw-link "$CAPTURE_FL" "$OUTPUT_FL"
-pw-link "$CAPTURE_FR" "$OUTPUT_FR"
+# echo "link $CAPTURE_FR -> $OUTPUT_FR"
+# echo "link $CAPTURE_FL -> $OUTPUT_FL"
+
+# pw-link "$CAPTURE_FL" "$OUTPUT_FL"
+# pw-link "$CAPTURE_FR" "$OUTPUT_FR"
 
 v4l2-ctl -d "$DEVICE" --set-parm "$FRAMERATE"
 v4l2-ctl -d "$DEVICE" --set-fmt-video "width=$WIDTH,height=$HEIGHT,pixelformat=MJPG"
 v4l2-ctl -d "$DEVICE" --set-ctrl "brightness=0,contrast=128,saturation=128,hue=0"
 
-mpv --demuxer-lavf-format=video4linux2 \
-	--demuxer-lavf-o-set=input_format=mjpeg,framerate="$FRAMERATE",resolution="$RESOLUTION" \
-	--cache=no \
-	--pause=no \
-	--force-seekable=no \
-	--no-osc \
-	--no-input-default-bindings \
+mpv \
+	--no-config \
+	--input-conf=/dev/null --profile=low-latency --untimed --no-correct-pts \
+	--no-osc --no-input-default-bindings --cache=no --pause=no --force-seekable=no \
+	--demuxer-lavf-format=video4linux2 \
+	--demuxer-lavf-o-set=input_format=mjpeg,framerate="$FRAMERATE",resolution="$RESOLUTION",rw_timeout=30000000 \
+	--demuxer-thread=yes \
 	"av://v4l2:$DEVICE"
+# --audio-samplerate=48000 --audio-channels=stereo --audio-file="av://$AUDIO_DEVICE" \
+# --lavfi-complex="[aid1] amix [ao]; [v] [ao] concat=n=1:v=1:a=1 [vo] [ao]" \
 
-pw-link -d "$CAPTURE_FL" "$OUTPUT_FL"
-pw-link -d "$CAPTURE_FR" "$OUTPUT_FR"
+# pw-link -d "$CAPTURE_FL" "$OUTPUT_FL"
+# pw-link -d "$CAPTURE_FR" "$OUTPUT_FR"
+

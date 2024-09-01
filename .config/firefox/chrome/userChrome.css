@@ -1,7 +1,9 @@
 /* hide shit */
 #alltabs-button,
 #appMenu-fxa-status2,
-#appMenu-fxa-separator
+#appMenu-fxa-separator,
+#fullscreen-warning,
+.findbar-highlight
 { display: none !important; }
 
 /* undo shit */

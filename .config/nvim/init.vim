@@ -104,8 +104,8 @@ nnoremap tt :tabnew<CR>
 nmap <CR> o<Esc>
 nmap <leader>qf <Plug>(coc-fix-current)
 
-nnoremap <A-j> :m +1<CR>
-nnoremap <A-k> :m -2<CR>
+nnoremap <silent> <A-j> :m +1<CR>
+nnoremap <silent> <A-k> :m -2<CR>
 
 imap <C-h> <Left>
 imap <C-j> <Down>
@@ -194,15 +194,10 @@ cnoreabbrev W w
 cnoreabbrev sudow w !sudo tee %
 
 " hexokinase
-let g:Hexokinase_optInPatterns = [
-			\ 'full_hex',
-			\ 'triple_hex',
-			\ 'rgb',
-			\ 'rgba',
-			\ 'hsl',
-			\ 'hsla'
-			\ ]
+let g:Hexokinase_termDisabled = 1
+let g:Hexokinase_optOutPatterns = [ 'colour_names' ]
 
+" lightline
 let g:lightline = {
 			\ 'colorscheme': 'auto',
 			\ 'mode_map': {

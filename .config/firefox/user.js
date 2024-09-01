@@ -15,14 +15,12 @@ user_pref("dom.security.https_only_mode_ever_enabled", true);
 
 // smooth scrolling
 user_pref("general.smoothScroll", true);
-user_pref("mousewheel.default.delta_multiplier_y", 85);
 user_pref("general.smoothScroll.msdPhysics.enabled", true);
 user_pref("general.smoothScroll.msdPhysics.continuousMotionMaxDeltaMS", 12);
-user_pref("general.smoothScroll.msdPhysics.motionBeginSpringConstant", 800);
-user_pref("general.smoothScroll.msdPhysics.regularSpringConstant", 800);
 user_pref("general.smoothScroll.msdPhysics.slowdownMinDeltaMS", 25);
+user_pref("general.smoothScroll.msdPhysics.motionBeginSpringConstant", 1800);
 user_pref("general.smoothScroll.msdPhysics.slowdownMinDeltaRatio", "2");
-user_pref("general.smoothScroll.msdPhysics.slowdownSpringConstant", 40);
+user_pref("general.smoothScroll.msdPhysics.slowdownSpringConstant", 60);
 user_pref("general.smoothScroll.currentVelocityWeighting", "1");
 user_pref("general.smoothScroll.stopDecelerationWeighting", "1");
 

@@ -46,11 +46,11 @@ font-4 = "Noto Sans KR:pixelsize=8:weight=medium:size=0;2"
 {% if yadm.hostname == "thoncc" %}
 modules-left = time date cal mpd
 modules-center = battery1 battery2 brightness
-modules-right = wireless keyboard volume whoami
+modules-right = wireless keyboard volume
 {% else %}
 modules-left = time date cal
 modules-center = mpd
-modules-right = dppt wacomtouch keyboard volume whoami
+modules-right = dppt wacomtouch keyboard volume
 {% endif %}
 
 separator =
@@ -113,12 +113,6 @@ interval = 1.0
 time = %H:%M
 format = <label>
 label = %time%
-label-font = 2
-
-[module/whoami]
-type = custom/script
-exec = echo "%{T2}$(id -u -n)%{T-}@%{T2}$(uname -n)%{T-}"
-interval = 9999999
 label-font = 2
 
 [module/dppt]

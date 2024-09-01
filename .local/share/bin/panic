@@ -1,5 +1,19 @@
 #!/bin/sh
-i3-msg focus output primary > /dev/null
-i3-msg workspace 'panic1' > /dev/null
-i3-msg focus output right > /dev/null
-i3-msg workspace 'panic2' > /dev/null
+silent() {
+	"$@" 1>/dev/null 2> /dev/null &
+}
+
+# clear desktop
+silent i3-msg focus output primary
+silent i3-msg workspace 'panic1'
+silent i3-msg focus output right
+silent i3-msg workspace 'panic2'
+
+# stop playing media (if any)
+silent mpc pause
+silent playerctl -a pause
+
+# mute mic/headphones
+silent pactl set-sink-mute @DEFAULT_SINK@ true
+silent pactl set-source-mute @DEFAULT_SOURCE@ true
+

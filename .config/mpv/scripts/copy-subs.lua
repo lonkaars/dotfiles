@@ -7,6 +7,7 @@ function copy()
 		sub = sub:gsub('\u{27a1}', '')
 		sub = sub:gsub('\u{fffd}', '')
 		sub = sub:gsub('\u{3013}', '')
+		sub = sub:gsub('\u{2015}', '')
 
 		sub = sub:gsub('\n', ' ') -- replace newlines with space
 		sub = sub:gsub('\'', '\'\\\'\'') -- escape single quotes
