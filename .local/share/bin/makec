@@ -1,0 +1,18 @@
+#!/bin/sh
+# mini wrapper around CMake + Ninja to build in one command
+
+BUILD_DIR="build"
+CMAKE="cmake --fresh --log-level WARNING -Wno-deprecated"
+
+if [ ! -e "$BUILD_DIR/build.ninja" ] ||
+   [ "CMakeLists.txt" -nt "$BUILD_DIR/build.ninja" ] ; then
+	 $CMAKE -B "$BUILD_DIR" -G Ninja
+fi
+
+if [ "$*" = "clean" ] ; then
+	rm -rf "$BUILD_DIR"
+	exit 0
+fi
+
+exec ninja -C "$BUILD_DIR" "$@"
+
