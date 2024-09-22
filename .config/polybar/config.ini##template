@@ -50,7 +50,7 @@ modules-right = wireless keyboard volume
 {% else %}
 modules-left = time date cal
 modules-center = mpd
-modules-right = dppt wacomtouch keyboard volume
+modules-right = wacomtouch keyboard volume
 {% endif %}
 
 separator =
@@ -114,13 +114,6 @@ time = %H:%M
 format = <label>
 label = %time%
 label-font = 2
-
-[module/dppt]
-type = custom/script
-exec = dppt polybar
-tail = true
-click-left = dppt toggle
-click-middle = dppt reset
 
 [module/keyboard]
 type = custom/script
