@@ -112,16 +112,20 @@ imap <C-j> <Down>
 imap <C-k> <Up>
 imap <C-l> <Right>
 
-command WordQuotesToLatex
+command UTF2Latex
 			\ :%s/‘/`/ge |
 			\ :%s/’/'/ge |
 			\ :%s/“/``/ge |
-			\ :%s/”/''/ge
-command WordQuotesToAscii
+			\ :%s/”/''/ge |
+			\ :%s/–/--/ge |
+			\ :%s/—/---/ge
+command UTF2Ascii
 			\ :%s/‘/'/ge |
 			\ :%s/’/'/ge |
 			\ :%s/“/"/ge |
-			\ :%s/”/"/ge
+			\ :%s/”/"/ge |
+			\ :%s/–/--/ge |
+			\ :%s/—/---/ge
 
 " leader keybindings
 nnoremap <silent> <leader> :WhichKey '<space>'<CR>
