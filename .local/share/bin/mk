@@ -1,0 +1,44 @@
+#!/bin/sh
+progname="$(basename "$0")"
+showmode() {
+	mode=" ($1)"
+	col=$(( $(tput cols) - $(echo "$mode" | wc -L) + 1 ))
+	printf '\e[1A\e['$col'G\e[1;30m%s\e[0m\n' "$mode"
+}
+
+mode_cmake() {
+	showmode 'cmake'
+	builddir="build"
+
+	[ "$*" = "clean" ] && exec rm -rf "$builddir"
+
+	# re-run configuration if fresh or CMakeLists was changed
+	if [ ! -e "$builddir/build.ninja" ] ||
+		 [ "CMakeLists.txt" -nt "$builddir/build.ninja" ] ; then
+		 cmake --log-level WARNING -B "$builddir" -G Ninja
+	fi
+
+	exec ninja -C "$builddir" "$@"
+}
+[ -e "CMakeLists.txt" ] && mode_cmake "$@"
+
+mode_make() {
+	showmode 'make'
+	exec make "$@"
+}
+[ -e "makefile" ] && mode_make "$@"
+[ -e "Makefile" ] && mode_make "$@"
+
+mode_latexmk() {
+	showmode 'latexmk'
+
+	[ "$*" = "clean" ] && exec latexmk -c
+
+	exec latexmk "$@"
+}
+[ -e "latexmkrc" ] && mode_latexmk "$@"
+[ -e ".latexmkrc" ] && mode_latexmk "$@"
+
+echo "$progname: unable to determine project build system!" >&2
+exit 1
+
