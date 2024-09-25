@@ -18,7 +18,7 @@ mode_cmake() {
 		 cmake --log-level WARNING -B "$builddir" -G Ninja
 	fi
 
-	exec ninja -C "$builddir" "$@"
+	cd "$builddir" && exec ninja "$@"
 }
 [ -e "CMakeLists.txt" ] && mode_cmake "$@"
 

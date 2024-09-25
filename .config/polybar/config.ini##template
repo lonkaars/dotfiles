@@ -103,7 +103,7 @@ label-muted = "muted"
 [module/date]
 type = internal/date
 interval = 1.0
-time = %m月%d日 %A
+time = %m月%d日 (%a)
 format = <label>
 label = %time%
 
