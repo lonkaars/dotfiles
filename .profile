@@ -81,7 +81,7 @@ export WINEPREFIX="$XDG_DATA_HOME/wineprefixes/default"
 export HISTFILE="$XDG_DATA_HOME/zsh/history"
 export CUDA_CACHE_PATH="$XDG_CACHE_HOME/nv"
 export CONAN_USER_HOME="$XDG_CONFIG_HOME/conan"
-alias nvidia-settings=nvidia-settings --config="$XDG_CONFIG_HOME"/nvidia/settings
+alias nvidia-settings='nvidia-settings --config="$XDG_CONFIG_HOME/nvidia/settings"'
 alias gpg2="gpg2 --homedir $XDG_DATA_HOME/gnupg"
 export PASSWORD_STORE_DIR="$XDG_DATA_HOME/pass"
 export WGETRC="$XDG_CONFIG_HOME/wgetrc"
