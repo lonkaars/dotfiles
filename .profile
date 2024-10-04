@@ -89,10 +89,6 @@ export WGETRC="$XDG_CONFIG_HOME/wgetrc"
 # disable dotnet telemetry
 export DOTNET_CLI_TELEMETRY_OPTOUT=1
 
-# java
-export _JAVA_OPTIONS="-Djava.util.prefs.userRoot=$XDG_CONFIG_HOME/java -Dawt.useSystemAAFontSettings=on -Dswing.defaultlaf=com.sun.java.swing.plaf.gtk.GTKLookAndFeel"
-export _JAVA_AWT_WM_NONREPARENTING=1
-
 # GPG key IDs
 export GPG_ID_DEFAULT="1081FFE2B963ADB5BDCF4DA6D0E3BC76E355B6CC"
 export GPG_ID_GIT="$GPG_ID_DEFAULT"
