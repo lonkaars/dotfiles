@@ -1,0 +1,13 @@
+#!/bin/sh
+cat "$@" |\
+	awk '
+BEGIN { FS = "\t" }
+{
+	seconds = $1
+	minutes = int(seconds / 60)
+	seconds = seconds % 60
+	millis = (seconds * 100) % 100
+	printf("[%02d:%02d.%02d]%s\n", minutes, seconds, millis, $3)
+}
+'
+
