@@ -1,0 +1,107 @@
+#!/bin/awk -f
+
+# ignore empty or comment lines
+/^\s*#/ { next }
+/^\s*$/ { next }
+
+{
+	owner = ""
+	date = ""
+	duration = 0
+	description = ""
+}
+
+function max(a, b) {
+	return a > b ? a : b
+}
+
+function duration2time(duration) {
+	temp = 0
+	num = 0
+	multiplier = 60
+
+	split(duration, char, "")
+	for (i=1; i <= length(duration); i++) {
+		if (char[i] == "h") {
+			temp += num * 60 * 60
+			multiplier = 60
+			num = 0
+			continue
+		}
+		if (char[i] == "m") {
+			temp += num * 60
+			multiplier = 1
+			num = 0
+			continue
+		}
+		if (char[i] == "s") {
+			temp += num
+			multiplier = 0
+			num = 0
+			continue
+		}
+
+		num *= 10
+		num += char[i]
+	}
+	if (num > 0) {
+		temp += num * multiplier
+	}
+
+	return temp
+}
+
+function stripnotes(desc) {
+	out = ""
+	nestlevel = 0
+
+	split(desc, char, "")
+	for (i=1; i <= length(desc); i++) {
+		if (char[i] == "(") {
+			nestlevel += 1
+			continue
+		}
+
+		if (char[i] == ")") {
+			nestlevel = max(0, nestlevel - 1)
+			continue
+		}
+
+		if (nestlevel > 0) continue
+		out = out char[i]
+	}
+
+	return out
+}
+
+# strip leading whitespace
+/^\s+/ { gsub(/^\s+/, "", $0) }
+
+# match owner
+match($0, /^[[:alpha:]]+/) {
+	owner = substr($0, RSTART, RLENGTH)
+	gsub(/^[[:alpha:]]+:?\s*/, "", $0)
+}
+
+# match date
+match($0, /^[0-9-]{10}/) {
+	date = substr($0, RSTART, RLENGTH)
+	gsub(/^[0-9-]{10}:?\s*/, "", $0)
+}
+
+# match time
+match($0, /^\<([0-9]+h)?([0-9]{1,2}m)?([0-9]{1,2}s)?\>/) {
+	duration = duration2time(substr($0, RSTART, RLENGTH))
+	gsub(/^\<([0-9]+h)?([0-9]{1,2}m)?([0-9]{1,2}s)?\>:?\s*/, "", $0)
+}
+
+# description
+{
+	description = stripnotes($0)
+}
+
+# output
+{
+	printf("%s\t%s\t%s\t%s\n", owner, date, duration, description)
+}
+

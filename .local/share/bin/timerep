@@ -1,0 +1,75 @@
+#!/bin/sh
+TAB="$(printf '\t')"
+time2tsv "$@" | sort -t"$TAB" -k4 | awk -F"$TAB" '
+{
+	gsub(/^\s+/, "", $4)
+	gsub(/\s+$/, "", $4)
+	desc = $4
+	if (desc != last_desc && last_desc != "") {
+		printf("%s\t%d\n", last_desc, sum)
+		sum = 0
+	}
+	sum += $3
+	last_desc = desc
+}
+END {
+	printf("%s\t%d\n", last_desc, sum)
+}
+' | awk -F"$TAB" '
+BEGIN {
+	split("", last_path) # define empty array
+}
+
+function strip(string) {
+	gsub(/^\s+/, "", string)
+	gsub(/\s+$/, "", string)
+	return string
+}
+
+function repeat(str, count,    i) {
+	out = ""
+	for (i = 0; i < count; i++) {
+		out = str out
+	}
+	return out
+}
+function indent(depth,    i) {
+	return repeat("  ", depth)
+}
+
+function printpath(new_path,    new, i) {
+	new = 0
+	for (i = 1; i <= length(new_path); i++) {
+		if (last_path[i] != new_path[i]) new = 1
+		if (new == 0) continue
+		printf("%s%s\n", indent(i-1), new_path[i])
+		last_path[i] = new_path[i]
+	}
+}
+
+{
+	len = split($1, path, "::")
+	for (i = 1; i <= len; i++)
+		path[i] = strip(path[i])
+
+	task = path[len]
+	delete path[len]
+	depth = len - 1
+	sum += $2
+	"timefmt "$2 | getline duration
+
+	printpath(path)
+	printf("%-67s  %10s\n", indent(depth) task, duration)
+}
+
+BEGIN {
+	printf("\033[4m%-67s\033[0m  \033[4m%10s\033[0m\n", "Description", "Total")
+}
+
+END {
+	"timefmt "sum | getline duration
+	printf("%67s  \033[4m%10s\033[0m\n", "", "")
+	printf("%67s  %10s\n", "", duration)
+}
+'
+
