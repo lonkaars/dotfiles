@@ -1,0 +1,24 @@
+#!/bin/sh
+[ $# -eq 0 ] && sum="$(cat)" || sum="$1"
+sum="$(echo "$sum" | tr -dc '[:digit:]')"
+if [ -z "$sum" ] ; then
+	echo "error: no input number"
+	exit 1
+fi
+
+fmt() {
+	# printf '%d:%02d:%02d\n' $@ | sed -e 's/^0\{2,\}//'
+	printf '%02dh%02dm%02ds\n' $@ | sed -e 's/00s$//' -e 's/^\(00.\)\+//' -e 's/^0\+//'
+}
+
+fmt $(bc <<EOF
+sum = $sum
+seconds = sum % 60
+sum = (sum - seconds) / 60
+minutes = sum % 60
+sum = (sum - minutes) / 60
+hours = sum
+print hours," ",minutes," ",seconds
+EOF
+)
+
