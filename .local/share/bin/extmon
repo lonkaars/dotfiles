@@ -1,0 +1,26 @@
+#!/bin/sh
+out_int="eDP1"
+out_ext="HDMI1"
+res_int="1366x768"
+res_ext="1920x1080"
+
+off() {
+	xrandr \
+		--output "$out_ext" --off \
+		--output "$out_int" --mode "$res_int" --panning "$res_int" --transform none --primary \
+		--fb "$res_int"
+}
+
+on() {
+	xrandr \
+		--fb "$res_ext" \
+		--output "$out_int" --mode "$res_int" --panning "$res_ext" --scale-from "$res_ext" \
+		--output "$out_ext" --mode "$res_ext" --scale 1x1 --same-as "$out_int" --primary
+}
+
+[ "$1" = "on" ] && on
+[ "$1" = "off" ] && off
+
+# reload polybar (doesn't adjust to new resolution automatically)
+fork polybar-msg cmd restart
+
