@@ -1,71 +1,55 @@
+# vim: ft=conf
 {% if yadm.hostname == "thoncc" %}
 shadow-radius = 24;
-shadow-opacity = 0.15;
+shadow-opacity = 0.4;
 shadow-offset-y = -24;
 shadow-offset-x = -24;
 {% else %}
 shadow-radius = 48;
-shadow-opacity = 0.3;
+shadow-opacity = 0.6;
 shadow-offset-y = -48;
 shadow-offset-x = -48;
 {% endif %}
 
 # do not touch, shit finally works w/ gpu
-backend = "xrender";
+# backend = "xrender";
+backend = "glx";
 vsync = true;
 
-corner-radius = 8;
+corner-radius = 0;
 shadow = true;
 
 fade-in-step = 0.3;
 fade-out-step = 0.18;
 fade-delta = 16;
 
-shadow-exclude = [
-	"!I3_FLOATING_WINDOW@:c && class_g != 'st' && _NET_WM_WINDOW_TYPE@:32a *= '_NET_WM_WINDOW_TYPE_NORMAL'",
-	"!I3_FLOATING_WINDOW@:c && WM_CLASS@:s = 'st'",
-	"_NET_WM_WINDOW_TYPE@:32a *= '_NET_WM_WINDOW_TYPE_MENU' && override_redirect = true",
-	"WM_CLASS@:s = 'Firefox' && WM_WINDOW_ROLE@:s = 'Popup'"
-]
+rules = (
+	# wintypes
+	{ match = "window_type *= 'dock'"; shadow = false; },
+	{ match = "window_type *= 'desktop'"; shadow = false; },
+	{ match = "window_type *= 'tooltip'"; fade = true; shadow = false; },
+	{ match = "window_type *= 'menu'"; fade = false; },
+	{ match = "window_type *= 'utility'"; shadow = false; },
+	{ match = "window_type *= 'notification'"; fade = true; },
+	# shadow-exclude
+	{ match = "!I3_FLOATING_WINDOW@ = 1"; shadow = false; },
+	# rounded-corners-exclude
+	{ match = "class_i *= 'rofi'"; corner-radius = 8; shadow = true; },
+	{ match = "class_i *= 'dunst'"; corner-radius = 12; },
+	{ match = "I3_FLOATING_WINDOW@ = 1"; corner-radius = 8; },
+)
 
-rounded-corners-exclude = [
-	"!I3_FLOATING_WINDOW@:c && WM_CLASS@:s != 'rofi' && WM_CLASS@:s != 'dunst'"
-]
+# old shadow-exclude
+# "!I3_FLOATING_WINDOW@:c && class_g != 'st' && _NET_WM_WINDOW_TYPE@:32a *= '_NET_WM_WINDOW_TYPE_NORMAL'",
+# "!I3_FLOATING_WINDOW@:c && WM_CLASS@:s = 'st'",
+# "_NET_WM_WINDOW_TYPE@:32a *= '_NET_WM_WINDOW_TYPE_MENU' && override_redirect = true",
+# "WM_CLASS@:s = 'Firefox' && WM_WINDOW_ROLE@:s = 'Popup'"
 
-wintypes: {
-	dock = {
-		shadow = false;
-		opacity = 0.999;
-	};
-
-	desktop = {
-		shadow = false;
-	};
-
-	tooltip = {
-		fade = true;
-		shadow = false;
-		opacity = 1;
-	};
-
-	menu = {
-		fade = false;
-	};
-
-	utility = {
-		shadow = false;
-	};
-
-	notification = {
-		fade = true;
-	};
-};
-
-animations = true;
-animation-stiffness-tag-change = 350.0;
-animation-stiffness-in-tag = 350.0;
-animation-window-mass = 0.8;
-animation-dampening = 25.0;
-animation-for-open-window = "none";
-animation-clamping = false;
+# animations = true;
+# animation-stiffness-tag-change = 350.0;
+# animation-stiffness-in-tag = 350.0;
+# animation-window-mass = 0.8;
+# animation-dampening = 25.0;
+# animation-for-open-window = "none";
+# animation-clamping = false;
 
