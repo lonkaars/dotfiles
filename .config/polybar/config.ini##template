@@ -32,13 +32,13 @@ foreground = ${color.fg}
 radius-top = 0.0
 radius-bottom = 0.0
 
-padding = 2
+padding = 5
+module-margin-left = 1
+module-margin-right = 1
 
-module-margin-left = 0
-module-margin-right = 0
+font-0 = "sans-serif:pixelsize=8:weight=regular:size=0;2"
+font-1 = "sans-serif:pixelsize=8:weight=bold:size=0;2"
 
-font-0 = "JetBrains Mono Nerd Font:pixelsize=8:weight=regular:size=0;2"
-font-1 = "JetBrains Mono Nerd Font:pixelsize=8:weight=bold:size=0;2"
 font-2 = "Hiragino Kaku Gothic ProN W3:pixelsize=8:weight=medium:size=0;1"
 font-3 = "Hiragino Kaku Gothic ProN W6:pixelsize=8:weight=medium:size=0;1"
 font-4 = "Noto Sans KR:pixelsize=8:weight=medium:size=0;2"
@@ -61,7 +61,7 @@ dim-value = 1.0
 
 wm-name = 
 
-locale = ja_JP.UTF-8
+locale = {{ env.LANG }}
 
 wm-restack = i3
 

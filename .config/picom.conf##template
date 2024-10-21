@@ -1,4 +1,11 @@
-# vim: ft=conf
+# do not touch, shit finally works w/ gpu
+# backend = "xrender";
+backend = "glx";
+vsync = true;
+
+corner-radius = 10;
+
+shadow = true;
 {% if yadm.hostname == "thoncc" %}
 shadow-radius = 24;
 shadow-opacity = 0.4;
@@ -11,39 +18,50 @@ shadow-offset-y = -48;
 shadow-offset-x = -48;
 {% endif %}
 
-# do not touch, shit finally works w/ gpu
-# backend = "xrender";
-backend = "glx";
-vsync = true;
-
-corner-radius = 0;
-shadow = true;
-
+fade = false;
 fade-in-step = 0.3;
 fade-out-step = 0.18;
 fade-delta = 16;
 
 rules = (
-	# wintypes
-	{ match = "window_type *= 'dock'"; shadow = false; },
-	{ match = "window_type *= 'desktop'"; shadow = false; },
-	{ match = "window_type *= 'tooltip'"; fade = true; shadow = false; },
-	{ match = "window_type *= 'menu'"; fade = false; },
-	{ match = "window_type *= 'utility'"; shadow = false; },
-	{ match = "window_type *= 'notification'"; fade = true; },
-	# shadow-exclude
-	{ match = "!I3_FLOATING_WINDOW@ = 1"; shadow = false; },
-	# rounded-corners-exclude
-	{ match = "class_i *= 'rofi'"; corner-radius = 8; shadow = true; },
-	{ match = "class_i *= 'dunst'"; corner-radius = 12; },
-	{ match = "I3_FLOATING_WINDOW@ = 1"; corner-radius = 8; },
+	{
+		match = "!I3_FLOATING_WINDOW@ = 1";
+		shadow = false;
+		corner-radius = 0;
+	},
+	{
+		match = "window_type *= 'desktop'";
+		shadow = false;
+	},
+	{
+		match = "window_type *= 'notification'";
+		fade = true;
+		corner-radius = 12;
+		shadow = true;
+	},
+	{
+		match = "_NET_WM_STATE@[*] = '_NET_WM_STATE_ABOVE'";
+		shadow = true;
+		corner-radius = 10;
+	},
+	{
+		match = "window_type *= 'menu' && override_redirect";
+		corner-radius = 0;
+		full-shadow = true;
+		shadow = true;
+	},
+	{
+		match = "window_type *= 'tooltip'";
+		fade = true;
+		shadow = false;
+		corner-radius = 0;
+	},
+	{
+		match = "window_type *= 'dock'";
+		shadow = false;
+		corner-radius = 0;
+	},
 )
-
-# old shadow-exclude
-# "!I3_FLOATING_WINDOW@:c && class_g != 'st' && _NET_WM_WINDOW_TYPE@:32a *= '_NET_WM_WINDOW_TYPE_NORMAL'",
-# "!I3_FLOATING_WINDOW@:c && WM_CLASS@:s = 'st'",
-# "_NET_WM_WINDOW_TYPE@:32a *= '_NET_WM_WINDOW_TYPE_MENU' && override_redirect = true",
-# "WM_CLASS@:s = 'Firefox' && WM_WINDOW_ROLE@:s = 'Popup'"
 
 # animations = true;
 # animation-stiffness-tag-change = 350.0;
@@ -53,3 +71,4 @@ rules = (
 # animation-for-open-window = "none";
 # animation-clamping = false;
 
+# vim: ft=conf
