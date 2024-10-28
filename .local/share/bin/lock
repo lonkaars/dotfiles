@@ -1,2 +1,4 @@
 #!/bin/sh
-exec slock
+xset s 5 5
+slock
+xset s default

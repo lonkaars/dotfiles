@@ -79,4 +79,4 @@ ffmpeg \
     -pass 2 \
     -c:a aac \
     -b:a "$T_ARATE"k \
-    $T_FILE
+    "$T_FILE"

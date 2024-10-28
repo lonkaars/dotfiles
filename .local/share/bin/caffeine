@@ -1,4 +1,8 @@
 #!/bin/sh
-xset -dpms
-xset s off
-
+xset s off -dpms
+reset() {
+	trap - EXIT
+	xset s default
+}
+trap reset INT
+sleep infinity
