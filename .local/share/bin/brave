@@ -4,4 +4,5 @@
 # you're not the only user on the system
 # --remote-debugging-port=9222 \
 /usr/bin/brave \
+	--load-extension="$XDG_CACHE_HOME/mode/chromium" \
 	"$@"
