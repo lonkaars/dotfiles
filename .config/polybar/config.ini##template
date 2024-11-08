@@ -43,12 +43,11 @@ font-2 = "Hiragino Kaku Gothic ProN W3:pixelsize=8:weight=medium:size=0;1"
 font-3 = "Hiragino Kaku Gothic ProN W6:pixelsize=8:weight=medium:size=0;1"
 font-4 = "Noto Sans KR:pixelsize=8:weight=medium:size=0;2"
 
-{% if yadm.hostname == "thoncc" %}
-modules-left = time date cal mpd
-modules-center = battery1 battery2 brightness
-modules-right = wireless keyboard volume
-{% else %}
 modules-left = time date cal
+{% if yadm.hostname == "thoncc" %}
+modules-center = battery1 battery2 brightness
+modules-right = mpd wireless keyboard volume
+{% else %}
 modules-center = mpd
 modules-right = wacomtouch keyboard volume
 {% endif %}
@@ -125,6 +124,55 @@ type = custom/script
 exec = now | ansi2polybar
 interval = 60
 
-{% include "config.{{ yadm.hostname }}.ini" %}
+[module/mpd]
+type = internal/mpd
+format-online = <label-song>
+format-offline =
+format-stopped =
+label-song = %artist% - %{T2}%title%%{T-}
+label-song-maxlen = 50
+label-song-ellipsis = true
+
+[module/wacomtouch]
+type = custom/script
+exec = ~/.local/share/bin/wacomtouch
+interval = 1
+
+[module/battery1]
+type = internal/battery
+battery = BAT0
+adapter = AC
+poll-interval = 5
+format-charging = <label-charging>
+format-charging-foreground = ${color.fg-half}
+format-full = 100%
+format-discharging = <label-discharging>
+label-charging = %percentage%%
+label-discharging = %percentage%%
+
+[module/battery2]
+type = internal/battery
+battery = BAT1
+adapter = AC
+poll-interval = 5
+format-charging = <label-charging>
+format-charging-foreground = ${color.fg-half}
+format-full = 100%
+format-discharging = <label-discharging>
+label-charging = %percentage%%
+label-discharging = %percentage%%
+
+[module/brightness]
+type = internal/backlight
+card = intel_backlight
+format = <label>
+
+[module/wireless]
+type = internal/network
+interface = wlan0
+format-connected = <label-connected>
+format-disconnected = <label-disconnected>
+label-connected = %essid%
+label-disconnected = no network
 
 ; vim:ft=dosini
