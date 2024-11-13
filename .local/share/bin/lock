@@ -1,4 +1,4 @@
 #!/bin/sh
-xset s 5 5
+xset s 15 15
 slock
 xset s default
