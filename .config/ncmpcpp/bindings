@@ -45,3 +45,8 @@ def_key "V"
 	reverse_selection
 def_key "ctrl-v"
 	remove_selection
+
+def_key "f"
+	seek_forward
+def_key "F"
+	seek_backward
