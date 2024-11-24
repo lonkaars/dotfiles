@@ -1,0 +1,33 @@
+#!/bin/sh
+URL="$1"
+TAB="$(printf '\t')"
+curl -sLo- "$URL" |\
+xmlstarlet select --template \
+	--match '/rss/channel/item' \
+	--value-of './itunes:duration' \
+	--output "$TAB" \
+	--value-of './title' \
+	--output "$TAB" \
+	--value-of './enclosure/@url' \
+	--nl |\
+awk -F "$TAB" '
+BEGIN {
+	printf("#EXTM3U\n")
+}
+function time2secs(time) {
+	seconds = 0
+	gsub(/,/, ".", time)
+	els = split(time, el, ":")
+	if (els == 0) return seconds;
+	seconds += el[els--]
+	if (els == 0) return seconds;
+	seconds += el[els--] * 60
+	if (els == 0) return seconds;
+	seconds += el[els--] * 60 * 60
+	return seconds;
+}
+{
+	printf("#EXTINF:%s,%s\n%s\n", time2secs($1), $2, $3)
+}
+'
+
