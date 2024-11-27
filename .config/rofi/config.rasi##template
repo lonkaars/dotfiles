@@ -1,62 +1,66 @@
 configuration {
 	modi: "drun,run";
-{% if yadm.hostname == "thoncc" %}
-	font: "JetBrainsMono Nerd Font 7.5";
-{% else %}
-	font: "JetBrainsMono Nerd Font 9";
-{% endif %}
+	font: "sans-serif 9";
 	matching: "fuzzy";
 	separator-style: "none";
 	hide-scrollbar: true;
+
 	kb-remove-to-eol: "Control+Shift+e";
 	kb-accept-entry: "Control+m,Return,KP_Enter";
 	kb-row-up: "Up,Control+k,Shift+Tab,Shift+ISO_Left_Tab";
 	kb-row-down: "Down,Control+j";
 }
 
-* {
+window {
+	padding: 2px;
 	background-color: ${background};
 	text-color: ${foreground};
+	width: 450px;
+}
+
+mainbox {
+	background-color: inherit;
+	text-color: inherit;
+}
+
+* {
 	spacing: 0;
 	line-padding: 0;
 	line-margin: 0;
-{% if yadm.hostname == "thoncc" %}
-	width: 340;
-	--padding: 6px;
-{% else %}
-	width: 450;
-	--padding: 8px;
-{% endif %}
 }
 
 inputbar {
-	children: [prompt, entry];
-}
-
-prompt {
-	padding: @--padding;
-}
-
-textbox {
-	padding: @--padding;
+	children: [entry];
+	background-color: inherit;
+	text-color: inherit;
 }
 
 entry {
-	padding: @--padding;
+	padding: 10px;
+	background-color: inherit;
+	text-color: inherit;
+	cursor-width: 1px;
 }
 
 listview {
 	cycle: false;
-	margin: 0 0 -1px 0;
 	scrollbar: false;
-	lines: 6;
+	lines: 8;
+	fixed-height: false;
+	background-color: inherit;
+	text-color: inherit;
+	padding: 1px 0px;
 }
 
 element {
-	padding: @--padding;
+	margin: -1px 0px;
+	padding: 6px 10px;
+	background-color: transparent;
+	text-color: ${foreground};
 }
 
 element selected {
+	border-radius: 8px;
 	background-color: ${accent};
 	text-color: ${accent_text};
 }
@@ -66,6 +70,3 @@ element-text {
 	text-color: inherit;
 }
 
-prompt {
-	enabled: false;
-}
