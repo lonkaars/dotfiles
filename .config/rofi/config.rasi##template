@@ -1,9 +1,12 @@
 configuration {
 	modi: "drun,run";
-	font: "sans-serif 9";
+	font: "sans-serif 8";
 	matching: "fuzzy";
 	separator-style: "none";
 	hide-scrollbar: true;
+
+	drun-match-fields: "name,generic,categories,keywords";
+	drun-display-format: "{name}";
 
 	kb-remove-to-eol: "Control+Shift+e";
 	kb-accept-entry: "Control+m,Return,KP_Enter";
@@ -15,30 +18,27 @@ window {
 	padding: 2px;
 	background-color: ${background};
 	text-color: ${foreground};
-	width: 450px;
-}
-
-mainbox {
-	background-color: inherit;
-	text-color: inherit;
+	width: 350px;
 }
 
 * {
 	spacing: 0;
 	line-padding: 0;
 	line-margin: 0;
+	background-color: inherit;
+	text-color: inherit;
+}
+
+message {
+	margin: 8px;
 }
 
 inputbar {
 	children: [entry];
-	background-color: inherit;
-	text-color: inherit;
 }
 
 entry {
 	padding: 10px;
-	background-color: inherit;
-	text-color: inherit;
 	cursor-width: 1px;
 }
 
@@ -47,8 +47,6 @@ listview {
 	scrollbar: false;
 	lines: 8;
 	fixed-height: false;
-	background-color: inherit;
-	text-color: inherit;
 	padding: 1px 0px;
 }
 
@@ -63,10 +61,5 @@ element selected {
 	border-radius: 8px;
 	background-color: ${accent};
 	text-color: ${accent_text};
-}
-
-element-text {
-	background-color: inherit;
-	text-color: inherit;
 }
 
