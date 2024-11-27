@@ -33,7 +33,8 @@ if exists("g:neovide")
 	nmap <silent> <C--> :lua vim.g.neovide_scale_factor = vim.g.neovide_scale_factor - 0.1<CR>
 	nmap <silent> <C-ScrollWheelDown> :lua vim.g.neovide_scale_factor = vim.g.neovide_scale_factor - 0.1<CR>
 	nmap <silent> <C-0> :lua vim.g.neovide_scale_factor = 1<CR>
-	let g:neovide_scroll_animation_length = 0.2
+	let g:neovide_scroll_animation_length = 0.18
+	let g:neovide_floating_shadow = v:false
 	let g:neovide_cursor_animation_length = 0.06
 	let g:neovide_cursor_trail_size = 0.0
 	let g:neovide_padding_top=16

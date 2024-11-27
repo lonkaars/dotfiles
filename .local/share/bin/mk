@@ -12,13 +12,15 @@ mode_cmake() {
 
 	[ "$*" = "clean" ] && exec rm -rf "$builddir"
 
+	export CMAKE_GENERATOR="Ninja"
+
 	# re-run configuration if fresh or CMakeLists was changed
 	if [ ! -e "$builddir/build.ninja" ] ||
 		 [ "CMakeLists.txt" -nt "$builddir/build.ninja" ] ; then
-		 cmake --log-level WARNING -B "$builddir" -G Ninja
+		 cmake --log-level WARNING -B "$builddir"
 	fi
 
-	cd "$builddir" && exec ninja "$@"
+	exec cmake --build "$builddir" -- "$@"
 }
 [ -e "CMakeLists.txt" ] && mode_cmake "$@"
 
