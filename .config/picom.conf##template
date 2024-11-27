@@ -13,7 +13,7 @@ shadow-offset-y = -24;
 shadow-offset-x = -24;
 {% else %}
 shadow-radius = 48;
-shadow-opacity = 0.6;
+shadow-opacity = 0.4;
 shadow-offset-y = -48;
 shadow-offset-x = -48;
 {% endif %}
@@ -61,14 +61,44 @@ rules = (
 		shadow = false;
 		corner-radius = 0;
 	},
+	{
+		match = "window_type *= 'popup_menu'";
+		shadow = true;
+		corner-radius = 10;
+	},
 )
 
-# animations = true;
-# animation-stiffness-tag-change = 350.0;
-# animation-stiffness-in-tag = 350.0;
-# animation-window-mass = 0.8;
-# animation-dampening = 25.0;
-# animation-for-open-window = "none";
-# animation-clamping = false;
+animations = (
+	{
+		triggers = [ "geometry" ];
+		offset-x = {
+			curve = "cubic-bezier(0.05, 0, 0, 1)";
+			duration = 0.250;
+			start = "window-x-before - window-x";
+			end = 0;
+		};
+		offset-y = {
+			curve = "cubic-bezier(0.05, 0, 0, 1)";
+			duration = 0.250;
+			start = "window-y-before - window-y";
+			end = 0;
+		};
+		shadow-offset-x = "offset-x";
+		shadow-offset-y = "offset-y";
+		saved-image-blend = 0;
+	},
+	{
+		triggers = [ "open" ];
+		preset = "appear";
+		scale = 0.95;
+		duration = 0.075;
+	},
+	{
+		triggers = [ "close" ];
+		preset = "disappear";
+		scale = 0.95;
+		duration = 0.075;
+	},
+);
 
 # vim: ft=conf
