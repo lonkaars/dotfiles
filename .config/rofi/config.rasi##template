@@ -8,6 +8,10 @@ configuration {
 	drun-match-fields: "name,generic,categories,keywords";
 	drun-display-format: "{name}";
 
+	filebrowser {
+		directory: "{{ env.HOME }}/docs";
+	}
+
 	kb-remove-to-eol: "Control+Shift+e";
 	kb-accept-entry: "Control+m,Return,KP_Enter";
 	kb-row-up: "Up,Control+k,Shift+Tab,Shift+ISO_Left_Tab";
