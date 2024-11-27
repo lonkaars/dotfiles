@@ -49,7 +49,7 @@ entry {
 listview {
 	cycle: false;
 	scrollbar: false;
-	lines: 8;
+	lines: 6;
 	fixed-height: false;
 	padding: 1px 0px;
 }
