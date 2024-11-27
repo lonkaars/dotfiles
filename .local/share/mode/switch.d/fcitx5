@@ -1,28 +1,65 @@
 #!/bin/sh
-cat "$XDG_DATA_HOME/fcitx5/themes/loek/base.conf" - << EOF > "$XDG_DATA_HOME/fcitx5/themes/loek/theme.conf"
+cd "$XDG_DATA_HOME/fcitx5/themes/default"
+rounding=6
+size=$(( 2 * $rounding + 4 ))
+margin_h=6
+margin_v=4
+
+bg='#000000'
+fg='#ffffff'
+accent='#404040'
+accent_text=$fg
+sel_bg=$(mix_rgb $color12 $bg 0.4)
+sel_fg=$fg
+
+magick \
+	-size ${size}x${size} xc:transparent \
+	-fill xc:"$accent" \
+	-draw "roundrectangle 0,0 $(( $size - 1 )),$(( $size - 1 )) $rounding,$rounding" \
+	highlight.png
+
+cat base.conf - << EOF > theme.conf
 [InputPanel]
 NormalColor=$fg
 HighlightCandidateColor=$accent_text
-HighlightColor=$color13
-HighlightBackgroundColor=$bg
+HighlightColor=$sel_fg
+HighlightBackgroundColor=$sel_bg
 
 [InputPanel/Background]
 Color=$bg
-BorderColor=$accent
 
 [InputPanel/Highlight]
-Color=$accent
+Image=highlight.png
 
-[Menu/Background]
-Color=$bg
+[InputPanel/Highlight/Margin]
+Left=$rounding
+Right=$rounding
+Top=$rounding
+Bottom=$rounding
+
+[InputPanel/ContentMargin]
+Left=$(( 2 + $rounding - $margin_h ))
+Right=$(( 2 + $rounding - $margin_h ))
+Top=$(( 2 + $rounding - $margin_v ))
+Bottom=$(( 2 + $rounding - $margin_v ))
+
+[InputPanel/TextMargin]
+Left=$margin_h
+Right=$margin_h
+Top=$margin_v
+Bottom=$margin_v
 
 [Menu]
 NormalColor=$fg
+
+[Menu/Background]
+Color=$bg
 
 [Menu/Highlight]
 Color=$accent
 
 [Menu/Separator]
 Color=$color7
+
 EOF
 

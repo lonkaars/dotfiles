@@ -65,7 +65,7 @@ switch() {
 		interpreter="$(basename "$(command -v $(head -n1 "$switch_function" | sed -n 's/^#!\(.*\)/\1/p'))")"
 		if [ "$interpreter" = "sh" ] ; then
 			# source scripts if they are POSIX sh (makes plugin functions available)
-			. "$switch_function" &
+			( . "$switch_function" ) &
 		else
 			# else, just run them
 			"$switch_function" &
