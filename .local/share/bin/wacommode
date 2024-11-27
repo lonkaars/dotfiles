@@ -11,25 +11,34 @@ defaults () {
 	setwacom Rotate none
 }
 
+notify() {
+	notify-send \
+		--replace-id=99999 \
+		--icon=/dev/null \
+		--expire-time=1000 \
+		-- \
+		'ワコム' "$*"
+}
+
 SCREEN_1_GEOMETRY="$(xrandr -q | awk '$2 == "connected" && $3 == "primary" { print $4 }')"
 SCREEN_2_GEOMETRY="$(xrandr -q | awk '$2 == "connected" && $3 != "primary" { print $3 }')"
 ALL_GEOMETRY="$(xrandr -q | awk '$1 == "Screen" { print ; exit }' | grep -o '\<current\>[^,]\+' | sed -e 's/^current//' -e 's/ //g' -e 's/$/+0+0/')"
 
 topleft() {
-	notify-send "screen 1 only (landscape)"
+	notify "画面1、横"
 
 	setwacom MapToOutput "$SCREEN_1_GEOMETRY"
 }
 
 bottomleft() {
-	notify-send "screen 2 only (portrait)"
+	notify "画面2、縦"
 
 	setwacom Rotate ccw
 	setwacom MapToOutput "$SCREEN_2_GEOMETRY"
 }
 
 topright() {
-	notify-send "screen 1 only [osu] (landscape)"
+	notify "画面1、横、低遅延"
 
 	setwacom Suppress 0
 	setwacom RawSample 1
@@ -39,7 +48,7 @@ topright() {
 }
 
 bottomright() {
-	notify-send "both screens (landscape)"
+	notify "全ての画面、横"
 
 	setwacom Area 0 0 11875 7600
 	setwacom MapToOutput "$ALL_GEOMETRY"
