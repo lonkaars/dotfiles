@@ -26,6 +26,7 @@
 	c = commit
 	s = status
 	ps = push
+	psa = !git remote | xargs -L1 -P0 -- git push
 	pl = pull
 	l = log
 	d = diff
