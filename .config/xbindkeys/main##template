@@ -4,7 +4,7 @@
 	Mod4 + b
 "rofi -show drun"
 	Mod4 + space
-"rofi -modes window -show window"
+"rofi -modes window -show window -kb-accept-entry '!Alt-Tab' -kb-row-down 'Alt+Tab' -kb-row-up 'Alt+ISO_Left_Tab'"
 	Alt + Tab
 "st"
 	Mod4 + Return

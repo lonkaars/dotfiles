@@ -10,7 +10,7 @@ xbanish &
 dunst &
 autocutsel -selection CLIPBOARD &
 fcitx5 &
-xbindkeys --file "$XDG_CONFIG_HOME/xbindkeys/main" --nodaemon &
+xbindkeys --nodaemon &
 {% if yadm.hostname == "thoncc" %}
 xdimmer -t 45 -p 3 &
 light-locker --no-late-locking &
