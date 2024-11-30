@@ -9,9 +9,9 @@ external_editor = "{{ env.EDITOR }}"
 ncmpcpp_directory = "{{ env.XDG_CONFIG_HOME }}/ncmpcpp"
 lyrics_directory = "{{ env.XDG_CACHE_HOME }}/lyrics"
 
-progressbar_look = "-> "
-progressbar_elapsed_color = black:b
+progressbar_look = "───"
 progressbar_color = black
+progressbar_elapsed_color = default
 playlist_display_mode = classic
 autocenter_mode = yes
 centered_cursor = yes
