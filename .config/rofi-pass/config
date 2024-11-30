@@ -1,8 +1,6 @@
 #!/bin/sh
 # make sure the filename is used as the account name
-USERNAME_field='path'
 default_user=':filename'
-default_autotype="path :tab pass"
 
 # pass custom rofi flags
 _rofi() {
