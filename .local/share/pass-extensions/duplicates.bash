@@ -1,7 +1,7 @@
 #!/bin/bash
 declare -A dupe_tally dupe_map
 
-pass_names="$(pass names)"
+pass_names="$(pass names -l)"
 [ $? -ne 0 ] && exit 1
 
 pass_count="$(echo "$pass_names" | wc -l)"

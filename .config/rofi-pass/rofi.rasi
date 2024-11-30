@@ -2,6 +2,10 @@
 // (see section on 'Multiple file handling' in man rofi-theme(5))
 @import "config.rasi"
 
+configuration {
+	matching: "prefix";
+}
+
 listview {
 	lines: 12;
 }
