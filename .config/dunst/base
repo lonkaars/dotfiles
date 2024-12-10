@@ -1,7 +1,7 @@
 [global]
 monitor = 0
 follow = none
-height = 100
+height = (0, 100)
 width = 300
 origin = top-right
 offset = 22x42
