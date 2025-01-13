@@ -30,3 +30,4 @@
 	pl = pull
 	l = log
 	d = diff
+	cloc = !git ls-files -z | xargs -0 cloc
