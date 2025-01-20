@@ -1,0 +1,20 @@
+set shell sh
+set shellopts '-eu'
+set scrolloff 10
+
+set previewer preview
+cmd open $open $fx
+
+set cursorpreviewfmt ""
+set errorfmt "\033[31m"
+set promptfmt "\033[34;1m%d\033[0m\033[1m%f\033[0m"
+set statfmt "\033[36m%p\033[0m| %S| -> %l"
+
+map v :toggle ; down
+map V invert
+map <backspace> set hidden! # <C-h>
+
+cmd bulkrename $renamer $fx
+
+# vim:ft=cfg
+

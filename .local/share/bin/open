@@ -1,0 +1,12 @@
+#!/bin/sh
+case "$(file --mime-type -Lb "$1")" in
+	text/*)
+		exec $EDITOR -- "$@"
+		;;
+	*)
+		for file in "$@"; do
+			fork xdg-open "$file"
+		done
+		;;
+esac
+

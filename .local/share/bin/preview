@@ -1,0 +1,40 @@
+#!/bin/sh
+[ $# -ne 5 ] && exit 1
+FILE="$1"
+WIDTH="$2"
+HEIGHT="$3"
+POS_X="$4"
+POS_Y="$5"
+
+MIMETYPE="$(file --mime-type -Lb "$FILE")"
+
+case "$MIMETYPE" in
+	image/*)
+		echo '{
+			"action": "add",
+			"x": 0,
+			"y": 0,
+			"path": "/home/loek/docs/frob.jpg"
+		}' | ueberzug layer --parser json
+		;;
+	text/*)
+		bat \
+			--terminal-width="$WIDTH" \
+			--paging=never \
+			--color=always \
+			-- "$FILE"
+		;;
+	application/x-tar|\
+	application/x-bzip|\
+	application/x-bzip2|\
+	application/zip|\
+	application/x-7z-compressed|\
+	application/vnd.rar)
+		bsdtar -tf "$FILE"
+		;;
+	*)
+		echo "$MIMETYPE"
+		file -b "$FILE" | fold --width="$WIDTH" --spaces
+		;;
+esac
+

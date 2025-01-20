@@ -1,0 +1,2 @@
+#!/bin/sh
+fzf --multi --print0 | exec xargs -r0 $EDITOR

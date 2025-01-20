@@ -8,19 +8,15 @@
 export LANG='ja_JP.UTF-8'
 
 # aliases
-alias cls='clear'
 alias vim='nvim'
-alias copy='xclip -selection c'
-alias dnd='dragon-drag-and-drop -a -x'
+alias copy='xclip -selection clipboard'
+alias dnd='dragon-drop --all --and-exit'
 alias sl='sl -w'
-alias vv='neovide'
-alias today='khal list today today'
 alias bctl='bluetoothctl'
 alias sctl='systemctl --user'
-alias fv='nvim "$(fzf)"'
 
 # one letters
-alias r='ranger'
+alias r='cd "$(lf -print-last-dir | head -n1)"'
 alias v='nvim'
 alias m='neomutt'
 alias y='yay'
@@ -30,6 +26,7 @@ alias f='fork'
 alias p='pass'
 alias b='bluetoothctl'
 alias s='systemctl --user'
+alias g='git'
 
 # force colorterm
 export COLORTERM="truecolor"
@@ -57,14 +54,18 @@ if [ -z "$PATH_EXTENDED" ] ; then
 fi
 
 # other stuff
-export EDITOR="nvim"
+export EDITOR="nvim -p"
 export PAGER="less"
 export FZF_DEFAULT_COMMAND="find . -name '.?*' -prune -o -print"
-export FZF_DEFAULT_OPTS="--color=16"
+export FZF_DEFAULT_OPTS="--color=bw,fg:7,scrollbar:8,info:8 --layout=reverse --info=inline-right --no-separator --marker='*' --pointer=''"
 export GOPATH="$HOME/.local/go"
 [ -e "$XDG_CONFIG_HOME/gtk-4.0/env" ] && . "$XDG_CONFIG_HOME/gtk-4.0/env"
 export PASSWORD_STORE_ENABLE_EXTENSIONS=true
 export PASSWORD_STORE_EXTENSIONS_DIR="$XDG_DATA_HOME/pass-extensions"
+
+# LS_COLORS
+[ ! -e "$XDG_CACHE_HOME/dircolors" ] || [ "$XDG_CONFIG_HOME/dircolors" -nt "$XDG_CACHE_HOME/dircolors" ] && dircolors "$XDG_CONFIG_HOME/dircolors" > "$XDG_CACHE_HOME/dircolors"
+. "$XDG_CACHE_HOME/dircolors"
 
 # use .config/ instead of home directory
 export ANDROID_SDK_HOME="$XDG_CONFIG_HOME/android"
