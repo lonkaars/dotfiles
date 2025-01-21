@@ -1,23 +1,15 @@
 #!/bin/zsh
-
-# # oh-my-zsh
-# zstyle ':omz:update' mode disabled
-# DISABLE_AUTO_UPDATE=true
-# DISABLE_UPDATE_PROMPT=true
-# plugins=(zsh-syntax-highlighting)
-# export ZSH="$XDG_DATA_HOME/oh-my-zsh"
-# export ZSH_COMPDUMP="$XDG_CACHE_HOME/zcompdump"
-# source "$ZSH/oh-my-zsh.sh"
-
-# prompt
-source "$XDG_CONFIG_HOME/zsh/prompt"
+export ZSH_COMPDUMP="$XDG_CACHE_HOME/zcompdump"
 
 # do not glob for calculator command
 aliases[=]="noglob ="
 
-autoload -U compinit
+# color aliases
+alias ls='ls --color=auto'
+alias grep='grep --color=auto'
 
 # completion
+autoload -U compinit
 zstyle ':completion:*' list-colors "${(s.:.)LS_COLORS}"
 zstyle ':completion:*:*:*:*:*' menu select
 zstyle ':completion:*' matcher-list 'm:{[:lower:][:upper:]}={[:upper:][:lower:]}' 'r:|=*' 'l:|=* r:|=*'
@@ -25,11 +17,28 @@ zstyle ':completion:*' special-dirs true
 setopt auto_menu
 setopt complete_in_word
 setopt always_to_end
+compinit -d "$ZSH_COMPDUMP"
 
 # keybinds
 bindkey -e # emacs bindings
 bindkey '^[[Z' reverse-menu-complete
 
-# zsh autocompletion
-compinit -d "$ZSH_COMPDUMP"
+# prompt
+unset PROMPT
+setopt PROMPT_SUBST
+prompt_segment() {
+	content="$1"
+	[ -z "$content" ] && return
+	echo "%{\e[90m%}${content}%{\e[30m%} -> %{\e[0m%}"
+}
+prompt_mod_git_info() {
+	git rev-parse --is-inside-work-tree 1> /dev/null 2> /dev/null || return
+	prompt_segment "git $(git rev-parse --abbrev-ref HEAD)"
+}
+# only display hostname in prompt if connected over SSH
+[ -n "$SSH_CLIENT" ] && PROMPT+="$(prompt_segment '%m')"
+# working directory
+PROMPT+="$(prompt_segment '%c')"
+# git info (if in repo)
+PROMPT+="\$(prompt_mod_git_info)"
 
