@@ -1,0 +1,11 @@
+#!/bin/sh
+cat "$@" |\
+	gawk '
+match($0, /^\[([0-9]{2}):([0-9]{2}\.[0-9]{2})\](.*)/, group) {
+	time = group[1] * 60 + group[2]
+	lyric = group[3]
+
+	printf("%.2f\t%.2f\t%s\n", time, time, lyric)
+}
+'
+
