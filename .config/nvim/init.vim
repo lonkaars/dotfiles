@@ -48,6 +48,7 @@ call plug#begin('~/.config/nvim/plugged')
 " quality of life
 Plug 'jiangmiao/auto-pairs'
 Plug 'tpope/vim-surround'
+Plug 'tpope/vim-speeddating'
 Plug 'itchyny/lightline.vim'
 Plug 'terryma/vim-multiple-cursors'
 Plug 'liuchengxu/vim-which-key'
@@ -57,17 +58,14 @@ Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'puremourning/vimspector'
 Plug 'junegunn/goyo.vim'
 Plug 'psliwka/vim-smoothie'
-" Plug 'tpope/vim-fugitive'
 Plug 'airblade/vim-gitgutter'
 Plug 'wellle/targets.vim'
-" Plug 'dstein64/vim-startuptime'
 Plug 'rrethy/vim-hexokinase', { 'do': 'make hexokinase' }
 Plug 'dkarter/bullets.vim'
 Plug 'editorconfig/editorconfig-vim'
 
 " language plugins
 Plug 'lervag/vimtex'
-" Plug 'pangloss/vim-javascript'
 Plug 'hail2u/vim-css3-syntax'
 Plug 'octol/vim-cpp-enhanced-highlight'
 Plug 'vim-python/python-syntax'
@@ -76,7 +74,6 @@ Plug 'bartlomiejdanek/vim-dart'
 Plug 'HerringtonDarkholme/yats.vim'
 Plug 'cespare/vim-toml'
 Plug 'tikhomirov/vim-glsl'
-" Plug 'gabrielelana/vim-markdown'
 Plug 'vim-scripts/syntaxm4.vim'
 Plug 'elkowar/yuck.vim'
 Plug 'eraserhd/parinfer-rust', {'do': 'cargo build --release'}
@@ -88,10 +85,6 @@ Plug 'lonkaars/coc-khard'
 
 " themes
 Plug 'arzg/vim-colors-xcode'
-Plug '~/.config/nvim/local/bliss'
-Plug '~/.config/nvim/local/polarlight.vim'
-Plug '~/.config/nvim/local/autonyaa.vim'
-Plug 'lonkaars/blubber'
 Plug 'romgrk/github-light.vim'
 Plug 'vv9k/vim-github-dark'
 Plug 'rose-pine/neovim'
