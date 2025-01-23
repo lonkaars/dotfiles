@@ -1,5 +1,7 @@
 [init]
 	defaultBranch = master
+[core]
+	quotepath = off
 [user]
 	email = loek@pipeframe.xyz
 	name = Loek Le Blansch

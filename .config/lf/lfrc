@@ -1,6 +1,8 @@
 set shell sh
 set shellopts '-eu'
 set scrolloff 10
+set info size
+set dircounts
 
 set previewer preview
 cmd open $open $fx
@@ -8,7 +10,7 @@ cmd open $open $fx
 set cursorpreviewfmt ""
 set errorfmt "\033[31m"
 set promptfmt "\033[34;1m%d\033[0m\033[1m%f\033[0m"
-set statfmt "\033[36m%p\033[0m| %S| -> %l"
+set statfmt "\033[36m%p| -> %l"
 
 map v :toggle ; down
 map V invert
