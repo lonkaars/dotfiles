@@ -1,12 +1,25 @@
 #!/bin/sh
-[ $# -ne 5 ] && exit 1
-FILE="$1"
-WIDTH="$2"
-HEIGHT="$3"
-POS_X="$4"
-POS_Y="$5"
+[ -n "$1" ] && FILE="$1" || {
+	echo "error: no input file"
+	exit 1
+}
+[ -n "$2" ] && WIDTH="$(( "$2" - 3 ))" || WIDTH="$(tput cols)"
+[ -n "$3" ] && HEIGHT="$3" || HEIGHT="$(tput lines)"
+[ -n "$4" ] && POS_X="$4" || POS_X="0"
+[ -n "$5" ] && POS_Y="$5" || POS_Y="0"
 
 MIMETYPE="$(file --mime-type -Lb "$FILE")"
+EXT="${FILE#*.}"
+
+[ "$EXT" = "md" ] && [ "$MIMETYPE" = "text/plain" ] && MIMETYPE="application/markdown"
+
+render_manpage() {
+	exec groff -T utf8 -m man -rcR=1 -rIN=0 -rLL="${WIDTH}n" << EOF
+.nr an-suppress-header-and-footer 1
+.TH
+$(cat)
+EOF
+}
 
 case "$MIMETYPE" in
 	image/*)
@@ -27,10 +40,14 @@ case "$MIMETYPE" in
 	application/x-tar|\
 	application/x-bzip|\
 	application/x-bzip2|\
+	application/gzip|\
 	application/zip|\
 	application/x-7z-compressed|\
 	application/vnd.rar)
 		bsdtar -tf "$FILE"
+		;;
+	application/markdown)
+		pandoc --from=gfm --to=man "$FILE" | render_manpage
 		;;
 	*)
 		echo "$MIMETYPE"

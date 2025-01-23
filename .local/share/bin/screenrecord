@@ -1,3 +1,8 @@
 #!/bin/sh
-giph -f 60 -s -b 4 -c 255,255,255 "$(date +'%Y-%m-%d_%H-%M-%S.mp4')"
+exec giph "$@" \
+	--framerate=60 \
+	--select \
+		--bordersize=4 \
+		--color=255,255,255 \
+	"$(date +'%Y-%m-%d_%H-%M-%S.mp4')"
 

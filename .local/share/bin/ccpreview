@@ -24,33 +24,49 @@ VIDEO_URL="av://v4l2:$VIDEO_DEVICE"
 
 RESOLUTION="${WIDTH}x${HEIGHT}"
 
+fork() {
+	JOBS="$JOBS $(
+		"$@" > /dev/null 2> /dev/null &
+		echo $!
+	)"
+}
+
 # set capture card v4l parameters
 v4l2-ctl --silent --device "$VIDEO_DEVICE" \
 	--set-parm "$FRAMERATE" \
 	--set-fmt-video "width=$WIDTH,height=$HEIGHT,pixelformat=MJPG" \
 	--set-ctrl "brightness=0,contrast=128,saturation=128,hue=0"
 
-# preview window
-mpv \
- 	--msg-level=input=no --no-config --input-conf=/dev/null \
-	--no-osc --no-input-default-bindings --pause=no --force-seekable=no \
-	\
- 	--no-cache --untimed --no-correct-pts \
+_mpv() {
+	fork mpv \
+		--quiet --msg-level=input=no \
+		--no-config --input-conf=/dev/null \
+		--no-osc --no-border \
+		--no-input-default-bindings --pause=no --force-seekable=no \
+		--cache=no \
+		"$@"
+}
+
+# audio preview
+_mpv \
 	--no-demuxer-thread \
-	--video-sync=audio \
 	--audio-buffer=0 \
-	--vd-lavc-threads=1 \
 	--cache-pause=no \
 	--interpolation=no \
-	--video-latency-hacks=yes \
 	--stream-buffer-size=4k \
-	\
-	--demuxer-lavf-o-add=fflags=+nobuffer \
-	--demuxer-lavf-analyzeduration=0 \
+	--profile=low-latency \
+	"$AUDIO_URL"
+
+# video preview
+_mpv \
+	--untimed --no-correct-pts --no-demuxer-thread \
+	--profile=low-latency \
 	--demuxer-lavf-o-add=input_format=mjpeg \
 	--demuxer-lavf-o-add=framerate="$FRAMERATE" \
 	--demuxer-lavf-o-add=resolution="$RESOLUTION" \
 	--demuxer-lavf-o-add=rw_timeout=30000000 \
-	\
-	"$VIDEO_URL" --audio-file="$AUDIO_URL"
+	"$VIDEO_URL"
+
+sleep infinity
+kill -9 -- $JOBS
 
