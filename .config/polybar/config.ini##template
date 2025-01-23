@@ -43,7 +43,7 @@ font-2 = "Hiragino Kaku Gothic ProN W3:pixelsize=8:weight=medium:size=0;1"
 font-3 = "Hiragino Kaku Gothic ProN W6:pixelsize=8:weight=medium:size=0;1"
 font-4 = "Noto Sans KR:pixelsize=8:weight=medium:size=0;2"
 
-modules-left = time date cal
+modules-left = time date
 {% if yadm.hostname == "thoncc" %}
 modules-center = battery1 battery2 brightness
 modules-right = mpd wireless keyboard volume
@@ -116,13 +116,8 @@ label-font = 2
 
 [module/keyboard]
 type = custom/script
-exec = ~/.local/share/bin/kbindicator
+exec = kbindicator
 tail = true
-
-[module/cal]
-type = custom/script
-exec = now | ansi2polybar
-interval = 60
 
 [module/mpd]
 type = internal/mpd
@@ -135,7 +130,7 @@ label-song-ellipsis = true
 
 [module/wacomtouch]
 type = custom/script
-exec = ~/.local/share/bin/wacomtouch
+exec = wacomtouch
 interval = 1
 
 [module/battery1]
