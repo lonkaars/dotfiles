@@ -14,10 +14,18 @@ zstyle ':completion:*' list-colors "${(s.:.)LS_COLORS}"
 zstyle ':completion:*:*:*:*:*' menu select
 zstyle ':completion:*' matcher-list 'm:{[:lower:][:upper:]}={[:upper:][:lower:]}' 'r:|=*' 'l:|=* r:|=*'
 zstyle ':completion:*' special-dirs true
-setopt auto_menu
+setopt auto_menu # show completion menu when spamming <tab>
 setopt complete_in_word
-setopt always_to_end
+setopt always_to_end # move cursor to end of word after completion
+setopt auto_cd # cd if the command is a valid path
+WORDCHARS="${WORDCHARS:gs/\//}" # remove '/' from WORDCHARS
 compinit -d "$ZSH_COMPDUMP"
+
+# history
+export HISTFILE="$XDG_DATA_HOME/zsh/history"
+export HISTSIZE=10000000
+export SAVEHIST=10000000
+setopt share_history
 
 # keybinds
 bindkey -e # emacs bindings
