@@ -34,3 +34,13 @@ mkcd() {
 	cd "$1"
 }
 
+respawn_daemon() {
+	killall -q "$1" && fork "$@"
+}
+
+silent_fail_if_no_commmand() {
+	for name in "$@" ; do
+		[ -z "$(command -v "$name")" ] && exit
+	done
+}
+

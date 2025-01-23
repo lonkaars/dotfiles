@@ -40,6 +40,24 @@ examples:
 EOF
 }
 
+# run a module file
+run_mod() {
+	mod_name="$1"
+
+	# modules must be executable
+	! [ -x "$mod_name" ] && return
+
+	# parse interpreter from shebang
+	interpreter="$(basename "$(command -v $(head -n1 "$mod_name" | sed -n 's/^#!\(.*\)/\1/p'))")"
+	if [ "$interpreter" = "sh" ] ; then
+		# source module if interpreter is POSIX sh (makes plugin functions available)
+		( . "$mod_name" )
+	else
+		# else, just run them
+		"$mod_name"
+	fi
+}
+
 # generate config files from theme file using scripts in switch.d
 switch() {
 	[ -z "$theme" ] && stupid "error: no theme selected"
@@ -56,20 +74,12 @@ switch() {
 	# load theme colors + aux variables
 	. "$theme"
 
-	# load plugins (available to switch.d scripts only)
+	# load plugins (TODO: plugins aren't loaded when only reloading)
 	for plugin in "$data"/plug.d/* ; do . "$plugin" ; done
 
 	# generate new config files / snippets (in parallel)
 	for switch_function in "$data"/switch.d/* ; do
-		! [ -x "$switch_function" ] && continue
-		interpreter="$(basename "$(command -v $(head -n1 "$switch_function" | sed -n 's/^#!\(.*\)/\1/p'))")"
-		if [ "$interpreter" = "sh" ] ; then
-			# source scripts if they are POSIX sh (makes plugin functions available)
-			( . "$switch_function" ) &
-		else
-			# else, just run them
-			"$switch_function" &
-		fi
+		run_mod "$switch_function" &
 	done
 
 	# join all processes started above
@@ -81,8 +91,7 @@ reload() {
 	echo "reloading programs..."
 
 	for reload_function in "$data"/reload.d/* ; do
-		! [ -x "$reload_function" ] && continue
-		"$reload_function" &
+		run_mod "$reload_function" &
 	done
 
 	wait $(jobs -p)
@@ -127,6 +136,7 @@ for arg in "$@" ; do
 	esac
 done
 
+# main
 [ $run_cfggen -eq 1 ] && switch
 [ $run_reload -eq 1 ] && reload
 

@@ -26,5 +26,5 @@ escape_msgs="$(cat << EOF | tr -d '\n'
 EOF
 )"
 
-find /dev/pts -exec sh -c "printf \"$escape_msgs\" > {}" \; 2> /dev/null
+find /dev/pts -exec sh -c "printf '$escape_msgs' > {}" \; 2> /dev/null
 

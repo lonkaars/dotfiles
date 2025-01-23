@@ -1,4 +1,3 @@
 #!/bin/sh
-killall dunst
-fork dunst
+respawn_daemon dunst
 

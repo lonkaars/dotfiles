@@ -1,4 +1,5 @@
 #!/bin/sh
+silent_fail_if_no_commmand nvr
 nvr --serverlist | while read -r nvim_socket ; do
 	fork nvr --nostart --servername "$nvim_socket" -c 'source $XDG_CONFIG_HOME/nvim/mode.vim'
 done
