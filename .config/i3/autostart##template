@@ -1,7 +1,6 @@
 #!/bin/sh
 . "$HOME/.profile"
 xrdb -override < "$XDG_CONFIG_HOME/X11/base"
-mode --no-reload restore
 
 /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1 &
 polybar &
@@ -13,13 +12,11 @@ fcitx5 &
 xbindkeys --nodaemon &
 {% if yadm.hostname == "thoncc" %}
 xdimmer -t 45 -p 3 &
-light-locker --no-late-locking &
 {% else %}
 redshift -l 52:6 &
 nicotine --hidden &
 desktop2mqtt --config "$XDG_CONFIG_HOME/desktop2mqtt/config.yml" &
 {% endif %}
-flashfocus &
 
 # auto start lazy script after everything else
 [ -x "$HOME/do.sh" ] && "$HOME/do.sh" &

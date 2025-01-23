@@ -1,10 +1,6 @@
 # variables
 set $mod Mod4
-{% if yadm.hostname == "thoncc" %}
 set $inner_gaps 8
-{% else %}
-set $inner_gaps 10
-{% endif %}
 set $outer_gaps 0
 
 # set gaps
