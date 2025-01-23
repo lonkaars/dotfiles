@@ -1,5 +1,7 @@
 set shell sh
 set shellopts '-eu'
+set ifs "\n"
+set filesep "\n"
 set scrolloff 10
 set info size
 set dircounts
@@ -11,12 +13,16 @@ set cursorpreviewfmt ""
 set errorfmt "\033[31m"
 set promptfmt "\033[34;1m%d\033[0m\033[1m%f\033[0m"
 set statfmt "\033[36m%p| -> %l"
+set rulerfmt "  %a|  %p|  \033[7;31m mv %m \033[0m|  \033[7;33m cp %c \033[0m|  \033[7;35m sel %s \033[0m|  \033[7;34m %f \033[0m"
 
 map v :toggle ; down
 map V invert
 map <backspace> set hidden! # <C-h>
+map u
+map uv unselect
+map uc clear
 
-cmd bulkrename $renamer $fx
+cmd bulkrename $renamer -n $fx
 
 # vim:ft=cfg
 
