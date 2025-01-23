@@ -1,5 +1,6 @@
 #!/bin/sh
-cat << EOF > "$XDG_CONFIG_HOME/polybar/colors.ini"
+mkcd "$XDG_CONFIG_HOME/polybar"
+cat << EOF > 'colors.ini'
 [color]
 bg = \${xrdb:background:$bg}
 fg = \${xrdb:foreground:$fg}

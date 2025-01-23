@@ -1,5 +1,5 @@
 #!/bin/sh
-cd "$XDG_DATA_HOME/fcitx5/themes/default"
+mkcd "$XDG_DATA_HOME/fcitx5/themes/default"
 rounding=6
 size=$(( 2 * $rounding + 4 ))
 margin_h=6

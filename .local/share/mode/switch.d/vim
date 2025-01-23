@@ -1,9 +1,8 @@
 #!/bin/sh
-PREFIX="$XDG_CONFIG_HOME/nvim/mode"
-mkdir -p "$PREFIX"
+mkcd "$XDG_CONFIG_HOME/nvim/mode"
 
 # lightline
-cat << EOF > "$PREFIX/lightline.vim"
+cat << EOF > 'lightline.vim'
 let s:bg = [ '$bg', 'NONE' ]
 let s:fg = [ '$fg', 'NONE' ]
 let s:mode = [ '$color0', 'NONE' ]
@@ -32,7 +31,7 @@ let g:lightline#colorscheme#auto#palette = lightline#colorscheme#flatten(s:p)
 EOF
 
 # terminal colors
-cat << EOF > "$PREFIX/termcolors.vim"
+cat << EOF > 'termcolors.vim'
 let g:terminal_color_0 = '$color0'
 let g:terminal_color_1 = '$color1'
 let g:terminal_color_2 = '$color2'
@@ -52,7 +51,7 @@ let g:terminal_color_15 = '$color15'
 EOF
 
 # color scheme
-cat << EOF > "$PREFIX/colorscheme.vim"
+cat << EOF > 'colorscheme.vim'
 colorscheme $vim_theme_name
 EOF
 

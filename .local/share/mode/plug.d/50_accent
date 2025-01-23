@@ -4,13 +4,12 @@
 # do not generate accent color if already explicitly defined by theme
 [ -n "$accent" ] && return
 
-[ "$mode" = "light" ] && {
-	accent="$color15"
-	accent_text="$color0"
-}
-[ "$mode" = "dark" ] && {
-	accent="$(mix_rgb $bg $color0 0.5)"
-	accent_text="$fg"
-}
+if [ "$mode" = "light" ] ; then
+	themevar accent "$color15"
+	themevar accent_text "$color0"
+fi
+if [ "$mode" = "dark" ] ; then
+	themevar accent "$(mix_rgb $bg $color0 0.5)"
+	themevar accent_text "$fg"
+fi
 
-export accent accent_text

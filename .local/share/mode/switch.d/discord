@@ -1,5 +1,6 @@
 #!/bin/sh
-cat << EOF > "$XDG_CONFIG_HOME/BetterDiscord/themes/mode.theme.css"
+mkcd "$XDG_CONFIG_HOME/BetterDiscord/themes"
+cat << EOF > 'mode.theme.css'
 /**
  * @name mode
  * @author mode

@@ -1,8 +1,8 @@
 #!/bin/sh
-PREFIX="$XDG_CACHE_HOME/mode/state"
-rm -rf "$PREFIX"/*
-mkdir -p "$PREFIX"
+mkcd "$XDG_CACHE_HOME/mode/state"
 
-echo "$mode" > "$PREFIX/mode"
-ln -sf "$theme" "$PREFIX/theme"
+echo "$mode" > mode
+rm theme
+ln -sf "$theme" theme
+echo "#!/bin/sh$vars" > vars
 

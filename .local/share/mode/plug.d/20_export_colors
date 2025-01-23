@@ -9,7 +9,7 @@ check_color() {
 		echo "error: color $1 is not properly formatted (#RRGGBB)"
 		stupid && exit 1
 	fi
-	eval "export $1"
+	themevar "$1"
 }
 for color in $(seq 0 15 | sed 's/^/color/') bg fg ; do
 	check_color $color

@@ -1,5 +1,6 @@
 #!/bin/sh
-cat << EOF > "$XDG_CONFIG_HOME/zathura/colors"
+mkcd "$XDG_CONFIG_HOME/zathura"
+cat << EOF > 'colors'
 set completion-bg "$bg"
 set completion-fg "$fg"
 set completion-highlight-bg "$accent"

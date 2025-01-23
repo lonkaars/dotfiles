@@ -1,8 +1,0 @@
-#!/bin/sh
-cat << EOF > "$XDG_CONFIG_HOME/rofi/colors"
-export background="$bg"
-export foreground="$fg"
-export accent="$accent"
-export accent_text="$accent_text"
-EOF
-

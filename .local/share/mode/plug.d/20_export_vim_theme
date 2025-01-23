@@ -3,4 +3,4 @@
 if [ "$(find "$XDG_CONFIG_HOME/nvim" -name "$vim_theme_name.vim" | wc -l)" -eq 0 ] ; then
 	echo "warn: vim theme $vim_theme_name does not appear to be installed" >&2
 fi
-export vim_theme_name
+themevar vim_theme_name

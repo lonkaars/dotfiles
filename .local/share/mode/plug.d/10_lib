@@ -1,5 +1,36 @@
 #!/bin/sh
 # utility library functions
 hex_to_rgb_array() { pastel format rgb "$1" | cut -c4- | tr '()' '[]' ; }
+
 mix_rgb() { pastel mix --colorspace=RGB --fraction="$3" "$1" "$2" | pastel format hex ; }
+
+getvar() {
+	key="$1"
+	eval "printf '%s' \"\$$key\""
+}
+
+setvar() {
+	key="$1"
+	value="$2"
+	eval "$key='$(printf '%s' "$value")'"
+}
+
+themevar() {
+	key="$1"
+	if [ $# -eq 1 ] ; then
+		value="$(getvar "$key")"
+	else
+		value="$2"
+		setvar "$key" "$value"
+	fi
+
+	vars="$vars
+$(printf "export %s='%s'" "$key" "$value")"
+	eval "export $key"
+}
+
+mkcd() {
+	mkdir -p "$1"
+	cd "$1"
+}
 
