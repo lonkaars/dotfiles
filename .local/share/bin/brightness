@@ -1,0 +1,29 @@
+#!/bin/sh
+case "$*" in
+	+*) action="+" ;;
+	-*) action="-" ;;
+	*) action="=" ;;
+esac
+value="$(echo "$*" | tr -dc '[[:digit:]]')"
+
+if [ -n "$(command -v xbacklight)" ] ; then
+	[ "$action" = "+" ] && action="-inc"
+	[ "$action" = "-" ] && action="-dec"
+	[ "$action" = "=" ] && action="-set"
+
+	fork xbacklight -time 100 -fps 60 $action $value
+
+	exit 0
+
+elif [ -n "$(command -v ddcutil)" ] ; then
+	[ "$action" = "=" ] && action=""
+
+	for bus in 2 3 ; do
+		fork ddcutil --bus="$bus" --skip-ddc-checks --noverify setvcp 10 $action $value
+	done
+
+	exit 0
+
+fi
+exit 1
+

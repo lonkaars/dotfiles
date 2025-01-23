@@ -25,30 +25,22 @@
 
 "pactl set-sink-volume @DEFAULT_SINK@ -1%"
 	Mod1+Mod4+minus
+	XF86AudioLowerVolume
 "pactl set-sink-volume @DEFAULT_SINK@ +1%"
 	Mod1+Mod4+equal
-
-"pactl set-sink-volume @DEFAULT_SINK@ +1%"
 	XF86AudioRaiseVolume
-"pactl set-sink-volume @DEFAULT_SINK@ -1%"
-	XF86AudioLowerVolume
 
 "pactl set-sink-mute @DEFAULT_SINK@ toggle"
 	XF86AudioMute
 "pactl set-source-mute @DEFAULT_SOURCE@ toggle"
 	XF86AudioMicMute
 
-{% if yadm.hostname == "thoncc" %}
-"xbacklight -inc 10 -time 100 -fps 60"
-	XF86MonBrightnessUp
-"xbacklight -dec 10 -time 100 -fps 60"
-	XF86MonBrightnessDown
-{% else %}
-"brightness - 20"
+"brightness -10"
 	Shift+Mod4 + minus
-"brightness + 20"
+	XF86MonBrightnessDown
+"brightness +10"
 	Shift+Mod4 + equal
-{% endif %}
+	XF86MonBrightnessUp
 
 "playerctl play-pause"
 	XF86AudioPlay
