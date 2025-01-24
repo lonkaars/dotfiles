@@ -1,6 +1,7 @@
 #!/bin/sh
 . "$HOME/.profile"
 xrdb -override < "$XDG_CONFIG_HOME/X11/base"
+mode --no-reload restore
 
 /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1 &
 polybar &
