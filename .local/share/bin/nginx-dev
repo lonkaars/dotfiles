@@ -1,9 +1,47 @@
 #!/bin/sh
+folder="$PWD"
 port=8080
+try_files='/$uri /$uri.html /$uri/index.html =404'
+cache_control='
+	add_header Last-Modified $date_gmt;
+	add_header Cache-Control "private no-store, no-cache, must-revalidate, proxy-revalidate, max-age=0";
+	if_modified_since off;
+	expires off;
+	etag off;
+'
+
+usage() {
+	cat << EOF
+usage: $(basename "$0") [options] [folder]
+
+options:
+	-p PORT  host server on port PORT (default $port)
+	-t STR   set try_files pattern to STR (default '$try_files')
+	-C       enable server cache (disabled by default)
+	-v       verbose mode (prints config before starting server)
+	-h       show this help
+EOF
+exit $1
+}
+
+ARGC=0
+while getopts hvp:Ct: OPT; do
+	[ $OPTIND -gt $ARGC ] && ARGC=$OPTIND
+	case $OPT in
+		h) usage 0 ;;
+		p) port="$OPTARG" ;;
+		t) try_files="$OPTARG" ;;
+		v) print_config=1 ;;
+		C) cache_control="" ;;
+		\?|*) usage 1 ;;
+	esac
+done
+shift $(( $OPTIND - 1 ))
+
+[ $# -ge 1 ] && folder="$(readlink -f "$1")"
+
 config="$(mktemp)"
 pidfile="$(mktemp)"
-try_files='/$uri /$uri.html /$uri/index.html =404'
-
 cat << EOF > "$config"
 worker_processes 1;
 daemon off;
@@ -17,6 +55,8 @@ http {
 	types_hash_max_size 4096;
 	include /etc/nginx/mime.types;
 	default_type application/octet-stream;
+
+	$cache_control
 
 	access_log /dev/stdout;
 
@@ -32,6 +72,7 @@ http {
 	}
 }
 EOF
+[ $print_config ] && cat "$config"
 nginx -c "$config"
-
 rm -f "$config" "$pidfile"
+
