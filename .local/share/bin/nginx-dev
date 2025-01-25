@@ -2,6 +2,7 @@
 folder="$PWD"
 port=8080
 try_files='/$uri /$uri.html /$uri/index.html =404'
+access_log='/dev/stdout'
 cache_control='
 	add_header Last-Modified $date_gmt;
 	add_header Cache-Control "private no-store, no-cache, must-revalidate, proxy-revalidate, max-age=0";
@@ -19,13 +20,14 @@ options:
 	-t STR   set try_files pattern to STR (default '$try_files')
 	-C       enable server cache (disabled by default)
 	-v       verbose mode (prints config before starting server)
+	-q       quiet mode (disable access_log)
 	-h       show this help
 EOF
 exit $1
 }
 
 ARGC=0
-while getopts hvp:Ct: OPT; do
+while getopts hvp:Ct:q OPT; do
 	[ $OPTIND -gt $ARGC ] && ARGC=$OPTIND
 	case $OPT in
 		h) usage 0 ;;
@@ -33,6 +35,7 @@ while getopts hvp:Ct: OPT; do
 		t) try_files="$OPTARG" ;;
 		v) print_config=1 ;;
 		C) cache_control="" ;;
+		q) access_log="/dev/null" ;;
 		\?|*) usage 1 ;;
 	esac
 done
@@ -58,13 +61,13 @@ http {
 
 	$cache_control
 
-	access_log /dev/stdout;
+	access_log $access_log;
 
 	server {
 		listen $port;
 		listen [::]:$port;
 
-		root $PWD;
+		root $folder;
 
 		location / {
 			try_files $try_files;
