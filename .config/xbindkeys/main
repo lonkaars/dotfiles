@@ -25,9 +25,11 @@
 
 "pactl set-sink-volume @DEFAULT_SINK@ -1%"
 	Mod1+Mod4+minus
+"pactl set-sink-volume @DEFAULT_SINK@ -1%"
 	XF86AudioLowerVolume
 "pactl set-sink-volume @DEFAULT_SINK@ +1%"
 	Mod1+Mod4+equal
+"pactl set-sink-volume @DEFAULT_SINK@ +1%"
 	XF86AudioRaiseVolume
 
 "pactl set-sink-mute @DEFAULT_SINK@ toggle"
@@ -37,9 +39,11 @@
 
 "brightness -10"
 	Shift+Mod4 + minus
+"brightness -10"
 	XF86MonBrightnessDown
 "brightness +10"
 	Shift+Mod4 + equal
+"brightness +10"
 	XF86MonBrightnessUp
 
 "playerctl play-pause"
