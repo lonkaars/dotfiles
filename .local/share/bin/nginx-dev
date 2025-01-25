@@ -1,0 +1,37 @@
+#!/bin/sh
+port=8080
+config="$(mktemp)"
+pidfile="$(mktemp)"
+try_files='/$uri /$uri.html /$uri/index.html =404'
+
+cat << EOF > "$config"
+worker_processes 1;
+daemon off;
+pid $pidfile;
+
+events {
+	worker_connections 1024;
+}
+
+http {
+	types_hash_max_size 4096;
+	include /etc/nginx/mime.types;
+	default_type application/octet-stream;
+
+	access_log /dev/stdout;
+
+	server {
+		listen $port;
+		listen [::]:$port;
+
+		root $PWD;
+
+		location / {
+			try_files $try_files;
+		}
+	}
+}
+EOF
+nginx -c "$config"
+
+rm -f "$config" "$pidfile"
