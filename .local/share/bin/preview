@@ -17,7 +17,7 @@ render_manpage() {
 	exec groff -T utf8 -m man -rcR=1 -rIN=0 -rLL="${WIDTH}n" << EOF
 .nr an-suppress-header-and-footer 1
 .TH
-$(cat)
+$(cat | preconv)
 EOF
 }
 
