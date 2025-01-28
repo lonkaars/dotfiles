@@ -41,7 +41,7 @@ prompt_segment() {
 }
 prompt_mod_git_info() {
 	git rev-parse --is-inside-work-tree 1> /dev/null 2> /dev/null || return
-	prompt_segment "git $(git rev-parse --abbrev-ref HEAD)"
+	prompt_segment "git $(git rev-parse --abbrev-ref HEAD 2> /dev/null)"
 }
 # only display hostname in prompt if connected over SSH
 [ -n "$SSH_CLIENT" ] && PROMPT+="$(prompt_segment '%m')"
