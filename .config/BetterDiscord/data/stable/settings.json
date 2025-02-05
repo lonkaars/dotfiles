@@ -3,11 +3,17 @@
         "voiceDisconnect": false,
         "showToasts": true,
         "mediaKeys": false,
-        "bdContextMenu": true
+        "bdContextMenu": true,
+        "themeAttributes": true
     },
     "addons": {
         "addonErrors": true,
         "editAction": "detached"
+    },
+    "store": {
+        "bdAddonStore": true,
+        "alwaysEnable": false,
+        "addonEmbeds": true
     },
     "customcss": {
         "customcss": true,
@@ -25,7 +31,8 @@
     "window": {
         "transparency": false,
         "removeMinimumSize": true,
-        "frame": false
+        "frame": false,
+        "inAppTrafficLights": false
     },
     "developer": {
         "debugLogs": false,
@@ -33,6 +40,7 @@
         "debuggerHotkey": false,
         "reactDevTools": false,
         "inspectElement": false,
-        "devToolsWarning": false
+        "devToolsWarning": false,
+        "recovery": true
     }
 }

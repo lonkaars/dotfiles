@@ -7,3 +7,4 @@ Exec=discord
 Icon=discord
 Type=Application
 Categories=Network;InstantMessaging;
+MimeType=x-scheme-handler/betterdiscord;
