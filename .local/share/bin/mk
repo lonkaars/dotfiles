@@ -6,6 +6,13 @@ showmode() {
 	printf '\e[1A\e['$col'G\e[1;30m%s\e[0m\n' "$mode"
 }
 
+mode_west() {
+	showmode 'west'
+	[ -z "$*" ] && set -- build
+	exec west "$@"
+}
+[ -e "west.yml" ] && mode_west "$@"
+
 mode_cmake() {
 	showmode 'cmake'
 	builddir="build"

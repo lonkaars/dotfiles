@@ -1,4 +1,4 @@
-*.font: JetBrainsMono Nerd Font:size=7.5:antialias=true:autohint=true
+*.font: monospace:size=7.5:antialias=true:autohint=true
 *.borderpx: 10
 *.termname: st-256color
 *.tabspaces: 2
