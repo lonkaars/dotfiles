@@ -1,0 +1,5 @@
+CompileFlags:
+  # ignore unknown (gcc) compiler flags
+  Add: -Wno-unknown-warning-option
+  Remove: [-m*, -f*]
+
