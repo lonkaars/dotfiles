@@ -5,21 +5,18 @@ pass_names="$(pass names -l)"
 [ $? -ne 0 ] && exit 1
 
 pass_count="$(echo "$pass_names" | wc -l)"
-if [ "$pass_count" -gt 10 ] ; then
-	cat << EOF >&2
-pass-duplicates needs to decrypt all your passwords one-by-one to cross-match
-them. This is all done in-memory, and nothing is saved to disk. You appear to
-have $pass_count passwords, so this may take some time...
-
-EOF
-fi
+pass_index=1
 
 while read pass_name ; do
 	hash="$(pass show "$pass_name" | head -n1 | sha1sum | cut -c1-40)"
 
 	dupe_map["$pass_name"]="$hash"
 	dupe_tally["$hash"]=$(( ${dupe_tally["$hash"]} + 1 ))
+
+	printf '\rhashing... (%d/%d)' "$pass_index" "$pass_count" >&2
+	pass_index=$(( $pass_index + 1 ))
 done < <(echo "$pass_names")
+printf '\r\e[2K' >&2
 
 unique_duplicates=0
 total_shared=0
