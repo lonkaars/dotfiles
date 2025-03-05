@@ -19,6 +19,7 @@ set linebreak " set wrap but don't wrap inside words
 set viminfo+='1000,n~/.local/nvim/viminfo
 set guifont=JetBrainsMono\ Nerd\ Font:h9:#e-subpixelantialias:#h-slight
 set linespace=5
+set tabpagemax=999
 let g:sneak#label = 1
 let g:which_key_map = {}
 let g:airline_powerline_fonts = 1
@@ -191,6 +192,13 @@ let g:which_key_map.u = 'toggle undo tree'
 cnoreabbrev W w
 cnoreabbrev sudow w !sudo tee %
 
+" emacs bindings in vim command-line
+cnoremap <A-b> <S-Left>
+cnoremap <A-f> <S-Right>
+cnoremap <C-a> <Home>
+cnoremap <C-e> <End>
+cnoremap <A-backspace> <C-w>
+
 " hexokinase
 let g:Hexokinase_termDisabled = 1
 let g:Hexokinase_optOutPatterns = [ 'colour_names' ]
@@ -346,6 +354,12 @@ augroup Binary
   au BufWritePost *.bin if &bin | %!xxd
   au BufWritePost *.bin set nomod | endif
   au BufWritePost *.bin set noeol
+augroup END
+
+" highlight Zephyr .overlay files as devicetree source (dts)
+augroup devicetree_ft
+	au!
+	au BufRead,BufNewFile *.overlay set syntax=dts
 augroup END
 
 " sneak
