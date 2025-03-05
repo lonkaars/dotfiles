@@ -8,7 +8,9 @@
     },
     "addons": {
         "addonErrors": true,
-        "editAction": "detached"
+        "editAction": "detached",
+        "checkForUpdates": true,
+        "updateInterval": 4
     },
     "store": {
         "bdAddonStore": true,
