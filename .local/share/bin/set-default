@@ -1,0 +1,32 @@
+#!/bin/sh
+SCRIPT_NAME="$(basename "$0")"
+
+usage() {
+	code=0
+	if [ -z "$1" ] ; then
+	cat << EOF
+Set desktop entry ENTRY as default application for opening files with the same
+type as FILE
+
+EOF
+	else
+		echo "error: $1" >&2
+		code=1
+	fi
+	cat << EOF
+usage:
+	$SCRIPT_NAME ENTRY FILE [FILE]
+EOF
+	exit $code
+}
+
+[ $# -eq 0 ] && usage
+DESKTOP_ENTRY="$1"; shift
+[ -z "$DESKTOP_ENTRY" ] && usage "no desktop entry"
+[ $# -lt 1 ] && usage "no reference file(s)"
+
+for file in "$@" ; do
+	mimetype="$(xdg-mime query filetype "$file")"
+	xdg-mime default "$DESKTOP_ENTRY" "$mimetype"
+done
+
