@@ -89,6 +89,8 @@ Plug 'arzg/vim-colors-xcode'
 Plug 'romgrk/github-light.vim'
 Plug 'vv9k/vim-github-dark'
 Plug 'rose-pine/neovim'
+
+Plug '~/.config/nvim/local/coc-markdown-links'
 call plug#end()
 
 " keybinds
