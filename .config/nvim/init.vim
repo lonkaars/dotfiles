@@ -27,6 +27,7 @@ let g:minimap_highlight='Visual'
 let g:python3_host_prog='/usr/bin/python3'
 let g:vimtex_quickfix_open_on_warning = 0
 let g:vimtex_imaps_enabled = 0
+let g:DiffColors = 0
 
 if exists("g:neovide")
 	nmap <silent> <C-=> :lua vim.g.neovide_scale_factor = vim.g.neovide_scale_factor + 0.1<CR>
@@ -64,6 +65,7 @@ Plug 'wellle/targets.vim'
 Plug 'rrethy/vim-hexokinase', { 'do': 'make hexokinase' }
 Plug 'dkarter/bullets.vim'
 Plug 'editorconfig/editorconfig-vim'
+Plug 'rickhowe/diffunitsyntax'
 
 " language plugins
 Plug 'lervag/vimtex'
@@ -97,10 +99,9 @@ call plug#end()
 tnoremap <Esc> <C-\><C-n>
 
 nnoremap tt :tabnew<CR>
-
-nmap <CR> o<Esc>
-nmap <leader>qf <Plug>(coc-fix-current)
-
+nnoremap <CR> o<Esc>
+nnoremap <leader>qf <Plug>(coc-fix-current)
+nnoremap <silent> * yiw:let @/='\<<C-R>=expand("<cword>")<CR>\>'<CR>:set hls<CR>
 nnoremap <silent> <A-j> :m +1<CR>
 nnoremap <silent> <A-k> :m -2<CR>
 
@@ -189,6 +190,9 @@ let g:which_key_map['.'] = {
 
 map <silent> <leader>u :UndotreeToggle<cr>
 let g:which_key_map.u = 'toggle undo tree'
+
+nnoremap <silent> <leader>e 0f!xC<c-r>=system(@-)<cr><esc>dd
+let g:which_key_map.e = 'read and execute after !'
 
 " cmd maps
 cnoreabbrev W w
@@ -362,6 +366,7 @@ augroup END
 augroup devicetree_ft
 	au!
 	au BufRead,BufNewFile *.overlay set syntax=dts
+	au BufRead,BufNewFile *.dtsi set syntax=dts
 augroup END
 
 " sneak

@@ -1,5 +1,9 @@
 CompileFlags:
-  # ignore unknown (gcc) compiler flags
-  Add: -Wno-unknown-warning-option
-  Remove: [-m*, -f*]
+  Add:
+    # ignore unknown (gcc) compiler flags
+    - -Wno-unknown-warning-option
+    - -Wno-gnu-folding-constant
+  Remove:
+    - -m*
+    - -f*
 

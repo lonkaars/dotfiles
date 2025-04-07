@@ -4,6 +4,8 @@ port=8080
 try_files='/$uri /$uri.html /$uri/index.html =404'
 access_log='/dev/stdout'
 cache_control='
+	proxy_store off;
+	proxy_cache off;
 	add_header Last-Modified $date_gmt;
 	add_header Cache-Control "private no-store, no-cache, must-revalidate, proxy-revalidate, max-age=0";
 	if_modified_since off;
@@ -35,7 +37,7 @@ while getopts hvp:Ct:qx OPT; do
 		p) port="$OPTARG" ;;
 		t) try_files="$OPTARG" ;;
 		v) print_config=1 ;;
-		C) cache_control="" ;;
+		C) cache_control='' ;;
 		q) access_log="/dev/null" ;;
 		x) open_browser=1 ;;
 		\?|*) usage 1 ;;
