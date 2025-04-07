@@ -12,6 +12,7 @@ MIMETYPE="$(file --mime-type -Lb "$FILE")"
 EXT="${FILE#*.}"
 
 [ "$EXT" = "md" ] && [ "$MIMETYPE" = "text/plain" ] && MIMETYPE="application/markdown"
+[ "$MIMETYPE" = "application/javascript" ] && MIMETYPE="text/javascript"
 
 render_manpage() {
 	exec groff -T utf8 -m man -rcR=1 -rIN=0 -rLL="${WIDTH}n" << EOF
@@ -48,6 +49,9 @@ case "$MIMETYPE" in
 		;;
 	application/markdown)
 		pandoc --from=gfm --to=man "$FILE" | render_manpage
+		;;
+	application/json)
+		jq --color-output . "$FILE"
 		;;
 	*)
 		echo "$MIMETYPE"
