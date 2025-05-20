@@ -42,9 +42,8 @@ export GEM_HOME="$XDG_DATA_HOME/gem/ruby/3.0.0"
 
 # script locations
 if [ -z "$PATH_EXTENDED" ] ; then
+	PATH="/opt/zephyr-sdk/arm-zephyr-eabi/bin:$PATH"
 	PATH="$GEM_HOME/bin:$PATH"
-	# PATH="$HOME/.lyp/bin:$PATH"
-	# PATH="/opt/f4pga/xc7/conda/bin:$PATH"
 	PATH="$HOME/.local/share/cargo/bin:$PATH"
 	PATH="$HOME/.local/go/bin:$PATH"
 	PATH="$HOME/.local/bin:$PATH"
@@ -62,6 +61,8 @@ export GOPATH="$HOME/.local/go"
 [ -e "$XDG_CONFIG_HOME/gtk-4.0/env" ] && . "$XDG_CONFIG_HOME/gtk-4.0/env"
 export PASSWORD_STORE_ENABLE_EXTENSIONS=true
 export PASSWORD_STORE_EXTENSIONS_DIR="$XDG_DATA_HOME/pass-extensions"
+export MOZ_USE_XINPUT2=1
+export CMAKE_EXPORT_COMPILE_COMMANDS=1
 
 # LS_COLORS
 [ ! -e "$XDG_CACHE_HOME/dircolors" ] || [ "$XDG_CONFIG_HOME/dircolors" -nt "$XDG_CACHE_HOME/dircolors" ] && dircolors "$XDG_CONFIG_HOME/dircolors" > "$XDG_CACHE_HOME/dircolors"
@@ -86,6 +87,9 @@ alias nvidia-settings='nvidia-settings --config="$XDG_CONFIG_HOME/nvidia/setting
 alias gpg2="gpg2 --homedir $XDG_DATA_HOME/gnupg"
 export PASSWORD_STORE_DIR="$XDG_DATA_HOME/pass"
 export WGETRC="$XDG_CONFIG_HOME/wgetrc"
+export TEXMFHOME="$XDG_DATA_HOME/texmf"
+export TEXMFVAR="$XDG_CACHE_HOME/texlive/texmf-var"
+export TEXMFCONFIG="$XDG_CONFIG_HOME/texlive/texmf-config"
 
 # disable dotnet telemetry
 export DOTNET_CLI_TELEMETRY_OPTOUT=1
