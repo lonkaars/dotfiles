@@ -25,8 +25,6 @@ let g:which_key_map = {}
 let g:airline_powerline_fonts = 1
 let g:minimap_highlight='Visual'
 let g:python3_host_prog='/usr/bin/python3'
-let g:vimtex_quickfix_open_on_warning = 0
-let g:vimtex_imaps_enabled = 0
 let g:DiffColors = 0
 
 if exists("g:neovide")
@@ -248,22 +246,10 @@ call lightline#init()
 
 " vimtex config
 let g:tex_flavor = 'latex'
-let g:vimtex_compiler_latexmk = {
-			\ 'backend' : 'nvim',
-			\ 'background' : 1,
-			\ 'build_dir' : '',
-			\ 'callback' : 1,
-			\ 'continuous' : 1,
-			\ 'executable' : 'latexmk',
-			\ 'engine' : 'xelatex',
-			\ 'hooks' : [],
-			\ 'options' : [
-			\   '-xelatex',
-			\   '-file-line-error',
-			\   '-synctex=1',
-			\   '-interaction=nonstopmode',
-			\ ],
-			\}
+let g:vimtex_quickfix_open_on_warning = 0
+let g:vimtex_imaps_enabled = 0
+let g:vimtex_compiler_method = 'latexmk'
+let g:vimtex_compiler_latexmk_engines = { '_': '' }
 
 " TeX quotes
 autocmd FileType tex let b:surround_{char2nr("q")} = "`\r'"
@@ -379,3 +365,5 @@ autocmd InsertLeave * call system("fcitx5-temp-off &")
 " colorscheme
 source $XDG_CONFIG_HOME/nvim/mode.vim
 
+set exrc
+set secure
