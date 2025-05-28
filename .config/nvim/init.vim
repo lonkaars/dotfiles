@@ -26,6 +26,7 @@ let g:airline_powerline_fonts = 1
 let g:minimap_highlight='Visual'
 let g:python3_host_prog='/usr/bin/python3'
 let g:DiffColors = 0
+let g:AutoPairsMultilineClose = 0
 
 if exists("g:neovide")
 	nmap <silent> <C-=> :lua vim.g.neovide_scale_factor = vim.g.neovide_scale_factor + 0.1<CR>
@@ -95,7 +96,6 @@ call plug#end()
 
 " keybinds
 tnoremap <Esc> <C-\><C-n>
-
 nnoremap tt :tabnew<CR>
 nnoremap <CR> o<Esc>
 nnoremap <leader>qf <Plug>(coc-fix-current)
@@ -254,7 +254,7 @@ let g:vimtex_compiler_latexmk_engines = { '_': '' }
 " TeX quotes
 autocmd FileType tex let b:surround_{char2nr("q")} = "`\r'"
 autocmd FileType tex let b:surround_{char2nr('Q')} = "``\r''"
-autocmd FileType tex let b:AutoPairs = AutoPairsDefine({'(':')', '[':']', '{':'}', "``":"''", "`":"'", '$':'$', '"':'"'})
+autocmd FileType tex let b:AutoPairs = {'(':')', '[':']', '{':'}', "``":"''", "`":"'", '$':'$', '"':'"'}
 
 " AutoPairs for plantuml
 autocmd FileType plantuml let b:AutoPairs = {'(':')', '[':']', '{':'}', '`':'`'}
@@ -353,6 +353,12 @@ augroup devicetree_ft
 	au!
 	au BufRead,BufNewFile *.overlay set syntax=dts
 	au BufRead,BufNewFile *.dtsi set syntax=dts
+augroup END
+
+augroup BibLaTeX
+	" add allowed characters in biblatex labels to word delimiters
+	autocmd!
+	autocmd FileType bib setlocal iskeyword+=:,-
 augroup END
 
 " sneak

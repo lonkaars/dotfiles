@@ -1,2 +1,16 @@
-#!/bin/sh
-python3 -c "from math import *; deg = pi / 180; print($*)"
+#!/bin/python3 --
+from sys import argv as _argv
+
+from math import *
+deg = pi / 180
+
+MIN = min
+MAX = max
+BIT = lambda n: 1 << n
+GENMASK = lambda h, l: (BIT(MAX(h, l) + 1) - 1) ^ (BIT(MIN(h, l)) - 1)
+
+try:
+	print(eval(" ".join(_argv[1:])))
+except:
+	exit(1)
+
