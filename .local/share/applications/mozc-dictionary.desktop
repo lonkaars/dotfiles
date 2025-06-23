@@ -1,0 +1,11 @@
+[Desktop Entry]
+Name=Mozc dictionary tool
+Name[ja]=Mozc 辞書ツール
+Name[nl]=Mozc woordenboekhulpprogramma
+GenericName[ja]=日本語入力の辞書ツール
+GenericName[nl]=Hulpprogramma voor woordenboek van Japanse invoer
+GenericName=Japanese input method dictionary tool
+Exec=/usr/lib/mozc/mozc_tool --mode=dictionary_tool
+Icon=mozc
+Type=Application
+Categories=Settings;

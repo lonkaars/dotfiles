@@ -1,0 +1,11 @@
+[Desktop Entry]
+Name=Mozc settings
+Name[ja]=Mozc プロパティ
+Name[nl]=Mozc instellingen
+GenericName[ja]=日本語入力の設定
+GenericName[nl]=Instellingen voor Japanse invoermethode
+GenericName=Japanese IME configuration
+Exec=/usr/lib/mozc/mozc_tool --mode=config_dialog
+Icon=mozc
+Type=Application
+Categories=Settings;
