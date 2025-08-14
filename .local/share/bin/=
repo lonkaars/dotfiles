@@ -1,7 +1,25 @@
 #!/bin/python3 --
 from sys import argv as _argv
-
+from os import environ as _environ, path as _path
 from math import *
+
+_ans_path = _path.join(_environ["XDG_CACHE_HOME"], "calc_ans")
+try:
+	_ans_file = open(_ans_path, "r+")
+except:
+	_ans_file = open(_ans_path, "w+")
+_exit_code = 0
+
+ans = 0
+try:
+	_ans_str = _ans_file.read()
+	if "." in _ans_str:
+		ans = float(_ans_str)
+	else:
+		ans = int(_ans_str)
+except:
+	pass
+
 deg = pi / 180
 
 MIN = min
@@ -10,7 +28,15 @@ BIT = lambda n: 1 << n
 GENMASK = lambda h, l: (BIT(MAX(h, l) + 1) - 1) ^ (BIT(MIN(h, l)) - 1)
 
 try:
-	print(eval(" ".join(_argv[1:])))
+	ans = eval(" ".join(_argv[1:]))
+	print(ans)
 except:
-	exit(1)
+	pass
+
+_ans_file.truncate(0)
+_ans_file.seek(0)
+_ans_file.write(str(ans))
+_ans_file.close()
+
+exit(_exit_code)
 
