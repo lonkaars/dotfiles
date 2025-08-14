@@ -5,6 +5,7 @@ user_pref("media.videocontrols.picture-in-picture.video-toggle.enabled", false);
 user_pref("intl.regional_prefs.use_os_locales", true);
 user_pref("layout.spellcheckDefault", 0);
 user_pref("browser.safebrowsing.downloads.enabled", false);
+user_pref("browser.translations.automaticallyPopup", false);
 
 // privacy
 user_pref("signon.rememberSignons", false);

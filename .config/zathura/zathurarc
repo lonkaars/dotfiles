@@ -1,15 +1,16 @@
-set scroll-page-aware "true"
+set scroll-page-aware true
 set scroll-full-overlap 0.01
 set scroll-step 100
 set selection-clipboard clipboard
 
 # recolor (dark mode)
 map <C-i> recolor
-set recolor "true"
+set recolor true
 
-set recolor-reverse-video "true"
-set recolor-keephue "true"
+set recolor-reverse-video true
+set recolor-keephue true
 set guioptions ""
+set show-recent false
 
 include ./colors
 

@@ -12,6 +12,7 @@ lyrics_directory = "{{ env.XDG_CACHE_HOME }}/lyrics"
 progressbar_look = "───"
 progressbar_color = black
 progressbar_elapsed_color = default
+visualizer_color = default
 playlist_display_mode = classic
 autocenter_mode = yes
 centered_cursor = yes

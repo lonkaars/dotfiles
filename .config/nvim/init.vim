@@ -20,6 +20,9 @@ set viminfo+='1000,n~/.local/nvim/viminfo
 set guifont=JetBrainsMono\ Nerd\ Font:h9:#e-subpixelantialias:#h-slight
 set linespace=5
 set tabpagemax=999
+set breakindent
+set breakindentopt=shift:2
+set formatoptions+=mM
 let g:sneak#label = 1
 let g:which_key_map = {}
 let g:airline_powerline_fonts = 1
@@ -27,6 +30,7 @@ let g:minimap_highlight='Visual'
 let g:python3_host_prog='/usr/bin/python3'
 let g:DiffColors = 0
 let g:AutoPairsMultilineClose = 0
+filetype plugin on
 
 if exists("g:neovide")
 	nmap <silent> <C-=> :lua vim.g.neovide_scale_factor = vim.g.neovide_scale_factor + 0.1<CR>
@@ -84,12 +88,13 @@ Plug 'aklt/plantuml-syntax'
 Plug 'fymyte/rasi.vim'
 Plug 'habamax/vim-asciidoctor'
 Plug 'lonkaars/coc-khard'
+Plug 'sile-typesetter/vim-sile'
 
 " themes
 Plug 'arzg/vim-colors-xcode'
 Plug 'romgrk/github-light.vim'
 Plug 'vv9k/vim-github-dark'
-Plug 'rose-pine/neovim'
+Plug 'rose-pine/neovim', {'as': 'rose-pine'}
 
 Plug '~/.config/nvim/local/coc-markdown-links'
 call plug#end()
@@ -371,5 +376,7 @@ autocmd InsertLeave * call system("fcitx5-temp-off &")
 " colorscheme
 source $XDG_CONFIG_HOME/nvim/mode.vim
 
+" use .exrc files
 set exrc
 set secure
+

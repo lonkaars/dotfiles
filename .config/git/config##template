@@ -33,3 +33,7 @@
 	l = log
 	d = diff
 	cloc = !git ls-files -z | xargs -0 cloc
+[pager]
+	log = diff-highlight | less
+	show = diff-highlight | less
+	diff = diff-highlight | less

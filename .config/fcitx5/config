@@ -25,6 +25,8 @@ PrevPage=
 NextPage=
 # 埋め込みプリエディットの切り替え
 TogglePreedit=
+# 修飾キーのショートカットをトリガーするための時間制限（ミリ秒）
+ModifierOnlyKeyTimeout=250
 
 [Hotkey/PrevCandidate]
 0=Shift+Tab

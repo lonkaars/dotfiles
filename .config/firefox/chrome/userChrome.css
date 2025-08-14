@@ -13,9 +13,12 @@
 
 /* make shit compact */
 body { font-size: 10pt; }
-.tab-background {
-	min-height: unset !important;
-	margin-block: 0 !important;
+.tab-background { margin-block: 0 !important; }
+#TabsToolbar { --toolbarbutton-inner-padding: 8px; }
+:root { --tab-min-height: 24px !important; }
+.tab-label-container {
+	height: unset !important;
+	margin-right: var(--toolbarbutton-inner-padding);
 }
 
 .tabbrowser-tab
