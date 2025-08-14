@@ -52,10 +52,7 @@ openssh
 openssl
 sshfs
 usb_modeswitch # required for android usb tethering
-
-# network stuff (TODO)
-# NetworkManager # currently only used on laptop...
-dhcpcd # i am unsure if i need this
+NetworkManager
 
 # applications
 anki-bin

@@ -1,7 +1,13 @@
 #!/bin/sh
+
+# never use custom locale in TTY/logs
+export LANG=C
+
 cd "$(dirname "$0")"
 . "$HOME/.profile"
 . ./lib/bootstrap
+
+alias s=silent
 
 # ensure required packages are installed
 begintask "installing packages"

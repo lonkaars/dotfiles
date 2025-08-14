@@ -1,5 +1,6 @@
 #!/bin/sh
 export GTK_THEME="adw-gtk3"
-. "$XDG_CACHE_HOME/mode/state/theme"
+mode_state="$XDG_CACHE_HOME/mode/state/theme"
+[ -e "$mode_state" ] && . "$mode_state"
 [ "$mode" = "dark" ] && GTK_THEME="$GTK_THEME:dark"
 export GTK_THEME
