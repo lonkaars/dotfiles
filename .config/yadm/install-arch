@@ -8,6 +8,5 @@
 cd "$(dirname "$0")"
 
 # filter comments and pipe package name list to yay
-sed -e 's/#.*//g' -e 's/ //g' -e '/^$/d' packages-arch |\
-  yay --noprogressbar --quiet --noconfirm --needed -Sy -
+sed -e 's/#.*//g' -e 's/ //g' -e '/^$/d' packages-arch | yay --needed -Sy -
 

@@ -49,13 +49,13 @@ endtask
 	begintask "building st (terminal) from source"
   mkdir -p ~/.local
   cd ~/.local
-  s git clone --depth 1 https://git.pipeframe.xyz/lonkaars/st
+  s git clone --depth 1 https://git.pipeframe.xyz/fork/st
   cd st
   s make -j
 	endtask
 )
 
-[ "$(find ~/.ssh -name 'id*' | wc -l)" -eq 0 ] && (
+[ "$(find ~/.ssh -name 'id*' 2>/dev/null | wc -l)" -eq 0 ] && (
 	begintask "generating ssh keys"
 	s ssh-keygen -q -N "" < /dev/zero
 	endtask
