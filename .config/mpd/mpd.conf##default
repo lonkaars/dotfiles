@@ -4,7 +4,7 @@ playlist_directory "/mnt/mpd/playlists"
 pid_file "/mnt/mpd/mpd.pid"
 state_file "/mnt/mpd/mpdstate"
 
-bind_to_address		"*"
+bind_to_address		"0.0.0.0"
 port				"6600"
 restore_paused		"yes"
 

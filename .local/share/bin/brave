@@ -1,8 +1,7 @@
 #!/bin/sh
-# the remote debugging is so brave can be hooked into by
-# ~/.local/share/mode/reload.d/brave. this is probaby bad for security if
-# you're not the only user on the system
-# --remote-debugging-port=9222 \
+# - make brave automatically load the `mode` theme
+# - don't use kwallet (i don't save passwords in chrome anyways)
 /usr/bin/brave \
 	--load-extension="$XDG_CACHE_HOME/mode/chromium" \
+	--password-store=basic \
 	"$@"

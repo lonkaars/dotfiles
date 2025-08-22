@@ -115,3 +115,5 @@
 "fcitx5-remote -s mozc"
 	XF86Launch7 + Release
 
+"autorandr --change"
+	XF86Display
