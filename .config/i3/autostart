@@ -11,13 +11,10 @@ dunst &
 autocutsel -selection CLIPBOARD &
 fcitx5 &
 xbindkeys --nodaemon &
-{% if yadm.hostname == "thoncc" %}
 xdimmer -t 45 -p 3 &
-{% else %}
 redshift -l 52:6 &
 nicotine --hidden &
 desktop2mqtt --config "$XDG_CONFIG_HOME/desktop2mqtt/config.yml" &
-{% endif %}
 
 # auto start lazy script after everything else
 [ -x "$HOME/do.sh" ] && "$HOME/do.sh" &
