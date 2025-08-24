@@ -1,10 +1,11 @@
-#!/bin/sh
+#!/usr/bin/env sh
 progname="$(basename "$0")"
 data="$(dirname "$(readlink -f "$0")")"
 export data # path to directory containing reload.d, switch.d, etc.
 
-run_cfggen=1
+run_switch=1
 run_reload=1
+no_cfg=0
 theme="" # absolute path to theme
 
 # print error message and exit with error
@@ -22,7 +23,8 @@ usage:
 	$progname [-chr] action|theme
 
 options:
-	-c, --no-cfggen    disable updating of configuration files       
+	-s, --no-switch    disable running switch.d hooks
+	-c, --no-cfggen    disable generation of templated configuration files
 	-h, --help         display this help text
 	-r, --no-reload    disable reloading of applications after applying theme
 
@@ -105,11 +107,13 @@ for arg in "$@" ; do
 		# help
 		-h|--help|help) usage && exit 0 ;;
 		# only run reload scripts
-		reload) run_reload=1 run_cfggen=0 ;;
+		reload) run_reload=1 run_switch=0 ;;
 		# prevent reload.d scripts from running
 		-r|--no-reload) run_reload=0 ;;
 		# prevent switch.d scripts from running
-		-c|--no-cfggen) run_cfggen=0 ;;
+		-s|--no-switch) run_switch=0 ;;
+		# prevent switch.d scripts from running
+		-c|--no-cfggen) no_cfg=1 ;;
 		# restore previous theme stored as symlink (see switch.d/mode)
 		restore)
 			theme="$(readlink -f "$XDG_CACHE_HOME/mode/state/theme")"
@@ -136,7 +140,9 @@ for arg in "$@" ; do
 	esac
 done
 
+export no_cfg
+
 # main
-[ $run_cfggen -eq 1 ] && switch
+[ $run_switch -eq 1 ] && switch
 [ $run_reload -eq 1 ] && reload
 

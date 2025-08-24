@@ -1,4 +1,6 @@
 #!/bin/sh
+[ $no_cfg -eq 1 ] && return
+
 mkcd "$XDG_CACHE_HOME/mode/state"
 
 echo "$mode" > mode

@@ -1,4 +1,5 @@
 #!/bin/sh
+[ $no_cfg -eq 1 ] && return
 
 # this generates theme files compatible with Anki-redesign:
 # <https://ankiweb.net/shared/info/308574457>

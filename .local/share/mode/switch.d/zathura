@@ -1,4 +1,6 @@
 #!/bin/sh
+[ $no_cfg -eq 1 ] && return
+
 mkcd "$XDG_CONFIG_HOME/zathura"
 cat << EOF > 'colors'
 set completion-bg "$bg"
