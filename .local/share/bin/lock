@@ -1,4 +1,2 @@
 #!/bin/sh
-xset s 15 15
-slock
-xset s default
+light-locker-command -l

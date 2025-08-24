@@ -15,6 +15,8 @@ xdimmer -t 45 -p 3 &
 redshift -l 52:6 &
 nicotine --hidden &
 desktop2mqtt --config "$XDG_CONFIG_HOME/desktop2mqtt/config.yml" &
+light-locker --no-late-locking --no-lock-on-suspend --no-lock-on-lid &
+discord --start-minimized &
 
 # auto start lazy script after everything else
 [ -x "$HOME/do.sh" ] && "$HOME/do.sh" &

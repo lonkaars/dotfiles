@@ -2,6 +2,12 @@
 cd "$(dirname "$0")"
 . ../lib/bootstrap
 
+# never use custom locale in TTY/logs
+export LANG=C
+
+alias s=silent
+
+
 wrong_call() {
 	cat << EOF
 run this script as root and with the username of your user account

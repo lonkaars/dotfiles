@@ -91,6 +91,15 @@
 "i3-msg move right"
 	Mod4 + Shift + l
 
+"i3-msg move workspace to output left"
+	Mod1 + Mod4 + Shift + h
+"i3-msg move workspace to output down"
+	Mod1 + Mod4 + Shift + j
+"i3-msg move workspace to output up"
+	Mod1 + Mod4 + Shift + k
+"i3-msg move workspace to output right"
+	Mod1 + Mod4 + Shift + l
+
 "i3-msg resize grow width 10 px"
 	Mod4 + period
 "i3-msg resize shrink width 10 px"

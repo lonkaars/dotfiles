@@ -1,11 +1,11 @@
 #!/bin/sh
 
-# never use custom locale in TTY/logs
-export LANG=C
-
 cd "$(dirname "$0")"
 . "$HOME/.profile"
 . ./lib/bootstrap
+
+# never use custom locale in TTY/logs
+export LANG=C
 
 alias s=silent
 
