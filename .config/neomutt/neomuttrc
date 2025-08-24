@@ -20,7 +20,7 @@ set ssl_force_tls = yes
 
 # automatically refresh incoming mail
 set mail_check = 60
-unset wait_key
+set wait_key = no
 push "<shell-escape> systemctl --user start mbsync & <enter>"
 
 # mailboxes
