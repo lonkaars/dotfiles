@@ -17,7 +17,7 @@ set mouse=a
 set cino=N-s,E-s,l1,g-1,j1
 set linebreak " set wrap but don't wrap inside words
 set viminfo+='1000,n~/.local/nvim/viminfo
-set guifont=JetBrainsMono\ Nerd\ Font:h9:#e-subpixelantialias:#h-slight
+set guifont=monospace:h9:#e-subpixelantialias:#h-slight
 set linespace=5
 set tabpagemax=999
 set breakindent
@@ -42,10 +42,10 @@ if exists("g:neovide")
 	let g:neovide_floating_shadow = v:false
 	let g:neovide_cursor_animation_length = 0.06
 	let g:neovide_cursor_trail_size = 0.0
-	let g:neovide_padding_top=16
-	let g:neovide_padding_left=16
-	let g:neovide_padding_right=16
-	let g:neovide_padding_bottom=16
+	let g:neovide_padding_top=10
+	let g:neovide_padding_left=10
+	let g:neovide_padding_right=10
+	let g:neovide_padding_bottom=10
 endif
 
 " plugged

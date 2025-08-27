@@ -1,0 +1,38 @@
+#!/bin/python3
+
+from shlex import split, join
+from sys import argv
+from os import getcwd
+import subprocess
+
+process = subprocess.run(argv[1:], stdout=subprocess.PIPE, stderr=None, env={"LANG": "C"})
+
+dir_stack = [getcwd()]
+expanded_output = []
+
+for line in process.stdout.decode('utf-8').split('\n'):
+	expanded_args = []
+	args = split(line)
+
+	if line.startswith('make: Entering directory'):
+		dir_stack.append(args[-1])
+		expanded_output.append(line)
+		continue
+	if line.startswith('make: Leaving directory'):
+		dir_stack.pop()
+		expanded_output.append(line)
+		continue
+
+	for arg in args:
+		if not arg.startswith('@'):
+			expanded_args.append(arg)
+			continue
+		with open(dir_stack[-1] + '/' + arg[1:], 'r') as file:
+			expanded_args += split(file.read())
+	expanded_output.append(subprocess.list2cmdline(expanded_args))
+
+process = subprocess.Popen(["compiledb"], stdin=subprocess.PIPE, stdout=None, stderr=None, text=True)
+process.stdin.write("\n".join(expanded_output))
+process.stdin.close()
+process.wait()
+

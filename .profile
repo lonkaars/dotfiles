@@ -63,6 +63,7 @@ export PASSWORD_STORE_ENABLE_EXTENSIONS=true
 export PASSWORD_STORE_EXTENSIONS_DIR="$XDG_DATA_HOME/pass-extensions"
 export MOZ_USE_XINPUT2=1
 export CMAKE_EXPORT_COMPILE_COMMANDS=1
+export LIBVIRT_DEFAULT_URI='qemu:///system'
 
 # LS_COLORS
 [ ! -e "$XDG_CACHE_HOME/dircolors" ] || [ "$XDG_CONFIG_HOME/dircolors" -nt "$XDG_CACHE_HOME/dircolors" ] && dircolors "$XDG_CONFIG_HOME/dircolors" > "$XDG_CACHE_HOME/dircolors"

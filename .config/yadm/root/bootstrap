@@ -78,6 +78,10 @@ s grep '^#\s*\<Color\>' /etc/pacman.conf && (
 	endtask
 )
 
+begintask "set autorandr to run at lightdm display startup"
+s augtool set '/files/etc/lightdm/lightdm.conf/Seat:*/display-setup-script' '/etc/lightdm/autorandr-change'
+endtask
+
 [ "$(getent passwd "$SETUP_USER" | cut -d: -f7 | xargs basename)" != "zsh" ] && (
 	begintask "set user shell to zsh"
 	s chsh -s "$(command -v zsh)" "$SETUP_USER"

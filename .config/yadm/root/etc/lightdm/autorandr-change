@@ -1,0 +1,2 @@
+#!/bin/sh
+autorandr --change
