@@ -1,2 +1,5 @@
 #!/bin/sh
 autorandr --change
+
+# make sure this script exits happily
+exit 0
