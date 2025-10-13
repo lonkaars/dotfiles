@@ -42,6 +42,7 @@ font-1 = "sans-serif:pixelsize=8:weight=bold:size=0;2"
 font-2 = "Hiragino Kaku Gothic ProN W3:pixelsize=8:weight=medium:size=0;1"
 font-3 = "Hiragino Kaku Gothic ProN W6:pixelsize=8:weight=medium:size=0;1"
 font-4 = "Noto Sans KR:pixelsize=8:weight=medium:size=0;2"
+font-5 = "Noto Sans CJK SC:pixelsize=8:weight=medium:size=0;2"
 
 modules-left = time date
 {% if yadm.hostname == "thoncc" %}
@@ -124,7 +125,7 @@ type = internal/mpd
 format-online = <label-song>
 format-offline =
 format-stopped =
-label-song = %artist% - %{T2}%title%%{T-}
+label-song = %artist% - %title%
 label-song-maxlen = 50
 label-song-ellipsis = true
 

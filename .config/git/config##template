@@ -33,6 +33,10 @@
 	l = log
 	d = diff
 	cloc = !git ls-files -z | xargs -0 cloc
+	conflict = !git diff --name-only --diff-filter=U --relative
+	ec = !git conflict -z | xargs -0 -- $EDITOR
+	ours = !git conflict -z | xargs -0 -- git checkout --ours
+	theirs = !git conflict -z | xargs -0 -- git checkout --theirs
 [pager]
 	log = diff-highlight | less
 	show = diff-highlight | less

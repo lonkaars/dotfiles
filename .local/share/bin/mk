@@ -1,6 +1,9 @@
 #!/bin/sh
 progname="$(basename "$0")"
 showmode() {
+	! [ -n "$FROM_PROMPT" ] && return
+	! [ -t 1 ] && return
+
 	mode=" ($1)"
 	col=$(( $(tput cols) - $(echo "$mode" | wc -L) + 1 ))
 	printf '\e[1A\e['$col'G\e[1;30m%s\e[0m\n' "$mode"
@@ -23,11 +26,17 @@ mode_cmake() {
 
 	# re-run configuration if fresh or CMakeLists was changed
 	if [ ! -e "$builddir/build.ninja" ] ||
-		 [ "CMakeLists.txt" -nt "$builddir/build.ninja" ] ; then
-		 cmake --log-level WARNING -B "$builddir"
+		[ "CMakeLists.txt" -nt "$builddir/build.ninja" ] ; then
+		cmake --log-level WARNING -B "$builddir"
 	fi
 
-	exec cmake --build "$builddir" -- "$@"
+	# build
+	cmake --build "$builddir" -- "$@" || exit $?
+
+	# generate vim tags (continue after mk exits)
+	ninja -C "$builddir" -t deps | sed -n 's/^ \{4\}//p' | sort -u | ctags -L - -f "$builddir/tags" &
+
+	exit 0
 }
 [ -e "CMakeLists.txt" ] && mode_cmake "$@"
 

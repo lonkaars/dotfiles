@@ -23,6 +23,7 @@ set tabpagemax=999
 set breakindent
 set breakindentopt=shift:2
 set formatoptions+=mM
+set tags^=build/tags
 let g:sneak#label = 1
 let g:which_key_map = {}
 let g:airline_powerline_fonts = 1
@@ -50,10 +51,14 @@ endif
 
 " plugged
 call plug#begin('~/.config/nvim/plugged')
-" quality of life
-Plug 'jiangmiao/auto-pairs'
+" tim <3
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-speeddating'
+Plug 'tpope/vim-eunuch'
+Plug 'tpope/vim-commentary'
+
+" quality of life
+Plug 'jiangmiao/auto-pairs'
 Plug 'itchyny/lightline.vim'
 Plug 'terryma/vim-multiple-cursors'
 Plug 'liuchengxu/vim-which-key'
@@ -69,6 +74,7 @@ Plug 'rrethy/vim-hexokinase', { 'do': 'make hexokinase' }
 Plug 'dkarter/bullets.vim'
 Plug 'editorconfig/editorconfig-vim'
 Plug 'rickhowe/diffunitsyntax'
+Plug 'lervag/file-line'
 
 " language plugins
 Plug 'lervag/vimtex'
@@ -196,6 +202,9 @@ let g:which_key_map.u = 'toggle undo tree'
 
 nnoremap <silent> <leader>e 0f!xC<c-r>=system(@-)<cr><esc>ddk$
 let g:which_key_map.e = 'read and execute after !'
+
+nnoremap <leader>] <c-w>v<c-]>zt
+let g:which_key_map[']'] = 'open tag in split'
 
 " cmd maps
 cnoreabbrev W w
@@ -380,3 +389,5 @@ source $XDG_CONFIG_HOME/nvim/mode.vim
 set exrc
 set secure
 
+" file-line
+let g:file_line_crosshairs = v:false

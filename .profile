@@ -66,6 +66,7 @@ export PASSWORD_STORE_ENABLE_EXTENSIONS=true
 export PASSWORD_STORE_EXTENSIONS_DIR="$XDG_DATA_HOME/pass-extensions"
 export MOZ_USE_XINPUT2=1
 export CMAKE_EXPORT_COMPILE_COMMANDS=1
+export CMAKE_GENERATOR=Ninja
 export LIBVIRT_DEFAULT_URI='qemu:///system'
 
 # LS_COLORS
@@ -94,6 +95,12 @@ export WGETRC="$XDG_CONFIG_HOME/wgetrc"
 export TEXMFHOME="$XDG_DATA_HOME/texmf"
 export TEXMFVAR="$XDG_CACHE_HOME/texlive/texmf-var"
 export TEXMFCONFIG="$XDG_CONFIG_HOME/texlive/texmf-config"
+alias poke="poke --quiet"
+
+# colors
+alias diff='diff --color=auto'
+alias mk='FROM_PROMPT=y mk'
+alias diffstat='diffstat -C'
 
 # disable dotnet telemetry
 export DOTNET_CLI_TELEMETRY_OPTOUT=1

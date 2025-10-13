@@ -7,13 +7,7 @@ set $outer_gaps 0
 gaps inner $inner_gaps
 gaps outer $outer_gaps
 
-# border color
-client.focused          #262427 #262427 #fdf9f7 #262427 #262427
-client.focused_inactive #121213 #121213 #fdf9f7 #121213 #121213
-client.unfocused        #121213 #121213 #fdf9f7 #121213 #121213
-client.urgent           #121213 #de9dac #fdf9f7 #de9dac #de9dac
-client.placeholder      #000000 #0c0c0c #fdf9f7 #121213 #121213
-client.background       #f9ece8
+include color.conf
 
 # Replace window decorations with a border
 for_window [class=".*"] border pixel 0

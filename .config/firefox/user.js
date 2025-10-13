@@ -3,6 +3,7 @@ user_pref("browser.toolbars.bookmarks.visibility", "never");
 user_pref("browser.quitShortcut.disabled", true);
 user_pref("media.videocontrols.picture-in-picture.video-toggle.enabled", false);
 user_pref("layout.spellcheckDefault", 0);
+user_pref("findbar.highlightAll", true);
 
 // i know what i'm doing
 user_pref("browser.safebrowsing.downloads.enabled", false);

@@ -16,6 +16,7 @@ xorg-xset
 # directly used in scripts / startup
 augeas
 autocutsel
+bat
 dbus
 dunst
 fcitx5
@@ -24,6 +25,7 @@ imagemagick
 jq
 libpulse # for pactl
 maim
+moreutils
 mpd
 neovim-remote
 nicotine+

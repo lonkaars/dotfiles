@@ -1,9 +1,9 @@
-mpd_host = "127.0.0.1"
+mpd_host = "0.0.0.0"
 mpd_port = "6600"
 #mpd_host = "/mnt/e/mpd/socket"
 mpd_music_dir = "/mnt/e/mpd/music"
-mpd_connection_timeout = "5"
-mpd_crossfade_time = "1"
+mpd_connection_timeout = 1
+mpd_crossfade_time = 1
 
 external_editor = "{{ env.EDITOR }}"
 ncmpcpp_directory = "{{ env.XDG_CONFIG_HOME }}/ncmpcpp"
@@ -16,7 +16,8 @@ visualizer_color = default
 playlist_display_mode = classic
 autocenter_mode = yes
 centered_cursor = yes
-user_interface = alternative
+user_interface = classic
+connected_message_on_startup = no
 
 header_visibility = no
 statusbar_visibility = no
@@ -26,7 +27,7 @@ state_flags_color = black:b
 main_window_color = white
 current_item_prefix = "$r"
 song_columns_list_format = "(20)[]{a} (6f)[blue]{NE} (50)[default]{t|f:Title} (20)[blue]{} (7f)[magenta]{l}"
-song_list_format = " {{%a - %t}|{%f}}{$R%l} "
+song_list_format = " {{%a - %t}|{%f}}$R{  %l} "
 window_border_color = default
 
 alternative_header_first_line_format = "{{%a $8-$0 %t}|{%f}}"
