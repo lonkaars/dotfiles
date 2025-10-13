@@ -1,0 +1,2 @@
+#!/bin/sh
+fork i3-msg reload

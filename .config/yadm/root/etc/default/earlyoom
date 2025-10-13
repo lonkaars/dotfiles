@@ -1,0 +1,1 @@
+EARLYOOM_ARGS="-M 102400 -r 3600 -n --avoid '(^|/)(init|systemd|Xorg|sshd)$'"

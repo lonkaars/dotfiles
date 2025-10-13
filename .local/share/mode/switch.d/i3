@@ -1,0 +1,14 @@
+#!/bin/sh
+[ $no_cfg -eq 1 ] && return
+
+indicator="$color0"
+mkcd "$XDG_CONFIG_HOME/i3"
+cat << EOF > 'color.conf'
+client.focused          $fg $bg $fg $indicator $bg
+client.focused_inactive $bg $bg $fg $indicator $bg
+client.unfocused        $bg $bg $fg $indicator $bg
+client.urgent           $bg $bg $fg $indicator $bg
+client.placeholder      $bg $bg $fg $indicator $bg
+client.background       $bg
+EOF
+
