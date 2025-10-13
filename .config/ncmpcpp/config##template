@@ -29,8 +29,8 @@ song_columns_list_format = "(20)[]{a} (6f)[blue]{NE} (50)[default]{t|f:Title} (2
 song_list_format = " {{%a - %t}|{%f}}{$R%l} "
 window_border_color = default
 
-alternative_header_first_line_format = "{{%a $8-$0 $b%t$/b}|{%f}}"
-alternative_header_second_line_format = "$8{{%b}{ (%y)}}|{%D}"
+alternative_header_first_line_format = "{{%a $8-$0 %t}|{%f}}"
+alternative_header_second_line_format = "$8{{%b}|{%D}}"
 
 now_playing_prefix = "$b$0"
 now_playing_suffix = "$/b"

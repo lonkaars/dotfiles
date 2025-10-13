@@ -5,6 +5,7 @@ set filesep "\n"
 set scrolloff 10
 set info size
 set dircounts
+set mouse true
 
 set previewer preview
 cmd open $open $fx

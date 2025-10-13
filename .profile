@@ -31,6 +31,9 @@ alias g='git'
 # force colorterm
 export COLORTERM="truecolor"
 
+# colors
+alias diff='diff --color=auto'
+
 # xdg base directories
 export XDG_CONFIG_HOME="$HOME/.config"
 export XDG_CACHE_HOME="$HOME/.cache"

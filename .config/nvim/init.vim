@@ -194,7 +194,7 @@ let g:which_key_map['.'] = {
 map <silent> <leader>u :UndotreeToggle<cr>
 let g:which_key_map.u = 'toggle undo tree'
 
-nnoremap <silent> <leader>e 0f!xC<c-r>=system(@-)<cr><esc>dd
+nnoremap <silent> <leader>e 0f!xC<c-r>=system(@-)<cr><esc>ddk$
 let g:which_key_map.e = 'read and execute after !'
 
 " cmd maps
