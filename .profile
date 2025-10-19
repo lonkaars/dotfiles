@@ -8,7 +8,6 @@
 export LANG='ja_JP.UTF-8'
 
 # aliases
-alias vim='nvim'
 alias copy='xclip -selection clipboard'
 alias dnd='dragon-drop --all --and-exit'
 alias sl='sl -w'
@@ -56,7 +55,7 @@ if [ -z "$PATH_EXTENDED" ] ; then
 fi
 
 # other stuff
-export EDITOR="nvim -p"
+export EDITOR=editor
 export PAGER="less"
 export FZF_DEFAULT_COMMAND="find . -name '.?*' -prune -o -print"
 export FZF_DEFAULT_OPTS="--color=bw,fg:7,scrollbar:8,info:8 --layout=reverse --info=inline-right --no-separator --no-scrollbar --marker='*' --pointer=''"
