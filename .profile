@@ -58,7 +58,7 @@ fi
 export EDITOR=editor
 export PAGER="less"
 export FZF_DEFAULT_COMMAND="find . -name '.?*' -prune -o -print"
-export FZF_DEFAULT_OPTS="--color=bw,fg:7,scrollbar:8,info:8 --layout=reverse --info=inline-right --no-separator --no-scrollbar --marker='*' --pointer=''"
+export FZF_DEFAULT_OPTS="--color=bw,current-fg:regular:reverse,info:bright-black,selected-fg:underline --layout=reverse --info=inline-right --no-separator --no-scrollbar --marker='' --pointer='' --highlight-line"
 export GOPATH="$HOME/.local/go"
 [ -e "$XDG_CONFIG_HOME/gtk-4.0/env" ] && . "$XDG_CONFIG_HOME/gtk-4.0/env"
 export PASSWORD_STORE_ENABLE_EXTENSIONS=true
