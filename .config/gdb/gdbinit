@@ -1,2 +1,7 @@
-set disassembly-flavor intel
-set debuginfod enabled off
+# set disassembly-flavor intel
+# set debuginfod enabled off
+set confirm off
+
+alias mk = !mk
+# alias -a m = mk
+alias reset = monitor reset

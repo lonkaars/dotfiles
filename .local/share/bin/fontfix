@@ -1,0 +1,39 @@
+#!/bin/python3
+
+import os
+import sys
+from pathlib import Path
+
+from fontTools import ttLib
+
+PROPID_FAMILY = 1
+PROPID_SUBFAMILY = 2
+PROPID_FULLNAME = 4
+PROPID_PSNAME = 6
+
+PLATFORM_MS = 1
+PLATFORM_MAC = 3
+
+# see
+# https://developer.apple.com/fonts/TrueType-Reference-Manual/RM06/Chap6name.html
+# for magic numbers
+
+for folder in Path(".").iterdir():
+	print(f"{folder}/")
+	family_name = str(folder.stem)
+	for file in folder.glob("*.ttf"):
+		subfamily_name = file.stem.removeprefix(family_name).strip()
+		with ttLib.TTFont(file) as ttf:
+			nametable = ttf["name"]
+			full_name = f"{family_name} {subfamily_name}"
+			postscript_name = f"{family_name}-{subfamily_name}".replace(" ", "")
+			nametable.setName(family_name,     PROPID_FAMILY,    PLATFORM_MS,  0, 0)
+			nametable.setName(family_name,     PROPID_FAMILY,    PLATFORM_MAC, 1, 1033)
+			nametable.setName(subfamily_name,  PROPID_SUBFAMILY, PLATFORM_MS,  0, 0)
+			nametable.setName(subfamily_name,  PROPID_SUBFAMILY, PLATFORM_MAC, 1, 1033)
+			nametable.setName(full_name,       PROPID_FULLNAME,  PLATFORM_MS,  0, 0)
+			nametable.setName(full_name,       PROPID_FULLNAME,  PLATFORM_MAC, 1, 1033)
+			nametable.setName(postscript_name, PROPID_PSNAME,    PLATFORM_MS,  0, 0)
+			nametable.setName(postscript_name, PROPID_PSNAME,    PLATFORM_MAC, 1, 1033)
+			ttf.save(file)
+		print(f"  {file.name}:  [{family_name} :: {subfamily_name}]")

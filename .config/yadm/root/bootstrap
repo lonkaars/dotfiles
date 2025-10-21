@@ -31,7 +31,7 @@ s getent passwd "$SETUP_USER" || wrong_call
 [ $(id -u "$SETUP_USER") -eq 0 ] && wrong_call
 
 begintask "copy system config files"
-s cp -r etc/. /etc
+s cp -r --preserve=mode,timestamps etc/. /etc
 endtask
 
 PINENTRY="pinentry-gnome3"

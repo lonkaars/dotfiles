@@ -1,0 +1,31 @@
+#!/bin/node
+
+import { glob, readFile } from 'node:fs/promises';
+import { spawn } from 'node:child_process';
+import { argv, chdir, cwd } from 'node:process';
+import { join } from 'node:path';
+
+argv.shift();
+argv.shift();
+chdir("search");
+
+var symbols = {};
+for await (const chunk of glob('all_*.js')) {
+	const contents = await readFile(chunk);
+	const searchData = eval(`${contents}; searchData`);
+	const here = cwd();
+
+	for (const [ _id, [ symbol, ...entry ] ] of searchData) {
+		symbols[symbol] = entry.map(e => `file://${join(here, e[0])}`);
+	}
+}
+
+for (const symbol of argv) {
+	if (!(symbol in symbols)) {
+		console.error(`No doxygen index for symbol \`${symbol}\``);
+		continue;
+	}
+	const urls = symbols[symbol];
+	spawn('xdg-open', [ urls[0], ]);
+}
+

@@ -17,6 +17,7 @@ nicotine --hidden &
 desktop2mqtt --config "$XDG_CONFIG_HOME/desktop2mqtt/config.yml" &
 light-locker --late-locking --lock-after-screensaver=0 --no-lock-on-suspend --no-lock-on-lid &
 systembus-notify &
+nmpassd &
 
 # auto start lazy script after everything else
 [ -x "$HOME/do.sh" ] && "$HOME/do.sh" &
