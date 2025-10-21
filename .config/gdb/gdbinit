@@ -1,7 +1,9 @@
-# set disassembly-flavor intel
-# set debuginfod enabled off
-set confirm off
+python
+import sys, os
+sys.path.append(os.path.join(os.environ["XDG_CONFIG_HOME"], "gdb"))
+import gdbinit
+end
 
 alias mk = !mk
-# alias -a m = mk
 alias reset = monitor reset
+
