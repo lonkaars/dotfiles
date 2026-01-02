@@ -13,6 +13,7 @@ set ignorecase
 set smartcase
 set timeoutlen=500
 set updatetime=100
+set smoothscroll
 set mouse=a
 set cino=N-s,E-s,l1,g-1,j1
 set linebreak " set wrap but don't wrap inside words
@@ -95,6 +96,7 @@ Plug 'fymyte/rasi.vim'
 Plug 'habamax/vim-asciidoctor'
 Plug 'lonkaars/coc-khard'
 Plug 'sile-typesetter/vim-sile'
+Plug 'ahf/cocci-syntax'
 
 " themes
 Plug 'arzg/vim-colors-xcode'
