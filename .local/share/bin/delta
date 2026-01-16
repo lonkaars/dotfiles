@@ -1,0 +1,4 @@
+#!/bin/sh
+[ -e "$XDG_CACHE_HOME/mode/state/vars" ] && . "$XDG_CACHE_HOME/mode/state/vars"
+[ "$mode" = "light" ] && theme="--light" || theme="--dark"
+exec /bin/delta "$theme" "$@"

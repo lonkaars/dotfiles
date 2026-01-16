@@ -16,7 +16,7 @@ alias sctl='systemctl --user'
 
 # one letters
 alias r='cd "$(lf -print-last-dir | head -n1)"'
-alias v='nvim'
+alias v='nvim -p'
 alias m='neomutt'
 alias y='yay'
 alias n='ncmpcpp'
@@ -56,17 +56,21 @@ fi
 
 # other stuff
 export EDITOR=editor
-export PAGER="less"
+export PAGER="less --mouse --wheel-lines=3 -R"
+alias less="$PAGER"
+export DELTA_PAGER="$PAGER"
 export FZF_DEFAULT_COMMAND="find . -name '.?*' -prune -o -print"
-export FZF_DEFAULT_OPTS="--color=bw,current-fg:regular:reverse,current-hl:underline:reverse,info:bright-black,hl:underline --layout=reverse --info=inline-right --no-separator --no-scrollbar --marker='' --pointer='' --highlight-line"
+export FZF_DEFAULT_OPTS="--color=bw,current-fg:regular:reverse,info:bright-black,hl:underline --layout=reverse --info=inline-right --no-separator --no-scrollbar --marker='' --pointer='' --highlight-line"
 export GOPATH="$HOME/.local/go"
 [ -e "$XDG_CONFIG_HOME/gtk-4.0/env" ] && . "$XDG_CONFIG_HOME/gtk-4.0/env"
 export PASSWORD_STORE_ENABLE_EXTENSIONS=true
 export PASSWORD_STORE_EXTENSIONS_DIR="$XDG_DATA_HOME/pass-extensions"
 export MOZ_USE_XINPUT2=1
+export CMAKE_BUILD_TYPE=Debug
 export CMAKE_EXPORT_COMPILE_COMMANDS=1
 export CMAKE_GENERATOR=Ninja
 export LIBVIRT_DEFAULT_URI='qemu:///system'
+export WINEDEBUG='fixme-all,err-all'
 
 # LS_COLORS
 [ ! -e "$XDG_CACHE_HOME/dircolors" ] || [ "$XDG_CONFIG_HOME/dircolors" -nt "$XDG_CACHE_HOME/dircolors" ] && dircolors "$XDG_CONFIG_HOME/dircolors" > "$XDG_CACHE_HOME/dircolors"
@@ -84,7 +88,6 @@ export PARALLEL_HOME="$XDG_CONFIG_HOME/parallel"
 export PYLINTHOME="$XDG_CACHE_HOME/pylint"
 export STACK_ROOT="$XDG_DATA_HOME/stack"
 export WINEPREFIX="$XDG_DATA_HOME/wineprefixes/default"
-export HISTFILE="$XDG_DATA_HOME/zsh/history"
 export CUDA_CACHE_PATH="$XDG_CACHE_HOME/nv"
 export CONAN_USER_HOME="$XDG_CONFIG_HOME/conan"
 alias nvidia-settings='nvidia-settings --config="$XDG_CONFIG_HOME/nvidia/settings"'
@@ -109,6 +112,10 @@ export DOTNET_CLI_TELEMETRY_OPTOUT=1
 export GPG_ID_DEFAULT="1081FFE2B963ADB5BDCF4DA6D0E3BC76E355B6CC"
 export GPG_ID_GIT="$GPG_ID_DEFAULT"
 export GPG_ID_PASSWORD_STORE="A12ADDD26335FA960FE3C78A9FC7A0100BC4C971"
+
+# GDB
+! [ -d "$XDG_DATA_HOME/gdb" ] && mkdir -p "$XDG_DATA_HOME/gdb"
+export GDBHISTFILE="$XDG_DATA_HOME/gdb/history"
 
 # secrets
 [ -f "$HOME/.env" ] && . "$HOME/.env"

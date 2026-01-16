@@ -26,28 +26,15 @@ compinit -d "$ZSH_COMPDUMP"
 export HISTFILE="$XDG_DATA_HOME/zsh/history"
 export HISTSIZE=10000000
 export SAVEHIST=10000000
+setopt hist_ignore_space
 setopt share_history
+setopt hist_ignore_dups
 
 # keybinds
 bindkey -e # emacs bindings
 bindkey '^[[Z' reverse-menu-complete
 
 # prompt
-unset PROMPT
 setopt PROMPT_SUBST
-prompt_segment() {
-	content="$1"
-	[ -z "$content" ] && return
-	echo "%{\e[90m%}${content}%{\e[30m%} -> %{\e[0m%}"
-}
-prompt_mod_git_info() {
-	git rev-parse --is-inside-work-tree 1> /dev/null 2> /dev/null || return
-	prompt_segment "git $(git rev-parse --abbrev-ref HEAD 2> /dev/null)"
-}
-# only display hostname in prompt if connected over SSH
-[ -n "$SSH_CLIENT" ] && PROMPT+="$(prompt_segment '%m')"
-# working directory
-PROMPT+="$(prompt_segment '%c')"
-# git info (if in repo)
-PROMPT+="\$(prompt_mod_git_info)"
-
+export VIRTUAL_ENV_DISABLE_PROMPT=y
+PROMPT='$(eo=%{ ec=%} prompt)'

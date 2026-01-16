@@ -18,14 +18,16 @@ set mouse=a
 set cino=N-s,E-s,l1,g-1,j1
 set linebreak " set wrap but don't wrap inside words
 set viminfo+='1000,n~/.local/nvim/viminfo
-set guifont=monospace:h9:#e-subpixelantialias:#h-slight
-set linespace=5
+set guifont=monospace:h7.5:#e-subpixelantialias
+set linespace=3
 set tabpagemax=999
 set breakindent
 set breakindentopt+=list:-1
 set showbreak=~\ 
 set formatoptions+=mM
 set tags^=build/tags
+set ssop-=options
+set guicursor=n-v-c-sm:block,i-ci-ve:ver20,r-cr-o:hor05,t:block-TermCursor
 let g:sneak#label = 1
 let g:which_key_map = {}
 let g:airline_powerline_fonts = 1
@@ -41,9 +43,10 @@ if exists("g:neovide")
 	nmap <silent> <C--> :lua vim.g.neovide_scale_factor = vim.g.neovide_scale_factor - 0.1<CR>
 	nmap <silent> <C-ScrollWheelDown> :lua vim.g.neovide_scale_factor = vim.g.neovide_scale_factor - 0.1<CR>
 	nmap <silent> <C-0> :lua vim.g.neovide_scale_factor = 1<CR>
-	let g:neovide_scroll_animation_length = 0.18
+	let g:smoothie_enabled = v:false
+	let g:neovide_scroll_animation_length = 0.16
 	let g:neovide_floating_shadow = v:false
-	let g:neovide_cursor_animation_length = 0.06
+	let g:neovide_cursor_animation_length = 0.04
 	let g:neovide_cursor_trail_size = 0.0
 	let g:neovide_padding_top=10
 	let g:neovide_padding_left=10
@@ -77,6 +80,7 @@ Plug 'dkarter/bullets.vim'
 Plug 'editorconfig/editorconfig-vim'
 Plug 'rickhowe/diffunitsyntax'
 Plug 'lervag/file-line'
+Plug 'vim-scripts/AnsiEsc.vim'
 
 " language plugins
 Plug 'lervag/vimtex'
@@ -226,39 +230,44 @@ let g:Hexokinase_optOutPatterns = [ 'colour_names' ]
 
 " lightline
 let g:lightline = {
-			\ 'colorscheme': 'auto',
-			\ 'mode_map': {
-			\	'n' : 'norm',
-			\	'i' : 'ins',
-			\	'R' : 'rep',
-			\	'v' : 'vis',
-			\	'V' : 'v-l',
-			\	"\<C-v>": 'v-b',
-			\	'c' : 'cmd',
-			\	's' : 'sel',
-			\	'S' : 's-l',
-			\	"\<C-s>": 's-b',
-			\	't': 'term'
-			\ },
-			\ 'active': {
-			\	'left': [
-			\		[ 'mode', 'paste' ],
-			\		[ 'readonly', 'filename', 'modified']
-			\	],
-			\	'right': [
-			\		[ 'lineinfo' ]
-			\	]
-			\ },
-			\ 'inactive': {
-			\	'left': [
-			\		[ 'readonly', 'filename', 'modified']
-			\	],
-			\	'right': [  ]
-			\ },
-			\ }
-let g:lightline.tabline = {
-		    \ 'left': [ [ 'tabs' ] ],
-		    \ 'right': [ ] }
+	\   'colorscheme': 'auto',
+	\   'mode_map': {
+	\     'n' : 'norm',
+	\     'i' : 'ins',
+	\     'R' : 'rep',
+	\     'v' : 'vis',
+	\     'V' : 'v-l',
+	\     "\<C-v>": 'v-b',
+	\     'c' : 'cmd',
+	\     's' : 'sel',
+	\     'S' : 's-l',
+	\     "\<C-s>": 's-b',
+	\     't': 'term',
+	\   },
+	\   'active': {
+	\     'left': [
+	\       [ 'mode', 'paste' ],
+	\       [ 'readonly', 'filename', 'modified'],
+	\     ],
+	\     'right': [
+	\       [ 'lineinfo' ],
+	\     ],
+	\   },
+	\   'inactive': {
+	\     'left': [
+	\       [ 'readonly', 'filename', 'modified'],
+	\     ],
+	\     'right': [  ],
+	\   },
+	\   'tabline': {
+	\     'left': [ [ 'tabs' ] ],
+	\     'right': [ ],
+	\   },
+	\   'subseparator': {
+	\     'left': '',
+	\     'right': '',
+	\   },
+	\ }
 call lightline#init()
 
 " vimtex config

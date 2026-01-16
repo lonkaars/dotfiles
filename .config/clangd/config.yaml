@@ -1,9 +1,9 @@
 CompileFlags:
   Add:
-    # ignore unknown (gcc) compiler flags
     - -Wno-unknown-warning-option
     - -Wno-gnu-folding-constant
+    - -fgnuc-version=8.0.0
   Remove:
     - -m*
     - -f*
-
+  BuiltinHeaders: QueryDriver

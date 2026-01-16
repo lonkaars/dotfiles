@@ -1,14 +1,53 @@
 import gdb
+import gdb.prompt
 
-def try_execute(*args):
+from subprocess import DEVNULL, check_output
+from os import environ
+
+class TryCommand(gdb.Command):
+  """
+  Try evaluating the argument(s) as a regular GDB command, but do not fail if the command fails.
+  """
+
+  def __init__(self):
+    super().__init__("try", gdb.COMMAND_USER)
+
+  def invoke(self, argument, from_tty):
+    try:
+      gdb.execute(argument)
+    except gdb.error:
+      pass
+
+TryCommand()
+
+def custom_prompt() -> str:
   try:
-    gdb.execute(*args)
-  except gdb.error:
-    pass
+    env = environ
+    env["eo"] = "\\["
+    env["ec"] = "\\]"
+    prompt = check_output(["prompt", "gdb"], text=True, env=env)
+    return prompt
+  except Exception:
+    return "(gdb) "
 
-# x86 only
-try_execute("set disassembly-flavor intel")
+# add custom prompt ("\P") escape code to extended-prompt
+substitute_prompt = gdb.prompt.substitute_prompt
+def new_substitute_prompt(prompt: str):
+  out = ""
+  escape = False
+  for char in prompt:
+    out += char
+    if not escape:
+      if char == "\\":
+        escape = True
+      continue
+    escape = False
 
-gdb.execute("set debuginfod enabled off")
-gdb.execute("set confirm off")
+    if char == "P":
+      out = out[:-2] + custom_prompt()
+
+  out = substitute_prompt(out)
+  return out
+
+gdb.prompt.substitute_prompt = new_substitute_prompt
 

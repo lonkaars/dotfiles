@@ -1,0 +1,33 @@
+#!/bin/sh
+fmt_esc() {
+	printf "%s$1%s" "$eo" "$ec"
+}
+
+fmt_segment() {
+	content="$1"
+	[ -z "$content" ] && return
+	printf '%s%s%s -> %s' "$(fmt_esc '\e[90m')" "${content}" "$(fmt_esc '\e[30m')" "$(fmt_esc '\e[0m')"
+}
+
+fmt_environment() {
+	content="$1"
+	[ -z "$content" ] && return
+	printf '%s(%s%s%s)%s ' "$(fmt_esc '\e[30;40m')" "$(fmt_esc '\e[97m')" "$content" "$(fmt_esc '\e[30;40m')" "$(fmt_esc '\e[0m')"
+}
+
+[ -n "$1" ] && fmt_environment "$1"
+fmt_environment "$VIRTUAL_ENV_PROMPT"
+
+# only display hostname in prompt if connected over SSH
+[ -n "$SSH_CLIENT" ] && fmt_segment "$(hostname)"
+
+# current working directory
+here="$PWD"
+[ "$here" = "$HOME" ] && here="~"
+fmt_segment "$(basename "$here")"
+
+# git status
+git rev-parse --is-inside-work-tree 1> /dev/null 2> /dev/null && fmt_segment "git $(git rev-parse --abbrev-ref HEAD 2> /dev/null)"
+
+# exit happily
+exit 0

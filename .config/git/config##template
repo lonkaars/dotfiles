@@ -37,7 +37,13 @@
 	ec = !git conflict -z | xargs -0 -- $EDITOR
 	ours = !git conflict -z | xargs -0 -- git checkout --ours
 	theirs = !git conflict -z | xargs -0 -- git checkout --theirs
+	nuke = !git reset --hard && git clean -fxd
 [pager]
-	log = diff-highlight | less
-	show = diff-highlight | less
-	diff = diff-highlight | less
+	log = delta
+	show = delta
+	diff = delta
+	blame = delta
+[delta]
+	tabs = 2
+	side-by-side = false
+	syntax-theme = base16

@@ -1,9 +1,22 @@
+# load ./gdbinit.py
 python
 import sys, os
 sys.path.append(os.path.join(os.environ["XDG_CONFIG_HOME"], "gdb"))
 import gdbinit
 end
 
-alias mk = !mk
+# preferences
+try set disassembly-flavor intel
+set debuginfod enabled off
+set confirm off
+set extended-prompt \P
+set history save on
+set history size 10000000
+set history remove-duplicates 100
+
+# aliases
 alias reset = monitor reset
 
+# commands
+alias mk = !mk
+alias ls = !ls

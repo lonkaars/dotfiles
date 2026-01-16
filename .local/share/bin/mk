@@ -27,16 +27,17 @@ mode_cmake() {
 	# re-run configuration if fresh or CMakeLists was changed
 	if [ ! -e "$builddir/build.ninja" ] ||
 		[ "CMakeLists.txt" -nt "$builddir/build.ninja" ] ; then
-		cmake --log-level WARNING -B "$builddir"
+		cmake --log-level WARNING -B "$builddir" || exit $?
 	fi
 
 	# build
-	cmake --build "$builddir" -- "$@" || exit $?
+	cmake --build "$builddir" -- "$@"
+	ec=$?
 
 	# generate vim tags (continue after mk exits)
-	ninja -C "$builddir" -t deps | sed -n 's/^ \{4\}//p' | sort -u | ctags -L - -f "$builddir/tags" &
+	ninja -C "$builddir" -t deps | sed -n 's/^ \{4\}//p' | sort -u | ctags -L - -f "$builddir/tags" 2>/dev/null &
 
-	exit 0
+	exit $ec
 }
 [ -e "CMakeLists.txt" ] && mode_cmake "$@"
 

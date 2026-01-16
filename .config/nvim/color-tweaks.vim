@@ -37,5 +37,6 @@ hi CocWarningSign guibg=NONE
 " fix disappearing CocFadeOut
 hi! link Conceal Comment
 
+hi! link WinSeparator LineNr
 hi! link NonText vimContinueComment
 
