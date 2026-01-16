@@ -22,7 +22,8 @@ set guifont=monospace:h9:#e-subpixelantialias:#h-slight
 set linespace=5
 set tabpagemax=999
 set breakindent
-set breakindentopt=shift:2
+set breakindentopt+=list:-1
+set showbreak=~\ 
 set formatoptions+=mM
 set tags^=build/tags
 let g:sneak#label = 1
