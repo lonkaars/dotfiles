@@ -13,9 +13,10 @@
     "coc-deno": ">=3.15.0",
     "coc-sh": ">=1.2.4",
     "coc-solargraph": ">=1.2.4",
-    "coc-pyright": ">=1.1.405"
+    "coc-pyright": ">=1.1.405",
+    "coc-cmake": ">=0.2.2"
   },
   "disabled": [],
   "locked": [],
-  "lastUpdate": 1756725613973
+  "lastUpdate": 1762931212912
 }

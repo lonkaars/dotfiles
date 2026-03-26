@@ -38,3 +38,27 @@ bindkey '^[[Z' reverse-menu-complete
 setopt PROMPT_SUBST
 export VIRTUAL_ENV_DISABLE_PROMPT=y
 PROMPT='$(eo=%{ ec=%} prompt)'
+
+# auto venv
+function cd() {
+	builtin cd "$@"
+
+	if [ -n "$VIRTUAL_ENV" ] ; then
+		if [[ "$PWD"/ != "$(dirname "$VIRTUAL_ENV")"/* ]] ; then
+			deactivate
+		else
+			return
+		fi
+	fi
+
+	git_dir="$(git rev-parse --show-toplevel 2>/dev/null)"
+	for dir in ./ "$git_dir" ../ "$git_dir/.." ; do
+		[ ! -d "$dir" ] && continue
+		for file in "$dir"/.env "$dir"/venv/bin/activate ; do
+			[ ! -e "$file" ] && continue
+			source "$file"
+			return
+		done
+	done
+}
+

@@ -2,9 +2,9 @@
 query_kb_layout() {
 	CONTROLLER="$(qdbus 'org.fcitx.Fcitx5' '/controller' 'org.fcitx.Fcitx.Controller1.CurrentInputMethod')"
 	case $CONTROLLER in
-		"keyboard-us") echo "us" ;;
-		"keyboard-us-intl") echo "us-intl" ;;
-		"mozc") echo "jp" ;;
+		"keyboard-us") echo "英数" ;;
+		"keyboard-us-intl") echo "英数（国際）" ;;
+		"mozc") echo "日本語" ;;
 		*) ;;
 	esac
 }

@@ -12,9 +12,19 @@ showmode() {
 mode_west() {
 	showmode 'west'
 	[ -z "$*" ] && set -- build
-	exec west "$@"
+	west "$@"
+	ec=$?
+
+	ninja -C build -t deps | sed -n 's/^ \{4\}//p' | sort -u | ctags -L - -f build/tags 2>/dev/null &
+
+	exit $ec
 }
-[ -e "west.yml" ] && mode_west "$@"
+path="."
+for x in $(seq 10) ; do
+	[ -e "$path/.west" ] && mode_west "$@"
+	[ "$path" -ef "$path/.." ] && break
+	path="$path/.."
+done
 
 mode_cmake() {
 	showmode 'cmake'

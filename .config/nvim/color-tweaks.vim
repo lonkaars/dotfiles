@@ -38,5 +38,4 @@ hi CocWarningSign guibg=NONE
 hi! link Conceal Comment
 
 hi! link WinSeparator LineNr
-hi! link NonText vimContinueComment
-
+hi! link NonText EndOfBuffer

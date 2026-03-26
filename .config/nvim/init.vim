@@ -22,8 +22,8 @@ set guifont=monospace:h7.5:#e-subpixelantialias
 set linespace=3
 set tabpagemax=999
 set breakindent
-set breakindentopt+=list:-1
-set showbreak=~\ 
+set breakindentopt+=list:-1,shift:-2
+set showbreak=:\ 
 set formatoptions+=mM
 set tags^=build/tags
 set ssop-=options
@@ -81,6 +81,7 @@ Plug 'editorconfig/editorconfig-vim'
 Plug 'rickhowe/diffunitsyntax'
 Plug 'lervag/file-line'
 Plug 'vim-scripts/AnsiEsc.vim'
+Plug 'vim-scripts/taglist.vim'
 
 " language plugins
 Plug 'lervag/vimtex'

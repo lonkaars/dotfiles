@@ -47,3 +47,5 @@
 	tabs = 2
 	side-by-side = false
 	syntax-theme = base16
+[safe]
+	directory = *

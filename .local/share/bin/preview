@@ -3,7 +3,7 @@
 	echo "error: no input file"
 	exit 1
 }
-[ -n "$2" ] && WIDTH="$(( "$2" - 3 ))" || WIDTH="$(tput cols)"
+[ -n "$2" ] && WIDTH="$(( "$2" - 1 ))" || WIDTH="$(tput cols)"
 [ -n "$3" ] && HEIGHT="$3" || HEIGHT="$(tput lines)"
 [ -n "$4" ] && POS_X="$4" || POS_X="0"
 [ -n "$5" ] && POS_Y="$5" || POS_Y="0"
@@ -11,7 +11,10 @@
 MIMETYPE="$(file --mime-type -Lb "$FILE")"
 EXT="${FILE#*.}"
 
-[ "$EXT" = "md" ] && [ "$MIMETYPE" = "text/plain" ] && MIMETYPE="application/markdown"
+if [ "$MIMETYPE" = "text/plain" ] ; then
+	[ "$EXT" = "md" ] && MIMETYPE="text/markdown"
+	[ "$EXT" = "rst" ] && MIMETYPE="text/x-rst"
+fi
 [ "$MIMETYPE" = "application/javascript" ] && MIMETYPE="text/javascript"
 
 render_manpage() {
@@ -24,12 +27,24 @@ EOF
 
 case "$MIMETYPE" in
 	image/*)
-		echo '{
-			"action": "add",
-			"x": 0,
-			"y": 0,
-			"path": "/home/loek/docs/frob.jpg"
-		}' | ueberzug layer --parser json
+		if [ -z "$UB_SOCKET" ] ; then
+			echo "ueberzug not available"
+		else
+			ueberzugpp cmd \
+				--socket "$UB_SOCKET" \
+				--action add \
+				--identifier PREVIEW \
+				--file "$FILE" \
+				--max-width "$WIDTH" --max-height "$HEIGHT" \
+				--xpos "$POS_X" --ypos "$POS_Y"
+			exit 1 # <- disable cache
+		fi
+		;;
+	text/markdown)
+		pandoc --from=gfm --to=man "$FILE" | render_manpage
+		;;
+	text/x-rst)
+		pandoc --from=rst --to=man "$FILE" | render_manpage
 		;;
 	text/*)
 		bat \
@@ -47,9 +62,6 @@ case "$MIMETYPE" in
 	application/vnd.rar)
 		bsdtar -tf "$FILE"
 		;;
-	application/markdown)
-		pandoc --from=gfm --to=man "$FILE" | render_manpage
-		;;
 	application/json)
 		jq --color-output . "$FILE"
 		;;
@@ -58,4 +70,6 @@ case "$MIMETYPE" in
 		file -b "$FILE" | fold --width="$WIDTH" --spaces
 		;;
 esac
+
+exit 0
 
