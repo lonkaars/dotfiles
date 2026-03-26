@@ -1,0 +1,3 @@
+#!/bin/sh
+[ -n "$UB_SOCKET" ] && ueberzugpp cmd --socket "$UB_SOCKET" --action remove --identifier PREVIEW
+

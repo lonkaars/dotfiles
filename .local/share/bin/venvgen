@@ -1,0 +1,47 @@
+#!/bin/sh
+
+# check if the input is valid
+for arg in "$@" ; do
+	case "$arg" in
+		*=*) ;;
+		*)
+			echo "error: missing assignment operator in argument ($arg)" >&2
+			exit 1
+			;;
+	esac
+done
+
+# shebang
+printf '#!/bin/sh\n'
+
+# save old variables
+for arg in "$@" ; do
+	name="${arg%%=*}"
+	eval "hasval=\${$name+x}"
+	[ -n "$hasval" ] && printf '_%s="${%s}"\n' "$name" "$name"
+done
+
+# set new variables
+for arg in "$@" ; do
+	name="${arg%%=*}"
+	value="${arg#*=}"
+	printf 'export %s=%q\n' "$name" "$value"
+done
+
+# deactivate function
+printf 'deactivate() {\n'
+for arg in "$@" ; do
+	name="${arg%%=*}"
+	eval "hasval=\${$name+x}"
+	if [ -n "$hasval" ] ; then
+		printf '\t%s="${_%s}"\n' "$name" "$name"
+		printf '\tunset -v _%s\n' "$name"
+	else
+		printf '\tunset -v %s\n' "$name"
+	fi
+done
+printf '\thash -r 2>/dev/null\n'
+printf '\tunset -f deactivate\n'
+printf '}\n'
+printf 'hash -r 2>/dev/null\n'
+

@@ -13,9 +13,14 @@ set extended-prompt \P
 set history save on
 set history size 10000000
 set history remove-duplicates 100
+set style emoji off
 
 # aliases
 alias reset = monitor reset
+alias -a -- v8m = arm-v8m
+alias -a -- v8m tz = arm-v8m trustzone
+alias -a -- jlink sv = jlink server
+alias -a -- jlink sv wd = jlink server watchdog
 
 # commands
 alias mk = !mk

@@ -1,0 +1,23 @@
+#!/bin/sh
+lf=/usr/bin/lf
+
+UB_PID=0
+UB_SOCKET=""
+UB_PID_FILE="$(mktemp)"
+
+cleanup() {
+	exec 3>&-
+	ueberzugpp cmd -s "$UB_SOCKET" -a exit
+}
+
+# don't try to use ueberzug over ssh
+[ -n "$SSH_CLIENT" ] || [ -n "$SSH_TTY" ] && exec $lf "$@"
+
+ueberzugpp layer --silent --no-stdin --use-escape-codes --pid-file "$UB_PID_FILE" >/dev/null
+UB_PID="$(cat "$UB_PID_FILE")"
+rm -f "$UB_PID_FILE"
+UB_SOCKET="/tmp/ueberzugpp-$UB_PID.socket"
+export UB_PID UB_SOCKET
+trap cleanup HUP INT QUIT TERM EXIT
+$lf "$@" 3>&-
+

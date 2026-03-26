@@ -1,7 +1,7 @@
 import gdb
 import gdb.prompt
 
-from subprocess import DEVNULL, check_output
+from subprocess import check_output
 from os import environ
 
 class TryCommand(gdb.Command):
@@ -50,4 +50,3 @@ def new_substitute_prompt(prompt: str):
   return out
 
 gdb.prompt.substitute_prompt = new_substitute_prompt
-
