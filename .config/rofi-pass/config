@@ -1,6 +1,7 @@
 #!/bin/sh
 # make sure the filename is used as the account name
 default_user=':filename'
+type_delay=0
 
 # pass custom rofi flags
 _rofi() {
