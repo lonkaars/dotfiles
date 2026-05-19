@@ -1,0 +1,3 @@
+# set video controls
+SUBSYSTEM=="video4linux", KERNEL=="video[0-9]*", ATTR{index}=="0", ATTRS{idVendor}=="534d", ATTRS{idProduct}=="2109", RUN+="/usr/bin/v4l2-ctl -d $devnode --set-ctrl=brightness=0,contrast=127,saturation=127,hue=0"
+
