@@ -9,7 +9,7 @@ port				"6600"
 restore_paused		"yes"
 
 replaygain "track"
-replaygain_preamp "0"
+replaygain_preamp "6"
 
 database {
 	plugin "proxy"
