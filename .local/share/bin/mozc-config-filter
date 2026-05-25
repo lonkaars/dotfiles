@@ -1,0 +1,6 @@
+#!/bin/sh
+yay_dir="$(jq --raw-output .buildDir "$XDG_CONFIG_HOME/yay/config.json")"
+config_proto="$(mktemp)"
+git --git-dir="$yay_dir/mozc-ut/mozc" show HEAD:src/protocol/config.proto > "$config_proto"
+protoc --proto_path /tmp --decode=mozc.config.Config "$config_proto" < "$1"
+rm -f "$config_proto"

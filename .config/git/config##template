@@ -49,3 +49,5 @@
 	syntax-theme = base16
 [safe]
 	directory = *
+[diff "mozc_config"]
+	textconv = mozc-config-filter
