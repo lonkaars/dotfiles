@@ -75,7 +75,6 @@ Plug 'junegunn/goyo.vim'
 Plug 'psliwka/vim-smoothie'
 Plug 'airblade/vim-gitgutter'
 Plug 'wellle/targets.vim'
-Plug 'rrethy/vim-hexokinase', { 'do': 'make hexokinase' }
 Plug 'dkarter/bullets.vim'
 Plug 'editorconfig/editorconfig-vim'
 Plug 'rickhowe/diffunitsyntax'
@@ -250,19 +249,17 @@ let g:lightline = {
 	\       [ 'mode', 'paste' ],
 	\       [ 'readonly', 'filename', 'modified'],
 	\     ],
-	\     'right': [
-	\       [ 'lineinfo' ],
-	\     ],
+	\     'right': [ [ 'lineinfo' ] ],
 	\   },
 	\   'inactive': {
 	\     'left': [
 	\       [ 'readonly', 'filename', 'modified'],
 	\     ],
-	\     'right': [  ],
+	\     'right': [ [ 'lineinfo' ] ],
 	\   },
 	\   'tabline': {
 	\     'left': [ [ 'tabs' ] ],
-	\     'right': [ ],
+	\     'right': [  ],
 	\   },
 	\   'subseparator': {
 	\     'left': '',

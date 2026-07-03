@@ -66,11 +66,9 @@ export GOPATH="$HOME/.local/go"
 export PASSWORD_STORE_ENABLE_EXTENSIONS=true
 export PASSWORD_STORE_EXTENSIONS_DIR="$XDG_DATA_HOME/pass-extensions"
 export MOZ_USE_XINPUT2=1
-export CMAKE_BUILD_TYPE=Debug
-export CMAKE_EXPORT_COMPILE_COMMANDS=1
-export CMAKE_GENERATOR=Ninja
 export LIBVIRT_DEFAULT_URI='qemu:///system'
 export WINEDEBUG='fixme-all,err-all'
+export INPUTRC="$XDG_CONFIG_HOME/inputrc"
 
 # LS_COLORS
 [ ! -e "$XDG_CACHE_HOME/dircolors" ] || [ "$XDG_CONFIG_HOME/dircolors" -nt "$XDG_CACHE_HOME/dircolors" ] && dircolors "$XDG_CONFIG_HOME/dircolors" > "$XDG_CACHE_HOME/dircolors"
@@ -99,6 +97,13 @@ export TEXMFHOME="$XDG_DATA_HOME/texmf"
 export TEXMFVAR="$XDG_CACHE_HOME/texlive/texmf-var"
 export TEXMFCONFIG="$XDG_CONFIG_HOME/texlive/texmf-config"
 alias poke="poke --quiet"
+
+# CMake
+export CMAKE_BUILD_TYPE=Debug
+export CMAKE_EXPORT_COMPILE_COMMANDS=1
+export CMAKE_GENERATOR=Ninja
+export CMAKE_C_COMPILER_LAUNCHER=ccache
+export CMAKE_CXX_COMPILER_LAUNCHER=ccache
 
 # colors
 alias diff='diff --color=auto'

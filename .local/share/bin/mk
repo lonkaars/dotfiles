@@ -9,13 +9,27 @@ showmode() {
 	printf '\e[1A\e['$col'G\e[1;30m%s\e[0m\n' "$mode"
 }
 
+make_tags() {
+	build_dir="${1-build}"
+
+	if [ -e "$build_dir/domains.yaml" ] ; then
+		yaml2json "$build_dir/domains.yaml" | jq --raw-output '. as $r | $r.flash_order[] as $n | $r.domains[] | select(.name == $n) | .build_dir' | while IFS= read -r build_dir; do
+    echo "Processing: $build_dir"
+		done
+	fi
+
+}
+
 mode_west() {
 	showmode 'west'
-	[ -z "$*" ] && set -- build
+	if [ -z "$*" ] ; then
+		set -- build
+		[ -e sysbuild ] || [ -e sysbuild.conf ] && set -- "$@" --sysbuild
+	fi
 	west "$@"
 	ec=$?
 
-	ninja -C build -t deps | sed -n 's/^ \{4\}//p' | sort -u | ctags -L - -f build/tags 2>/dev/null &
+	mktags build &
 
 	exit $ec
 }
@@ -45,7 +59,7 @@ mode_cmake() {
 	ec=$?
 
 	# generate vim tags (continue after mk exits)
-	ninja -C "$builddir" -t deps | sed -n 's/^ \{4\}//p' | sort -u | ctags -L - -f "$builddir/tags" 2>/dev/null &
+	mktags "$builddir" &
 
 	exit $ec
 }

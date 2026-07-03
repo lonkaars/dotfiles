@@ -1,40 +1,27 @@
 #!/bin/sh
-progname="$(basename "$(readlink -f "$0")")"
-die() {
-	ec="$1"
-	shift
-	echo "$@"
-	exit "$ec"
-}
-
 GDB="arm-none-eabi-gdb"
 
-[ $# -lt 1 ] && die 1 "usage: $progname DEVICE [gdb args...]"
-DEVICE="$1"
-shift
+found_executable=false
 
-if [ $# -eq 0 ] ; then
-	# automatically add --se flag if executable can be found
+while ! $found_executable ; do
+	[ ! -e build/zephyr ] && break
+	[ ! -e build/zephyr/zephyr.elf ] && break
+	set -- --se="build/zephyr/zephyr.elf" "$@"
+
+	[ -e build/tfm/bin/tfm_s.elf ] && set -- "$@" --eval-command="add-symbol-file build/tfm/bin/tfm_s.elf"
+
+	found_executable=true
+done
+
+while ! $found_executable ; do
 	exec="$(find . -maxdepth 3 -name '*.elf' | head -n1)"
-	[ -n "$exec" ] && set -- --se="$exec"
-fi
+	[ -n "$exec" ] && set -- "$@" --se="$exec"
+	found_executable=true
+	break
+done
 
-[ -n "$(echo "$*" | grep -i zephyr)" ] && GDB="arm-zephyr-eabi-gdb"
+set -- "$@" --eval-command="set jlink autoconnect on"
+set -- "$@" --eval-command="set jlink watchdog on"
 
-fork JLinkGDBServerCLExe \
-	-device "$DEVICE" \
-	-select USB \
-	-endian little \
-	-if SWD \
-	-speed auto \
-	-singlerun \
-	-noir \
-	-nologtofile \
-	-silent
-
-# append startup attach command to args
-set -- --eval-command="target extended-remote :2331" "$@"
-
-# launch gdb and forward any other args to it
 exec "$GDB" "$@"
 

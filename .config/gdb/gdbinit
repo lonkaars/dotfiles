@@ -14,9 +14,12 @@ set history save on
 set history size 10000000
 set history remove-duplicates 100
 set style emoji off
+set pagination off
 
 # aliases
 alias reset = monitor reset
+alias erase = monitor flash erase
+
 alias -a -- v8m = arm-v8m
 alias -a -- v8m tz = arm-v8m trustzone
 alias -a -- jlink sv = jlink server

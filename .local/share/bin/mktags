@@ -1,0 +1,61 @@
+#!/bin/python3
+
+from subprocess import run, DEVNULL
+from pathlib import Path
+from dataclasses import dataclass
+from argparse import ArgumentParser
+
+@dataclass
+class Options:
+	build_dir: Path
+
+def parse_arguments() -> Options:
+	parser = ArgumentParser(prog="mktags", description="generate vim tags file from build directory")
+	parser.add_argument("build_dir", type=Path, help="build directory", nargs='?', default=Path("build"))
+
+	options = parser.parse_args()
+	return Options(**vars(options))
+
+def index_files(build_dir: Path) -> list[Path]:
+	lines = [line for line in run(("ninja", "-C", str(build_dir), "-t", "deps"), text=True, capture_output=True).stdout.splitlines()]
+	lines = [line.lstrip() for line in lines if line.startswith("    ")]
+	return [Path(line) for line in lines]
+
+def get_sysbuild_files(domains_yml: Path) -> list[Path]:
+	if not domains_yml.exists():
+		return []
+
+	from yaml import safe_load
+	yaml = safe_load(domains_yml.read_text())
+
+	build_dirs = [next(Path(domain['build_dir']) for domain in yaml['domains'] if domain['name'] == domain_name) for domain_name in yaml['flash_order']]
+
+	files: set[Path] = set()
+	for dir in build_dirs:
+		files.update(get_files(dir))
+
+	return list(files)
+
+def get_files(build_dir: Path) -> list[Path]:
+	files = []
+	
+	files += get_sysbuild_files(build_dir.joinpath("domains.yaml"))
+	files += index_files(build_dir)
+
+	return files
+
+def gen_tags(files: list[Path]) -> str:
+	filelist = "\n".join(str(file) for file in files)
+	return run(("ctags", "-L", "-", "-f", "-"), text=True, input=filelist, capture_output=True).stdout
+
+if __name__ == "__main__":
+	options = parse_arguments()
+
+	files = get_files(options.build_dir)
+
+	files = list(set(files))
+
+	tags = gen_tags(files)
+
+	options.build_dir.joinpath("tags").write_text(tags)
+

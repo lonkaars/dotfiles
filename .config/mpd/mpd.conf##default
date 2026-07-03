@@ -21,3 +21,6 @@ audio_output {
 	name			"desktop output"
 }
 
+input_cache {
+	size "512 MB"
+}

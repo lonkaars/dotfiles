@@ -1,0 +1,4 @@
+#!/bin/sh
+set -e
+cd /usr/share/doc/texlive/latex
+fork xdg-open "$(find . -name '*.pdf' | fzf)"
