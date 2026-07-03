@@ -1,7 +1,0 @@
-#!/bin/sh
-# - make brave automatically load the `mode` theme
-# - don't use kwallet (i don't save passwords in chrome anyways)
-/usr/bin/brave \
-	--load-extension="$XDG_CACHE_HOME/mode/chromium" \
-	--password-store=basic \
-	"$@"
