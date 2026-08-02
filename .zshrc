@@ -44,7 +44,7 @@ function cd() {
 	builtin cd "$@"
 
 	if [ -n "$VIRTUAL_ENV" ] ; then
-		if [[ "$PWD"/ != "$(dirname "$VIRTUAL_ENV")"/* ]] ; then
+		if [[ "$PWD"/ != "$(dirname "$VIRTUAL_ENV")"/* ]] && [ ! -z "$(command -v deactivate)" ] ; then
 			deactivate
 		else
 			return

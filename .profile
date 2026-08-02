@@ -122,6 +122,10 @@ export GPG_ID_PASSWORD_STORE="A12ADDD26335FA960FE3C78A9FC7A0100BC4C971"
 ! [ -d "$XDG_DATA_HOME/gdb" ] && mkdir -p "$XDG_DATA_HOME/gdb"
 export GDBHISTFILE="$XDG_DATA_HOME/gdb/history"
 
+# GDB
+! [ -d "$XDG_DATA_HOME/gdb" ] && mkdir -p "$XDG_DATA_HOME/gdb"
+export GDBHISTFILE="$XDG_DATA_HOME/gdb/history"
+
 # secrets
 [ -f "$HOME/.env" ] && . "$HOME/.env"
 

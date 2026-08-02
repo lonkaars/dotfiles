@@ -86,3 +86,5 @@ for_window [title="JidePopup"] floating enable
 for_window [class="Unturned.x86_64"] floating disable
 for_window [class="Unturned.x86_64"] fullscreen disable
 
+for_window [class="Microsoft Windows"] floating enable
+

@@ -26,6 +26,9 @@ MIN = min
 MAX = max
 BIT = lambda n: 1 << n
 GENMASK = lambda h, l: (BIT(MAX(h, l) + 1) - 1) ^ (BIT(MIN(h, l)) - 1)
+KB = lambda x: x << 10
+MB = lambda x: x << 20
+GB = lambda x: x << 30
 
 try:
 	ans = eval(" ".join(_argv[1:]))

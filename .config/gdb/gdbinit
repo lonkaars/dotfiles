@@ -15,6 +15,7 @@ set history size 10000000
 set history remove-duplicates 100
 set style emoji off
 set pagination off
+set output-radix 16
 
 # aliases
 alias reset = monitor reset

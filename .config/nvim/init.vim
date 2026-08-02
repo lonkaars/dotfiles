@@ -102,6 +102,7 @@ Plug 'habamax/vim-asciidoctor'
 Plug 'lonkaars/coc-khard'
 Plug 'sile-typesetter/vim-sile'
 Plug 'ahf/cocci-syntax'
+Plug 's3rvac/vim-syntax-jira'
 
 " themes
 Plug 'arzg/vim-colors-xcode'
@@ -120,6 +121,9 @@ nnoremap <leader>qf <Plug>(coc-fix-current)
 nnoremap <silent> * yiw:let @/='\<<C-R>=expand("<cword>")<CR>\>'<CR>:set hls<CR>
 nnoremap <silent> <A-j> :m +1<CR>
 nnoremap <silent> <A-k> :m -2<CR>
+
+nnoremap <silent> gd :call CocAction('jumpDefinition')<cr>
+nnoremap <silent> <leader>d :call CocAction('jumpDefinition', 'vsplit')<cr>
 
 imap <C-h> <Left>
 imap <C-j> <Down>
@@ -212,6 +216,8 @@ let g:which_key_map.e = 'read and execute after !'
 
 nnoremap <leader>] <c-w>v<c-]>zt
 let g:which_key_map[']'] = 'open tag in split'
+
+nnoremap <silent> <leader>[ :call jobstart(['sdk10-dox-open', expand("<cword>")], {'detach': v:true})<enter>
 
 " cmd maps
 cnoreabbrev W w
