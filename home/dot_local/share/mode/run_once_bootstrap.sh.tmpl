@@ -1,0 +1,13 @@
+#!/bin/sh
+# vim:ft=sh
+
+# save hash of this directory so this script is run if the files are modified
+# {{ output "find" (joinPath .chezmoi.sourceDir "dot_local/share/mode") "-type" "f" "-exec" "sha256sum" "{}" ";" | sha1sum }}
+
+[ -z "$(command -v mode)" ] && exit 0
+[ -z "$(command -v fork)" ] && exit 0
+
+echo "updating dynamic theme files"
+fork mode --no-reload {{ dig "mode" "theme" "dark" . }}
+
+exit 0

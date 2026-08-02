@@ -1,0 +1,11 @@
+#!/bin/sh
+# vim:ft=sh
+
+# {{ include (joinPath .chezmoi.sourceDir "dot_config/nvim/init.vim") | sha1sum }}
+
+[ -z "$(command -v nvim)" ] && exit 0
+
+echo "updating nvim plugins"
+nvim --headless +"PlugInstall --sync" +qa
+
+exit 0

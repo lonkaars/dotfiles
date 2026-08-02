@@ -1,0 +1,14 @@
+#!/bin/sh
+# vim:ft=sh
+
+# {{ include (joinPath .chezmoi.sourceDir "dot_config/coc/extensions/package.json") | sha1sum }}
+
+[ -z "$(command -v nvim)" ] && exit 0
+[ -z "$(command -v jq)" ] && exit 0
+
+COC_PLUGINS="$(jq --raw-output '.dependencies | keys | join(" ")' {{ joinPath .chezmoi.sourceDir "dot_config/coc/extensions/package.json" | quote }})"
+
+echo "updating coc plugins"
+nvim --headless +"CocInstall -sync $COC_PLUGINS" +qa
+
+exit 0

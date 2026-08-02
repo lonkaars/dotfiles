@@ -1,0 +1,9 @@
+#!/bin/sh
+# vim:ft=sh
+
+# {{ include (joinPath .chezmoi.sourceDir "dot_config/user-dirs.dirs") | sha1sum }}
+
+echo "create XDG user directories"
+xdg-user-dirs-update
+
+exit 0
