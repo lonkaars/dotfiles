@@ -1,0 +1,45 @@
+{{- $host := dig "mpd" "host" false . -}}
+{{- $base_dir := dig "mpd" "base_dir" "/mnt/mpd" . -}}
+
+{{- $music_directory := "https://media.pipeframe.xyz/music" -}}
+{{- if $host -}}
+{{- $music_directory = printf "%s/music" $base_dir -}}
+{{- end -}}
+
+music_directory "{{ $music_directory }}"
+playlist_directory "{{ $base_dir }}/playlists"
+
+pid_file "{{ $base_dir }}/mpd.pid"
+state_file "{{ $base_dir }}/mpdstate"
+{{- if $host }}
+db_file "{{ $base_dir }}/mpd.db"
+{{- end }}
+
+bind_to_address "{{ ternary "*" "0.0.0.0" $host }}"
+port "6600"
+restore_paused "yes"
+{{- if $host }}
+auto_update "yes"
+user "{{ .chezmoi.username }}"
+group "{{ .chezmoi.group }}"
+default_permissions "read,add,control,admin"
+{{- end }}
+
+replaygain "track"
+replaygain_preamp "6"
+{{- if not $host }}
+
+database {
+	plugin "proxy"
+	host "pipeframe.xyz"
+}
+{{- end }}
+
+audio_output {
+	type "pulse"
+	name "desktop output"
+}
+
+input_cache {
+	size "512 MB"
+}
