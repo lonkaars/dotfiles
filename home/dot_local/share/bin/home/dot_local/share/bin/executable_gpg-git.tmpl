@@ -1,4 +1,6 @@
 #!/bin/sh
-GPG_KEY_ID="$GPG_ID_GIT" # see ~/.profile
+{{- with ( dig "git" "gpg_id" nil . ) }}
+GPG_KEY_ID="{{ . }}"
 GPG_KEY_PASSPHRASE="$(pass "gpg/$GPG_KEY_ID.asc" | head -n1)"
 gpg --batch --no-tty --pinentry-mode loopback --passphrase "$GPG_KEY_PASSPHRASE" "$@"
+{{- end }}

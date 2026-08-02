@@ -1,15 +1,21 @@
 [init]
-	defaultBranch = master
+	defaultBranch = {{ dig "git" "default_branch" "master" . }}
 [core]
 	quotepath = off
 [user]
-	email = loek@pipeframe.xyz
-	name = Loek Le Blansch
-	signingkey = {{ env "GPG_ID_GIT" }}
+	{{- with (dig "git" "email" nil .) }}
+	email = {{ . }}
+	{{- end }}
+	{{- with (dig "git" "name" nil .) }}
+	name = {{ . }}
+	{{- end }}
+	{{- with (dig "git" "gpg_id" nil .) }}
+	signingkey = {{ . }}
 [commit]
 	gpgsign = true
 [gpg]
 	program = {{ env "XDG_DATA_HOME" }}/bin/gpg-git
+	{{- end }}
 [credential]
 	helper = cache --timeout 7200
 	helper = store

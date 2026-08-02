@@ -113,15 +113,6 @@ alias diffstat='diffstat -C'
 # disable dotnet telemetry
 export DOTNET_CLI_TELEMETRY_OPTOUT=1
 
-# GPG key IDs
-export GPG_ID_DEFAULT="1081FFE2B963ADB5BDCF4DA6D0E3BC76E355B6CC"
-export GPG_ID_GIT="$GPG_ID_DEFAULT"
-export GPG_ID_PASSWORD_STORE="A12ADDD26335FA960FE3C78A9FC7A0100BC4C971"
-
-# GDB
-! [ -d "$XDG_DATA_HOME/gdb" ] && mkdir -p "$XDG_DATA_HOME/gdb"
-export GDBHISTFILE="$XDG_DATA_HOME/gdb/history"
-
 # GDB
 ! [ -d "$XDG_DATA_HOME/gdb" ] && mkdir -p "$XDG_DATA_HOME/gdb"
 export GDBHISTFILE="$XDG_DATA_HOME/gdb/history"
