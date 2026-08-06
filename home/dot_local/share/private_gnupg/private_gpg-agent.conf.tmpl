@@ -1,0 +1,7 @@
+allow-preset-passphrase
+max-cache-ttl 604800
+{{- if eq .chezmoi.os "darwin" }}
+pinentry-program {{ lookPath "pinentry-mac" }}
+{{- else if eq .chezmoi.os "linux" }}
+pinentry-program {{ lookPath "pinentry-gtk" }}
+{{- end }}
