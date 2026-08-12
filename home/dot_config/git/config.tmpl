@@ -57,3 +57,6 @@
 	directory = *
 [diff "mozc_config"]
 	textconv = mozc-config-filter
+[filter "plist"]
+	clean = plutil -convert xml1 -o - -- -
+	smudge = plutil -convert binary1 -o - -- -

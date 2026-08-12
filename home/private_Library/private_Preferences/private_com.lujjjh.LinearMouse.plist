@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>NSStatusItem VisibleCC Item-0</key>
+	<false/>
+	<key>SUAutomaticallyUpdate</key>
+	<false/>
+	<key>SUEnableAutomaticChecks</key>
+	<false/>
+	<key>SUHasLaunchedBefore</key>
+	<true/>
+	<key>SUSendProfileInfo</key>
+	<false/>
+	<key>autoSwitchToActiveDevice</key>
+	<false/>
+	<key>menuBarVisibilityMode</key>
+	<string>"never"</string>
+	<key>menuBarVisibilityModeMigrationCompleted</key>
+	<true/>
+	<key>selectedDevice</key>
+	<string>{"category":"mouse"}</string>
+	<key>showInDock</key>
+	<false/>
+	<key>showInMenuBar</key>
+	<false/>
+</dict>
+</plist>
