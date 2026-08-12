@@ -11,7 +11,7 @@ function copy()
 
 		sub = sub:gsub('\n', ' ') -- replace newlines with space
 		sub = sub:gsub('\'', '\'\\\'\'') -- escape single quotes
-		os.execute("echo '" .. sub .. "' | xclip -selection clipboard -i")
+		os.execute("echo '" .. sub .. "' | copy")
 	end
 end
 

@@ -48,7 +48,7 @@ fi
 
 for file in "$@" ; do
 	new_filename="$(printf 's%02de%02d%s\n' "$season" "$episode" "$file_extension")"
-	mv --verbose "$file" "$new_filename"
+	mv -v "$file" "$new_filename"
 	episode=$(( $episode + 1 ))
 done
 

@@ -1,0 +1,6 @@
+#!/usr/bin/env sh
+{{- if eq .chezmoi.os "darwin" }}
+exec pbcopy
+{{- else if eq .chezmoi.os "linux" }}
+exec xclip -selection clipboard -in
+{{- end }}
