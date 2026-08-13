@@ -1,0 +1,12 @@
+// https://developer.apple.com/library/archive/documentation/Cocoa/Conceptual/EventOverview/TextDefaultsBindings/TextDefaultsBindings.html
+{
+	"~f" = "moveWordForward:";
+	"~b" = "moveWordBackward:";
+	"~<" = "moveToBeginningOfDocument:";
+	"~>" = "moveToEndOfDocument:";
+	"~v" = "pageUp:";
+	"~d" = "deleteWordForward:";
+	"~^h" = "deleteWordBackward:";
+	"~\010" = "deleteWordBackward:"; /* Option-backspace */
+	"~\177" = "deleteWordBackward:"; /* Option-delete */
+}
