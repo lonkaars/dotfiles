@@ -35,10 +35,20 @@ database {
 }
 {{- end }}
 
+{{- $default_output_type := "" }}
+{{- if eq .chezmoi.os "darwin" }}
+{{- $default_output_type = "osx" }}
+{{- else if eq .chezmoi.os "linux" }}
+{{- $default_output_type = "pulse" }}
+{{- end }}
+{{- with $default_output_type }}
+
 audio_output {
-	type "pulse"
+	type "{{ $default_output_type }}"
 	name "desktop output"
+	mixer_type "software"
 }
+{{- end }}
 
 input_cache {
 	size "512 MB"
