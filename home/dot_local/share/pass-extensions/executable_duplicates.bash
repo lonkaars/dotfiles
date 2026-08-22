@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 declare -A dupe_tally dupe_map
 
 pass_names="$(pass names -l)"

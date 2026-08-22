@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/usr/bin/env sh
 query_kb_layout() {
 	CONTROLLER="$(qdbus 'org.fcitx.Fcitx5' '/controller' 'org.fcitx.Fcitx.Controller1.CurrentInputMethod')"
 	case $CONTROLLER in

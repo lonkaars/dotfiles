@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 # list all passwords in store
 
 pass_dir="$(pass directory)"

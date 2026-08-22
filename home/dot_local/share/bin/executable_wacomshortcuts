@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/usr/bin/env sh
 
 # tablet buttons
 xsetwacom set "Wacom Intuos PT S 2 Pad pad" Button 3 "key +super +alt +ctrl 1 -super -alt -ctrl"

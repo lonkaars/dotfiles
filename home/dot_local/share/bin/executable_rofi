@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/usr/bin/env sh
 [ -e "$XDG_CONFIG_HOME/gtk-4.0/env" ] && . "$XDG_CONFIG_HOME/gtk-4.0/env"
 . "$XDG_CACHE_HOME/mode/state/vars"
 exec /bin/rofi -no-default-config "$@"

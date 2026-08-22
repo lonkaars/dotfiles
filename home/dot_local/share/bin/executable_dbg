@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/usr/bin/env sh
 GDB="arm-none-eabi-gdb"
 
 found_executable=false

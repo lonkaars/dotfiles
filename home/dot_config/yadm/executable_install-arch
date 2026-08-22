@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/usr/bin/env sh
 # ensure we are running on arch linux
 [ ! -e /etc/os-release ] && exit 0
 . /etc/os-release

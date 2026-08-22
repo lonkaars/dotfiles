@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/usr/bin/env sh
 # convert ansi escape codes into polybar/lemonbar color tags. this script makes
 # some very dumb assumptions about which escape codes will be in the input
 # stream, and is by no means complete, just good enough

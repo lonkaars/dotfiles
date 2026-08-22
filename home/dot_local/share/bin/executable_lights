@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/usr/bin/env sh
 cmd="$1"
 [ -z "$cmd" ] && cmd="toggle"
 curl -X POST "$HASS_SERVER/api/webhook/$cmd"

@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/usr/bin/env sh
 # $mode = "light" | "dark"
 if [ "$mode" != 'dark' ] && [ "$mode" != 'light' ] ; then
 	pastel format hsl-lightness "$bg" | awk '{ exit($1 > 0.5) }'

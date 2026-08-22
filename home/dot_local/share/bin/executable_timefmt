@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/usr/bin/env sh
 [ $# -eq 0 ] && sum="$(cat)" || sum="$1"
 sum="$(echo "$sum" | tr -dc '[:digit:]')"
 if [ -z "$sum" ] ; then

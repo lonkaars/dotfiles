@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/usr/bin/env sh
 # print if wacom tablet has touch on or off
 bye() {
 	echo $1

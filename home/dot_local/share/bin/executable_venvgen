@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/usr/bin/env sh
 
 # check if the input is valid
 for arg in "$@" ; do

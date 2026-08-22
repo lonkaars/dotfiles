@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/usr/bin/env sh
 EXPORT_LIB=y . "$XDG_CONFIG_HOME/vdirsyncer/config_gen"
 
 cat << EOF

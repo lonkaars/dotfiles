@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/usr/bin/env sh
 out_int="eDP1"
 out_ext="HDMI1"
 res_int="1366x768"

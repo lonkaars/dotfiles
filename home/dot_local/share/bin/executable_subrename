@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/usr/bin/env sh
 file_extension=".srt"
 season=1
 episode=1

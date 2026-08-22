@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/usr/bin/env sh
 SCRIPT_NAME="$(basename "$0")"
 
 usage() {

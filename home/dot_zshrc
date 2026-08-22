@@ -1,4 +1,4 @@
-#!/bin/zsh
+#!/usr/bin/env zsh
 export ZSH_COMPDUMP="$XDG_CACHE_HOME/zcompdump"
 
 # do not glob for calculator command

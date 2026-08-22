@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/usr/bin/env sh
 CFG="$XDG_CONFIG_HOME/khal/config"
 if [ "$CFG" -ot "$XDG_CONFIG_HOME/khal/config.sh" ] ; then
 	cat - "$XDG_CONFIG_HOME/khal/base" << "EOF" > "$CFG"

@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/usr/bin/env sh
 CACHE_FILE="$XDG_CACHE_HOME/hass-scenes"
 TAB="$(printf '\t')"
 

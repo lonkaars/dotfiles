@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/usr/bin/env sh
 
 SCREENS="`xrandr | grep ' connected ' | cut -f1 -d' '`"
 

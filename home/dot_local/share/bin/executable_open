@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/usr/bin/env sh
 case "$(file --mime-type -Lb "$1")" in
 	text/*)
 		exec $EDITOR -- "$@"

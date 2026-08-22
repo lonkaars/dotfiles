@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 #
 # Re-encode a video to a target size in MB.
 # Example:

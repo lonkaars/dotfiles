@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/usr/bin/env sh
 COLOR="$1"
 if [ -z "$COLOR" ] ; then
 	. "$XDG_CACHE_HOME/mode/state/theme"

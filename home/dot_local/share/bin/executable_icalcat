@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/usr/bin/env sh
 cat << "EOF"
 BEGIN:VCALENDAR
 VERSION:2.0

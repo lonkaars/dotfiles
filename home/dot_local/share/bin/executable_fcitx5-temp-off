@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/usr/bin/env sh
 mkdir -p "$XDG_DATA_HOME/fcitx5"
 fcitx5-remote > "$XDG_DATA_HOME/fcitx5/state"
 fcitx5-remote -n > "$XDG_DATA_HOME/fcitx5/ime_name"

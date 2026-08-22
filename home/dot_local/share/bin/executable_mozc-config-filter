@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/usr/bin/env sh
 yay_dir="$(yay -Pg | jq --raw-output .buildDir)"
 config_proto="$(mktemp)"
 git --git-dir="$yay_dir/mozc-ut/mozc" show HEAD:src/protocol/config.proto > "$config_proto"

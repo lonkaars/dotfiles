@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/usr/bin/env sh
 autorandr --change
 
 # make sure this script exits happily

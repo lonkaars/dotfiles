@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/usr/bin/env sh
 TAB="$(printf '\t')"
 time2tsv "$@" | sort -t"$TAB" -k4 | awk -F"$TAB" '
 {

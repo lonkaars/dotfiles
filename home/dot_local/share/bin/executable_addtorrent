@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/usr/bin/env sh
 progname="$(basename "$0")"
 
 title="Torrent"

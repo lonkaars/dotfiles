@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 # print the initialized password store directory as a fully qualified path.
 # exits with code 1 if the password store is not initialized.
 dir="${PASSWORD_STORE_DIR-$HOME/.password-store}"

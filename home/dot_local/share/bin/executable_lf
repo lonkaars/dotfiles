@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/usr/bin/env sh
 lf=/usr/bin/lf
 
 UB_PID=0

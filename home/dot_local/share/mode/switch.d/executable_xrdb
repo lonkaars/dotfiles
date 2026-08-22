@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/usr/bin/env sh
 cat << EOF | xrdb -override
 *.color0: $color0
 *.color1: $color1

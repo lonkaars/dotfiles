@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/usr/bin/env sh
 # make sure the filename is used as the account name
 default_user=':filename'
 type_delay=0

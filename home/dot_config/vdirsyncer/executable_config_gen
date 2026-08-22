@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/usr/bin/env sh
 CONFIG_FILE="$(dirname "$0")/config.sh"
 [ ! -e "$CONFIG_FILE" ] && {
 	echo "please create $CONFIG_FILE"

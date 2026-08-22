@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/usr/bin/env sh
 CFG="$XDG_CONFIG_HOME/khard/khard.conf"
 if [ "$CFG" -ot "$XDG_CONFIG_HOME/khard/config.sh" ] ; then
 	cat - "$XDG_CONFIG_HOME/khard/base" << "EOF" > "$CFG"

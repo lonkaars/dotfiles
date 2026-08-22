@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/usr/bin/env sh
 discord_path="$(dirname "$(find "$XDG_CONFIG_HOME/discord" -name core.asar)")"
 discord_version="$(echo "$discord_path" | tr '/' '\n' | tac | sed -n '/^[0-9.]\+$/p' | head -n1)"
 betterdiscord_path="$XDG_CONFIG_HOME/BetterDiscord/data/betterdiscord.asar"

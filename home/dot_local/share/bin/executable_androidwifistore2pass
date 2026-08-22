@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/usr/bin/env sh
 # Use xmlstarlet and ADB to pull WifiConfigStore.xml from a (rooted) Android
 # phone and import wifi network passwords into pass. Tested with a rooted pixel
 # 4a (sunfish) running LineageOS 21 (Android 14)

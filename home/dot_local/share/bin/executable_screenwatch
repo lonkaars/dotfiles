@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/usr/bin/env sh
 # repeatedly open terminal at $dev, even when $dev temporarily dissapears
 dev="$1"
 while inotifywait -qq -e create --include "$dev" "$(dirname "$dev")"; do

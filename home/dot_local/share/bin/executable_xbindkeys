@@ -1,2 +1,2 @@
-#!/bin/sh
+#!/usr/bin/env sh
 exec /usr/bin/xbindkeys --file "$XDG_CONFIG_HOME/xbindkeys/main" "$@"

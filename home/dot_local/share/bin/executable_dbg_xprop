@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/usr/bin/env sh
 # debug xprop
 #
 # runs xprop for all newly created windows (when mouse capture is not

@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/usr/bin/env sh
 
 # capture card sysfs device path
 SYSFS_PATH="/devices/pci0000:00/0000:00:14.0/usb1/1-12"

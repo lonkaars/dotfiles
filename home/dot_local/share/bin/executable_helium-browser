@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/usr/bin/env sh
 /usr/bin/helium-browser \
 	--load-extension="$XDG_CACHE_HOME/mode/chromium" \
 	--password-store=basic \

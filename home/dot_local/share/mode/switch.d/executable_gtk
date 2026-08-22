@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/usr/bin/env sh
 GTK_3_SETTINGS_INI="$XDG_CONFIG_HOME/gtk-3.0/settings.ini"
 if [ "$mode" = "light" ]; then
 	sed -e 's/-Dark/-Light/' -e 's/-dark/-light/' -i "$GTK_3_SETTINGS_INI"

@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/usr/bin/env sh
 printf '%s %s %s' \
 	"$(basename "$1")" \
 	"$(date -r "$1")" \

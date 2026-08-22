@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/usr/bin/env sh
 export GTK_THEME="adw-gtk3"
 mode_state="$XDG_CACHE_HOME/mode/state/theme"
 [ -e "$mode_state" ] && . "$mode_state"

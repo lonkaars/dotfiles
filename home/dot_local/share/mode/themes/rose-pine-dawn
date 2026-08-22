@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/usr/bin/env sh
 mode=light
 
 color0='#c4bdc3'

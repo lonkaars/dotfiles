@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/usr/bin/env sh
 # this file is included from .config/vdirsyncer/config_gen and
 # .config/khal/config_gen. The shims for `khal` and `vdirsyncer` automatically
 # run these scripts to update the configuration files. Note that you do still

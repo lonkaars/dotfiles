@@ -1,4 +1,4 @@
-#!/bin/python3
+#!/usr/bin/env python3
 from aqt import mw
 from aqt.utils import tr
 from aqt.theme import Theme

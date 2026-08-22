@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/usr/bin/env sh
 ec=0
 if [ $# -ge 1 ] ; then
 	"$@"

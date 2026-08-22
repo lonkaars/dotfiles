@@ -1,2 +1,2 @@
-#!/bin/sh
+#!/usr/bin/env sh
 ccpreview 1280 720 60

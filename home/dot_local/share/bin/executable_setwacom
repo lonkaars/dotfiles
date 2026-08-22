@@ -1,2 +1,2 @@
-#!/bin/sh
+#!/usr/bin/env sh
 xsetwacom set "Wacom Intuos PT S 2 Pen stylus" $@

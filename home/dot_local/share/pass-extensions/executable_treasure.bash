@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 TAB="$(printf '\t')"
 
 # TODO: add options:

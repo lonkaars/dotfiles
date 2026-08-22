@@ -1,4 +1,4 @@
-#!/bin/gawk -f
+#!/usr/bin/env gawk -f
 match($0, /^\[([0-9]{2}):([0-9]{2}\.[0-9]{2})\](.*)/, group) {
 	time = group[1] * 60 + group[2]
 	lyric = group[3]

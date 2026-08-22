@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/usr/bin/env sh
 URL="$1"
 TAB="$(printf '\t')"
 curl -sLo- "$URL" |\

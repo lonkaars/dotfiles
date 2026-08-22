@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/usr/bin/env sh
 # utility library functions
 hex_to_rgb_array() { pastel format rgb "$1" | cut -c4- | tr '()' '[]' ; }
 

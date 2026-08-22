@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/usr/bin/env sh
 vid="$1"
 if [ -z "$vid" ] ; then
 	echo "usage: $0 <stream ID>"

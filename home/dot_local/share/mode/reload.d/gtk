@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/usr/bin/env sh
 # this is max jank but xfsettingsd does other things besides live gtk theme
 # reloading, and i don't like having it running constantly because it fucks
 # up fcitx5 and xbindkeys

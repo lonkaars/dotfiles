@@ -1,2 +1,2 @@
-#!/bin/sh
+#!/usr/bin/env sh
 /usr/bin/mbsync --config "$XDG_CONFIG_HOME/mbsyncrc" "$@"

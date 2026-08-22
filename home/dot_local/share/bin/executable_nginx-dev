@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/usr/bin/env sh
 folder="$PWD"
 port=8080
 try_files='/$uri /$uri.html /$uri/index.html =404'

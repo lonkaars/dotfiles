@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/usr/bin/env sh
 CFG_TMP="$XDG_CONFIG_HOME/vdirsyncer/config"
 mkfifo --mode 700 "$CFG_TMP"
 "$XDG_CONFIG_HOME/vdirsyncer/config_gen" > "$CFG_TMP" &

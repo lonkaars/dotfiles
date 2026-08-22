@@ -1,4 +1,4 @@
-#!/bin/python3
+#!/usr/bin/env python3
 path = "$XDG_DATA_HOME/vdirsyncer/*/*"
 default_list = "タスク"
 default_priority = 9

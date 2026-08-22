@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/usr/bin/env sh
 # create accent color differently for dark/light mode
 
 # do not generate accent color if already explicitly defined by theme

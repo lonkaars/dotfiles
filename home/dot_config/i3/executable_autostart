@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/usr/bin/env sh
 . "$HOME/.profile"
 xrdb -override < "$XDG_CONFIG_HOME/X11/base"
 mode --no-reload --no-cfggen restore

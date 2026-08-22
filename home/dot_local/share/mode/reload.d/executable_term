@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/usr/bin/env sh
 escape_msgs="$(cat << EOF | tr -d '\n'
 \033]11;$bg\007
 \033]10;$fg\007
