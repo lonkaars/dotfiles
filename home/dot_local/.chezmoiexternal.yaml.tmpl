@@ -1,4 +1,6 @@
+{{- if eq .chezmoi.os "linux" }}
 st:
   type: git-repo
   url: https://git.pipeframe.xyz/fork/st
   refreshPeriod: 168h
+{{- end }}

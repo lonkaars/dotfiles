@@ -17,6 +17,10 @@ data:
     host: <bool>
     # base directory to use for playlists/pid/db files
     base_dir: <path>
+    # override music_directory (default is satellite address or <base_dir>/music for hosts)
+    music_dir: <path>
+    # override playlist_directory (default is <base_dir>/playlists)
+    playlist_dir: <path>
   git:
     # git commit email
     email: <string>

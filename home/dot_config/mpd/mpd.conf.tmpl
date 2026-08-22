@@ -5,9 +5,17 @@
 {{- if $host -}}
 {{- $music_directory = printf "%s/music" $base_dir -}}
 {{- end -}}
+{{- with (dig "mpd" "music_dir" nil .)  -}}
+{{- $music_directory = . -}}
+{{- end -}}
+
+{{- $playlist_directory := "{{ $base_dir }}/playlists" }}
+{{- with (dig "mpd" "playlist_dir" nil .)  -}}
+{{- $playlist_directory = . -}}
+{{- end -}}
 
 music_directory "{{ $music_directory }}"
-playlist_directory "{{ $base_dir }}/playlists"
+playlist_directory "{{ $playlist_directory }}"
 
 pid_file "{{ $base_dir }}/mpd.pid"
 state_file "{{ $base_dir }}/mpdstate"
