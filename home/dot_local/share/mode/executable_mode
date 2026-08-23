@@ -42,6 +42,17 @@ examples:
 EOF
 }
 
+get_interpreter() {
+	interpreter="$(sed -n '1s/^#!//p' "$1")"
+	[ -z "$interpreter" ] && return
+	case "$interpreter" in
+		'/usr/bin/env '*|'/bin/env '*)
+			interpreter="$(echo "$interpreter" | sed 's/[^ ]\+ //')"
+			;;
+	esac
+	basename "$interpreter"
+}
+
 # run a module file
 run_mod() {
 	mod_name="$1"
@@ -50,8 +61,7 @@ run_mod() {
 	! [ -x "$mod_name" ] && return
 
 	# parse interpreter from shebang
-	interpreter="$(basename "$(command -v $(head -n1 "$mod_name" | sed -n 's/^#!\(.*\)/\1/p'))")"
-	if [ "$interpreter" = "sh" ] ; then
+	if [ "$(get_interpreter "$mod_name")" = "sh" ] ; then
 		# source module if interpreter is POSIX sh (makes plugin functions available)
 		( . "$mod_name" )
 	else
