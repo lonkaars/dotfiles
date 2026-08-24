@@ -9,7 +9,7 @@
 {{- $music_directory = . -}}
 {{- end -}}
 
-{{- $playlist_directory := "{{ $base_dir }}/playlists" }}
+{{- $playlist_directory := printf "%s/playlists" $base_dir }}
 {{- with (dig "mpd" "playlist_dir" nil .)  -}}
 {{- $playlist_directory = . -}}
 {{- end -}}
