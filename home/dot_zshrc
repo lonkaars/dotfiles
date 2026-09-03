@@ -4,10 +4,6 @@ export ZSH_COMPDUMP="$XDG_CACHE_HOME/zcompdump"
 # do not glob for calculator command
 aliases[=]="noglob ="
 
-# color aliases
-alias ls='ls --color=auto'
-alias grep='grep --color=auto'
-
 # completion
 autoload -U compinit
 zstyle ':completion:*' list-colors "${(s.:.)LS_COLORS}"
