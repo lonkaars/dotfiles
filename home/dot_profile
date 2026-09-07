@@ -97,7 +97,8 @@ export TEXMFCONFIG="$XDG_CONFIG_HOME/texlive/texmf-config"
 export INPUTRC="$XDG_CONFIG_HOME/inputrc"
 alias nvidia-settings='nvidia-settings --config="$XDG_CONFIG_HOME/nvidia/settings"'
 alias gpg2='gpg2 --homedir "$XDG_DATA_HOME/gnupg"'
-alias pip='PIP_CONFIG_FILE="$XDG_CONFIG_HOME/pip/user.conf" pip'
+alias pip3='PIP_CONFIG_FILE="$XDG_CONFIG_HOME/pip/user.conf" pip3'
+alias pip=pip3
 
 # CMake
 export CMAKE_BUILD_TYPE=Debug
