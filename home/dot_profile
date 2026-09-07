@@ -40,6 +40,9 @@ export XDG_CACHE_HOME="$HOME/.cache"
 export XDG_DATA_HOME="$HOME/.local/share"
 export XDG_STATE_HOME="$HOME/.local/state"
 
+# python site.USER_SITE
+export PYTHONUSERBASE="$HOME/.local"
+
 # ruby
 export GEM_HOME="$XDG_DATA_HOME/gem/ruby/3.0.0"
 
