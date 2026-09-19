@@ -2,6 +2,7 @@
 	defaultBranch = {{ dig "git" "default_branch" "master" . }}
 [core]
 	quotepath = off
+	excludesfile = {{ env "XDG_CONFIG_HOME" }}/git/excludes
 [user]
 	{{- with (dig "git" "email" nil .) }}
 	email = {{ . }}
