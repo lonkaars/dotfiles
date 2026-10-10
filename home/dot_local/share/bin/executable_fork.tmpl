@@ -1,0 +1,2 @@
+#!/usr/bin/env sh
+({{- if eq .chezmoi.os "linux" }}setsid{{- else -}}nohup{{- end }} "$@" > /dev/null 2> /dev/null &)
