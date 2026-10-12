@@ -1,27 +1,104 @@
-#!/usr/bin/env sh
-GDB="arm-none-eabi-gdb"
+#!/usr/bin/env python3
 
-found_executable=false
+from argparse import ArgumentParser
+from dataclasses import dataclass
+from os import execvp
+from pathlib import Path
+import importlib.util
 
-while ! $found_executable ; do
-	[ ! -e build/zephyr ] && break
-	[ ! -e build/zephyr/zephyr.elf ] && break
-	set -- --se="build/zephyr/zephyr.elf" "$@"
+@dataclass
+class Options:
+	args: list[str]
+	gdb: str
+	dev_id: str | None
 
-	[ -e build/tfm/bin/tfm_s.elf ] && set -- "$@" --eval-command="add-symbol-file build/tfm/bin/tfm_s.elf"
+def parse_arguments() -> Options:
+	parser = ArgumentParser(prog="dbg", description="GDB wrapper with automatic stuff")
 
-	found_executable=true
-done
+	parser.add_argument("--gdb", default="arm-none-eabi-gdb", help="GDB executable to use")
+	parser.add_argument("-i", "--dev-id", type=str, help="J-Link probe serial number to connect to (USB)")
 
-while ! $found_executable ; do
-	exec="$(find . -maxdepth 3 -name '*.elf' | head -n1)"
-	[ -n "$exec" ] && set -- "$@" --se="$exec"
-	found_executable=true
-	break
-done
+	options, remainder = parser.parse_known_args()
+	if len(remainder) > 0 and remainder[0] == "--":
+		del remainder[0]
+	return Options(**vars(options), args=remainder)
 
-set -- "$@" --eval-command="set jlink autoconnect on"
-set -- "$@" --eval-command="set jlink watchdog on"
+def gdbarg_eval(eval_command: str):
+	return "--eval-command=" + eval_command
 
-exec "$GDB" "$@"
+def gdbarg_exec(path: str, secondary: bool = False):
+	if not secondary:
+		return "--se=" + path
+	else:
+		return gdbarg_eval("add-symbol-file " + path)
+
+
+def find_zephyr_sysbuild_executable() -> list[str]:
+	# TODO
+	return [  ]
+
+def find_zephyr_executable() -> list[str]:
+	out = []
+
+	if not Path("build/zephyr").exists():
+		return out
+
+	if not out:
+		zephyr = Path("build/zephyr/zephyr.elf")
+		if zephyr.exists():
+			out.append(gdbarg_exec(str(zephyr), False))
+			tfm = Path("build/tfm/bin/tfm_s.elf")
+			if tfm.exists():
+				out.append(gdbarg_exec(str(tfm), True))
+	
+	if not out:
+		out += find_zephyr_sysbuild_executable()
+
+	return out
+
+def find_generic_executable(base: Path = Path("."), maxdepth: int = 3) -> list[str]:
+	if maxdepth == 0:
+		return []
+	out = []
+	for child in base.iterdir():
+		if child.is_dir():
+			out += find_generic_executable(child, maxdepth - 1)
+			if out:
+				return out
+		elif child.is_file():
+			if not child.name.endswith(".elf"):
+				continue
+			return [gdbarg_exec(str(child))]
+		else:
+			continue
+	return []
+
+def find_executable() -> list[str]:
+	out = []
+
+	out += find_zephyr_executable()
+	if out:
+		return out
+
+	out += find_generic_executable()
+	if out:
+		return out
+
+	return out
+
+if __name__ == "__main__":
+	options = parse_arguments()
+
+	if len(options.args) == 0:
+		options.args += find_executable()
+	
+	if importlib.util.find_spec("debug_renesas") is not None:
+		if options.dev_id is not None:
+			options.args.append(gdbarg_eval(f"jlink server usb {options.dev_id}"))
+		options.args += [
+			gdbarg_eval("set jlink autoconnect on"),
+			gdbarg_eval("set jlink watchdog on"),
+		]
+
+	execvp(options.gdb, [options.gdb] + options.args)
 
