@@ -1,0 +1,9 @@
+#!/usr/bin/env sh
+{{- if eq .chezmoi.os "darwin" }}
+tmp="$(mktemp)"
+screencapture -i "$tmp"
+zbarimg --raw --quiet "$tmp"
+rm -f "$tmp"
+{{- else if eq .chezmoi.os "linux" }}
+maim -usb 4 -c 0,0,0 | zbarimg --raw --quiet -
+{{- end }}
