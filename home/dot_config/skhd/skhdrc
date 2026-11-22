@@ -1,0 +1,8 @@
+cmd - return : kitty --single-instance -d ~
+
+cmd + alt - 0x1B : osascript -e "set volume output volume (output volume of (get volume settings) - 3)"
+cmd + alt - 0x18 : osascript -e "set volume output volume (output volume of (get volume settings) + 3)"
+
+cmd + alt - j : mpc prev
+cmd + alt - k : mpc toggle
+cmd + alt - l : mpc next
