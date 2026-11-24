@@ -5,6 +5,7 @@ export ZSH_COMPDUMP="$XDG_CACHE_HOME/zcompdump"
 aliases[=]="noglob ="
 
 # completion
+fpath=( "$XDG_DATA_HOME/zsh/site-functions" "${fpath[@]}" )
 autoload -U compinit
 zstyle ':completion:*' list-colors "${(s.:.)LS_COLORS}"
 zstyle ':completion:*:*:*:*:*' menu select
